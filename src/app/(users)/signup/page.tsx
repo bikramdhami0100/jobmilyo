@@ -1,4 +1,5 @@
 
+"use client"
 import Image from 'next/image'
 import React from 'react'
 import { Input } from "@/components/ui/input"
@@ -11,8 +12,10 @@ import {
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
 import { CalendarForm } from '@/app/components/DateCalender'
+import { useRouter } from 'next/navigation'
 
 function Signup() {
+  const router=useRouter();
   return (
     <div className='flex  flex-col justify-around items-center md:flex-row md:justify-around lg:justify-around lg:flex-row p-2'>
       <div className=' flex  flex-col justify-around items-center'>
@@ -59,7 +62,9 @@ function Signup() {
               <div className=' flex flex-col md:flex-col lg:flex-row'>By selecting Agree and continue <Image alt='logo' src={"/images/logo.png"} height={20} width={60}></Image>, I agree to <span className=' underline cursor-pointer text-blue-600 '>Term of Service</span> </div>
 
             </div>
-          <Button className=' bg-blue-600 w-[200px] rounded-full self-center'>Continue </Button>
+          <Button className=' bg-blue-600 w-[200px] rounded-full self-center' onClick={()=>{
+            router.push("/userinformation")
+          }}>Continue </Button>
          
           
         </div>
