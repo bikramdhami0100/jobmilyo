@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 const Splash = ({ visible }:any) => {
@@ -14,10 +14,12 @@ const Splash = ({ visible }:any) => {
 function SplashScreen() {
   const [showSplash, setShowSplash] = useState(true);
 
-  setTimeout(() => {
-    setShowSplash(false); // Hide splash screen after 500 milliseconds
-  }, 1000);
-
+  useEffect(()=>{
+    setTimeout(() => {
+      setShowSplash(false); // Hide splash screen after 500 milliseconds
+    }, 1000);
+  
+  },[])
   return (
     <div>
       <Splash visible={showSplash}></Splash>
