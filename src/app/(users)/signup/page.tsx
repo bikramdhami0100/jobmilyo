@@ -10,6 +10,7 @@ import {
   IconBrandGoogle,
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
+import { CalendarForm } from '@/app/components/DateCalender'
 
 function Signup() {
   return (
@@ -33,18 +34,34 @@ function Signup() {
           <hr color=' gray' className=' size-1 w-full' />
         </div>
         <div className='flex flex-col gap-4'>
-          <Input type="email" placeholder="Email or user name" />
-          <Input type="password" placeholder="password" />
-          <Link href={"/forgotpassword"} className=' text-blue-600 underline'> Forgot Password ? </Link>
-          <p>You agree to create account for job मिल्यो </p>
-          <Button className=' bg-blue-600'>Continue </Button>
+        <Input type="text" placeholder="Your full name" />
+          <CalendarForm /> 
+         <Input type="text" placeholder="Email address" />
+         <Input type="password" placeholder="Create a strong password" />
+         <Input type="password" placeholder="Confirm a strong password" />
+      
+          <div>
+            {/* error handeling  */}
+             <p>Password strength:weak</p>
+             <p>Can't contain your name or email address</p>
+             <p>At least 8 characters</p>
+             <p>Contains a numbre or symbol</p>
+          </div>
+              {/* another way of signup */}
           <p className=' text-center'>or Continue with</p>
           <div className=' flex gap-3 cursor-pointer self-center'>
             <div className=' flex ' ><IconBrandGithub /> github</div>
             <div className=' flex ' ><IconBrandApple /> Apple</div>
             <div className=' flex ' ><IconBrandGoogle /> Google</div>
           </div>
-          <p className=' text-center'>Don't have an account ? <Link href={"./signup"} className=' underline text-blue-600'> Signup</Link></p>
+           {/*  */}
+            <div>
+              <div className=' flex flex-col md:flex-col lg:flex-row'>By selecting Agree and continue <Image alt='logo' src={"/images/logo.png"} height={20} width={60}></Image>, I agree to <span className=' underline cursor-pointer text-blue-600 '>Term of Service</span> </div>
+
+            </div>
+          <Button className=' bg-blue-600 w-[200px] rounded-full self-center'>Continue </Button>
+         
+          
         </div>
       </div>
     </div>
