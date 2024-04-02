@@ -67,7 +67,7 @@ function Navbar() {
                 }</div>
             <div className=' flex  gap-[6px]'>
 
-                <Button onClick={()=>{
+                <Button className='bg-blue-600' onClick={()=>{
                     router.push("/login")
                 }}>Log in</Button>
                 <Button className=' bg-blue-600' onClick={()=>{
