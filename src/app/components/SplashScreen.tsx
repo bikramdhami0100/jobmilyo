@@ -16,7 +16,7 @@ function SplashScreen() {
 
   setTimeout(() => {
     setShowSplash(false); // Hide splash screen after 500 milliseconds
-  }, 100);
+  }, 1000);
 
   return (
     <div>
