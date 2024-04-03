@@ -13,8 +13,8 @@ import { Button } from "@/components/ui/button"
 
 export function HeroSlider() {
   return (
-    <Carousel className=" w-[100vw] m-auto   flex flex-col">
-      <div className=" gap-2 fixed flex  flex-col justify-around items-center m-auto top-24 z-10  right-[20vw] left-[20vw]">
+    <Carousel className=" w-[100%] m-auto   flex flex-col">
+      <div className=" gap-2 absolute flex  flex-col justify-around items-center m-auto top-10 z-10  right-[20vw] left-[20vw]">
                  <p className=" text-xl md:text-6xl lg:text-6xl  font-extrabold">land the <span className=" text-blue-600">Job</span> you <span className=" text-red-600">Love</span></p>
                  <p className=" text-[10px] md:text-[24px] lg:text-[24px]">Your Next <span>Opportunities</span> Awaits Here !!</p>
                  <Button className=" bg-blue-600">Explore More...</Button>
