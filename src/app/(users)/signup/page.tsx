@@ -14,6 +14,7 @@ import {
 import { CalendarForm } from '@/app/components/DateCalender'
 import { useRouter } from 'next/navigation'
 
+
 function Signup() {
   const router=useRouter();
   return (
@@ -39,6 +40,7 @@ function Signup() {
         <div className='flex flex-col gap-4'>
         <Input type="text" placeholder="Your full name" />
           <CalendarForm /> 
+       
          <Input type="text" placeholder="Email address" />
          <Input type="password" placeholder="Create a strong password" />
          <Input type="password" placeholder="Confirm a strong password" />

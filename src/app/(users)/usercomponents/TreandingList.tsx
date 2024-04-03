@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 
 function TreandingList({ data }: any) {
     const listdata: DataType[] = data;
-    console.log(listdata);
+    
     return (
 
         <div>
