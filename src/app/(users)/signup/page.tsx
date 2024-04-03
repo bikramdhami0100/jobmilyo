@@ -59,10 +59,10 @@ function Signup() {
           </div>
            {/*  */}
             <div>
-              <div className=' flex flex-col md:flex-col lg:flex-row'>By selecting Agree and continue <Image alt='logo' src={"/images/logo.png"} height={20} width={60}></Image>, I agree to <span className=' underline cursor-pointer text-blue-600 '>Term of Service</span> </div>
+              <div className=' flex flex-col md:flex-col lg:flex-row'>By selecting Agree and continue <p className=' underline text-blue-600'><span >Job</span> <span className=' text-red-600'>मिल्यो</span></p> ,I agree to <span className=' underline cursor-pointer text-blue-600 '>Term of Service</span> </div>
 
             </div>
-          <Button className=' bg-blue-600 w-[200px] rounded-full self-center' onClick={()=>{
+          <Button className=' bg-blue-600 w-[200px] rounded-full self-center' onClick={()=>{ 
             router.push("/userinformation")
           }}>Continue </Button>
          

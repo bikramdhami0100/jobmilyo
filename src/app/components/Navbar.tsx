@@ -17,6 +17,7 @@ import {
     SheetHeader,
     SheetTitle,
     SheetTrigger,
+    SheetClose
 } from "@/components/ui/sheet"
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -25,7 +26,7 @@ function Navbar() {
     const { setTheme,theme } = useTheme();
      const router=useRouter();
     const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-gray-900'; // Set background color based on theme
-    const NavMenu = ["Home", "About", "Jobs", "Contact"]
+    const NavMenu = ["Home", "About", "Jobs", "Contact","Documentation"]
     return (
         <div className={`flex justify-between m-auto shadow-md p-3 ${navbarBgColor}`}>
             <div className=' flex gap-1 justify-center items-center'>
@@ -43,7 +44,9 @@ function Navbar() {
                                 {
                                     NavMenu.map((item, index) => {
                                         return (<div className=' flex flex-row' key={index}>
-                                            <Link href={`/${item}`} >{item}</Link>
+                                           <SheetClose> <h1  onClick={()=>{
+                                            router.push(`/${item}`)
+                                           }}>{item}</h1></SheetClose>
                                         </div>)
                                     })
                                 }
@@ -88,9 +91,9 @@ function Navbar() {
                         <DropdownMenuItem onClick={() => setTheme("dark")}>
                             Dark
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => setTheme("system")}>
+                        {/* <DropdownMenuItem onClick={() => setTheme("system")}>
                             System
-                        </DropdownMenuItem>
+                        </DropdownMenuItem> */}
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>

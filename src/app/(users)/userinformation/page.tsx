@@ -1,7 +1,5 @@
 import React from 'react'
-import PersonalInfromation from '../usercomponents/PersonalInfromation'
-import EducationInfromation from '../usercomponents/EducationInfromation'
-import EmploymentInfromation from '../usercomponents/EmploymentInfromation'
+
 
 function userInformation() {
     return (
@@ -9,15 +7,7 @@ function userInformation() {
             <h1>Complete your Information</h1>
             <div className=' flex flex-col  justify-around items-center  md:flex-row lg:flex-row w-full'>
 
-                <div className=' w-full'>
-                    <PersonalInfromation />
-                </div>
-                <div>
-                    <EducationInfromation />
-                </div>
-                <div>
-                    <EmploymentInfromation />
-                </div>
+               
             </div>
         </div>
     )
