@@ -34,10 +34,10 @@ const session= await getServerSession();
             disableTransitionOnChange
           >
             <SplashScreen />
-             <div className=" fixed z-20 w-full mb-10 ">
+             <div className=" fixed z-20 w-full top-0 ">
              <Navbar />
              </div>
-             <div className="">
+             <div className=" mt-[60px]">
              {children}
              </div>
           </ThemeProvider>

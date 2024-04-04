@@ -27,7 +27,7 @@ export function HeroSlider() {
   
    
   return (
-    <Carousel className=" w-[100%] mt-[65px] md:mt-[65px] lg:mt-[65px] flex flex-col ">
+    <Carousel className=" w-[100%]  flex flex-col ">
       <div className=" gap-2 absolute flex  flex-col justify-around items-center m-auto top-10 z-10  right-[20vw] left-[20vw]">
                  <p className=" text-xl md:text-6xl lg:text-6xl  font-extrabold">land the <span className=" text-blue-600">Job</span> you <span className=" text-red-600">Love</span></p>
                  <p className=" text-[10px] md:text-[24px] lg:text-[24px]">Your Next <span>Opportunities</span> Awaits Here !!</p>
