@@ -22,8 +22,6 @@ function Login() {
   if (session.status=="authenticated" ) {
     const userdata:any=[{name:session.data.user?.name, email:session.data.user?.email ,image:session.data.user?.image}]
      router.push("/userinformation");
-  }else{
-    router.push("/");
   }
   return (
     <div className='flex  flex-col justify-around items-center md:flex-row md:justify-around lg:justify-around lg:flex-row p-2'>

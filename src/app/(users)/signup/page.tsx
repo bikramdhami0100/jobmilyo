@@ -1,7 +1,7 @@
 
 "use client"
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import { Input } from "@/components/ui/input"
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -16,7 +16,10 @@ import { useRouter } from 'next/navigation'
 
 
 function Signup() {
+  const [userData,setUserData]=useState([]);
+
   const router=useRouter();
+
   return (
     <div className='flex  flex-col justify-around items-center md:flex-row md:justify-around lg:justify-around lg:flex-row p-2'>
       <div className=' flex  flex-col justify-around items-center'>
@@ -41,7 +44,7 @@ function Signup() {
         <Input type="text" placeholder="Your full name" />
           <CalendarForm /> 
        
-         <Input type="text" placeholder="Email address" />
+         <Input type="email" placeholder="Email address"  name='email'/>
          <Input type="password" placeholder="Create a strong password" />
          <Input type="password" placeholder="Confirm a strong password" />
       

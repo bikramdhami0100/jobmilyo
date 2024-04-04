@@ -9,7 +9,11 @@ import {
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu"
+
+  
 import {
     Sheet,
     SheetContent,
@@ -21,8 +25,11 @@ import {
 } from "@/components/ui/sheet"
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 
 function Navbar() {
+    const session=useSession();
+    
     const { setTheme,theme } = useTheme();
      const router=useRouter();
     const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-gray-900'; // Set background color based on theme
@@ -70,12 +77,31 @@ function Navbar() {
                 }</div>
             <div className=' flex  gap-[6px]'>
 
-                <Button className='bg-blue-600' onClick={()=>{
+           {
+              session.status=="authenticated" ? <div>
+<DropdownMenu >
+  <DropdownMenuTrigger className=' outline-none' ><div>
+     <Image src={`${session.data.user?.image}`} alt='user' height={30} width={30} className=' w-[35px] w-[35px]  rounded-full '></Image>
+    </div></DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem>Profile</DropdownMenuItem>
+    <DropdownMenuItem>Billing</DropdownMenuItem>
+    <DropdownMenuItem>Team</DropdownMenuItem>
+    <DropdownMenuItem>Subscription</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+
+              </div>:<div>
+              <Button className='bg-blue-600' onClick={()=>{
                     router.push("/login")
                 }}>Log in</Button>
                 <Button className=' bg-blue-600' onClick={()=>{
                     router.push("/signup")
                 }}>Sign up</Button>
+              </div>
+           }
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="outline" size="icon">
