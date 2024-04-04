@@ -34,8 +34,12 @@ const session= await getServerSession();
             disableTransitionOnChange
           >
             <SplashScreen />
-            <Navbar />
-            {children}
+             <div className=" fixed z-20 w-full mb-10 ">
+             <Navbar />
+             </div>
+             <div className="">
+             {children}
+             </div>
           </ThemeProvider>
           </NextSessionProvider>
         </body>

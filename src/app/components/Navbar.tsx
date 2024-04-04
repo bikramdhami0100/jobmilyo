@@ -35,7 +35,7 @@ function Navbar() {
     const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-gray-900'; // Set background color based on theme
     const NavMenu = ["Home", "About", "Jobs", "Contact","Documentation"]
     return (
-        <div className={`flex justify-between m-auto shadow-md p-3 ${navbarBgColor}`}>
+        <div className={`flex justify-between m-auto shadow-md p-3 ${navbarBgColor} `}>
             <div className=' flex gap-1 justify-center items-center'>
             <div className=' visible md:hidden lg:hidden'>
 

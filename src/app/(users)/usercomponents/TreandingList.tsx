@@ -6,6 +6,7 @@ import { BadgeDollarSign, Hourglass, MapPinned } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 function TreandingList({ data }: any) {
+    
     const listdata: DataType[] = data;
     
     return (
