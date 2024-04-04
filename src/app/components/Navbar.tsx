@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import React from 'react'
-import { Moon, Sun } from "lucide-react"
+import { LogOut, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import {
     DropdownMenu,
@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/sheet"
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 
 function Navbar() {
     const session=useSession();
@@ -89,11 +89,13 @@ function Navbar() {
     <DropdownMenuItem>Profile</DropdownMenuItem>
     <DropdownMenuItem>Billing</DropdownMenuItem>
     <DropdownMenuItem>Team</DropdownMenuItem>
-    <DropdownMenuItem>Subscription</DropdownMenuItem>
+    <DropdownMenuItem onClick={()=>{
+         signOut()
+    }} ><LogOut/>log out</DropdownMenuItem>
   </DropdownMenuContent>
 </DropdownMenu>
 
-              </div>:<div>
+              </div>:<div className=' flex  gap-1'>
               <Button className='bg-blue-600' onClick={()=>{
                     router.push("/login")
                 }}>Log in</Button>

@@ -12,6 +12,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 
 export function HeroSlider() {
+  
   return (
     <Carousel className=" w-[100%] m-auto   flex flex-col">
       <div className=" gap-2 absolute flex  flex-col justify-around items-center m-auto top-10 z-10  right-[20vw] left-[20vw]">
