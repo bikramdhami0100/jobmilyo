@@ -7,11 +7,11 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import {
   IconBrandApple,
+  IconBrandFacebook,
   IconBrandGithub,
   IconBrandGoogle,
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
-import { CalendarForm } from '@/app/components/DateCalender'
 import { useRouter } from 'next/navigation'
 
 
@@ -38,15 +38,30 @@ function Signup() {
       <div className=' flex flex-col shadow-lg p-6 justify-center items-center m-4 rounded-md'>
         <div className=' m-4'>
           <h1>Let's create a new account</h1>
-          <hr color=' gray' className=' size-1 w-full' />
+          <hr color=' gray' className='w-full shadow-md' />
         </div>
         <div className='flex flex-col gap-4'>
-        <Input type="text" placeholder="Your full name" />
-          <CalendarForm /> 
-       
+          <div>
+          <label htmlFor="fname">Full Name</label>
+        <Input name='fname' type="text" placeholder="Your full name" />
+          </div>
+          {/* <CalendarForm  />  */}
+           <div>
+           <label htmlFor="dob">Date of birth</label>
+          <Input  type="text" placeholder="2024-12-15"  name='dob'/>
+           </div>
+           <div>
+           <label htmlFor="email">Email</label>
          <Input type="email" placeholder="Email address"  name='email'/>
-         <Input type="password" placeholder="Create a strong password" />
-         <Input type="password" placeholder="Confirm a strong password" />
+           </div>
+           <div>
+           <label htmlFor="password">Password</label>
+         <Input type="password" placeholder="Create a strong password" name='password' />
+           </div>
+           <div>
+           <label htmlFor="cpassword">Confirm Password</label>
+         <Input name='cpassword' type="password" placeholder="Confirm a strong password" />
+           </div>
       
           <div>
             {/* error handeling  */}
@@ -58,13 +73,13 @@ function Signup() {
               {/* another way of signup */}
           <p className=' text-center'>or Continue with</p>
           <div className=' flex gap-3 cursor-pointer self-center'>
-            <div className=' flex ' ><IconBrandGithub /> github</div>
-            <div className=' flex ' ><IconBrandApple /> Apple</div>
-            <div className=' flex ' ><IconBrandGoogle /> Google</div>
+            <div className=' flex ' ><Button><IconBrandGithub /> Github</Button></div>
+            <div className=' flex ' ><Button><IconBrandFacebook /> Facebook</Button></div>
+            <div className=' flex ' ><Button><IconBrandGoogle /> Google</Button></div>
           </div>
            {/*  */}
             <div>
-              <div className=' flex flex-col md:flex-col lg:flex-row'>By selecting Agree and continue <p className=' underline text-blue-600'><span >Job</span> <span className=' text-red-600'>मिल्यो</span></p> ,I agree to <span className=' underline cursor-pointer text-blue-600 '>Term of Service</span> </div>
+              <div className=' flex flex-col md:flex-col lg:flex-row'>By selecting Agree and continue <p className=' underline text-blue-600 font-extrabold'><span >Job</span> <span className=' text-red-600 font-extrabold'>मिल्यो?</span></p> ,I agree to <span className=' underline cursor-pointer text-blue-600 '>Term of Service</span> </div>
 
             </div>
           <Button className=' bg-blue-600 w-[200px] rounded-full self-center' onClick={()=>{ 
