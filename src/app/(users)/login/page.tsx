@@ -1,16 +1,30 @@
+"use client"
 import Image from 'next/image'
 import React from 'react'
 import { Input } from "@/components/ui/input"
 import Link from 'next/link'
+import {signIn, useSession} from "next-auth/react";
 import { Button } from '@/components/ui/button'
 import {
   IconBrandApple,
+  IconBrandFacebook,
   IconBrandGithub,
   IconBrandGoogle,
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
+import { useRouter } from 'next/navigation'
+
 
 function Login() {
+  const session=useSession();
+  console.log(session);
+  const router=useRouter();
+  if (session.status=="authenticated" ) {
+    const userdata:any=[{name:session.data.user?.name, email:session.data.user?.email ,image:session.data.user?.image}]
+     router.push("/userinformation");
+  }else{
+    router.push("/");
+  }
   return (
     <div className='flex  flex-col justify-around items-center md:flex-row md:justify-around lg:justify-around lg:flex-row p-2'>
       <div className=' grid-cols-2 justify-center items-center'>
@@ -32,9 +46,13 @@ function Login() {
           <Button  className=' bg-blue-600'>Continue </Button>
            <p className=' text-center'>or Continue with</p>
            <div className=' flex gap-3 cursor-pointer self-center'> 
-             <div className=' flex ' ><IconBrandGithub  /> github</div>
-             <div className=' flex ' ><IconBrandApple/> Apple</div>
-             <div className=' flex ' ><IconBrandGoogle/> Google</div>
+             <Button className=' flex '  onClick={()=>{
+                 signIn("github");
+             }}><IconBrandGithub  /> github</Button>
+             <Button className=' flex  ' ><IconBrandFacebook/> Facebook</Button>
+             <Button  onClick={()=>{
+              signIn("google");
+             }} className=' flex ' ><IconBrandGoogle/> Google</Button>
            </div>
            <p className=' text-center'>Don't have an account ? <Link href={"./signup"} className=' underline text-blue-600'> Signup</Link></p>
          </div>

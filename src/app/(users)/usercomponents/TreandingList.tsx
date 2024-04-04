@@ -11,7 +11,7 @@ function TreandingList({ data }: any) {
     return (
 
         <div>
-            <h1 className=' underline decoration-blue-600  font-extrabold text-4xl text-center'> Trending Jobs in <span className=' text-blue-600'>Job</span> <span className=' text-red-600'>मिल्यो ?</span></h1>
+            <h1 className=' animate-pulse underline decoration-blue-600  font-extrabold text-4xl text-center'> Trending Jobs in <span className=' text-blue-600 '>Job</span> <span className=' text-red-600 '>मिल्यो ?</span></h1>
         <div className=' flex  flex-wrap  justify-center items-center mb-3'>
           
             {
