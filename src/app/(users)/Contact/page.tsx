@@ -20,7 +20,7 @@ function Contact() {
               <Input placeholder='Name'></Input>
               <Input placeholder='Email'></Input>
               <Textarea rows={8} placeholder='Message'></Textarea>
-              <Button className=" bg-transparent text-black-600 shadow-xl  font-extrabold text-2xl hover:bg-green-600">Submit</Button>
+              <Button className=" bg-transparent text-black-600  font-extrabold text-2xl hover:bg-blue-600">Submit</Button>
             </div>
           </div>
           {/* image section */}
