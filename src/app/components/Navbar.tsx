@@ -1,7 +1,7 @@
 "use client"
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import { LogOut, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import {
@@ -29,7 +29,7 @@ import { signOut, useSession } from 'next-auth/react'
 
 function Navbar() {
     const session=useSession();
-    
+
     const { setTheme,theme } = useTheme();
      const router=useRouter();
     const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-gray-900'; // Set background color based on theme

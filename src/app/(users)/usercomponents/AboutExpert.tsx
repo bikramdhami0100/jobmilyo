@@ -23,8 +23,8 @@ function AboutExpert() {
                         <li>Analytics and Insights</li>
                     </ol>
                 </div>
-                <div className=''>
-                  <Image src={"/images/herothree.jpg"}  alt='one image' width={400} height={400} className=' '/>
+                <div className='flex w-full h-full'>
+                  <Image src={"/images/herothree.jpg"}  alt='one image' width={400} height={400} className=' w-full h-full '/>
                 </div>
             </div>
         </div>
