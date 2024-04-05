@@ -32,7 +32,7 @@ export default async function RootLayout({
             defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
-          >     <div className=" fixed w-full h-full z-30 top-0">
+          >     <div className=" fixed  z-30 top-0">
 
                <SplashScreen/> 
             </div>
