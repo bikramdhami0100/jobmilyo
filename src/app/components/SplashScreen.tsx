@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 const Splash = ({ visible }:any) => {
   return visible ? (
-    <div className='w-full h-screen bg-white flex justify-center items-center'>
+    <div className=' fixed w-full h-screen bg-white flex justify-center items-center z-50 '>
       <Image alt='logo image' src={"/images/logo.png"} width={200} height={200}></Image>
     </div>
   ) : null;
@@ -21,8 +21,8 @@ function SplashScreen() {
   
   },[])
   return (
-    <div>
-      <Splash visible={showSplash}></Splash>
+    <div className=''>
+      <Splash visible={showSplash} />
     </div>
   );
 }

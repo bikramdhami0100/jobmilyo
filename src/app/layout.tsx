@@ -21,28 +21,33 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
 
-const session= await getServerSession();
+  const session = await getServerSession();
   return (
     <html lang="en">
       <body className={lora.className}  >
-      
-      <NextSessionProvider session={session}>
-      <ThemeProvider
+
+        <NextSessionProvider session={session}>
+          <ThemeProvider
             attribute="class"
             defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
-          >
-            <SplashScreen />
-             <div className=" fixed z-20 w-full top-0 ">
-             <Navbar />
-             </div>
-             <div className=" mt-[60px]">
-             {children}
-             </div>
+          >     <div className=" fixed w-full h-full z-30 top-0">
+
+               <SplashScreen/> 
+            </div>
+            <div>
+
+              <div className=" fixed z-20 w-full top-0 ">
+                <Navbar />
+              </div>
+              <div className=" mt-[60px]">
+                {children}
+              </div>
+            </div>
           </ThemeProvider>
-          </NextSessionProvider>
-        </body>
+        </NextSessionProvider>
+      </body>
     </html>
   );
 }
