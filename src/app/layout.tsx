@@ -29,8 +29,10 @@ export default async function RootLayout({
         <NextSessionProvider session={session}>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
-            enableSystem
+            defaultTheme="dark"
+            // enableSystem
+            enableColorScheme
+            
             disableTransitionOnChange
           >     <div className=" fixed  z-30 top-0">
                <SplashScreen/> 
