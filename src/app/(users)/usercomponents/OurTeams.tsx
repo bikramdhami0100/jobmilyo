@@ -81,7 +81,7 @@ function OurTeams() {
                        ourTeamData.map((item,index)=>{
                         return (<div className='  flex flex-col shadow-lg border  w-[300px]  justify-center items-center h-[300px] gap-1 '>
                              <div className='' >
-                                   <Image src={item.image} alt='our team' width={100}  height={100} className=' rounded-full  h-[100px]  w-[100px] hover:scale-110'/>
+                                   <Image src={item.image} alt='our team' width={100}  height={100} className=' rounded-full  h-[100px]  w-[100px] hover:focus:'/>
                              </div>
                               <div>
                                  <div className=' flex flex-row gap-2 justify-center items-center'>
@@ -97,10 +97,10 @@ function OurTeams() {
                                  </div>
                                  <p className=' self-center text-center'>{item.contribute}</p>
                               </div>
-                               <div className=' flex flex-row gap-2 justify-center items-center mt-3 '>
-                                 <Link href={item.flink} className='  rounded-full h-[40px] self-center p-[6px] m-auto w-[40px] text-center shadow-lg border '><Facebook/></Link>
-                                 <Link href={item.tlink} className='  rounded-full h-[40px] self-center p-[6px] m-auto w-[40px] text-center shadow-lg border ' ><Twitter/></Link>
-                                 <Link href={item.llink} className='  rounded-full h-[40px] self-center p-[6px] m-auto w-[40px] text-center shadow-lg border ' ><Link2/></Link>
+                               <div className=' flex flex-row gap-2 justify-center items-center mt-3  '>
+                                 <Link href={item.flink} className='  rounded-full h-[40px] self-center p-[6px] m-auto w-[40px] text-center shadow-md border hover:shadow-2xl hover:border'><Facebook/></Link>
+                                 <Link href={item.tlink} className='  rounded-full h-[40px] self-center p-[6px] m-auto w-[40px] text-center shadow-md border hover:shadow-2xl hover:border' ><Twitter/></Link>
+                                 <Link href={item.llink} className='  rounded-full h-[40px] self-center p-[6px] m-auto w-[40px] text-center shadow-md border hover:shadow-2xl hover:border' ><Link2/></Link>
                                </div>
                         </div>)
                        })
