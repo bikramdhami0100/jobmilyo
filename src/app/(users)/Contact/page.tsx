@@ -3,6 +3,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import Image from 'next/image'
 import { GlobeDemo } from '../usercomponents/GlobeDemo'
+import { Button } from '@/components/ui/button'
 function Contact() {
   return (
     <div>
@@ -19,6 +20,7 @@ function Contact() {
               <Input placeholder='Name'></Input>
               <Input placeholder='Email'></Input>
               <Textarea rows={8} placeholder='Message'></Textarea>
+              <Button className=" bg-transparent text-black-600 shadow-xl  font-extrabold text-2xl hover:bg-green-600">Submit</Button>
             </div>
           </div>
           {/* image section */}
