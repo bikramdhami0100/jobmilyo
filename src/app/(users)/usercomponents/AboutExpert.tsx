@@ -26,9 +26,9 @@ function AboutExpert() {
                     </ol>
                 </div>
                 <div className='flex w-[98%] h-[460px] m-auto md:w-[45%] lg:w-[45%] p-2'>
-                  <Image src={"/images/herothree.jpg"}  alt='one image' width={400} height={400} className=' w-full h-full object-fill rounded-md shadow-md  '/>
+                  <Image src={"/images/herothree.jpg"}  alt='one image' width={400} height={400} className=' w-full h-full object-cover rounded-md shadow-md  '/>
                 </div>
-                
+
             </div>
         </div>
     )

@@ -30,7 +30,7 @@ export function HeroAbout() {
           <CarouselItem  key={index}>
             <div className=" ">
                     
-            <Image alt="image" src={`${item}`} width={500} height={200} className=" m-auto w-full flex object-right-top h-[200px]  md:h-[370px] lg:h-[370px] md:object-left-top lg:object-left-top "></Image>
+            <Image alt="image" src={`${item}`} width={500} height={200} className=" m-auto w-full flex  object-cover h-[200px]  md:h-[370px] lg:h-[370px] md:object-left-top lg:object-left-top "></Image>
             </div>
           </CarouselItem>
         ))}
