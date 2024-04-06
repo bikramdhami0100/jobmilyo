@@ -6,6 +6,7 @@ import SplashScreen from "./components/SplashScreen";
 import Navbar from "./components/Navbar";
 import NextSessionProvider from "./Provider";
 import { getServerSession } from "next-auth";
+import Footer from "./components/Footer";
 
 
 const lora = Lora({ subsets: ["latin"] });
@@ -45,7 +46,9 @@ export default async function RootLayout({
               <div className=" mt-[60px]">
                 {children}
               </div>
+              <div><Footer/></div>
             </div>
+
           </ThemeProvider>
         </NextSessionProvider>
       </body>

@@ -64,7 +64,9 @@ function Navbar() {
                 </Sheet>
 
             </div>
-            <Image className='' alt='logo' src={"/images/logo.png"} height={100} width={100} /></div>
+            <Image className=' cursor-pointer' onClick={()=>{
+                router.push("/")
+            }} alt='logo' src={"/images/logo.png"} height={100} width={100} /></div>
 
             <div className={` flex hidden  md:flex md:gap-2  lg:flex  lg:gap-3`}>
 

@@ -11,7 +11,7 @@ function Contact() {
       
         <div className=' w-[98%] flex  flex-row flex-wrap m-auto justify-around items-center  p-4 h-full'>
         <div className=' w-screen absolute -z-10'>
-            <GlobeDemo/>
+            {/* <GlobeDemo/> */}
         </div>
           {/* message section */}
           <div className=' flex flex-col justify-center items-center border w-full md:w-[40%] lg:w-[40%] h-full' >

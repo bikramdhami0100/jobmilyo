@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import { DataType } from './TreandingJob'
 import { CardBody, CardContainer, CardItem } from "../../components/ui/3d_card";
