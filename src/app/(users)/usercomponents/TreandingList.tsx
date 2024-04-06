@@ -4,11 +4,12 @@ import { CardBody, CardContainer, CardItem } from "../../components/ui/3d_card";
 import Image from 'next/image';
 import { BadgeDollarSign, Hourglass, MapPinned } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 function TreandingList({ data }: any) {
     
     const listdata: DataType[] = data;
-    
+    const router=useRouter();
     return (
 
         <div>
@@ -58,7 +59,9 @@ function TreandingList({ data }: any) {
                                     </CardItem>
                                      <div className=' flex justify-between m-auto'>
                                          <Button className=' bg-green-600 h-[32px] '>Apply Now</Button>
-                                         <Button className=' bg-blue-600 h-[32px] '>Details</Button>
+                                         <Button className=' bg-blue-600 h-[32px] ' onClick={()=>{
+                                             router.push("/jobdetail");
+                                         }}>Details</Button>
                                      </div>
                                 </CardBody>
                             </CardContainer>
