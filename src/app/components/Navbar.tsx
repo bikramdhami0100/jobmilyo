@@ -51,7 +51,7 @@ function Navbar() {
                                 {
                                     NavMenu.map((item, index) => {
                                         return (<div className=' flex flex-row' key={index}>
-                                           <SheetClose> <h1  onClick={()=>{
+                                           <SheetClose> <h1 className=' cursor-pointer hover:text-blue-600 hover:underline hover:transition-shadow'  onClick={()=>{
                                             router.push(`/${item}`)
                                            }}>{item}</h1></SheetClose>
                                         </div>)
@@ -73,7 +73,9 @@ function Navbar() {
                 {
                     NavMenu.map((item, index) => {
                         return (<div className=' flex flex-row ' key={index}>
-                            <Link href={`/${item}`} >{item}</Link>
+                            <h1 onClick={()=>{
+                                router.push(`/${item}`)
+                            }} className=' cursor-pointer hover:text-blue-600 hover:underline hover:transition-shadow' >{item}</h1>
                         </div>)
                     })
                 }</div>
