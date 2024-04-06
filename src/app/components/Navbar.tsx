@@ -27,28 +27,38 @@ import {
 import Link from 'next/link'
 
 import { signOut, useSession } from 'next-auth/react'
-import Cookies from  "js-cookie";
+
 function Navbar() {
     const session=useSession();
     
     console.log(session);
     const router=useRouter();
-    if (session.status=="authenticated" ) {
-       useEffect(()=>{
-            Cookies.set("user",session.data.user?.email);
+    if (session.status=="authenticated") {
+        useEffect(() => {
+            // Function to set a cookie
+            const setCookie = (name:string, value:any, days:number) => {
+              const expires = new Date(Date.now() + days * 864e5).toUTCString();
+              document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';
+            };
+        
+            // Call setCookie function to set your desired cookie
+            setCookie('user', session.data.user?.email, 1); // 30 days expiry, adjust as needed
+          }, []); 
           
-       },[]);
-      const userdata:any=[{name:session.data.user?.name, email:session.data.user?.email ,image:session.data.user?.image}]
-    //    router.push("/userinformation");
-       
+
     }
-    if (session.status=="unauthenticated") {
-      useEffect(()=>{
-        Cookies.set("user","");
-      
-   },[]);
-//    router.push("/login");
-    }
+     if (session.status=='unauthenticated') {
+        useEffect(() => {
+            // Function to set a cookie
+            const showCookie = (name:string, value:any, days:number) => {
+              const expires = new Date(Date.now() + days * 864e5).toUTCString();
+              document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';
+            };
+        
+            // Call setCookie function to set your desired cookie
+            showCookie('user', "", 1); // 30 days expiry, adjust as needed
+          }, []); 
+     }
     const { setTheme,theme } = useTheme();
     
     const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-gray-900'; // Set background color based on theme
