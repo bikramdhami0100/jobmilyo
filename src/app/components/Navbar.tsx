@@ -1,9 +1,10 @@
 "use client"
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { LogOut, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
+import { useRouter } from 'next/navigation'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -24,14 +25,32 @@ import {
     SheetClose
 } from "@/components/ui/sheet"
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { signOut, useSession } from 'next-auth/react'
 
+import { signOut, useSession } from 'next-auth/react'
+import Cookies from  "js-cookie";
 function Navbar() {
     const session=useSession();
-
+    
+    console.log(session);
+    const router=useRouter();
+    if (session.status=="authenticated" ) {
+       useEffect(()=>{
+            Cookies.set("user",session.data.user?.email);
+          
+       },[]);
+      const userdata:any=[{name:session.data.user?.name, email:session.data.user?.email ,image:session.data.user?.image}]
+    //    router.push("/userinformation");
+       
+    }
+    if (session.status=="unauthenticated") {
+      useEffect(()=>{
+        Cookies.set("user","");
+      
+   },[]);
+//    router.push("/login");
+    }
     const { setTheme,theme } = useTheme();
-     const router=useRouter();
+    
     const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-gray-900'; // Set background color based on theme
     const NavMenu = ["Home", "About", "Jobs", "Contact","Documentation"]
     return (

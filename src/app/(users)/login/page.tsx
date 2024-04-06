@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Input } from "@/components/ui/input"
 import Link from 'next/link'
 import {signIn, useSession} from "next-auth/react";
@@ -14,15 +14,12 @@ import {
 } from "@tabler/icons-react";
 import { useRouter } from 'next/navigation'
 
-
 function Login() {
-  const session=useSession();
-  console.log(session);
-  const router=useRouter();
-  if (session.status=="authenticated" ) {
-    const userdata:any=[{name:session.data.user?.name, email:session.data.user?.email ,image:session.data.user?.image}]
-     router.push("/userinformation");
-  }
+     const router=useRouter();
+     const session=useSession();
+     if (session.status=="authenticated") {
+      router.push("/");
+     }
   return (
     <div className='flex  flex-col justify-around items-center md:flex-row md:justify-around lg:justify-around lg:flex-row p-2'>
       <div className=' grid-cols-2 justify-center items-center'>
