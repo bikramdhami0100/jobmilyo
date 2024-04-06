@@ -7,7 +7,7 @@ import OurTeams from '../usercomponents/OurTeams'
 
 function About() {
   return (
- <div>
+ <div className=' w-[100%] h-full justify-center items-center m-auto'>
       <HeroAbout/>
       <AboutExpert/>
       <OurTeams/>

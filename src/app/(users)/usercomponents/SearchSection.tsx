@@ -13,7 +13,7 @@ import { Search } from 'lucide-react'
 function SearchSection() {
     return (
         <div>
-            <div className=' flex flex-row w-[96%] shadow-md border rounded-md p-10 m-auto mt-4'>
+            <div className=' flex flex-row w-[96%] shadow-md border rounded-md p-10 m-auto mt-10'>
                 <div className='  flex gap-2 flex-wrap justify-evenly items-center w-full'>
                     <Input placeholder='Preferred Company' width={200} className='w-[200px]' />
                     <Input placeholder='Location' width={200} className='w-[200px]' /> 

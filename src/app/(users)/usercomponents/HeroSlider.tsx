@@ -38,7 +38,7 @@ export function HeroSlider() {
           <CarouselItem  key={index}>
             <div className=" ">
                     
-            <Image alt="image" src={`${item}`} width={500} height={200} className=" m-auto w-full flex object-right h-[200px]  md:h-[370px] lg:h-[370px] md:object-fill lg:object-fill "></Image>
+            <Image alt="image" src={`${item}`} width={500} height={200} className=" m-auto w-full flex object-cover h-[200px]  md:h-[370px] lg:h-[370px] md:object-left-top lg:object-left-top "></Image>
             </div>
           </CarouselItem>
         ))}

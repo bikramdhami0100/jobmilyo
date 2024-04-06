@@ -56,7 +56,7 @@ function Footer() {
                      </div>
                  </div>
             </div>
-            <div className=' w-[200px]'>
+            <div className=' w-[200px] flex flex-col flex-wrap'>
                 <h1>Newsletter</h1>
                 <p>We value your privacy.</p>
                 <div className=' flex flex-row-reverse items-center p-4 gap-2 mt-8'>
