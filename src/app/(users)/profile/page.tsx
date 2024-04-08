@@ -208,7 +208,7 @@ function UserProfile() {
                     </div>
                     <div className=' shadow-xl border w-full'>
                         {/* tabs is used */}
-                        <Tabs defaultValue="account" className="">
+                        <Tabs defaultValue="Experience" className="">
                             <TabsList className="grid w-full grid-cols-3">
                                 <TabsTrigger value="Experience">Experience</TabsTrigger>
                                 <TabsTrigger value="Education">Education</TabsTrigger>
@@ -217,7 +217,7 @@ function UserProfile() {
                             <TabsContent value="Experience">
                                 <Card>
                                     <CardHeader>
-                                        <CardTitle>Account</CardTitle>
+                                        <CardTitle>Experience</CardTitle>
                                         <CardDescription>
                                             Make changes to your account here. Click save when you're done.
                                         </CardDescription>
@@ -296,7 +296,7 @@ function UserProfile() {
                     <div className=' w-full shadow-md border mt-4 flex flex-col  justify-center items-start '>
                         <h1>Similar Profiles</h1>
                         <hr />
-                        <div className='flex flex-col justify-center items-start h-[520px] overflow-y-scroll overflow-x-hidden w-full gap-2 m-auto p-2'>
+                        <div className='flex flex-col justify-center items-start h-[500px] overflow-y-scroll overflow-x-hidden w-full gap-2 m-auto p-2'>
                             {otherUsers.map((item, index) => (
                                 <div key={index} className='flex flex-row justify-start items-center shadow-xl border  p-2 w-full'>
                                     <Image
