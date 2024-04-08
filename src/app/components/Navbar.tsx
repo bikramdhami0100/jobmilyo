@@ -64,22 +64,7 @@ function Navbar() {
     
     const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-gray-900'; // Set background color based on theme
     const NavMenu = ["Home", "About", "Jobs", "Contact","Documentation"]
-    const BookMarkMyWebsite=(title:any, url:any)=>{
-         alert("bookMark is not possible !!")
-        // if (window.sidebar && window.sidebar.addPanel) { // Firefox
-        //     window.sidebar.addPanel(title, url, '');
-        // } else if (window.external && ('AddFavorite' in window.external)) { // Internet Explorer
-        //     window.external.AddFavorite(url, title);
-        // } else if (window.opera && window.print) { // Opera
-        //     var elem = document.createElement('a');
-        //     elem.setAttribute('href', url);
-        //     elem.setAttribute('title', title);
-        //     elem.setAttribute('rel', 'sidebar');
-        //     elem.click();
-        // } else { // Other browsers - prompt user to press Ctrl+D to bookmark
-        //     alert("BookMark is not possible due to security");
-        // }
-    }
+    
     const ChatWithUs=()=>{
          alert("implement in major project !!!")
     }
@@ -134,9 +119,7 @@ function Navbar() {
             onClick={()=>{
                 ChatWithUs();
               }} />
-              <Bookmark className=' self-center  h-[40px] ' onClick={()=>{
-                BookMarkMyWebsite("jobmilyo","http://localhost:3000");
-              }}/>
+            
            
            {
               session.status=="authenticated" ? <div>
