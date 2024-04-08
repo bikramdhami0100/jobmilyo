@@ -61,7 +61,7 @@ function TreandingList({ data }: any) {
                                      <div className=' flex justify-between m-auto'>
                                          <Button className=' bg-green-600 h-[32px] '>Apply Now</Button>
                                          <Button className=' bg-blue-600 h-[32px] ' onClick={()=>{
-                                             router.push("/jobdetail");
+                                             router.push("/jobdetail/1");
                                          }}>Details</Button>
                                      </div>
                                 </CardBody>
