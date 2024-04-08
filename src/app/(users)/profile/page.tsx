@@ -219,68 +219,57 @@ function UserProfile() {
                                     <CardHeader>
                                         <CardTitle>Experience</CardTitle>
                                         <CardDescription>
-                                            Make changes to your account here. Click save when you're done.
+                                            <hr />
+                                            <div className='flex flex-col justify-center items-start h-[500px] overflow-y-scroll overflow-x-hidden w-full gap-2 m-auto p-2'>
+                                                {otherUsers.map((item, index) => (
+                                                    <div key={index} className='flex flex-row justify-between  items-center shadow-xl border  p-1 w-full'>
+                                                        <div className=' flex justify-center items-center'>
+                                                            <Image
+                                                                alt='other images'
+                                                                height={100}
+                                                                width={100}
+                                                                src={item.image}
+                                                                className='rounded-full h-[80px] w-[80px] '
+                                                            />
+                                                            <div className='flex flex-col justify-center items-start ml-4  '>
+                                                                <h1>{item.name}</h1>
+                                                                <p>{item.work}</p>
+                                                                <p>{item.yearofexperience}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                             <h1 className=' underline'>View Project</h1>
+                                                        </div>
+
+                                                    </div>
+                                                ))}
+                                            </div>
                                         </CardDescription>
                                     </CardHeader>
-                                    <CardContent className="space-y-2">
-                                        <div className="space-y-1">
-                                            <Label htmlFor="name">Name</Label>
-                                            <Input id="name" defaultValue="Pedro Duarte" />
-                                        </div>
-                                        <div className="space-y-1">
-                                            <Label htmlFor="username">Username</Label>
-                                            <Input id="username" defaultValue="@peduarte" />
-                                        </div>
-                                    </CardContent>
-                                    <CardFooter>
-                                        <Button>Save changes</Button>
-                                    </CardFooter>
+
                                 </Card>
                             </TabsContent>
                             <TabsContent value="Education">
                                 <Card>
                                     <CardHeader>
-                                        <CardTitle>Password</CardTitle>
-                                        <CardDescription>
-                                            Change your password here. After saving, you'll be logged out.
-                                        </CardDescription>
+                                        <CardTitle>Education</CardTitle>
+                                       
                                     </CardHeader>
                                     <CardContent className="space-y-2">
-                                        <div className="space-y-1">
-                                            <Label htmlFor="current">Current password</Label>
-                                            <Input id="current" type="password" />
-                                        </div>
-                                        <div className="space-y-1">
-                                            <Label htmlFor="new">New password</Label>
-                                            <Input id="new" type="password" />
-                                        </div>
+                                       
                                     </CardContent>
-                                    <CardFooter>
-                                        <Button>Save password</Button>
-                                    </CardFooter>
+                                   
                                 </Card>
                             </TabsContent>
                             <TabsContent value="Certification">
                                 <Card>
                                     <CardHeader>
-                                        <CardTitle>Account</CardTitle>
-                                        <CardDescription>
-                                            Make changes to your account here. Click save when you're done.
-                                        </CardDescription>
+                                        <CardTitle>Certification</CardTitle>
                                     </CardHeader>
-                                    <CardContent className="space-y-2">
-                                        <div className="space-y-1">
-                                            <Label htmlFor="name">Name</Label>
-                                            <Input id="name" defaultValue="Pedro Duarte" />
-                                        </div>
-                                        <div className="space-y-1">
-                                            <Label htmlFor="username">Username</Label>
-                                            <Input id="username" defaultValue="@peduarte" />
-                                        </div>
-                                    </CardContent>
-                                    <CardFooter>
-                                        <Button>Save changes</Button>
-                                    </CardFooter>
+                                     <CardContent>
+
+                                     </CardContent>
+                                    
                                 </Card>
                             </TabsContent>
                         </Tabs>
