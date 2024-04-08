@@ -7,7 +7,7 @@ function Footer() {
     const date=new Date();
     
     return (
-         <div className=' w-[100%] mt-4 gap-2 border shadow-lg'>
+         <div className=' w-[100%]  gap-2 border shadow-lg'>
               <div className=' w-[96%] mt-10 grid grid-cols-2 md:grid-flow-col lg:grid-flow-col gap-4 m-auto p-4 mb-4'>
             <div>
                 <h1>Company</h1>
