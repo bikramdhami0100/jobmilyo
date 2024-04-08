@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import { LogOut, Moon, Sun } from "lucide-react"
+import { BookMarked, BookMarkedIcon, Bookmark, LogOut, MessagesSquare, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useRouter } from 'next/navigation'
 import {
@@ -27,6 +27,7 @@ import {
 import Link from 'next/link'
 
 import { signOut, useSession } from 'next-auth/react'
+import { IconBookmarkEdit } from '@tabler/icons-react'
 
 function Navbar() {
     const session=useSession();
@@ -63,6 +64,25 @@ function Navbar() {
     
     const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-gray-900'; // Set background color based on theme
     const NavMenu = ["Home", "About", "Jobs", "Contact","Documentation"]
+    const BookMarkMyWebsite=(title:any, url:any)=>{
+         alert("bookMark is not possible !!")
+        // if (window.sidebar && window.sidebar.addPanel) { // Firefox
+        //     window.sidebar.addPanel(title, url, '');
+        // } else if (window.external && ('AddFavorite' in window.external)) { // Internet Explorer
+        //     window.external.AddFavorite(url, title);
+        // } else if (window.opera && window.print) { // Opera
+        //     var elem = document.createElement('a');
+        //     elem.setAttribute('href', url);
+        //     elem.setAttribute('title', title);
+        //     elem.setAttribute('rel', 'sidebar');
+        //     elem.click();
+        // } else { // Other browsers - prompt user to press Ctrl+D to bookmark
+        //     alert("BookMark is not possible due to security");
+        // }
+    }
+    const ChatWithUs=()=>{
+         alert("implement in major project !!!")
+    }
     return (
         <div className={`flex justify-between m-auto shadow-md p-3 ${navbarBgColor} `}>
             <div className=' flex gap-1 justify-center items-center'>
@@ -110,6 +130,14 @@ function Navbar() {
                 }</div>
             <div className=' flex  gap-[6px]'>
 
+            <MessagesSquare  className=' self-center  h-[40px] '
+            onClick={()=>{
+                ChatWithUs();
+              }} />
+              <Bookmark className=' self-center  h-[40px] ' onClick={()=>{
+                BookMarkMyWebsite("jobmilyo","http://localhost:3000");
+              }}/>
+           
            {
               session.status=="authenticated" ? <div>
 <DropdownMenu >
@@ -119,7 +147,9 @@ function Navbar() {
   <DropdownMenuContent>
     <DropdownMenuLabel>My Account</DropdownMenuLabel>
     <DropdownMenuSeparator />
-    <DropdownMenuItem>Profile</DropdownMenuItem>
+    <DropdownMenuItem onClick={()=>{
+        router.push("/profile")
+    }}>Profile</DropdownMenuItem>
     <DropdownMenuItem>Billing</DropdownMenuItem>
     <DropdownMenuItem>Team</DropdownMenuItem>
     <DropdownMenuItem onClick={()=>{
