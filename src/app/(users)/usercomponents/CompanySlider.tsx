@@ -50,10 +50,13 @@ export function CompanySlider() {
                         return(<div>
                                <div>
                                    <Image alt="company image" src={item.image} width={100} height={60} className="mt-4"  />
+                             
                                </div>
+                               
                         </div>)
                     })
                    }
+           
                </div>
                 
       </div>
@@ -63,6 +66,7 @@ export function CompanySlider() {
             <div className=" ">
                     
             <Image alt="image" src={`${item}`} width={500} height={200} className="w-[100%] flex object-right h-[300px]"></Image>
+            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-black opacity-50"></div>
             </div>
           </CarouselItem>
         ))}

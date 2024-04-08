@@ -14,16 +14,7 @@ import { Button } from "@/components/ui/button"
 
 export function HeroSlider() {
   const heroImages=["/images/herofirst.jpg","/images/herosecond.jpg","/images/herothree.jpg"];
-  const [time,setTime]=useState(0);
-  useEffect(() => {
-   
-     setInterval(()=>{
-      setTime(time+1);
-     },1000)
-    return () => {
-        time==3
-    }
-  }, [])
+ 
   
    
   return (

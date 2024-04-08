@@ -40,10 +40,10 @@ export default async function RootLayout({
             </div>
             <div>
 
-              <div className=" fixed z-20 w-full top-0 ">
+              <div className=" fixed z-20 w-[100%] top-0 ">
                 <Navbar />
               </div>
-              <div className=" mt-[60px]">
+              <div className=" mt-[60px] m-auto">
                 {children}
               </div>
               <div><Footer/></div>

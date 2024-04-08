@@ -60,8 +60,8 @@ function Footer() {
                 <h1>Newsletter</h1>
                 <p>We value your privacy.</p>
                 <div className=' flex flex-row-reverse items-center p-4 gap-2 mt-8'>
-                    <Input className='  absolute w-[200px] h-[50px]' placeholder=' Enter Email' />
-                    <Button className=' bg-green-600  absolute mr-2 '>Sign Up</Button>
+                    <Input className='  absolute w-[150px] h-[50px] mr-4' placeholder='Email' />
+                    <Button className=' bg-green-600  absolute mr-6 '>Sign Up</Button>
                 </div>
             </div>
 
@@ -72,7 +72,7 @@ function Footer() {
       {/* </div> */}
          <div className=' flex flex-row justify-around items-center flex-wrap h-[60px]'>
               <div>
-              Copyright © {date.getFullYear()} Bsc.CSIT of Far-western University. All rights reserved.
+              Copyright © {date.getFullYear()} Bsc.CSIT Student of Far-western University. All rights reserved.
               </div>
               <div className=' flex flex-row gap-4'>
                   <div>Home</div>

@@ -31,6 +31,7 @@ export function HeroAbout() {
             <div className=" ">
                     
             <Image alt="image" src={`${item}`} width={500} height={200} className=" m-auto w-full flex  object-right h-[300px]  "></Image>
+            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-black opacity-50"></div>
             </div>
           </CarouselItem>
         ))}
