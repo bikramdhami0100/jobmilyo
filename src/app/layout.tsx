@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import NextSessionProvider from "./Provider";
 import { getServerSession } from "next-auth";
 import Footer from "./components/Footer";
+import { MyProviders } from "./Redux/Provider";
 
 
 const lora = Lora({ subsets: ["latin"] });
@@ -26,7 +27,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={lora.className}  >
+          <MyProviders>
 
+        
         <NextSessionProvider session={session}>
           <ThemeProvider
             attribute="class"
@@ -51,6 +54,7 @@ export default async function RootLayout({
 
           </ThemeProvider>
         </NextSessionProvider>
+        </MyProviders>
       </body>
     </html>
   );

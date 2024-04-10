@@ -31,8 +31,7 @@ import { IconBookmarkEdit } from '@tabler/icons-react'
 
 function Navbar() {
     const session=useSession();
-    
-    console.log(session);
+  
     const router=useRouter();
     if (session.status=="authenticated") {
         useEffect(() => {
