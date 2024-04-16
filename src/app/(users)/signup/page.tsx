@@ -46,10 +46,7 @@ function Signup() {
   const [errorPassword, setErrorPassword] = useState(true);
   const [errorConfirmPassword, setErrorConfirmPassword] = useState(true);
   const [Show, setShow] = useState(true);
-  const HandleMyFun =()=>{
-    console.log("Hello this is console ");
-    router.push("/userinformation")
-  }
+  
   useEffect(() => {
     console.log("this is first useeffect")
     if (name || birth || email || password || confirm) {
@@ -86,16 +83,31 @@ function Signup() {
         setErrorConfirmPassword(true)
       }
       
-      if (nameRegex.test(name) && emailRegex.test(email) && dobRegex.test(birth) && passwordRegex.test(password) && password === confirm) {
-        setPassData({ fullname: name, email: email, dob: birth, password: password, confirmpassword: confirm });
-      }
+     
     }
+   
    
   }, [name, birth, email, password, confirm, nameRegex, emailRegex, dobRegex, passwordRegex]);
 
-  // console.log(passData)
+  const HandleMyFun =()=>{
+    
+    if (nameRegex.test(name) && emailRegex.test(email) && dobRegex.test(birth) && passwordRegex.test(password) && password === confirm) {
+      setPassData({ fullname: name, email: email, dob: birth, password: password, confirmpassword: confirm });
+      if (passData!=undefined) {
+        dispatch(userSignUpInfo(passData));
+        router.push("/userinformation")
+       
+       }
+     
+    }
+   
+
+           
+  }
   
+ useEffect(()=>{
   
+ },[HandleMyFun]);
 
   return (
     <div className='flex flex-col justify-around items-center md:flex-row md:justify-around lg:justify-around lg:flex-row p-2'>
@@ -169,11 +181,7 @@ function Signup() {
           </div>
           <div className='flex flex-col md:flex-col lg:flex-row'>By selecting Agree and continue <p className='underline text-blue-600 font-extrabold'><span>Job</span> <span className='text-red-600 font-extrabold'>मिल्यो?</span></p>, I agree to <span className='underline cursor-pointer text-blue-600 '>Term of Service</span></div>
           <Button onClick={()=>{
-            console.log(passData +"this is me")
-             if (passData!=undefined) {
-              dispatch(userSignUpInfo(passData));
-              router.push("/userinformation");
-             }
+            HandleMyFun();
            
           }}  className='bg-blue-600 w-[200px] rounded-full self-center'>Continue</Button>
         </div>

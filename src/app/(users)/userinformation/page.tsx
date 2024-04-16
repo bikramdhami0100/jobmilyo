@@ -9,7 +9,7 @@ import EmForm from '../usercomponents/EmForm'
 import {useSelector} from "react-redux";
 function userInformation() {
   const selector=useSelector((state)=>{
-        // console.log(state);
+        console.log(state);
   })
  
     return (
