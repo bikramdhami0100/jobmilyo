@@ -16,7 +16,7 @@ export function CompanySlider() {
     image:string,
     companylink:string
    }
-  const heroImages=[ "/images/companycontainer.jpg", "/images/herofirst.jpg","/images/herosecond.jpg","/images/herothree.jpg"];
+  const heroImages=[ "/images/companycontainer.jpg", "/images/jobslide1.jpg","/images/jobslide3.jpg","/images/jobslide4.jpg"];
  
    const dataCompany:companyType[]=[
        {

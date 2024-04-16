@@ -13,7 +13,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 
 export function HeroAbout() {
-  const heroImages=["/images/herobg.png","/images/herofirst.jpg","/images/herosecond.jpg"];
+  const heroImages=["/images/herobg.png","/images/jobslide1.jpg","/images/jobslide3.jpg"];
 
  
   

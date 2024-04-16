@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 
 export default function SwiperSlider() {
-    const heroImages=["/images/herofirst.jpg","/images/herosecond.jpg","/images/herothree.jpg"];
+    const heroImages=["/images/global.jpg","/images/jobslide1.jpg","/images/jobslide3.jpg","/images/jobslide4.jpg","/images/jobslide5.jpg"];
   return (
    <div className=' w-[98vw] h-[200px] md:h-[320px] lg:h-[320px] flex justify-center items-center m-auto mt-0 '>
      <div className=" gap-2 absolute flex  flex-col justify-around items-center m-auto top-30 z-10  right-[20vw] left-[20vw]">
@@ -45,9 +45,9 @@ export default function SwiperSlider() {
         
              {heroImages.map((item, index) => (
                 <SwiperSlide  key={index}>
-                  <div className=" object-cover ">
+                  <div className="m-auto backdrop-blur-sm w-[98vw] flex object-cover contrast-100 -z-10 bg-slate-500 h-[202px] shadow-xl border  rounded-sm md:h-[320px] lg:h-[320px]  ">
                           
-                  <Image alt="image" style={{}} src={`${item}`} width={500} height={200} className=" m-auto w-[98vw] flex object-fill contrast-100 -z-10 bg-slate-500 h-[200px] shadow-xl border  rounded-sm md:h-[320px] lg:h-[320px]"></Image>
+                  <Image alt="image" style={{}} src={`${item}`} width={500} height={200} className=" m-auto w-[98vw] flex object-top contrast-100 -z-10 bg-slate-500 h-[200px] shadow-xl border  rounded-sm md:h-[320px] lg:h-[320px]"></Image>
                   <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-black opacity-50"></div>
                   </div>
                 </SwiperSlide>
