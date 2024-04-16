@@ -78,7 +78,7 @@ function EduForm() {
     </div>
     <div>
         <label htmlFor="pdate">Passed Date</label>
-        <Input name='pdate' placeholder='2024-2-22' ></Input>
+        <Input name='pdate' placeholder='2024-02-22' ></Input>
     </div>
     <p>Further requirement are apply in our major project e.g marksheet, character certificate etc</p>
 </div>
