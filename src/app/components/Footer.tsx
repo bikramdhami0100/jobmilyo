@@ -72,7 +72,7 @@ function Footer() {
       {/* </div> */}
          <div className=' flex flex-row justify-around items-center flex-wrap h-[60px]'>
               <div>
-              Copyright © {date.getFullYear()} Bsc.CSIT Student of Far-western University. All rights reserved.
+              Copyright © {date.getFullYear()} Bsc.CSIT Students of Far-western University. All rights reserved.
               </div>
               <div className=' flex flex-row gap-4'>
                   <div>Home</div>

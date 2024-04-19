@@ -2,7 +2,6 @@ import React from 'react'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import Image from 'next/image'
-import { GlobeDemo } from '../usercomponents/GlobeDemo'
 import { Button } from '@/components/ui/button'
 function Contact() {
   return (
@@ -11,7 +10,7 @@ function Contact() {
       
         <div className=' w-[98%] flex  flex-row flex-wrap m-auto justify-around items-center  p-4 h-full'>
         <div className=' w-screen absolute -z-10'>
-            {/* <GlobeDemo/> */}
+            
         </div>
           {/* message section */}
           <div className=' flex flex-col justify-center items-center border w-full md:w-[40%] lg:w-[40%] h-full' >

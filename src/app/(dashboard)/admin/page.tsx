@@ -82,8 +82,8 @@ import React from 'react'
 
 function AdminDashboard() {
   return (
-    <div>
-      
+    <div className=' flex flex-col mt-10 bg-slate-500  text-red-600'>
+       admipannel
     </div>
   )
 }

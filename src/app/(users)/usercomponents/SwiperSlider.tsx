@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 
 export default function SwiperSlider() {
-    const heroImages=["/images/global.jpg","/images/jobslide1.jpg","/images/jobslide3.jpg","/images/jobslide4.jpg","/images/jobslide5.jpg"];
+    const heroImages=["/images/jobslide1.jpg","/images/global.jpg","/images/jobslide3.jpg","/images/jobslide4.jpg"];
   return (
    <div className=' w-[98vw] h-[200px] md:h-[320px] lg:h-[320px] flex justify-center items-center m-auto mt-0 '>
      <div className=" gap-2 absolute flex  flex-col justify-around items-center m-auto top-30 z-10  right-[20vw] left-[20vw]">
@@ -24,9 +24,6 @@ export default function SwiperSlider() {
         <Button className=" bg-blue-600">Explore More...</Button>
       </div>
 
-      
-
-      
      <Swiper
         spaceBetween={30}
         centeredSlides={true}

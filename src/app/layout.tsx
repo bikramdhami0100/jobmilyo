@@ -33,8 +33,8 @@ export default async function RootLayout({
         <NextSessionProvider session={session}>
           <ThemeProvider
             attribute="class"
-            defaultTheme="dark"
-            // enableSystem
+            defaultTheme="system"
+            enableSystem
             enableColorScheme
             
             disableTransitionOnChange

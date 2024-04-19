@@ -13,7 +13,7 @@ import {
 
 } from "@tabler/icons-react";
 import { useRouter } from 'next/navigation'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { userSignUpInfo } from '@/app/Redux/Slice'
 import { Eye, EyeOff } from 'lucide-react'
 
@@ -46,12 +46,25 @@ function Signup() {
   const [errorPassword, setErrorPassword] = useState(true);
   const [errorConfirmPassword, setErrorConfirmPassword] = useState(true);
   const [Show, setShow] = useState(true);
-  
+  const HandleMyFun =async()=>{
+    
+    if (nameRegex.test(name) && emailRegex.test(email) && dobRegex.test(birth) && passwordRegex.test(password) && password === confirm) {
+      setPassData({ fullname: name, email: email, dob: birth, password: password, confirmpassword: confirm });
+      if (passData!=undefined) {
+         const data:any=JSON.stringify(passData);
+        dispatch(userSignUpInfo(data));
+       await router.push("/userinformation")
+       
+       }
+     
+    }
+       
+  }
   useEffect(() => {
-    console.log("this is first useeffect")
+
     if (name || birth || email || password || confirm) {
       if (nameRegex.test(name) && name.length > 4) {
-        // console.log("valide name")
+        
         setErrorName(false);
       } else {
         setErrorName(true);
@@ -89,22 +102,12 @@ function Signup() {
    
   }, [name, birth, email, password, confirm, nameRegex, emailRegex, dobRegex, passwordRegex]);
 
-  const HandleMyFun =async()=>{
-    
-    if (nameRegex.test(name) && emailRegex.test(email) && dobRegex.test(birth) && passwordRegex.test(password) && password === confirm) {
-      setPassData({ fullname: name, email: email, dob: birth, password: password, confirmpassword: confirm });
-      if (passData!=undefined) {
-        dispatch(userSignUpInfo(passData));
-       await router.push("/userinformation")
-       
-       }
-     
-    }
+ 
+  // useEffect(() => {
    
-
-           
-  }
   
+  
+  // }, [HandleMyFun])
 
 
   return (

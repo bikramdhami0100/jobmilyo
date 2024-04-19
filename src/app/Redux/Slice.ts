@@ -16,15 +16,23 @@ export const SignupInfo = createSlice({
     initialState,
     reducers: {
         userSignUpInfo: (state, action: any) => {
-            console.log("this is payload " + action.payload);
-            const data: UserData = {
-                id: nanoid(),
-                user: action.payload
-            }
-            state.Users.push(data);
+           
+                const data: UserData = {
+                    id: nanoid(),
+                    user: action.payload
+                }
+                state.Users.push(data);
+            
+            
+
+
+        },
+        SingleUserAllInformation:(state,action:any)=>{
+            console.log("this is single user data"+action.payload);
+             state.Users.push(action.payload);
         }
     }
 })
 
-export const { userSignUpInfo } = SignupInfo.actions
+export const { userSignUpInfo,SingleUserAllInformation } = SignupInfo.actions
 export default SignupInfo.reducer;

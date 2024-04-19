@@ -24,8 +24,19 @@ import {
 
 import { Input } from '@/components/ui/input';
 import { useSession } from 'next-auth/react';
+import { useSelector } from 'react-redux';
 function UserProfile() {
     const session = useSession();
+    const userData=useSelector((state:any)=>{
+       
+         return state.signupinfo.Users[1]
+    });
+    
+   if (userData!==undefined) {
+    const data=JSON.parse(userData);
+    console.log(data);
+   }
+   
 
     interface UserProfileType {
         name: string;

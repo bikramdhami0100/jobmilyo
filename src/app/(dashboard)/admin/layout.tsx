@@ -23,8 +23,7 @@ export default async function RootLayout({
       <body className={lora.className}  >
 
              {children}
-              
-           
+  
       </body>
     </html>
   );
