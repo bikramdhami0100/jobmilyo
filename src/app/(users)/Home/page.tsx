@@ -6,6 +6,7 @@ import { CompanySlider } from '../usercomponents/CompanySlider';
 import SwiperSlider from '../usercomponents/SwiperSlider';
 
 function Home() {
+  
   return (
     <div>
       

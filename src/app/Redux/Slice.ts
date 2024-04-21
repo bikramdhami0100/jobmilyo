@@ -8,7 +8,8 @@ interface UserData {
 }
 
 const initialState = {
-    Users: [] as UserData[]
+    Users: [] as UserData[],
+    SearchContent:[] as any
 }
 
 export const SignupInfo = createSlice({
@@ -30,9 +31,13 @@ export const SignupInfo = createSlice({
         SingleUserAllInformation:(state,action:any)=>{
             console.log("this is single user data"+action.payload);
              state.Users.push(action.payload);
+        },
+        SearchHomeJobs:(state,action)=>{
+          
+             state.SearchContent.push(action.payload);
         }
     }
 })
 
-export const { userSignUpInfo,SingleUserAllInformation } = SignupInfo.actions
+export const { userSignUpInfo,SingleUserAllInformation,SearchHomeJobs } = SignupInfo.actions
 export default SignupInfo.reducer;

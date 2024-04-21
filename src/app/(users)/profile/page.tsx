@@ -1,9 +1,9 @@
 "use client"
 import { Button } from '@/components/ui/button';
 import { IconCalendarTime } from '@tabler/icons-react';
-import { Bookmark, Clock10, Clock7, DollarSign, Mail, MapPin, Phone, Rocket, SendHorizonal, Star } from 'lucide-react';
+import { Bookmark, Phone, Rocket, SendHorizonal, Star } from 'lucide-react';
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {
     Card,
@@ -26,16 +26,61 @@ import { Input } from '@/components/ui/input';
 import { useSession } from 'next-auth/react';
 import { useSelector } from 'react-redux';
 function UserProfile() {
+    interface Mysignup{
+        fullname:string,
+        
+        dob:string,
+        email:string,
+        
+    }
+    interface UserInfo{
+        CurrentAddress:string,
+        PermanentAddress:string,
+         boardname:string,
+        educationtype:string,
+        expectedPositionLevel:string,
+        faculity:string,
+        fname:string,
+        gender:string,
+        gpaorpercentage:string,
+        interestedCategory:string,
+        interestedEmployementType:string,
+        interestedFiels:string,
+        level:string,
+        lname:string,
+        marksheet:string,
+        mname:string,
+        passedDate:string,
+        phone:string,
+        previouscompany:string,
+        previousrole:string,
+        uploadCV:string
+        
+    }
+    
     const session = useSession();
+    const [rating,setRating]=useState(0);
+    const [inform,setInform]=useState<UserInfo>();
+    const [signup,setSignUp]=useState<Mysignup|undefined>();
     const userData=useSelector((state:any)=>{
        
          return state.signupinfo.Users[1]
     });
-    
-   if (userData!==undefined) {
-    const data=JSON.parse(userData);
-    console.log(data);
-   }
+
+  useEffect(()=>{
+    if (userData!==undefined) {
+
+        const data=JSON.parse(userData);
+        setInform(data);
+        console.log(data);
+       
+        const newdata=JSON.parse(data.signUpUser.user);
+         setSignUp(newdata);
+        console.log(newdata);
+       }
+  },[]);
+   console.log(inform);
+   console.log(signup);
    
 
     interface UserProfileType {
@@ -60,15 +105,15 @@ function UserProfile() {
         experience: string[];
         education: string[];
         certification: string[];
-    }
+    }  
 
 
 
-    let userItem: UserProfileType = {
-        name: session.data?.user?.name || "bikram Dhami",
-        email: session.data?.user?.email || "bikram@example.com",
+    let  userItem: UserProfileType = {
+        name: signup?.fullname|| session.data?.user?.name || "bikram Dhami",
+        email: signup?.email|| session.data?.user?.email || "bikram@example.com",
         image: session.data?.user?.image || "/images/logo.png",
-        rating: 4.5,
+        rating: rating,
         salary: "$60/hr",
         workingIn: "ABC Corporation",
         work: "Graphic Designer",
@@ -76,10 +121,10 @@ function UserProfile() {
         basicInformation: [{
             age: 22,
             yearOfExperience: "4 years",
-            phone: "98000000000",
+            phone:inform?.phone|| "98000000000",
             ctc: "$ 40/hr",
-            location: "mahendranagar",
-            mail: session.data?.user?.email || "jobmilyo@gmail.com",
+            location:inform?.CurrentAddress|| "mahendranagar",
+            mail:signup?.email|| session.data?.user?.email || "jobmilyo@gmail.com",
             cv: "",
         }],
         experience: ["Software Engineer at XYZ Corp", "Internship at ABC Inc"],
@@ -134,12 +179,25 @@ function UserProfile() {
                 <div className=' flex flex-col  justify-center items-center  gap-2 shadow-md border m-2 p-4 w-[100%] md:w-[19%] lg:w-[19%] '>
 
                     <div className=' flex flex-col justify-center items-center'>
-                        <Image alt='images' src={userItem.image} height={100} width={100} className='w-[200px] h-[200px] rounded-full  ' />
+                       {
+                         signup?<div className='w-[200px] h-[200px] rounded-full  bg-blue-600  '>
+                              
+                         </div>: <Image alt='images' src={userItem.image} height={100} width={100} className='w-[200px] h-[200px] rounded-full  ' />
+                       }
 
                         <p>{userItem.name}</p>
                         <p>{userItem.email}</p>
-                        <div className=' flex gap-3'>
-                            <p className=' flex gap-1'> {userItem.rating} <Star /></p>
+                        <div className=' flex gap-3 cursor-pointer '>
+                        <div className=' cursor-pointer'>
+                        {
+                            rating<=9?   <p className=' flex gap-1'> {userItem.rating} <Star onClick={()=>{
+                                    setRating(rating+1);
+                                  }} className={`${rating>=1?"text-yellow-500 ":""}`} /></p>:
+                                  <p className=' flex gap-1'> {userItem.rating} <Star onClick={()=>{
+                                    setRating(rating);
+                                  }} className={`${rating>=1?"text-yellow-500 ":""}`} /></p>
+                        }
+                        </div>
                             <p> {userItem.salary}</p>
                         </div>
                         <h1>{userItem.work} </h1>

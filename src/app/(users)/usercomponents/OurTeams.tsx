@@ -1,8 +1,9 @@
+"use client"
 import { HoverEffect } from '@/app/components/ui/card-hover-effect'
 import { CircleCheckBig, Facebook, Link2, Star, Twitter } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 export interface ourTeamType {
     name: string,
     image: string,
@@ -13,7 +14,7 @@ export interface ourTeamType {
     rating: number
 }
 function OurTeams() {
-
+    const [rating,setRating]=useState(0);
     const ourTeamData: ourTeamType[] = [
         {
             name: "Deepa joshi",
