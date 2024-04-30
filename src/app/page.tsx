@@ -5,7 +5,10 @@ import { CldImage } from 'next-cloudinary';
 
 import Home from './(users)/Home/page';
 import { useSession } from 'next-auth/react';
- 
+import Email from './components/Email';
+import Myfun from './components/EmailTemplate';
+import { Button } from '@/components/ui/button';
+
 function Home1() {
 const session=useSession();
 // const dataFetch=async()=>{
@@ -23,6 +26,7 @@ const session=useSession();
 
   return (
     <div className=' flex w-full '>
+     {/* <Button>Submit</Button> */}
     <Home/>
     
     </div>

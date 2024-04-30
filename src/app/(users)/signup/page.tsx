@@ -112,6 +112,7 @@ function Signup() {
 
   return (
     <div className='flex flex-col justify-around items-center md:flex-row md:justify-around lg:justify-around lg:flex-row p-2'>
+      
       <div className='flex flex-col justify-around items-center'>
         <div className='flex gap-4 mt-4'>
           <Image alt="image" src={"/images/logo.png"} height={200} width={200}></Image>

@@ -1,5 +1,6 @@
 "use client"
 import Image from 'next/image'
+import AdminLoginImage from "../components/adminlogin.json";
 import React, { useEffect } from 'react'
 import { Input } from "@/components/ui/input"
 import Link from 'next/link'
@@ -13,8 +14,9 @@ import {
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
 import { useRouter } from 'next/navigation'
+import Lottie from 'lottie-react'
 
-function Login() {
+function AdminLogin() {
      const router=useRouter();
      const session=useSession();
      if (session.status=="authenticated") {
@@ -27,18 +29,18 @@ function Login() {
         <p className='text-3xl mt-6'><strong>Make your dream career a <span className=' text-blue-600'> reality</span></strong></p>
          <div className=' flex gap-4'><span className=''> <b>With</b></span> <Image  alt="image" src={"/images/logo.png"} height={100} width={100}></Image></div>
          <div>
-           <Image alt='login image' src={"/images/login.png"} height={400} width={400} className=' h-full'></Image>
+          <Lottie animationData={AdminLoginImage}></Lottie>
          </div>
         </div>
       </div>
       <div className=' flex flex-col shadow-lg p-6 justify-center items-center m-4 rounded-md'>
-          <h1>Login</h1>
+          <h1>AdminLogin</h1>
          <div  className='flex flex-col gap-4'>
          <Input type="email" placeholder="Email or user name" />
          <Input type="password" placeholder="password" />
           <Link href={"/forgotpassword"} className=' text-blue-600 underline'> Forgot Password ? </Link>
           <p>You agree to create account for <span className=' text-blue-600'>job</span> <span className=' text-red-600'>मिल्यो?</span> </p>
-          <Button  className=' bg-blue-600'>Continue </Button>
+          <Button  className=' bg-blue-600' onClick={()=>{router.push("/admin")}}>Continue </Button>
            <p className=' text-center'>or Continue with</p>
            <div className=' flex gap-3 cursor-pointer self-center'> 
              <Button className=' flex '  onClick={()=>{
@@ -49,11 +51,10 @@ function Login() {
               signIn("google");
              }} className=' flex ' ><IconBrandGoogle/> Google</Button>
            </div>
-           <p className=' text-center'>Don't have an account ? <Link href={"./signup"} className=' underline text-blue-600'> Signup</Link></p>
          </div>
       </div>
     </div>
   )
 }
 
-export default Login
+export default AdminLogin
