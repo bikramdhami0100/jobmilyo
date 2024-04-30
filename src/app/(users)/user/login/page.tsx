@@ -36,7 +36,7 @@ function Login() {
          <div  className='flex flex-col gap-4'>
          <Input type="email" placeholder="Email or user name" />
          <Input type="password" placeholder="password" />
-          <Link href={"/forgotpassword"} className=' text-blue-600 underline'> Forgot Password ? </Link>
+          <Link href={"/user/forgotpassword"} className=' text-blue-600 underline'> Forgot Password ? </Link>
           <p>You agree to create account for <span className=' text-blue-600'>job</span> <span className=' text-red-600'>मिल्यो?</span> </p>
           <Button  className=' bg-blue-600'>Continue </Button>
            <p className=' text-center'>or Continue with</p>

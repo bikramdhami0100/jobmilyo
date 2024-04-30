@@ -23,11 +23,11 @@ export default async function AdminLayout({
   return (
    <>
 
-    <div className=' grid grid-cols-4'>
-        <div>
+    <div className='flex flex-row  justify-between w-full h-full  '>
+        <div className="">
          sidbar
         </div>
-        <div className=' col-span-3'>
+        <div className='w-'>
         
         {children}
        

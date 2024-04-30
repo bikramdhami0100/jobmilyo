@@ -20,7 +20,7 @@ function AdminLogin() {
      const router=useRouter();
      const session=useSession();
      if (session.status=="authenticated") {
-      router.push("/");
+      router.push("/admin");
      }
   return (
     <div className='flex  flex-col justify-around items-center md:flex-row md:justify-around lg:justify-around lg:flex-row p-2'>

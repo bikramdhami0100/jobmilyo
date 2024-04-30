@@ -133,7 +133,7 @@ function Navbar() {
                                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem onClick={() => {
-                                    router.push("/profile")
+                                    router.push("/user/profile")
                                 }}>Profile</DropdownMenuItem>
                                 <DropdownMenuItem> </DropdownMenuItem>
                                 <DropdownMenuItem>Team</DropdownMenuItem>
@@ -145,11 +145,11 @@ function Navbar() {
 
                     </div> : <div className=' flex  gap-1'>
                         <Button className='bg-blue-600' onClick={() => {
-                            router.push("/login")
+                            router.push("/user/login")
                         }}>Log in</Button>
                         <Button className=' bg-blue-600' onClick={() => {
-                            router.push("/adminlogin")
-                        }}>Admin</Button>
+                            router.push("/user/signup")
+                        }}>Sign Up</Button>
                     </div>
                 }
                 <DropdownMenu >

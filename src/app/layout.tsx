@@ -6,7 +6,7 @@ import SplashScreen from "./components/SplashScreen";
 import Navbar from "./components/Navbar";
 import NextSessionProvider from "./Provider";
 import { getServerSession } from "next-auth";
-import Footer from "./components/Footer";
+import Footer from "./(users)/user/components/Footer";
 import { MyProviders } from "./Redux/Provider";
 
 
@@ -26,7 +26,7 @@ export default async function RootLayout({
   const session = await getServerSession();
   return (
     <html lang="en">
-      <body className={lora.className}  >
+      <body className={lora.className} id="defaultHome" >
           <MyProviders>
 
         
@@ -43,13 +43,9 @@ export default async function RootLayout({
             </div>
             <div>
 
-              <div className=" fixed z-20 w-[100%] top-0 ">
-                <Navbar />
-              </div>
-              <div className=" mt-[60px] m-auto">
+            
                 {children}
-              </div>
-              <div><Footer/></div>
+
             </div>
 
           </ThemeProvider>

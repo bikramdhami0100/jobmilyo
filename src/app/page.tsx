@@ -2,15 +2,11 @@
 import Image from 'next/image'
 import React, { useEffect } from 'react'
 import { CldImage } from 'next-cloudinary';
-
-import Home from './(users)/Home/page';
-import { useSession } from 'next-auth/react';
-import Email from './components/Email';
-import Myfun from './components/EmailTemplate';
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 function Home1() {
-const session=useSession();
+// const session=useSession();
 // const dataFetch=async()=>{
 //    const data=await fetch("http://127.0.0.1:8000/api/getuser",{
 //     method:"get",
@@ -23,12 +19,20 @@ const session=useSession();
 // useEffect(()=>{
 //    dataFetch();
 // },[]);
-
+const router=useRouter();
   return (
     <div className=' flex w-full '>
      {/* <Button>Submit</Button> */}
-    <Home/>
     
+     This is home page
+     <div>
+      {/* <Button onClick={()=>{
+        router.replace("user")
+      }}>User</Button>
+       <Button onClick={()=>{
+        router.replace("admin")
+      }}>Admin</Button> */}
+     </div>
     </div>
   )
 }
