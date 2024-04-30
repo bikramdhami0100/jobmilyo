@@ -1,5 +1,6 @@
 // import type { Metadata } from "next";
 import { Inter, Lora } from "next/font/google";
+import SideBar from "./admincomponents/SideBar";
 // import "../../globals.css";
 
 const lora = Lora({ subsets: ["latin"] });
@@ -14,9 +15,14 @@ export default async function AdminLayout({children}:any) {
 
   return (
     
-     <>
-       {children}
-     </>
+     <body>
+        <div>
+            <div><SideBar/></div>
+            <div>{children}</div>
+        </div>
+       
+
+     </body>
         
       
   

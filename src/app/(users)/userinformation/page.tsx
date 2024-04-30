@@ -1,16 +1,12 @@
 "use client"
 import React, { useState } from 'react'
 
-import { useEffect } from 'react';
-
-import EduForm from '../usercomponents/EduForm'
-import EmForm from '../usercomponents/EmForm'
 import { useDispatch, useSelector } from "react-redux";
 import { useTheme } from 'next-themes';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { SignupInfo, SingleUserAllInformation, userSignUpInfo } from '@/app/Redux/Slice';
+import {  SingleUserAllInformation } from '@/app/Redux/Slice';
 import { useRouter } from 'next/navigation';
 function userInformation() {
  const router=useRouter();
