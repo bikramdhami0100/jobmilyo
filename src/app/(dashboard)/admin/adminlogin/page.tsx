@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image'
-import AdminLoginImage from "../components/adminlogin.json";
+import AdminLoginImage from "../../components/adminlogin.json";
 import React, { useEffect } from 'react'
 import { Input } from "@/components/ui/input"
 import Link from 'next/link'

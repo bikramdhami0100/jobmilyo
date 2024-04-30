@@ -4,35 +4,42 @@ import React, { useEffect } from 'react'
 import { CldImage } from 'next-cloudinary';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
-
+import Lottie from 'lottie-react';
+import SearchImage from "./components/search.json";
+import MainHomeHero from './components/MainHomeHero';
 function Home1() {
-// const session=useSession();
-// const dataFetch=async()=>{
-//    const data=await fetch("http://127.0.0.1:8000/api/getuser",{
-//     method:"get",
-//     headers:{"content-type":"application/json"},
-    
-//    });
-//   const result=await data.json();
-  
-// }
-// useEffect(()=>{
-//    dataFetch();
-// },[]);
-const router=useRouter();
+  const router = useRouter();
+  // const session=useSession();
+  // const dataFetch=async()=>{
+  //    const data=await fetch("http://127.0.0.1:8000/api/getuser",{
+  //     method:"get",
+  //     headers:{"content-type":"application/json"},
+
+  //    });
+  //   const result=await data.json();
+
+  // }
+  // useEffect(()=>{
+  //    dataFetch();
+  // },[]);
+
+ const HandleUserLogin=()=>{
+
+ router.push("/user")
+ }
   return (
-    <div className=' flex w-full '>
-     {/* <Button>Submit</Button> */}
-    
-     This is home page
-     <div>
-      {/* <Button onClick={()=>{
-        router.replace("user")
-      }}>User</Button>
-       <Button onClick={()=>{
-        router.replace("admin")
-      }}>Admin</Button> */}
-     </div>
+    <div>
+      <div className=' flex flex-row justify-end gap-2 m-2'><Button className=' bg-blue-700 font-bold text-md' onClick={()=>{
+        HandleUserLogin()
+      }}>User Login</Button> <Button className=' bg-blue-700 font-bold text-md' onClick={()=>{
+        router.push("/admin")
+      }}>Admin Login</Button></div>
+      <div className=' m-auto flex  flex-col-reverse flex-wrap justify-between items-center md:flex-row lg:flex-row'>
+        <div className=' w-full md:w-[40%] lg:w-[45%] '><MainHomeHero /></div>
+        <div className=' w-full md:w-[50%] lg:w-[45%]'><Lottie animationData={SearchImage}></Lottie></div>
+
+      </div>
+     
     </div>
   )
 }

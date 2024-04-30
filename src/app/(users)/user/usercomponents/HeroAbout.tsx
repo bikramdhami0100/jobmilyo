@@ -1,5 +1,5 @@
 "use client"
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 import { Card, CardContent } from "@/components/ui/card"
 import {
@@ -32,7 +32,14 @@ export function HeroAbout() {
     // clearInterval(interval)
     
 }
-Myfun(["About Us","Contact","Jobs","Documentation"]);
+useEffect(() => {
+  
+  Myfun(["About Us","Contact","Jobs","Documentation","Explore"]);
+  return () => {
+    
+  }
+}, [])
+
   
    
   return (

@@ -23,7 +23,7 @@ export default async function AdminLayout({
   return (
    <>
 
-    <div className='flex flex-row  justify-between w-full h-full  '>
+    <div id="adminHome" className='flex flex-row  justify-between w-full h-full  '>
         <div className="">
          sidbar
         </div>
