@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description: "Job मिल्यो website is one of the popular website for job seeker and it's developed by K_DBMS Team of bsc.CSIT of farwestern University",
 };
 
-export default async function RootLayout({
+export default async function UserLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -23,8 +23,8 @@ export default async function RootLayout({
 
 
   return (
-    <html lang="en">
-      <body className={lora.className} id="userHome"  >
+   <>
+      <div className={lora.className} id="userHome"  >
          <div>
          <div className=" ">
          <Navbar/>
@@ -32,7 +32,7 @@ export default async function RootLayout({
          {children}
          <Footer/>
          </div>
-      </body>
-    </html>
+      </div>
+      </>
   );
 }
