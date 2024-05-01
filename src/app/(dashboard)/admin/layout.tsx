@@ -4,6 +4,7 @@ import { Lora } from "next/font/google";
 import "../../globals.css";
 
 import { getServerSession } from "next-auth";
+import AdminNavbar from "../components/AdminNavbar";
 
 
 const lora = Lora({ subsets: ["latin"] });
@@ -21,21 +22,26 @@ export default async function AdminLayout({
 
   const session = await getServerSession();
   return (
-   <>
+    <>
 
-    <div id="adminHome" className='flex flex-row  justify-between w-full h-full  '>
+      <div id="adminHome">
+        <div>
+          <AdminNavbar />
+        </div>
+        <div  className='flex flex-row  justify-between w-full h-full  '>
         <div className="">
-         sidbar
+          sidbar
         </div>
         <div className='w-'>
-        
-        {children}
-       
+
+          {children}
+
         </div>
-  
-  
-  </div>
-  
-   </>
- );
+        </div>
+
+
+      </div>
+
+    </>
+  );
 }
