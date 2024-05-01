@@ -42,7 +42,7 @@ function AdminLogin() {
     }
   }, [email, password])
   const HandleAdminLogin = () => {
-    if (emailError == passwordError) {
+    if ( email &&password &&emailError == passwordError) {
       router.push("/admin")
     }
   }
