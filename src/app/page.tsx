@@ -29,9 +29,10 @@ function Home1() {
  }
   return (
     <div>
-      <div className=' flex flex-row justify-end gap-2 m-2'><Button className=' bg-blue-700 font-bold text-md' onClick={()=>{
+      <div className=' flex flex-row justify-end gap-2 m-2'>
+        {/* <Button className=' bg-blue-700 font-bold text-md' onClick={()=>{
         HandleUserLogin()
-      }}>User Login</Button>
+      }}>User Login</Button> */}
        {/* <Button className=' bg-blue-700 font-bold text-md' onClick={()=>{
         router.push("/adminlogin")
       }}>Admin Login</Button> */}
