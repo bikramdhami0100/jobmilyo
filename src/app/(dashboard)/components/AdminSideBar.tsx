@@ -15,6 +15,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
+    DialogClose
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -56,23 +57,34 @@ function AdminSideBar() {
                 <div className=' text-center font-extrabold text-3xl mb-[100px]'>
                      <h1 className=' underline underline-offset-2'>Admin Panel</h1>
                 </div>
-                    <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]'>
+                   
+                    <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]' onClick={()=>{
+                        router.push("/admin/dashboard")
+                    }} >
                         <LayoutDashboard />
                         Dashboard
                     </div>
-                    <div className=' hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]'>
+                    <div className=' hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]' onClick={()=>{
+                        router.push("/admin/newjob")
+                    }} >
                         <SquarePlus />
                         New Job
                     </div>
-                    <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]'>
+                    <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]' onClick={()=>{
+                        router.push("/admin/joblist")
+                    }} >
                         <LayoutList />
                         Job list
                     </div>
-                    <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]'>
+                    <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]' onClick={()=>{
+                        router.push("/admin/viewresume")
+                    }} >
                         <ScanSearch />
                         View Resume
                     </div>
-                    <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]'>
+                    <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]' onClick={()=>{
+                        router.push("/admin/contactlist")
+                    }} >
                         <Contact2Icon />
                         Contact list
                     </div>

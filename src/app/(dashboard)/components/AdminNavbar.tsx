@@ -72,7 +72,7 @@ function AdminNavbar() {
             };
 
             // Call setCookie function to set your desired cookie
-            showCookie('user', "", 1); // 30 days expiry, adjust as needed
+            showCookie('admin', "", 1); // 30 days expiry, adjust as needed
         }, []);
     }
     const { setTheme, theme } = useTheme();
@@ -94,27 +94,39 @@ function AdminNavbar() {
                                 <SheetDescription className=' w-full'>
                                     <div className=' flex flex-col justify-between gap items-start gap-[200px] '>
                                         <div className=' flex flex-col w-full '>
-                                            <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]'>
+                                            <SheetClose>
+                                            <div  className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]'  onClick={()=>{
+                                                router.push("/admin/dashboard")
+                                            }}>
                                                 <LayoutDashboard />
                                                 Dashboard
                                             </div>
-                                            <div className=' hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]'>
+                                            
+                                            <div  className=' hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]' onClick={()=>{
+                                                router.push("/admin/newjob")
+                                            }}>
                                                 <SquarePlus />
                                                 New Job
                                             </div>
-                                            <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]'>
+                                            <div  className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]' onClick={()=>{
+                                                router.push("/admin/joblist")
+                                            }}>
                                                 <LayoutList />
                                                 Job list
                                             </div>
-                                            <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]'>
+                                            <div  className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]' onClick={()=>{
+                                                router.push("/admin/viewresume")
+                                            }}>
                                                 <ScanSearch />
                                                 View Resume
                                             </div>
-                                            <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]'>
+                                            <div  className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]' onClick={()=>{
+                                                router.push('/admin/contactlist')
+                                            }}>
                                                 <Contact2Icon />
                                                 Contact list
                                             </div>
-
+                                            </SheetClose>
                                         </div>
                                         <div className=' w-full'>
                                             {/* <div className=' rounded-full border bg-blue-600 p-2'>
