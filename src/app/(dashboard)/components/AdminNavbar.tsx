@@ -3,9 +3,21 @@
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import { BookMarked, BookMarkedIcon, Bookmark, Contact2Icon, LayoutDashboard, LayoutList, LogOut, MessagesSquare, Moon, ScanSearch, SquarePlus, Sun } from "lucide-react"
+import { BookMarked, BookMarkedIcon, Bookmark, Contact2Icon, FacebookIcon, GithubIcon, ImageIcon, LayoutDashboard, LayoutList, LogOut, LogOutIcon, LucideWrench, MessagesSquare, Moon, ScanSearch, Settings, SettingsIcon, SquarePlus, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useRouter } from 'next/navigation'
+
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -25,15 +37,15 @@ import {
     SheetTrigger,
     SheetClose
 } from "@/components/ui/sheet"
-import Link from 'next/link'
+
 
 import { signOut, useSession } from 'next-auth/react'
-import { IconBookmarkEdit } from '@tabler/icons-react'
+
 
 function AdminNavbar() {
-    
-   
-   
+
+
+
     const session = useSession();
 
     const router = useRouter();
@@ -64,9 +76,9 @@ function AdminNavbar() {
         }, []);
     }
     const { setTheme, theme } = useTheme();
-
+     
     const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-[rgb(17,24,39)]'; // Set background color based on theme
-   
+
     return (
         <div className={`flex justify-between m-auto shadow-md p-3 ${navbarBgColor} w-full`}>
             <div className=' flex gap-4 justify-center items-center'>
@@ -80,36 +92,78 @@ function AdminNavbar() {
                             <SheetHeader className=' w-full'>
                                 <SheetTitle className=' underline underline-offset-4  decoration-[3px] text-[26px] mb-10' >Admin Pannel</SheetTitle>
                                 <SheetDescription className=' w-full'>
-                                   <div>
-                                   <div className=' flex flex-col w-full '>
-                                      <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]'>
-                                        <LayoutDashboard/>
-                                        Dashboard
+                                    <div className=' flex flex-col justify-between gap items-start gap-[200px] '>
+                                        <div className=' flex flex-col w-full '>
+                                            <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]'>
+                                                <LayoutDashboard />
+                                                Dashboard
+                                            </div>
+                                            <div className=' hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]'>
+                                                <SquarePlus />
+                                                New Job
+                                            </div>
+                                            <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]'>
+                                                <LayoutList />
+                                                Job list
+                                            </div>
+                                            <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]'>
+                                                <ScanSearch />
+                                                View Resume
+                                            </div>
+                                            <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]'>
+                                                <Contact2Icon />
+                                                Contact list
+                                            </div>
+
                                         </div>
-                                        <div className=' hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]'>
-                                        <SquarePlus/>
-                                         New Job
+                                        <div className=' w-full'>
+                                            {/* <div className=' rounded-full border bg-blue-600 p-2'>
+                                                <Settings />
+                                            </div> */}
+
+                                            <Dialog>
+                                                <DialogTrigger asChild>
+                                                    <Button variant="outline">
+                                                        <div className=' flex flex-row gap-2 cursor-pointer  p-2 rounded-md w-full'>
+                                                            <Settings />
+                                                            Admin setting
+                                                        </div></Button>
+                                                </DialogTrigger>
+                                                <DialogContent className="sm:max-w-[425px]">
+                                                    <DialogHeader>
+                                                        <DialogTitle>Admin Setting</DialogTitle>
+                                                        <DialogDescription>
+
+                                                        </DialogDescription>
+                                                    </DialogHeader>
+                                                    <div>
+                                                        <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex  items-center gap-4 font-extrabold text-[20px]'>
+                                                            <SettingsIcon/>
+                                                             setting
+                                                        </div>
+                                                        <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex  items-center gap-4 font-extrabold text-[20px]'>
+                                                            <GithubIcon/>
+                                                             Github
+                                                        </div>
+                                                        <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex  items-center gap-4 font-extrabold text-[20px]'>
+                                                            <FacebookIcon/>
+                                                             Facebook
+                                                        </div>
+                                                        <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex  items-center gap-4 font-extrabold text-[20px]'>
+                                                            <LogOutIcon/>
+                                                             Log out
+                                                        </div>
+
+                                                    </div>
+
+                                                </DialogContent>
+                                            </Dialog>
+
+
                                         </div>
-                                        <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]'>
-                                        <LayoutList/>
-                                         Job list
-                                        </div>
-                                        <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]'>
-                                        <ScanSearch/>
-                                         View Resume
-                                        </div>
-                                        <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]'>
-                                        <Contact2Icon/>
-                                         Contact list
-                                        </div>
-                                      
                                     </div>
-                                     <div>
-                                      setting
-                                     </div>
-                                   </div>
                                 </SheetDescription>
-                              
+
                             </SheetHeader>
                         </SheetContent>
                     </Sheet>
