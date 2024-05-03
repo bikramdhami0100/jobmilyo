@@ -9,14 +9,7 @@ function AdminDashoBoard() {
     { name: "Total Jobs", number: 10 },
     { name: "Applied Jobs", number: 20 },
     { name: "Contacted User", number: 20 },
-    { name: "Total User", number: 22 },
-    { name: "Total Jobs", number: 10 },
-    { name: "Applied Jobs", number: 20 },
-    { name: "Contacted User", number: 20 },
-    { name: "Total User", number: 22 },
-    { name: "Total Jobs", number: 10 },
-    { name: "Applied Jobs", number: 20 },
-    { name: "Contacted User", number: 20 },
+    
     
   ]
   return (
