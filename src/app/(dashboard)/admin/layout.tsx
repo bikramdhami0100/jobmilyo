@@ -20,8 +20,8 @@ export default async function AdminLayout({
     <>
       <div id="adminHome" className="w-full h-full">
         {/* Navbar */}
-        <div className="flex justify-end items-end w-full">
-          <div className="w-full md:w-4/5 lg:w-4/5">
+        <div className=" fixed z-10  flex justify-end items-end w-full">
+          <div className="  w-full md:w-4/5 lg:w-4/5">
             <AdminNavbar />
           </div>
         </div>
@@ -29,12 +29,12 @@ export default async function AdminLayout({
         {/* Main Content */}
         <div className="flex flex-grow flex-row justify-between w-full h-full ">
           {/* Sidebar (hidden on small screens) */}
-          <div className=" absolute top-0 hidden lg:flex md:flex w-[20%] h-full ">
+          <div className=" fixed top-0 hidden lg:flex md:flex w-[20%] min-h-screen ">
             <AdminSideBar />
           </div>
 
           {/* Content */}
-          <div className="flex md:ml-[20%] lg:ml-[20%] flex-col flex-grow overflow-y-auto">
+          <div className=" mt-[60px] flex md:ml-[20%] lg:ml-[20%] flex-col flex-grow overflow-y-auto">
             {children}
           </div>
         </div>
