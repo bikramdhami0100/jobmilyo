@@ -1,14 +1,4 @@
-// import React from 'react'
-
-// function ViewResume() {
-//   return (
-//     <div>
-//       Resume
-//     </div>
-//   )
-// }
-
-// export default ViewResume
+"use client"
 import React from 'react'
 import {
   Pagination,
@@ -20,6 +10,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination"
 import { Delete, Pencil, Trash2 } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 interface ResumeType {
   Sr_No: number;
@@ -32,6 +23,7 @@ interface ResumeType {
   Delete: string;
 }
 function ViewResume() {
+  const {theme} =useTheme();
   const users: ResumeType[] = [
     {
       Sr_No: 1,
@@ -70,21 +62,21 @@ function ViewResume() {
     <div className=' flex flex-col gap-4 min-h-screen overflow-hidden'>
 {/* table */}
       <div className=' overflow-x-scroll  '>
-        <table className='  border-2 bg-gray-100 '>
-          <tr className=' bg-blue-200 border-1'><th className="border-2 border-white p-2" > Sr.No</th> <th className="border-2 border-white p-2" >Company name</th> <th className="border-2 border-white p-2" >Job Title</th> <th className="border-2 border-white p-2" >User Name</th> <th className="border-2 border-white p-2" >User Email</th> <th className="border-2 border-white p-2" >Mobile no.</th> <th className="border-2 border-white p-2" >Resume</th> <th className="border-2 border-white p-2" >Delete</th></tr>
+        <table border={2} className=' border-2'>
+          <tr className={`${theme=="light"?"bg-blue-400":null}`}><th className="border-2  p-2" > Sr.No</th> <th className="border-2  p-2" >Company name</th> <th className="border-2  p-2" >Job Title</th> <th className="border-2  p-2" >User Name</th> <th className="border-2  p-2" >User Email</th> <th className="border-2  p-2" >Mobile no.</th> <th className="border-2  p-2" >Resume</th> <th className="border-2  p-2" >Delete</th></tr>
 
           {
             users.map((item: ResumeType, index: any) => {
               return (
-                <tr>
-                  <td className=" border-2 border-white  p-2 ">{item.Sr_No}</td>
-                  <td className=" border-2 border-white  p-2 ">{item.Company_Name}</td>
-                  <td className=" border-2 border-white  p-2 ">{item.Job_Title}</td>
-                  <td className=" border-2 border-white  p-2 ">{item.User_Name}</td>
-                  <td className=" border-2 border-white  p-2 ">{item.User_Email}</td>
-                  <td className=" border-2 border-white  p-2 ">{item.Mobile_Number}</td>
-                  <td className=" border-2 border-white  p-2 ">{item.Resume}</td>
-                  <td className=" border-2 border-white  p-2  cursor-pointer text-blue-600 underline underline-offset-2">  <Trash2/></td>
+                <tr className={`${theme=="light"?"bg-gray-300":null} border-2  `}>
+                  <td className=" border-2   p-2 ">{item.Sr_No}</td>
+                  <td className=" border-2   p-2 ">{item.Company_Name}</td>
+                  <td className=" border-2   p-2 ">{item.Job_Title}</td>
+                  <td className=" border-2   p-2 ">{item.User_Name}</td>
+                  <td className=" border-2   p-2 ">{item.User_Email}</td>
+                  <td className=" border-2   p-2 ">{item.Mobile_Number}</td>
+                  <td className=" border-2   p-2 ">{item.Resume}</td>
+                  <td className=" border-2   p-2  cursor-pointer text-blue-600 underline underline-offset-2">  <Trash2/></td>
 
                 </tr>)
             })

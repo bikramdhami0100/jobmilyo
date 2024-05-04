@@ -18,9 +18,7 @@ function NewJob() {
   const handleChange = (event:any) => {
     setSelectedJob(event.target.value);
   };
-const handleAddJob=()=>{
 
-}
   return (
     <div>
       <div className='shadow-md hover:shadow-2xl'>
@@ -82,7 +80,8 @@ const handleAddJob=()=>{
           </div>
           <div className='w-[300px] lg:w-[400px] m-2'>
             <h1>Company/Organization Logo</h1>
-            <Input type='file' />
+            <Input type='file' name='image' accept='image/*' />
+            
           </div>
           <div className='w-[300px] lg:w-[400px] m-2'>
             <h1>Website</h1>
@@ -108,7 +107,7 @@ const handleAddJob=()=>{
         </div>
         <div className=' flex flex-row flex-wrap m-4 justify-center '>
           <Button className='w-[300px] lg:w-[400px]  bg-blue-600 hover:translate-x-4 duration-150  ' onClick={()=>{
-             handleAddJob()
+            //  handleAddJob()
           }}>Add Job</Button>
         </div>
       </div>

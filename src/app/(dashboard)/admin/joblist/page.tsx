@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import {
   Pagination,
@@ -9,6 +10,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination"
 import { Delete, Pencil, Trash2 } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 interface JobDetailType {
   Sr_No: number;
@@ -24,6 +26,10 @@ interface JobDetailType {
   Delete: string;
 }
 function JobList() {
+  const { theme ,setTheme,themes}=useTheme();
+  console.log(theme)
+  
+   
   const jobDetails: JobDetailType[] = [
     {
       Sr_No: 1,
@@ -58,24 +64,24 @@ function JobList() {
     <div className=' flex flex-col gap-4 min-h-screen overflow-hidden'>
 {/* table */}
       <div className=' overflow-x-scroll  '>
-        <table className='  border-2 bg-gray-100 '>
-          <tr className=' bg-blue-200 border-1'><th className="border-2 border-white p-2" > Sr.No</th> <th className="border-2 border-white p-2" >Job Title</th> <th className="border-2 border-white p-2" >No. Of Post</th> <th className="border-2 border-white p-2" >Qualification Required</th> <th className="border-2 border-white p-2" >Experience Required</th> <th className="border-2 border-white p-2" >Last Date To apply</th> <th className="border-2 border-white p-2" >Company</th> <th className="border-2 border-white p-2" >State</th> <th className="border-2 border-white p-2" >job Posted Date</th> <th className="border-2 border-white p-2" >Edit</th> <th className="border-2 border-white p-2" >Delete</th></tr>
+        <table className={` border-2  `}>
+          <tr className={`border-2 ${theme=="light"?"bg-blue-400":null}`}><th className="border-2  p-2" > Sr.No</th> <th className="border-2  p-2" >Job Title</th> <th className="border-2  p-2" >No. Of Post</th> <th className="border-2  p-2" >Qualification Required</th> <th className="border-2  p-2" >Experience Required</th> <th className="border-2  p-2" >Last Date To apply</th> <th className="border-2  p-2" >Company</th> <th className="border-2  p-2" >State</th> <th className="border-2  p-2" >job Posted Date</th> <th className="border-2  p-2" >Edit</th> <th className="border-2  p-2" >Delete</th></tr>
 
           {
             jobDetails.map((item: JobDetailType, index: any) => {
               return (
-                <tr>
-                  <td className=" border-2 border-white  p-2 ">{item.Sr_No}</td>
-                  <td className=" border-2 border-white  p-2 ">{item.jobTitle}</td>
-                  <td className=" border-2 border-white  p-2 ">{item.No_of_Post}</td>
-                  <td className=" border-2 border-white  p-2 ">{item.Qualification_Required}</td>
-                  <td className=" border-2 border-white  p-2 ">{item.Experience_Required}</td>
-                  <td className=" border-2 border-white  p-2 ">{item.Last_Date_To_Apply}</td>
-                  <td className=" border-2 border-white  p-2 ">{item.Company}</td>
-                  <td className=" border-2 border-white  p-2 ">{item.State}</td>
-                  <td className=" border-2 border-white  p-2 ">{item.Job_Posted_Date}</td>
-                  <td className=" border-2 border-white  p-2 cursor-pointer text-blue-600 underline underline-offset-2 "> <Pencil/></td>
-                  <td className=" border-2 border-white  p-2  cursor-pointer text-blue-600 underline underline-offset-2">  <Trash2/></td>
+                <tr className={`${theme=="light"?"bg-gray-300":null}`}>
+                  <td className=" border-2   p-2 ">{item.Sr_No}</td>
+                  <td className=" border-2   p-2 ">{item.jobTitle}</td>
+                  <td className=" border-2   p-2 ">{item.No_of_Post}</td>
+                  <td className=" border-2   p-2 ">{item.Qualification_Required}</td>
+                  <td className=" border-2   p-2 ">{item.Experience_Required}</td>
+                  <td className=" border-2   p-2 ">{item.Last_Date_To_Apply}</td>
+                  <td className=" border-2   p-2 ">{item.Company}</td>
+                  <td className=" border-2   p-2 ">{item.State}</td>
+                  <td className=" border-2   p-2 ">{item.Job_Posted_Date}</td>
+                  <td className=" border-2   p-2 cursor-pointer text-blue-600 underline underline-offset-2 "> <Pencil/></td>
+                  <td className=" border-2   p-2  cursor-pointer text-blue-600 underline underline-offset-2">  <Trash2/></td>
 
                 </tr>)
             })

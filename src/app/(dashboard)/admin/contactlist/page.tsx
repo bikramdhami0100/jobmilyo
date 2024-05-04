@@ -1,4 +1,4 @@
-
+"use client"
 import React from 'react'
 import {
   AlertDialog,
@@ -22,6 +22,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination"
 import { Trash2 } from 'lucide-react';
+import { useTheme } from 'next-themes'
 
 interface ContactType {
   Sr_No: number;
@@ -32,6 +33,7 @@ interface ContactType {
   Delete: string;
 }
 function ContactList() {
+  const {theme}=useTheme()
   const users: ContactType[] = [
     {
       Sr_No: 1,
@@ -66,17 +68,17 @@ function ContactList() {
       {/* table */}
       <div className=' overflow-x-scroll md:overflow-x-hidden lg:overflow-x-hidden  '>
         <table className='  border-2 bg-gray-100  w-full'>
-          <tr className=' bg-blue-200 border-1'><th className="border-2 border-white p-2" > Sr.No</th> <th className="border-2 border-white p-2" >User Name</th> <th className="border-2 border-white p-2" >User Email</th> <th className="border-2 border-white p-2" >Message</th> <th className="border-2 border-white p-2" >Delete</th> </tr>
+          <tr className={`border-2 ${theme=="light"?"bg-blue-400":null}`}><th className="border-2  p-2" > Sr.No</th> <th className="border-2  p-2" >User Name</th> <th className="border-2  p-2" >User Email</th> <th className="border-2  p-2" >Message</th> <th className="border-2  p-2" >Delete</th> </tr>
 
           {
             users.map((item: ContactType, index: any) => {
               return (
-                <tr>
-                  <td className=" border-2 border-white  p-2 ">{item.Sr_No}</td>
+                <tr className={`${theme=="light"?"bg-gray-300":null} border-2  `}>
+                  <td className=" border-2   p-2 ">{item.Sr_No}</td>
 
-                  <td className=" border-2 border-white  p-2 ">{item.User_Name}</td>
-                  <td className=" border-2 border-white  p-2 ">{item.User_Email}</td>
-                  <td className=" border-2 border-white  p-2 ">
+                  <td className=" border-2   p-2 ">{item.User_Name}</td>
+                  <td className=" border-2   p-2 ">{item.User_Email}</td>
+                  <td className=" border-2   p-2 ">
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <Button variant="outline" className=' border-none text-blue-600 underline underline-offset-2 '>View</Button>
@@ -96,7 +98,7 @@ function ContactList() {
                     </AlertDialog>
                   </td>
 
-                  <td className=" border-2 border-white  p-2  cursor-pointer text-blue-600 underline underline-offset-2">  <Trash2 /></td>
+                  <td className=" border-2   p-2  cursor-pointer text-blue-600 underline underline-offset-2">  <Trash2 /></td>
 
                 </tr>)
             })
