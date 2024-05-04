@@ -79,10 +79,10 @@ function OurTeams() {
                 </div>
                 </div>
                
-                <div className=' flex  flex-row flex-wrap gap-4  justify-center items-center  p-2'>
+                <div className=' flex border flex-row flex-wrap gap-4  justify-center items-center  p-2'>
                     {
                         ourTeamData.map((item, index) => {
-                            return (<div className='  flex flex-col shadow-lg border  w-[300px]  justify-center items-center h-[300px] gap-1 '>
+                            return (<div className='  flex flex-col hover:shadow-2xl border  w-[300px]  justify-center items-center h-[300px] gap-1 '>
                                 <div className='' >
                                     <Image src={item.image} alt='our team' width={100} height={100} className=' rounded-full  h-[100px]  w-[100px] hover:focus:' />
                                 </div>
