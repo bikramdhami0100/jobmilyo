@@ -67,7 +67,7 @@ function ContactList() {
     <div className=' flex flex-col gap-4 min-h-screen overflow-hidden'>
       {/* table */}
       <div className=' overflow-x-scroll md:overflow-x-hidden lg:overflow-x-hidden  '>
-        <table className='  border-2 bg-gray-100  w-full'>
+        <table className='  border-2   w-full'>
           <tr className={`border-2 ${theme=="light"?"bg-blue-400":null}`}><th className="border-2  p-2" > Sr.No</th> <th className="border-2  p-2" >User Name</th> <th className="border-2  p-2" >User Email</th> <th className="border-2  p-2" >Message</th> <th className="border-2  p-2" >Delete</th> </tr>
 
           {
