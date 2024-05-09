@@ -19,7 +19,7 @@ import Lottie from 'lottie-react'
 function AdminLogin() {
   const router = useRouter();
   const session = useSession();
-  const [email, setEmail] = useState<string>();
+  const [email, setEmail] = useState<string|undefined>();
   const [password, setPassword] = useState<string>();
   const [emailError, setEmailError] = useState(true);
   const [passwordError, setPasswordError] = useState(true);
@@ -42,10 +42,45 @@ function AdminLogin() {
     }
   }, [email, password])
   const HandleAdminLogin = () => {
-    if ( email &&password &&emailError == passwordError) {
+    if (email && password && emailError == passwordError) {
+
+
       router.push("/admin")
     }
   }
+   useEffect(()=>{
+    function getCookie(name:string) {
+      var nameEQ = name + "=";
+      var cookies = document.cookie.split(';');
+      for(var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i];
+          while (cookie.charAt(0) == ' ') {
+              cookie = cookie.substring(1, cookie.length);
+          }
+          if (cookie.indexOf(nameEQ) == 0) {
+              return cookie.substring(nameEQ.length, cookie.length);
+          }
+      }
+      return null;
+  }
+  var username = getCookie('admin');
+  if(username!==null){
+    router.push("/admin")
+  }
+
+    function setCookie(name:string, value:string, days:number) {
+      var expires = "";
+      if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+      }
+      document.cookie = name + "=" + value + expires + "; path=/"; // Set the cookie with path '/'
+    }
+    setCookie('admin', email?email:"", 3);
+
+
+  },[HandleAdminLogin])
 
   //  if (session.status=="authenticated") {
   //   router.push("/admin");

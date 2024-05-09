@@ -32,7 +32,7 @@ function Signup() {
   const nameRegex = /^[a-zA-Z\s]+$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const dobRegex = /^\d{4}-\d{2}-\d{2}$/;
-  const passwordRegex =  /^[a-zA-Z\s]/;
+  const passwordRegex = /^[a-zA-Z\s]/;
 
   const [name, setname] = useState<string>("");
   const [birth, setbirth] = useState<string>("");
@@ -46,31 +46,31 @@ function Signup() {
   const [errorPassword, setErrorPassword] = useState(true);
   const [errorConfirmPassword, setErrorConfirmPassword] = useState(true);
   const [Show, setShow] = useState(true);
-  const HandleMyFun =async()=>{
-    
+  const HandleMyFun = async () => {
+
     if (nameRegex.test(name) && emailRegex.test(email) && dobRegex.test(birth) && passwordRegex.test(password) && password === confirm) {
       setPassData({ fullname: name, email: email, dob: birth, password: password, confirmpassword: confirm });
-      if (passData!=undefined) {
-         const data:any=JSON.stringify(passData);
+      if (passData != undefined) {
+        const data: any = JSON.stringify(passData);
         dispatch(userSignUpInfo(data));
-       await router.push("/userinformation")
-       
-       }
-     
+        await router.push("/userinformation")
+
+      }
+
     }
-       
+
   }
   useEffect(() => {
 
     if (name || birth || email || password || confirm) {
       if (nameRegex.test(name) && name.length > 4) {
-        
+
         setErrorName(false);
       } else {
         setErrorName(true);
-        
+
       }
-      
+
       if (dobRegex.test(birth) && birth.length > 4) {
         // console.log("valide name")
         setErrorBirth(false);
@@ -89,30 +89,30 @@ function Signup() {
       } else {
         setErrorPassword(true)
       }
-      if (password==confirm && confirm.length > 4) {
+      if (password == confirm && confirm.length > 4) {
         // console.log("valide name")
         setErrorConfirmPassword(false);
       } else {
         setErrorConfirmPassword(true)
       }
-      
-     
+
+
     }
-   
-   
+
+
   }, [name, birth, email, password, confirm, nameRegex, emailRegex, dobRegex, passwordRegex]);
 
- 
+
   // useEffect(() => {
-   
-  
-  
+
+
+
   // }, [HandleMyFun])
 
 
   return (
     <div className='flex flex-col justify-around items-center md:flex-row md:justify-around lg:justify-around lg:flex-row p-2'>
-      
+
       <div className='flex flex-col justify-around items-center'>
         <div className='flex gap-4 mt-4'>
           <Image alt="image" src={"/images/logo.png"} height={200} width={200}></Image>
@@ -144,35 +144,35 @@ function Signup() {
           <div className="flex flex-col justify-center item-start w-[300px] md:[400px] lg:w-[500px]">
             <label htmlFor="email">Email</label>
             <Input onChange={(e) => { setemail(e.target.value) }} type="email" placeholder="Email address" name='email' />
-            {errorEmail? <p className=' text-red-600'>please enter valid Email</p> : null}
+            {errorEmail ? <p className=' text-red-600'>please enter valid Email</p> : null}
           </div>
           <div className="flex flex-col justify-center item-start w-[300px] md:w-[400px] lg:w-[500px]">
             <label htmlFor="password">Password</label>
-              <div className=' flex'>
-              <Input onChange={(e) => { setpassword(e.target.value) }} type={`${Show?"password":"text"}`} placeholder="Create a strong password" name='password' />
-                {
-                  Show?<Eye onClick={()=>{
-                    setShow(false)
-                  }}  className=' absolute ml-[260px] md:ml-[360px] lg:ml-[460px] mt-1'/>: <EyeOff onClick={()=>{
-                    setShow(true);
-                  }} className=' absolute ml-[260px] md:ml-[360px] lg:ml-[460px] mt-1'/>
-                }
-              </div>
+            <div className=' flex'>
+              <Input onChange={(e) => { setpassword(e.target.value) }} type={`${Show ? "password" : "text"}`} placeholder="Create a strong password" name='password' />
+              {
+                Show ? <Eye onClick={() => {
+                  setShow(false)
+                }} className=' absolute ml-[260px] md:ml-[360px] lg:ml-[460px] mt-1' /> : <EyeOff onClick={() => {
+                  setShow(true);
+                }} className=' absolute ml-[260px] md:ml-[360px] lg:ml-[460px] mt-1' />
+              }
+            </div>
             {errorPassword ? <p className=' text-red-600'>please enter strong Password</p> : null}
           </div>
           <div className="flex flex-col justify-center item-start w-[300px] md:[400px] lg:w-[500px]">
             <label htmlFor="confirmpassword">Confirm Password</label>
-             <div className=' flex'>
-       {
-        Show?<Eye onClick={()=>{
-          setShow(false);
-        }} className=' absolute ml-[260px] md:ml-[360px] lg:ml-[460px] mt-1'/>: <EyeOff onClick={()=>{
-          setShow(true)
-        }} className=' absolute ml-[260px] md:ml-[360px] lg:ml-[460px] mt-1'/>
-       }
-            <Input onChange={(e) => { setconfirm(e.target.value) }} type={`${Show?"password":"text"}`} placeholder="Confirm your password" name='confirmpassword' />
-            
-             </div>
+            <div className=' flex'>
+              {
+                Show ? <Eye onClick={() => {
+                  setShow(false);
+                }} className=' absolute ml-[260px] md:ml-[360px] lg:ml-[460px] mt-1' /> : <EyeOff onClick={() => {
+                  setShow(true)
+                }} className=' absolute ml-[260px] md:ml-[360px] lg:ml-[460px] mt-1' />
+              }
+              <Input onChange={(e) => { setconfirm(e.target.value) }} type={`${Show ? "password" : "text"}`} placeholder="Confirm your password" name='confirmpassword' />
+
+            </div>
             {errorConfirmPassword ? <p className=' text-red-600'>please enter Confirm Password</p> : null}
           </div>
           <p className='text-center'>or Continue with</p>
@@ -181,8 +181,14 @@ function Signup() {
             <div className='flex'><Button><IconBrandFacebook /> Facebook</Button></div>
             <div className='flex'><Button><IconBrandGoogle /> Google</Button></div>
           </div>
-          <div className='flex flex-col md:flex-col lg:flex-row'>By selecting Agree and continue <p className='underline text-blue-600 font-extrabold'><span>Job</span> <span className='text-red-600 font-extrabold'>मिल्यो?</span></p>, I agree to <span className='underline cursor-pointer text-blue-600 '>Term of Service</span></div>
-          <Button onClick={HandleMyFun}  className='bg-blue-600 w-[200px] rounded-full self-center'>Continue</Button>
+          <div className=' flex '>
+          By selecting Agree and continue Job मिल्यो?
+           
+            <p>
+              , I agree to <span className='underline cursor-pointer text-blue-600 '>Term of Service</span>
+            </p>
+          </div>
+          <Button onClick={HandleMyFun} className='bg-blue-600 w-[200px] rounded-full self-center'>Continue</Button>
         </div>
       </div>
     </div>

@@ -1,13 +1,16 @@
+"use client"
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Facebook, Link, Mail, MapPinned, Phone, Twitter, Youtube } from 'lucide-react'
+import { useTheme } from 'next-themes'
 import React from 'react'
 
 function Footer() {
     const date=new Date();
-    
+    const {theme}=useTheme();
+    const setbgfooter=theme=="light"?"text-[rgb(255,255,255)] bg-[rgb(43,57,64)]":"";
     return (
-         <div className=' w-[100%]  gap-2 border shadow-lg'>
+         <div className={`  w-[100%]  gap-2 ${setbgfooter}` }>
               <div className=' w-[96%] mt-10 grid grid-cols-2 md:grid-flow-col lg:grid-flow-col gap-4 m-auto p-4 mb-4'>
             <div>
                 <h1>Company</h1>
