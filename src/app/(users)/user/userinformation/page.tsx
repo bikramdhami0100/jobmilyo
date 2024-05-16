@@ -16,7 +16,7 @@ function userInformation() {
     });
     
    if (selector[0]==undefined) {
-    router.push("/signup");
+    // router.push("/user/signup");
    }
 
     const {theme} = useTheme();
@@ -304,11 +304,11 @@ function userInformation() {
                     </div>
                     <div>
                         <label htmlFor="pdate">Passed Date</label>
-                        <Input name='passedDate' placeholder='2024-02-22' onChange={handleChange} value={formData.passedDate}></Input>
+                        <Input type='date' name='passedDate' placeholder='2024-02-22' onChange={handleChange} value={formData.passedDate}></Input>
                     </div>
-                    <div className="grid w-full max-w-sm items-center gap-1.5">
-                        <Label htmlFor="picture">Marksheet/Transcript/Grade Sheet</Label>
-                        <Input name='marksheet' id="picture" type="file" value={formData.marksheet} accept='' onClick={() => { }} />
+                    <div className="grid w-[100%] max-w-sm items-center gap-1.5">
+                        <Label htmlFor="picture"  >Marksheet/Transcript/Grade Sheet</Label>
+                        <Input name='marksheet'id="picture" type="file" placeholder='Select file' className='w-full' value={formData.marksheet}  onClick={() => { }} />
                     </div>
                     {/* <p>Further requirement are apply in our major project e.g marksheet, character certificate etc</p> */}
                 </div>

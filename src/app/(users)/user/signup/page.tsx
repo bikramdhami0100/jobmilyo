@@ -46,14 +46,16 @@ function Signup() {
   const [errorPassword, setErrorPassword] = useState(true);
   const [errorConfirmPassword, setErrorConfirmPassword] = useState(true);
   const [Show, setShow] = useState(true);
-  const HandleMyFun = async () => {
-
-    if (nameRegex.test(name) && emailRegex.test(email) && dobRegex.test(birth) && passwordRegex.test(password) && password === confirm) {
+  const HandleMyFun = async() => {
+    // alert("bikram dhami");
+    if (name && email && birth && password && password === confirm) {
+      // alert("Again click ")
       setPassData({ fullname: name, email: email, dob: birth, password: password, confirmpassword: confirm });
       if (passData != undefined) {
         const data: any = JSON.stringify(passData);
+        console.log(data);
         dispatch(userSignUpInfo(data));
-        await router.push("/userinformation")
+        await router.push("/user/userinformation")
 
       }
 
@@ -103,12 +105,6 @@ function Signup() {
   }, [name, birth, email, password, confirm, nameRegex, emailRegex, dobRegex, passwordRegex]);
 
 
-  // useEffect(() => {
-
-
-
-  // }, [HandleMyFun])
-
 
   return (
     <div className='flex flex-col justify-around items-center md:flex-row md:justify-around lg:justify-around lg:flex-row p-2'>
@@ -124,73 +120,72 @@ function Signup() {
           </div>
         </div>
       </div>
-      <div className='flex flex-col shadow-lg p-6 justify-center items-center m-4 rounded-md'>
+      <div className='flex flex-col shadow-md hover:shadow-lg p-6 justify-center items-center m-4 rounded-md border-[2px] '>
         <div className='m-4'>
           <h1>Let's create a new account</h1>
           <hr color='gray' className='w-full shadow-md' />
         </div>
         <div className='flex flex-col flex-wrap justify-center m-auto items-start ml-20   p-4'>
-          <div className="flex flex-col justify-center item-start w-[300px] md:[400px] lg:w-[500px]">
+          <div className="flex flex-col justify-center item-start w-full">
             <label htmlFor="fname">Full Name</label>
             <Input onChange={(e) => { setname(e.target.value) }} name='fname' type="text" placeholder="Your full name" />
             {errorName ? <p className=' text-red-600'>please enter valid name</p> : null}
           </div>
 
-          <div className="flex flex-col justify-center item-start w-[300px] md:[400px] lg:w-[500px]">
+          <div className="flex flex-col justify-center item-start w-full">
             <label htmlFor="dob">Date of birth</label>
-            <Input onChange={(e) => { setbirth(e.target.value) }} type="text" placeholder="Date of Birth YYYY-MM-DD" name='dob' />
+            <Input onChange={(e) => { setbirth(e.target.value) }} type="date" placeholder="Date of Birth YYYY-MM-DD" name='dob' />
             {errorBirth ? <p className=' text-red-600'>please enter valid Date of Birth</p> : null}
           </div>
-          <div className="flex flex-col justify-center item-start w-[300px] md:[400px] lg:w-[500px]">
+          <div className="flex flex-col justify-center item-start w-full">
             <label htmlFor="email">Email</label>
             <Input onChange={(e) => { setemail(e.target.value) }} type="email" placeholder="Email address" name='email' />
             {errorEmail ? <p className=' text-red-600'>please enter valid Email</p> : null}
           </div>
-          <div className="flex flex-col justify-center item-start w-[300px] md:w-[400px] lg:w-[500px]">
+          <div className="flex flex-col justify-center z-0 item-start w-full">
             <label htmlFor="password">Password</label>
             <div className=' flex'>
               <Input onChange={(e) => { setpassword(e.target.value) }} type={`${Show ? "password" : "text"}`} placeholder="Create a strong password" name='password' />
               {
                 Show ? <Eye onClick={() => {
                   setShow(false)
-                }} className=' absolute ml-[260px] md:ml-[360px] lg:ml-[460px] mt-1' /> : <EyeOff onClick={() => {
+                }} className=' z-10 absolute right-[75px]  self-center' /> : <EyeOff onClick={() => {
                   setShow(true);
-                }} className=' absolute ml-[260px] md:ml-[360px] lg:ml-[460px] mt-1' />
+                }} className='z-10 absolute right-[75px]  self-center  ' />
               }
             </div>
             {errorPassword ? <p className=' text-red-600'>please enter strong Password</p> : null}
           </div>
-          <div className="flex flex-col justify-center item-start w-[300px] md:[400px] lg:w-[500px]">
+          <div className="flex flex-col justify-center item-start w-full">
             <label htmlFor="confirmpassword">Confirm Password</label>
             <div className=' flex'>
               {
                 Show ? <Eye onClick={() => {
                   setShow(false);
-                }} className=' absolute ml-[260px] md:ml-[360px] lg:ml-[460px] mt-1' /> : <EyeOff onClick={() => {
+                }} className=' z-10 absolute right-[75px]  self-center' /> : <EyeOff onClick={() => {
                   setShow(true)
-                }} className=' absolute ml-[260px] md:ml-[360px] lg:ml-[460px] mt-1' />
+                }} className=' z-10 absolute right-[75px]  self-center' />
               }
               <Input onChange={(e) => { setconfirm(e.target.value) }} type={`${Show ? "password" : "text"}`} placeholder="Confirm your password" name='confirmpassword' />
 
             </div>
             {errorConfirmPassword ? <p className=' text-red-600'>please enter Confirm Password</p> : null}
           </div>
-          <p className='text-center'>or Continue with</p>
-          <div className='flex gap-3 cursor-pointer self-center'>
+          <p className='text-center mt-2  w-full'>or Continue with</p>
+          <div className='flex gap-3  mt-2 justify-center items-center cursor-pointer text-center  w-full'>
             <div className='flex'><Button><IconBrandGithub /> Github</Button></div>
             <div className='flex'><Button><IconBrandFacebook /> Facebook</Button></div>
             <div className='flex'><Button><IconBrandGoogle /> Google</Button></div>
           </div>
-          <div className=' flex '>
-          By selecting Agree and continue Job मिल्यो?
-           
-            <p>
-              , I agree to <span className='underline cursor-pointer text-blue-600 '>Term of Service</span>
-            </p>
+          <div className=' mt-3 '>
+          By selecting Agree and continue <span className='text-blue-600 font-bold ' >Job</span> <span className='text-red-600 font-bold ' >मिल्यो?</span>, I agree to <span className='underline cursor-pointer text-blue-600 '>Term of Service</span>
           </div>
-          <Button onClick={HandleMyFun} className='bg-blue-600 w-[200px] rounded-full self-center'>Continue</Button>
+         
         </div>
+        <Button onClick={HandleMyFun} className='bg-blue-600 w-[200px] rounded-full self-center'>Continue</Button>
       </div>
+
+      
     </div>
   )
 }
