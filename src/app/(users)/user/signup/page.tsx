@@ -51,11 +51,29 @@ function Signup() {
     if (name && email && birth && password && password === confirm) {
       // alert("Again click ")
       setPassData({ fullname: name, email: email, dob: birth, password: password, confirmpassword: confirm });
+
+
       if (passData != undefined) {
         const data: any = JSON.stringify(passData);
-        console.log(data);
-        dispatch(userSignUpInfo(data));
-        await router.push("/user/userinformation")
+        try {
+          const response = await fetch('/api/email', {method:"post",headers:{
+            "content-type":"application/json"
+          },
+          body:data
+        });
+          console.log(response);
+          if (response.headers) {
+            console.log(data);
+            dispatch(userSignUpInfo(data));
+            
+            // await router.push("/user/signupverify")
+          }
+          // Optionally, you can redirect the user after successful signup
+          // await router.push("/user/userinformation");
+        } catch (error) {
+          console.error('Signup failed', error);
+        }
+
 
       }
 

@@ -59,7 +59,7 @@ function NewJob() {
           <div className='w-[300px] lg:w-[400px] m-2'>
             <h1>Job Type</h1>
             <Select onValueChange={handleChange} value={selectedJob}>
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select a job type" />
               </SelectTrigger>
               <SelectContent>
