@@ -12,6 +12,7 @@ import {
   IconBrandGoogle,
 
 } from "@tabler/icons-react";
+import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux'
 import { userSignUpInfo } from '@/app/Redux/Slice'
@@ -62,8 +63,46 @@ function Signup() {
           body:data
         });
           console.log(response);
-          if (response.headers) {
-            console.log(data);
+          if (response) {
+              // toast("check email and verify your email")
+              toast.success('check email and verify your email')
+              // toast.custom((t) => (
+              //   <div
+              //     className={`${
+              //       t.visible ? 'animate-enter' : 'animate-leave'
+              //     } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+              //   >
+              //     <div className="flex-1 w-0 p-4">
+              //       <div className="flex items-start">
+              //         <div className="flex-shrink-0 pt-0.5">
+              //           <img
+              //             className="h-24 w-24 rounded-full object-contain flex justify-center items-center"
+              //             src="/images/logo.png"
+              //             alt="logo"
+              //             width={10}
+              //             height={10}
+              //           />
+              //         </div>
+              //         <div className="ml-3 flex-1">
+              //           <p className="text-sm font-medium text-gray-900">
+              //             pending...
+              //           </p>
+              //           <p className="mt-1 text-sm text-gray-500">
+              //             please  check your email for verification
+              //           </p>
+              //         </div>
+              //       </div>
+              //     </div>
+              //     <div className="flex border-l border-gray-200">
+              //       <button
+              //         onClick={() => toast.dismiss(t.id)}
+              //         className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              //       >
+              //         Close
+              //       </button>
+              //     </div>
+              //   </div>
+              // ))
             dispatch(userSignUpInfo(data));
             
             // await router.push("/user/signupverify")
@@ -126,7 +165,8 @@ function Signup() {
 
   return (
     <div className='flex flex-col justify-around items-center md:flex-row md:justify-around lg:justify-around lg:flex-row p-2'>
-
+        <Toaster position='top-right'></Toaster>
+        
       <div className='flex flex-col justify-around items-center'>
         <div className='flex gap-4 mt-4'>
           <Image alt="image" src={"/images/logo.png"} height={200} width={200}></Image>
