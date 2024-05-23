@@ -66,7 +66,7 @@ export async function POST(request: any) {
             html: `
             <p>Name: ${name} </p>
             <p>Email: ${email} </p>
-            <p> Click here to verify: <a href='${process.env.LocalHost||process.env.VercelHost}/user/signup/${token}' > Verify </a></p>
+            <p> Click here to verify: <a href='${"http://localhost:3000"?"http://localhost:3000": process.env.VercelHost}/user/signup/${token}' > Verify </a></p>
             `,
         });
         let respon =NextResponse.json({ message: "Success: email was sent",status:200,success:true, });
