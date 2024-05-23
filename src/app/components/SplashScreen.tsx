@@ -19,7 +19,7 @@ function SplashScreen() {
   useEffect(()=>{
     setTimeout(() => {
       setShowSplash(false); // Hide splash screen after 500 milliseconds
-    }, 1600);
+    }, 1000);
   
   },[])
   return (

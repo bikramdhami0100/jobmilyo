@@ -57,7 +57,19 @@ function Signup() {
   }, [name, birth, email, password, confirm]);
 
   const handleSignup = async () => {
+    toast.loading('🦄 data submit successfully !', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      
+      });
     if (!errorName && !errorBirth && !errorEmail && !errorPassword && !errorConfirmPassword) {
+     
       const userData:any = { fullname: name, email: email, dob: birth, password: password, confirmpassword: confirm };
       
       try {
