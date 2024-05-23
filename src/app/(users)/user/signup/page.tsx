@@ -57,7 +57,7 @@ function Signup() {
   }, [name, birth, email, password, confirm]);
 
   const handleSignup = async () => {
-    toast.loading('🦄 data submit successfully !', {
+    toast.info('🦄 data submit successfully !', {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
