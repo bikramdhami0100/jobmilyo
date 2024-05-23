@@ -10,27 +10,35 @@ import {  SingleUserAllInformation } from '@/app/Redux/Slice';
 import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 function userInformation() {
-    const router = useRouter();
-    const selector: any = useSelector((state: any) => state.signupinfo.Users);
+ const router=useRouter();
+    const selector:any = useSelector((state:any) => {
+
+        return state.signupinfo.Users;
+    });
     
-    if (!selector[0]) {
-        // router.push("/user/signup");
-    }
+   if (selector[0]==undefined) {
+    // router.push("/user/signup");
+   }
 
-    const { theme } = useTheme();
+    const {theme} = useTheme();
+
+   
+     console.log(theme);
     const dispatch = useDispatch();
-
-    const Gender = ["Select Gender", "Male", "Female", "Other"];
-    const boardNames = ["Select Board", "Nepal Board", "Higher Secondary Education Board", "Tribhuvan University", "Kathmandu University", "Pokhara University", "Council for Technical Education and Vocational Training", "Nepal Medical Council", "Nepal Bar Council"];
+    const Gender = ["Selcet Gender", "Male", "Female", "Other"];
+    const boardNames = ["Select Board", "Nepal Board", "Higher Secondary Education Board", "Tribhuvan University", "Kathmandu University", "Pokhara University ", "Council for Technical Education and Vocational Training", "Nepal Medical Council", "Nepal Bar Council"];
     const levelNames = ["Select Level", "Primary Education", "Lower Secondary Education", "Secondary Education", "Higher Secondary Education", "Bachelor's Degree", "Master's Degree", "SEE", "Phd", "+2/PCL"];
-    const facultyNames = ["Select Faculty", "Humanities", "Science", "Management", "Engineering", "Medicine", "Law", "Education", "Agriculture", "Fine Arts"];
-    const interestedCategories = ["Select Category", "Technology", "Business", "Healthcare", "Education", "Finance", "Government", "Art and Design", "Science", "Non-profit"];
-    const interestedFields = ["Select Field", "Software Development", "Marketing", "Medicine", "Teaching", "Finance", "Public Service", "Graphic Design", "Research", "Social Work"];
-    const interestedEmploymentTypes = ["Select Employment Type", "Full-time", "Part-time", "Contract", "Freelance", "Internship", "Remote", "Temporary"];
-    const expectedPositionLevels = ["Select Position Level", "Entry Level", "Mid Level", "Senior Level", "Executive"];
+    const facultyNames = ["Select Faculty", "Humanities", "Science", "Management", "Engineering", "Medicine", "Law", "Education", "Agriculture", "Fine Arts",];
+    const interestedCategories = ["Select Category", "Technology", "Business", "Healthcare", "Education", "Finance", "Government", "Art and Design", "Science", "Non-profit", /* Add more categories as needed */];
 
+    const interestedFields = ["Select Field", "Software Development", "Marketing", "Medicine", "Teaching", "Finance", "Public Service", "Graphic Design", "Research", "Social Work", /* Add more fields as needed */];
+
+    const interestedEmploymentTypes = ["Select Employment Type", "Full-time", "Part-time", "Contract", "Freelance", "Internship", "Remote", "Temporary", /* Add more employment types as needed */];
+
+    const expectedPositionLevels = ["Select Position Level", "Entry Level", "Mid Level", "Senior Level", "Executive", /* Add more position levels as needed */];
+  
     const [formData, setFormData] = useState<any>({
-        signUpUser: selector[0],
+        signUpUser:selector[0],
         fname: '',
         mname: '',
         lname: '',
@@ -38,23 +46,28 @@ function userInformation() {
         phone: '',
         PermanentAddress: '',
         CurrentAddress: '',
+        
+        // personal information
         boardName: '',
         level: '',
         faculity: '',
         educationtype: '',
         gpaorpercentage: '',
         passedDate: '',
-        marksheet: null,
+        marksheet: ''
+        // employement information
+        ,
         previouscompany: '',
         previousrole: '',
         interestedCategory: '',
         interestedFiels: '',
         interestedEmploymentType: '',
         expectedPositionLevel: '',
-        uploadCV: null,
-    });
+        uploadCV: '',
 
-    const [formErrors, setFormErrors] = useState<any>({
+    });
+    // const [userId,setUserId]=useState();
+    const [formErrors, setFormErrors] = useState({
         fname: '',
         mname: '',
         lname: '',
@@ -62,13 +75,16 @@ function userInformation() {
         phone: '',
         PermanentAddress: '',
         CurrentAddress: '',
+        // education information
         boardName: '',
         level: '',
         faculity: '',
         educationtype: '',
         gpaorpercentage: '',
         passedDate: '',
-        marksheet: '',
+        marksheet: ''
+        //employment information
+        ,
         previouscompany: '',
         previousrole: '',
         interestedCategory: '',
@@ -77,26 +93,61 @@ function userInformation() {
         expectedPositionLevel: '',
         uploadCV: ''
     });
+    const interestedCategoriesRegex = /^(Select Category|Technology|Business|Healthcare|Education|Finance|Government|Art and Design|Science|Non-profit)$/;
+
+    const interestedFieldsRegex = /^(Select Field|Software Development|Marketing|Medicine|Teaching|Finance|Public Service|Graphic Design|Research|Social Work)$/;
+
+    const interestedEmploymentTypesRegex = /^(Select Employment Type|Full-time|Part-time|Contract|Freelance|Internship|Remote|Temporary)$/;
+
+    const expectedPositionLevelsRegex = /^(Select Position Level|Entry Level|Mid Level|Senior Level|Executive)$/;
 
     const nameRegex = /^[a-zA-Z\s]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^(\d{3}-\d{3}-\d{4}|\(\d{3}\) \d{3}-\d{4}|\d{10})$/;
     const genderRegex = /^(Male|Female|Other)$/;
     const AddressRegex = /^[a-zA-Z0-9\s,.\-]{1,100}$/;
+    // const boardNamesRegex = /^(Select Board|Nepal Board|Higher Secondary Education Board|Tribhuvan University|Kathmandu University|Pokhara University|Council for Technical Education and Vocational Training|Nepal Medical Council|Nepal Bar Council)$/;
+    const levelNamesRegex = /^(Select Level|Primary Education|Lower Secondary Education|Secondary Education|Higher Secondary Education|Bachelor's Degree|Master's Degree|SEE|Phd|\+2\/PCL)$/;
+    const facultyNamesRegex = /^(Select Faculty|Humanities|Science|Management|Engineering|Medicine|Law|Education|Agriculture|Fine Arts)$/;
 
+   const  SubmitData=async()=>{
+       const data=await fetch("/api/userinfo/",{
+        method:"post",
+        headers:{
+            "content-type":"application/json"
+        },
+        body:JSON.stringify({
+            fullName: 'John Doe',
+            email: 'john.doe@example.com',
+           
+            dateOfBirth: new Date('1990-01-01')
+          })
+       })
+       const result=await data.json();
+       if (result) {
+        toast.success('🦄 Wow so easy!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            
+            });
+       }
+    //    console.log(result);
+    // router.push("/user/Home");
+   }
+ 
     const handleChange = (e: any) => {
-        const { name, value, files } = e.target;
+        const { name, value } = e.target;
 
-        if (files) {
-            setFormData({
-                ...formData,
-                [name]: files[0],
-            });
-        } else {
-            setFormData({
-                ...formData,
-                [name]: value,
-            });
-        }
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
 
         // Validation
         switch (name) {
@@ -115,130 +166,40 @@ function userInformation() {
                     gender: genderRegex.test(value) ? '' : 'Invalid gender',
                 });
                 break;
-
             case 'phone':
                 setFormErrors({
                     ...formErrors,
                     phone: phoneRegex.test(value) ? '' : 'Invalid Phone Number',
                 });
                 break;
-
             case 'PermanentAddress':
+                setFormErrors({
+                    ...formErrors,
+                    PermanentAddress: AddressRegex.test(value) ? '' : 'Invalid Address',
+                });
+                break;
             case 'CurrentAddress':
                 setFormErrors({
                     ...formErrors,
-                    [name]: AddressRegex.test(value) ? '' : 'Invalid Address',
+                    CurrentAddress: AddressRegex.test(value) ? '' : 'Invalid Address',
                 });
                 break;
 
+            //education error handeling
+            // Add validation for other fields as needed
             default:
                 break;
         }
     };
-
-    const SubmitData = async () => {
-        alert("this is me")
-        try {
-            const response = await fetch("/api/userinfo/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                // body: JSON.stringify({
-                //     fullName: formData.fname + ' ' + formData.mname + ' ' + formData.lname,
-                //     email: formData.signUpUser.email,
-                //     dateOfBirth: new Date('1990-01-01'),
-                //     phone: formData.phone,
-                //     PermanentAddress: formData.PermanentAddress,
-                //     CurrentAddress: formData.CurrentAddress,
-                //     education: {
-                //         boardName: formData.boardName,
-                //         level: formData.level,
-                //         faculity: formData.faculity,
-                //         educationtype: formData.educationtype,
-                //         gpaorpercentage: formData.gpaorpercentage,
-                //         passedDate: formData.passedDate,
-                //         marksheet: formData.marksheet,
-                //     },
-                //     employment: {
-                //         previouscompany: formData.previouscompany,
-                //         previousrole: formData.previousrole,
-                //         interestedCategory: formData.interestedCategory,
-                //         interestedFiels: formData.interestedFiels,
-                //         interestedEmploymentType: formData.interestedEmploymentType,
-                //         expectedPositionLevel: formData.expectedPositionLevel,
-                //         uploadCV: formData.uploadCV,
-                //     },
-                // }),
-            });
-
-            const result = await response.json();
-            if (response.ok) {
-                toast.success('Information submitted successfully!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-                // Redirect after successful submission
-                // router.push("/user/Home");
-            } else {
-                toast.error(`Error: ${result.message}`, {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-            }
-        } catch (error: any) {
-            toast.error(`Error: ${error.message}`, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-        }
-    };
-
-    const HandleUploadAndContinue = () => {
-        const requiredFields = [
-            'fname', 'mname', 'lname', 'gender', 'phone', 'PermanentAddress', 'CurrentAddress',
-            'boardName', 'level', 'faculity', 'educationtype', 'gpaorpercentage', 'passedDate',
-            'previouscompany', 'previousrole', 'interestedCategory', 'interestedFiels',
-            'interestedEmploymentType', 'expectedPositionLevel'
-        ];
-
-        const hasEmptyField = requiredFields.some(field => !formData[field]);
-        if (!hasEmptyField) {
-            const userdata: any = formData;
-            // dispatch(SingleUserAllInformation(JSON.stringify(userdata)));
+    const HandleUploadAndContinue=()=>{
+        if (formData.CurrentAddress != "" && formData.PermanentAddress != "" && formData.boardName != "" && formData.educationtype != "" && formData.expectedPositionLevel != "" && formData.faculity != "" && formData.fname != "" && formData.gender != "" && formData.gpaorpercentage != "" && formData.interestedCategory != "" && formData.interestedEmploymentType != "" && formData.interestedFiels != "" && formData.interestedFiels != "" && formData.level != "" && formData.lname != "" && formData.mname != "" && formData.passedDate != "" && formData.phone != "" && formData.previouscompany != "" && formData.previousrole != "") {
+           const data:any=JSON.stringify(formData)
+            dispatch(SingleUserAllInformation(data))
             router.push("/profile");
-        } else {
-            toast.error('Please fill in all required fields.', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-        }
-    };
-
+      }
+    }
+   
+ 
     return (
  <div className=' flex  flex-col justify-around items-center gap-10 '>
         
@@ -255,7 +216,8 @@ draggable
 pauseOnHover
 theme="light"
 />
-<ToastContainer />
+{/* Same as */}
+     <ToastContainer />
             <div className=' gap-10 flex flex-col justify-evenly items-center  md:flex-row lg:flex-row w-full '>
                 {/* Personal Data */}
                 <div className=' w-full'>
@@ -470,7 +432,7 @@ theme="light"
                     </div>
                 </div>
             </div>
-            <Button onClick={SubmitData}>Testing value</Button>
+            <Button onClick={SubmitData}>Testin value</Button>
         </div>
     )
 }

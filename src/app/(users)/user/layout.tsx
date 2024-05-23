@@ -26,10 +26,12 @@ export default async function UserLayout({
    <>
       <div className={lora.className} id="userHome"  >
          <div>
-         <div className=" ">
+         <div className=" w-full top-0 fixed z-10">
          <Navbar/>
          </div>
-         {children}
+          <div className="z-0 mt-[60px]" >
+          {children}
+          </div>
          <Footer/>
          </div>
       </div>

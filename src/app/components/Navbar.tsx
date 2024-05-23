@@ -27,15 +27,52 @@ import {
 import Link from 'next/link'
 
 import { signOut, useSession } from 'next-auth/react'
-import { IconBookmarkEdit } from '@tabler/icons-react'
 
 function Navbar() {
-    
-   
+    const { setTheme, theme } = useTheme();
+
+    const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-[rgb(17,24,39)]'; // Set background color based on theme
+    const NavMenu = ["Home", "About", "Jobs", "Contact", "Documentation"]
+    const [token,setToken]=useState();
    
     const session = useSession();
 
     const router = useRouter();
+   useEffect(()=>{
+   // Function to get a cookie value by its name
+function getCookie(name:any) {
+    // Construct the search string for the cookie name
+    const nameEQ = name + "=";
+    
+    // Split the cookie string into individual cookies
+    const ca = document.cookie.split(';');
+    console.log("token is "+ca);
+    // It"erate over the array of cookies
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        
+        // Remove leading spaces from the cookie string
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        
+        // Check if the cookie string starts with the desired cookie name
+        if (c.indexOf(nameEQ) == 0) {
+            // Return the cookie value
+            return decodeURIComponent(c.substring(nameEQ.length, c.length));
+        }
+    }
+    
+    // If the cookie is not found, return null
+    return null;
+}
+
+// Usage example
+const tokenValue:any = getCookie('token');
+setToken(tokenValue);
+console.log('Token Value:', tokenValue);
+
+   
+   },[])
+
     if (session.status == "authenticated") {
         useEffect(() => {
             // Function to set a cookie
@@ -62,16 +99,13 @@ function Navbar() {
             showCookie('user', "", 1); // 30 days expiry, adjust as needed
         }, []);
     }
-    const { setTheme, theme } = useTheme();
-
-    const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-[rgb(17,24,39)]'; // Set background color based on theme
-    const NavMenu = ["Home", "About", "Jobs", "Contact", "Documentation"]
 
     const ChatWithUs = () => {
         alert("implement in major project !!!")
     }
     return (
         <div className={`flex justify-between m-auto shadow-md p-3 ${navbarBgColor} `}>
+           
             <div className=' flex gap-1 justify-center items-center'>
                 <div className=' visible md:hidden lg:hidden'>
 
@@ -124,10 +158,10 @@ function Navbar() {
 
 
                 {
-                    session.status == "authenticated" ? <div>
+                    session.status == "authenticated" || token  ? <div>
                         <DropdownMenu >
                             <DropdownMenuTrigger className=' outline-none' ><div>
-                                <Image src={`${session.data.user?.image}`} alt='user' height={30} width={30} className=' w-[35px] w-[35px]  rounded-full '></Image>
+                                <Image src={`${session.status=="unauthenticated"?"image/jpg":session.data?.user?.image}`} alt='user' height={30} width={30} className=' w-[35px] w-[35px]  rounded-full '></Image>
                             </div></DropdownMenuTrigger>
                             <DropdownMenuContent>
                                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -152,6 +186,8 @@ function Navbar() {
                         }}>Admin</Button>
                     </div>
                 }
+
+
                 <DropdownMenu >
                     <DropdownMenuTrigger asChild>
                         <Button variant="outline" size="icon">
@@ -173,6 +209,7 @@ function Navbar() {
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
+      
         </div>
     )
 }
