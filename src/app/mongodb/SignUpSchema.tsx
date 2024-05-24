@@ -5,6 +5,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+     color: {
+        type: String,
+    },
     email: {
         type: String,
         required: true,
@@ -12,10 +15,6 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true,
-    },
-    dateOfBirth: {
-        type: Date,
         required: true,
     },
     userVerify: {

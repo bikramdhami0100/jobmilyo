@@ -1,42 +1,98 @@
 import mongoose from 'mongoose';
 
-// Education Sub-schema
-const educationSchema = new mongoose.Schema({
-  skill: [String],
-  boardName: String,
-  level: String,
-  faculty: String,
-  educationType: String,
-  gpaOrPercentage: String,
-  passedDate: Date,
-  marksheet: String
-}, { _id: false });
-
-// Employment Sub-schema
-const employmentSchema = new mongoose.Schema({
-  previousCompany: String,
-  previousRole: String,
-  interestedCategory: String,
-  interestedField: String,
-  interestedEmploymentType: String,
-  expectedPositionLevel: String,
-  uploadedCv: String
-}, { _id: false });
-
-// UserInformation Schema
-const userInformationSchema = new mongoose.Schema({
+const UserInformationSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'usersignups', required: true },
-  firstName: String,
-  middleName: String,
-  lastName: String,
-  gender: String,
-  profile: String,
-  phoneNumber: String,
-  permanentAddress: String,
-  currentAddress: String,
-  educationInformation: [educationSchema],
-  employmentInformation: [employmentSchema]
-}, { timestamps: true });
+  fname: {
+    type: String,
+    required: true
+  },
+  gender: {
+    type: String,
+    required: true
+  },
+  phone: {
+    type: String,
+    required: true
+  },
+  PermanentAddress: {
+    type: String,
+    required: true
+  },
+  CurrentAddress: {
+    type: String,
+    required: true
+  },
+  profile: {
+    type: String,
+    required: true
+  },
+  boardName: {
+    type: String,
+    required: true
+  },
+  level: {
+    type: String,
+    required: true
+  },
+  faculity: {
+    type: String,
+    required: true
+  },
+  educationtype: {
+    type: String,
+    required: true
+  },
+  gpaorpercentage: {
+    type: String,
+    required: true
+  },
+  passedDate: {
+    type: Date,
+    required: true
+  },
+  marksheet: {
+    type: String,
+    required: true
+  },
+  previouscompany: {
+    type: String,
+    required: true
+  },
+  previousrole: {
+    type: String,
+    required: true
+  },
+  interestedCategory: {
+    type: String,
+    required: true
+  },
+  interestedFiels: {
+    type: String,
+    required: true
+  },
+  interestedEmploymentType: {
+    type: String,
+    required: true
+  },
+  expectedPositionLevel: {
+    type: String,
+    required: true
+  },
+  uploadCV: {
+    type: String,
+    required: true
+  },
+  dateofBirth: {
+    type: Date,
+    required: true
+  },
+  skills: {
+    type: [String], // Array of strings
+    default: [] // Default to an empty array
+  }
+});
 
-const UserInformation =mongoose.models.UserInformation|| mongoose.model('UserInformation', userInformationSchema);
+
+
+const UserInformation =mongoose.models.UserInformation|| mongoose.model('UserInformation',UserInformationSchema);
 export default UserInformation;

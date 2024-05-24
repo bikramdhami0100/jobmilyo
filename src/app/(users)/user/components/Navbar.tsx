@@ -30,9 +30,27 @@ import { signOut, useSession } from 'next-auth/react'
 import { IconBookmarkEdit } from '@tabler/icons-react'
 
 function Navbar() {
-    
-   
-   
+    const [usersignup,setusersignup]=useState(false);
+    const [validUser,setValidUser]=useState(false);
+    const checkuserVerify=async()=>{
+        const data=await fetch("/api/checkvaliduser/",{
+            method:"get",
+            headers:{
+                "content-type":"application/json"
+            }
+        })
+        const result=await data.json()
+        console.log(result);
+        if (result.status==200) {
+             setValidUser(result.user)
+            setusersignup(true);
+             session.status=="authenticated";
+        }
+    }
+    useEffect(()=>{
+    checkuserVerify();
+    },[]);
+   console.log(usersignup);
     const session = useSession();
 
     const router = useRouter();
@@ -124,7 +142,8 @@ function Navbar() {
 
 
                 {
-                    session.status == "authenticated" ? <div>
+                    session.status == "authenticated" ? 
+                    <div>
                         <DropdownMenu >
                             <DropdownMenuTrigger className=' outline-none' ><div>
                                 <Image src={`${session.data.user?.image}`} alt='user' height={30} width={30} className=' w-[35px] w-[35px]  rounded-full '></Image>
@@ -143,7 +162,7 @@ function Navbar() {
                             </DropdownMenuContent>
                         </DropdownMenu>
 
-                    </div> : <div className=' flex  gap-1'>
+                    </div>  : <div className=' flex  gap-1'>
                         <Button className='bg-blue-600' onClick={() => {
                             router.push("/user/login")
                         }}>Log in</Button>

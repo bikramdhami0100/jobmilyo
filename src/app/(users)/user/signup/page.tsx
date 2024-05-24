@@ -29,48 +29,48 @@ function Signup() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const nameRegex = /^[a-zA-Z\s]+$/;
+  // const nameRegex = /^[a-zA-Z\s]+$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const dobRegex = /^\d{4}-\d{2}-\d{2}$/;
+  // const dobRegex = /^\d{4}-\d{2}-\d{2}$/;
   const passwordRegex = /^[a-zA-Z\s]/;
 
   const [name, setName] = useState<string>("");
-  const [birth, setBirth] = useState<string>("");
+  // const [birth, setBirth] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirm, setConfirm] = useState<string>("");
-  const [errorName, setErrorName] = useState(true);
-  const [errorBirth, setErrorBirth] = useState(true);
+  // const [errorName, setErrorName] = useState(true);
+  // const [errorBirth, setErrorBirth] = useState(true);
   const [errorEmail, setErrorEmail] = useState(true);
   const [errorPassword, setErrorPassword] = useState(true);
   const [errorConfirmPassword, setErrorConfirmPassword] = useState(true);
   const [showPassword, setShowPassword] = useState(true);
 
   useEffect(() => {
-    if (name || birth || email || password || confirm) {
-      setErrorName(!(nameRegex.test(name) && name.length > 4));
-      setErrorBirth(!(dobRegex.test(birth) && birth.length > 4));
+    if (name  || email || password || confirm) {
+      // setErrorName(!(nameRegex.test(name) && name.length > 4));
+      // setErrorBirth(!(dobRegex.test(birth) && birth.length > 4));
       setErrorEmail(!(emailRegex.test(email) && email.length > 4));
       setErrorPassword(!(passwordRegex.test(password) && password.length > 4));
       setErrorConfirmPassword(!(password === confirm && confirm.length > 4));
     }
-  }, [name, birth, email, password, confirm]);
+  }, [name, email, password, confirm]);
 
   const handleSignup = async () => {
-    toast.info('🦄 data submit successfully !', {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      
-      });
-    if (!errorName && !errorBirth && !errorEmail && !errorPassword && !errorConfirmPassword) {
-     
-      const userData:any = { fullname: name, email: email, dob: birth, password: password, confirmpassword: confirm };
+   
+    if (name&& email&& password&&confirm  && !errorEmail && !errorPassword && !errorConfirmPassword) {
+      toast.info('🦄 data submit successfully !', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        
+        });
+      const userData:any = { fullname: name, email: email, password: password, confirmpassword: confirm };
       
       try {
         const response = await fetch('/api/email', {
@@ -139,16 +139,16 @@ function Signup() {
 
         <div className='flex flex-col flex-wrap justify-center m-auto items-start ml-20 p-4'>
           <div className="flex flex-col justify-center item-start w-full">
-            <label htmlFor="fname">Full Name</label>
-            <Input onChange={(e) => setName(e.target.value)} name='fname' type="text" placeholder="Your full name" />
-            {errorName && <p className=' text-red-600'>Please enter a valid name</p>}
+            <label htmlFor="fname">Display Name</label>
+            <Input onChange={(e) => setName(e.target.value)} name='fname' type="text" placeholder="Your display name" />
+            {/* {errorName && <p className=' text-red-600'>Please enter a valid name</p>} */}
           </div>
 
-          <div className="flex flex-col justify-center item-start w-full">
+          {/* <div className="flex flex-col justify-center item-start w-full">
             <label htmlFor="dob">Date of Birth</label>
             <Input onChange={(e) => setBirth(e.target.value)} type="date" placeholder="Date of Birth YYYY-MM-DD" name='dob' />
             {errorBirth && <p className=' text-red-600'>Please enter a valid Date of Birth</p>}
-          </div>
+          </div> */}
 
           <div className="flex flex-col justify-center item-start w-full">
             <label htmlFor="email">Email</label>

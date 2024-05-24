@@ -21,14 +21,18 @@ export async function POST(request: any) {
     const salt= bcrypt.genSaltSync(10);
     const hashpass=bcrypt.hashSync(userpassword,salt);
     console.log(hashpass);
-    const dateofbirth=user.dob;
-    // const message = user.password;
-
+    function generateRandomColorCode() {
+        const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+        return `#${randomColor.padStart(6, '0')}`;
+    }
+    
+    // Generate and log a random color code
+    const randomColorCode = generateRandomColorCode();
     const newUser = new Usersignup({
         fullName: name,
+        color:randomColorCode,
         email: email,
         password: hashpass,
-        dateOfBirth: new Date(dateofbirth),
         userVerify: false, // or false, depending on your logic
         admin: false,
     });

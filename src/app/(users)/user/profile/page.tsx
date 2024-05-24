@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { IconCalendarTime } from '@tabler/icons-react';
 import { Bookmark, Phone, Rocket, SendHorizonal, Star } from 'lucide-react';
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 
 import {
     Card,
@@ -170,8 +170,23 @@ function UserProfile() {
             yearofexperience: "6 years"
         }
     ];
+const UserDataFetch= async()=>{
+   const data=await fetch("/api/fetchuserdata",{
+    method:"post",
+    headers:{
+        "content-type":"application/json"
+    },
+    body:null
+   });
+   const result=await data.json();
+   if (result.ok) {
+        console.log(result)
+   }
+    }
 
-
+ useEffect(()=>{
+   UserDataFetch()
+ },[])
     return (
         <div>
             <div className='flex flex-row flex-wrap justify-center items-start '>

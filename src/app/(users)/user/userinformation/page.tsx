@@ -6,97 +6,209 @@ import { useTheme } from 'next-themes';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import {  SingleUserAllInformation } from '@/app/Redux/Slice';
+import { SingleUserAllInformation } from '@/app/Redux/Slice';
 import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
+
+import { ToastAction } from "@/components/ui/toast"
+import { useToast } from "@/components/ui/use-toast"
+import { CldUploadButton } from 'next-cloudinary';
+import { Toaster } from '@/components/ui/toaster';
+// import { profile } from 'console';
 function userInformation() {
-    const router = useRouter();
-    const selector: any = useSelector((state: any) => state.signupinfo.Users);
+    const { toast } = useToast()
+    // const [profile,setprofile]=useState();
+    // const [cv,setcv]=useState();
+    // const [marksheet,setmarksheet]=useState();
     
-    if (!selector[0]) {
+    const [formData, setFormData] = useState<any>({
+        fname: '',
+        gender: '',
+        phone: '',
+
+        PermanentAddress: '',
+        CurrentAddress: '',
+        profile:"",
+        // personal information
+        boardName: '',
+        level: '',
+        faculity: '',
+        educationtype: '',
+        gpaorpercentage: '',
+        passedDate: '',
+        marksheet:""
+        // employement information
+        ,
+        previouscompany: '',
+        previousrole: '',
+        interestedCategory: '',
+        interestedFiels: '',
+        interestedEmploymentType: '',
+        expectedPositionLevel: '',
+        uploadCV: "",
+
+    });
+     
+    // console.log(profile);
+    const handleProfile = (result: any) => {
+
+
+        // setprofile(result.info.secure_url);
+        setFormData((prevState:any)=>({
+            ...prevState,
+            profile:result.info.secure_url
+          }))
+        if (result.info.secure_url) {
+            toast({
+                title: "Upload successfully ",
+                description: "Profile Image is upload successfully",
+              })
+        }
+        // Handle successful upload, e.g., save the URL to state
+    };
+    // upload marksheet
+    const uploadMarksheet = (result: any) => {
+
+        // setmarksheet(result.info.secure_url);
+        setFormData((prevState:any)=>({
+            ...prevState,
+            marksheet:result.info.secure_url
+          }))
+        if (result.info.secure_url) {
+            toast({
+                title: "Upload successfully ",
+                description: "Marksheet upload successfully ",
+              })
+        }
+        // Handle successful upload, e.g., save the URL to state
+    };
+    //upload  cv
+    const uploadCV = (result: any) => {
+          setFormData((prevState:any)=>({
+            ...prevState,
+            uploadCV:result.info.secure_url
+          }))
+        // setcv(result.info.secure_url);
+        if (result.info.secure_url) {
+            toast({
+                title: "Upload successfully ",
+                description: "CV upload",
+              })
+        }
+        // Handle successful upload, e.g., save the URL to state
+    };
+
+    const router = useRouter();
+    const selector: any = useSelector((state: any) => {
+
+        return state.signupinfo.Users;
+    });
+
+    if (selector[0] == undefined) {
         // router.push("/user/signup");
     }
 
     const { theme } = useTheme();
+
+
+    console.log(theme);
     const dispatch = useDispatch();
-
-    const Gender = ["Select Gender", "Male", "Female", "Other"];
-    const boardNames = ["Select Board", "Nepal Board", "Higher Secondary Education Board", "Tribhuvan University", "Kathmandu University", "Pokhara University", "Council for Technical Education and Vocational Training", "Nepal Medical Council", "Nepal Bar Council"];
+    const Gender = ["Selcet Gender", "Male", "Female", "Other"];
+    const boardNames = ["Select Board", "Nepal Board", "Higher Secondary Education Board", "Tribhuvan University", "Kathmandu University", "Pokhara University ", "Council for Technical Education and Vocational Training", "Nepal Medical Council", "Nepal Bar Council"];
     const levelNames = ["Select Level", "Primary Education", "Lower Secondary Education", "Secondary Education", "Higher Secondary Education", "Bachelor's Degree", "Master's Degree", "SEE", "Phd", "+2/PCL"];
-    const facultyNames = ["Select Faculty", "Humanities", "Science", "Management", "Engineering", "Medicine", "Law", "Education", "Agriculture", "Fine Arts"];
-    const interestedCategories = ["Select Category", "Technology", "Business", "Healthcare", "Education", "Finance", "Government", "Art and Design", "Science", "Non-profit"];
-    const interestedFields = ["Select Field", "Software Development", "Marketing", "Medicine", "Teaching", "Finance", "Public Service", "Graphic Design", "Research", "Social Work"];
-    const interestedEmploymentTypes = ["Select Employment Type", "Full-time", "Part-time", "Contract", "Freelance", "Internship", "Remote", "Temporary"];
-    const expectedPositionLevels = ["Select Position Level", "Entry Level", "Mid Level", "Senior Level", "Executive"];
+    const facultyNames = ["Select Faculty", "Humanities", "Science", "Management", "Engineering", "Medicine", "Law", "Education", "Agriculture", "Fine Arts",];
+    const interestedCategories = ["Select Category", "Technology", "Business", "Healthcare", "Education", "Finance", "Government", "Art and Design", "Science", "Non-profit", /* Add more categories as needed */];
 
-    const [formData, setFormData] = useState<any>({
-        signUpUser: selector[0],
+    const interestedFields = ["Select Field", "Software Development", "Marketing", "Medicine", "Teaching", "Finance", "Public Service", "Graphic Design", "Research", "Social Work", /* Add more fields as needed */];
+
+    const interestedEmploymentTypes = ["Select Employment Type", "Full-time", "Part-time", "Contract", "Freelance", "Internship", "Remote", "Temporary", /* Add more employment types as needed */];
+
+    const expectedPositionLevels = ["Select Position Level", "Entry Level", "Mid Level", "Senior Level", "Executive", /* Add more position levels as needed */];
+
+   
+    // const [userId,setUserId]=useState();
+    const [formErrors, setFormErrors] = useState({
         fname: '',
-        mname: '',
-        lname: '',
+       
         gender: '',
         phone: '',
         PermanentAddress: '',
         CurrentAddress: '',
+        dateofBirth:"",
+        profile:"",
+        // education information
         boardName: '',
         level: '',
         faculity: '',
         educationtype: '',
         gpaorpercentage: '',
         passedDate: '',
-        marksheet: null,
+        marksheet: ""
+        //employment information
+        ,
         previouscompany: '',
         previousrole: '',
         interestedCategory: '',
         interestedFiels: '',
         interestedEmploymentType: '',
         expectedPositionLevel: '',
-        uploadCV: null,
+        uploadCV: ""
     });
+    const interestedCategoriesRegex = /^(Select Category|Technology|Business|Healthcare|Education|Finance|Government|Art and Design|Science|Non-profit)$/;
 
-    const [formErrors, setFormErrors] = useState<any>({
-        fname: '',
-        mname: '',
-        lname: '',
-        gender: '',
-        phone: '',
-        PermanentAddress: '',
-        CurrentAddress: '',
-        boardName: '',
-        level: '',
-        faculity: '',
-        educationtype: '',
-        gpaorpercentage: '',
-        passedDate: '',
-        marksheet: '',
-        previouscompany: '',
-        previousrole: '',
-        interestedCategory: '',
-        interestedFiels: '',
-        interestedEmploymentType: '',
-        expectedPositionLevel: '',
-        uploadCV: ''
-    });
+    const interestedFieldsRegex = /^(Select Field|Software Development|Marketing|Medicine|Teaching|Finance|Public Service|Graphic Design|Research|Social Work)$/;
+
+    const interestedEmploymentTypesRegex = /^(Select Employment Type|Full-time|Part-time|Contract|Freelance|Internship|Remote|Temporary)$/;
+
+    const expectedPositionLevelsRegex = /^(Select Position Level|Entry Level|Mid Level|Senior Level|Executive)$/;
 
     const nameRegex = /^[a-zA-Z\s]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^(\d{3}-\d{3}-\d{4}|\(\d{3}\) \d{3}-\d{4}|\d{10})$/;
     const genderRegex = /^(Male|Female|Other)$/;
     const AddressRegex = /^[a-zA-Z0-9\s,.\-]{1,100}$/;
+    // const boardNamesRegex = /^(Select Board|Nepal Board|Higher Secondary Education Board|Tribhuvan University|Kathmandu University|Pokhara University|Council for Technical Education and Vocational Training|Nepal Medical Council|Nepal Bar Council)$/;
+    const levelNamesRegex = /^(Select Level|Primary Education|Lower Secondary Education|Secondary Education|Higher Secondary Education|Bachelor's Degree|Master's Degree|SEE|Phd|\+2\/PCL)$/;
+    const facultyNamesRegex = /^(Select Faculty|Humanities|Science|Management|Engineering|Medicine|Law|Education|Agriculture|Fine Arts)$/;
+
+    const SubmitData = async () => {
+        const data = await fetch("/api/userinfo/", {
+            method: "post",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
+        const result = await data.json();
+        if (result) {
+            // toast.success('🦄 Wow so easy!', {
+            //     position: "top-right",
+            //     autoClose: 5000,
+            //     hideProgressBar: false,
+            //     closeOnClick: true,
+            //     pauseOnHover: true,
+            //     draggable: true,
+            //     progress: undefined,
+            //     theme: "light",
+
+            // });
+            toast({
+                title: "Upload successfully ",
+                description: "Hello world",
+              })
+            
+        }
+        //    console.log(result);
+        // router.push("/user/Home");
+    }
 
     const handleChange = (e: any) => {
-        const { name, value, files } = e.target;
+        const { name, value } = e.target;
 
-        if (files) {
-            setFormData({
-                ...formData,
-                [name]: files[0],
-            });
-        } else {
-            setFormData({
-                ...formData,
-                [name]: value,
-            });
-        }
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
 
         // Validation
         switch (name) {
@@ -115,185 +227,64 @@ function userInformation() {
                     gender: genderRegex.test(value) ? '' : 'Invalid gender',
                 });
                 break;
-
             case 'phone':
                 setFormErrors({
                     ...formErrors,
                     phone: phoneRegex.test(value) ? '' : 'Invalid Phone Number',
                 });
                 break;
-
             case 'PermanentAddress':
+                setFormErrors({
+                    ...formErrors,
+                    PermanentAddress: AddressRegex.test(value) ? '' : 'Invalid Address',
+                });
+                break;
             case 'CurrentAddress':
                 setFormErrors({
                     ...formErrors,
-                    [name]: AddressRegex.test(value) ? '' : 'Invalid Address',
+                    CurrentAddress: AddressRegex.test(value) ? '' : 'Invalid Address',
                 });
                 break;
 
+            //education error handeling
+            // Add validation for other fields as needed
             default:
                 break;
         }
     };
-
-    const SubmitData = async () => {
-        alert("this is me")
-        try {
-            const response = await fetch("/api/userinfo/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                // body: JSON.stringify({
-                //     fullName: formData.fname + ' ' + formData.mname + ' ' + formData.lname,
-                //     email: formData.signUpUser.email,
-                //     dateOfBirth: new Date('1990-01-01'),
-                //     phone: formData.phone,
-                //     PermanentAddress: formData.PermanentAddress,
-                //     CurrentAddress: formData.CurrentAddress,
-                //     education: {
-                //         boardName: formData.boardName,
-                //         level: formData.level,
-                //         faculity: formData.faculity,
-                //         educationtype: formData.educationtype,
-                //         gpaorpercentage: formData.gpaorpercentage,
-                //         passedDate: formData.passedDate,
-                //         marksheet: formData.marksheet,
-                //     },
-                //     employment: {
-                //         previouscompany: formData.previouscompany,
-                //         previousrole: formData.previousrole,
-                //         interestedCategory: formData.interestedCategory,
-                //         interestedFiels: formData.interestedFiels,
-                //         interestedEmploymentType: formData.interestedEmploymentType,
-                //         expectedPositionLevel: formData.expectedPositionLevel,
-                //         uploadCV: formData.uploadCV,
-                //     },
-                // }),
-            });
-
-            const result = await response.json();
-            if (response.ok) {
-                toast.success('Information submitted successfully!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-                // Redirect after successful submission
-                // router.push("/user/Home");
-            } else {
-                toast.error(`Error: ${result.message}`, {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-            }
-        } catch (error: any) {
-            toast.error(`Error: ${error.message}`, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-        }
-    };
-
     const HandleUploadAndContinue = () => {
-        const requiredFields = [
-            'fname', 'mname', 'lname', 'gender', 'phone', 'PermanentAddress', 'CurrentAddress',
-            'boardName', 'level', 'faculity', 'educationtype', 'gpaorpercentage', 'passedDate',
-            'previouscompany', 'previousrole', 'interestedCategory', 'interestedFiels',
-            'interestedEmploymentType', 'expectedPositionLevel'
-        ];
-
-        const hasEmptyField = requiredFields.some(field => !formData[field]);
-        if (!hasEmptyField) {
-            const userdata: any = formData;
-            // dispatch(SingleUserAllInformation(JSON.stringify(userdata)));
+        if (formData.CurrentAddress != "" && formData.PermanentAddress != "" && formData.boardName != "" && formData.educationtype != "" && formData.expectedPositionLevel != "" && formData.faculity != "" && formData.fname != "" && formData.gender != "" && formData.gpaorpercentage != "" && formData.interestedCategory != "" && formData.interestedEmploymentType != "" && formData.interestedFiels != "" && formData.interestedFiels != "" && formData.level != "" && formData.lname != "" && formData.mname != "" && formData.passedDate != "" && formData.phone != "" && formData.previouscompany != "" && formData.previousrole != "") {
+            const data: any = JSON.stringify(formData)
+            dispatch(SingleUserAllInformation(data))
             router.push("/profile");
-        } else {
-            toast.error('Please fill in all required fields.', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
         }
-    };
-
+    }
+    //upload profile
+  
     return (
- <div className=' flex  flex-col justify-around items-center gap-10 '>
-        
- <h1>Complete your Information</h1>
-<ToastContainer
-position="top-right"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="light"
-/>
-<ToastContainer />
+        <div className=' flex  flex-col justify-around items-center gap-10 '>
+            <Toaster/>
+            <h1>Complete your Information</h1>
+
             <div className=' gap-10 flex flex-col justify-evenly items-center  md:flex-row lg:flex-row w-full '>
                 {/* Personal Data */}
                 <div className=' w-full'>
                     <div className="flex flex-col shadow-lg border p-4 m-auto gap-4 w-[80%]">
                         <h1 className="">Personal Information</h1>
                         <div>
-                            <label htmlFor="fname">First Name</label>
+                            <label htmlFor="fname">Full Name</label>
                             <Input
                                 onChange={handleChange}
                                 name="fname"
-                                placeholder="First Name"
+                                placeholder="full Name"
                                 value={formData.fname}
                             ></Input>
                             {formErrors.fname && <span className="text-red-500">{formErrors.fname}</span>}
                         </div>
-                        <div>
-                            <label htmlFor="mname">Middle Name</label>
-                            <Input
-                                onChange={handleChange}
-                                name="mname"
-                                placeholder="Middle Name"
-                                value={formData.mname}
-                            ></Input>
-                            {formErrors.mname && <span className="text-red-500">{formErrors.mname}</span>}
-                        </div>
-                        <div>
-                            <label htmlFor="lname">Last Name</label>
-                            <Input
-                                onChange={handleChange}
-                                name="lname"
-                                placeholder="Last Name"
-                                value={formData.lname}
-                            ></Input>
-                            {formErrors.lname && <span className="text-red-500">{formErrors.lname}</span>}
-                        </div>
+                        
                         <div>
                             <label htmlFor="Gender">Gender</label>
-                            <select className={`flex ${theme== "light" ? "bg-[rgb(255,255,255)]" : "bg-[rgb(2,8,23)] "} border w-full p-2 rounded-md outline-1 outline-black`} name="gender" value={formData.gender} id="" onChange={handleChange}>
+                            <select className={`flex ${theme == "light" ? "bg-[rgb(255,255,255)]" : "bg-[rgb(2,8,23)] "} border w-full p-2 rounded-md outline-1 outline-black`} name="gender" value={formData.gender} id="" onChange={handleChange}>
 
                                 {
                                     Gender.map((item, index) => {
@@ -309,7 +300,8 @@ theme="light"
                             <Input
                                 onChange={handleChange}
                                 name="phone"
-                                placeholder="Last Name"
+                                type='number'
+                                placeholder="Enter your phone number"
                                 value={formData.phone}
                             ></Input>
                             {formErrors.phone && <span className="text-red-500">{formErrors.phone}</span>}
@@ -325,7 +317,7 @@ theme="light"
                             {formErrors.PermanentAddress && <span className="text-red-500">{formErrors.PermanentAddress}</span>}
                         </div>
                         <div>
-                            <label htmlFor="CurrentAddress">Permanent Address</label>
+                            <label htmlFor="CurrentAddress">Current Address</label>
                             <Input
                                 onChange={handleChange}
                                 name="CurrentAddress"
@@ -333,6 +325,26 @@ theme="light"
                                 value={formData.CurrentAddress}
                             ></Input>
                             {formErrors.CurrentAddress && <span className="text-red-500">{formErrors.CurrentAddress}</span>}
+                        </div>
+                        <div>
+                            <label htmlFor="dateofBirth">Date of birth</label>
+                            <Input
+                                onChange={handleChange}
+                                name="dateofBirth"
+                                type='date'
+                                placeholder="Date of birth "
+                                value={formData.dateofBirth}
+                            ></Input>
+                            {/* {formErrors.CurrentAddress && <span className="text-red-500">{formErrors.CurrentAddress}</span>} */}
+                        </div>
+                        <div>
+                            <label htmlFor="profile">Profile</label>
+                            <CldUploadButton
+                                className=' w-full text-left border-2 p-1 rounded-md '
+                                onSuccess={handleProfile}
+                                uploadPreset="wyyzhuyo"
+                            />
+                            {/* {formErrors.CurrentAddress && <span className="text-red-500">{formErrors.CurrentAddress}</span>} */}
                         </div>
                         {/* Repeat similar code for other fields */}
                     </div>
@@ -342,7 +354,7 @@ theme="light"
                     <h1 className=' '> Education Information</h1>
                     <div>
                         <label htmlFor="boardName">Board Name</label>
-                        <select className={`flex ${theme== "light" ? "bg-[rgb(255,255,255)]" : "bg-[rgb(2,8,23)] "} border w-full p-2 rounded-md outline-1 outline-black`} name="boardName" value={formData.boardName} id="" onChange={handleChange}>
+                        <select className={`flex ${theme == "light" ? "bg-[rgb(255,255,255)]" : "bg-[rgb(2,8,23)] "} border w-full p-2 rounded-md outline-1 outline-black`} name="boardName" value={formData.boardName} id="" onChange={handleChange}>
 
                             {
                                 boardNames.map((item, index) => {
@@ -355,7 +367,7 @@ theme="light"
                     </div>
                     <div>
                         <label htmlFor="level">Level</label>
-                        <select className={`flex ${theme== "light" ? "bg-[rgb(255,255,255)]" : "bg-[rgb(2,8,23)] "} border w-full p-2 rounded-md outline-1 outline-black`} name="level" value={formData.level} id="" onChange={handleChange}>
+                        <select className={`flex ${theme == "light" ? "bg-[rgb(255,255,255)]" : "bg-[rgb(2,8,23)] "} border w-full p-2 rounded-md outline-1 outline-black`} name="level" value={formData.level} id="" onChange={handleChange}>
 
                             {
                                 levelNames.map((item, index) => {
@@ -368,7 +380,7 @@ theme="light"
                     </div>
                     <div>
                         <label htmlFor="faculity">Faculity</label>
-                        <select className={`flex ${theme== "light" ? "bg-[rgb(255,255,255)]" : "bg-[rgb(2,8,23)] "} border w-full p-2 rounded-md outline-1 outline-black`} name="faculity" value={formData.faculity} id="" onChange={handleChange}>
+                        <select className={`flex ${theme == "light" ? "bg-[rgb(255,255,255)]" : "bg-[rgb(2,8,23)] "} border w-full p-2 rounded-md outline-1 outline-black`} name="faculity" value={formData.faculity} id="" onChange={handleChange}>
 
                             {
                                 facultyNames.map((item, index) => {
@@ -394,7 +406,11 @@ theme="light"
                     </div>
                     <div className="grid w-[100%] max-w-sm items-center gap-1.5">
                         <Label htmlFor="picture"  >Marksheet/Transcript/Grade Sheet</Label>
-                        <Input name='marksheet'id="picture" type="file" placeholder='Select file' className='w-full' value={formData.marksheet}  onClick={() => { }} />
+                        <CldUploadButton
+                                className=' w-full text-left border-2 p-1 rounded-md '
+                                onSuccess={uploadMarksheet}
+                                uploadPreset="wyyzhuyo"
+                            />
                     </div>
                     {/* <p>Further requirement are apply in our major project e.g marksheet, character certificate etc</p> */}
                 </div>
@@ -411,7 +427,7 @@ theme="light"
                     </div>
                     <div>
                         <label htmlFor="interestedCategory">Interested Category</label>
-                        <select className={`flex ${theme== "light" ? "bg-[rgb(255,255,255)]" : "bg-[rgb(2,8,23)] "} border w-full p-2 rounded-md outline-1 outline-black`} name="interestedCategory" value={formData.interestedCategory} id="" onChange={handleChange}>
+                        <select className={`flex ${theme == "light" ? "bg-[rgb(255,255,255)]" : "bg-[rgb(2,8,23)] "} border w-full p-2 rounded-md outline-1 outline-black`} name="interestedCategory" value={formData.interestedCategory} id="" onChange={handleChange}>
 
                             {
                                 interestedCategories.map((item, index) => {
@@ -424,7 +440,7 @@ theme="light"
                     </div>
                     <div>
                         <label htmlFor="interestedFiels">Interested Field</label>
-                        <select className={`flex ${theme== "light" ? "bg-[rgb(255,255,255)]" : "bg-[rgb(2,8,23)] "} border w-full p-2 rounded-md outline-1 outline-black`} name="interestedFiels" value={formData.interestedFiels} id="" onChange={handleChange}>
+                        <select className={`flex ${theme == "light" ? "bg-[rgb(255,255,255)]" : "bg-[rgb(2,8,23)] "} border w-full p-2 rounded-md outline-1 outline-black`} name="interestedFiels" value={formData.interestedFiels} id="" onChange={handleChange}>
 
                             {
                                 interestedFields.map((item, index) => {
@@ -437,7 +453,7 @@ theme="light"
                     </div>
                     <div>
                         <label htmlFor="interestedEmploymentType">Interested Employement Type</label>
-                        <select className={`flex ${theme== "light" ? "bg-[rgb(255,255,255)]" : "bg-[rgb(2,8,23)] "} border w-full p-2 rounded-md outline-1 outline-black`} name="interestedEmploymentType" value={formData.interestedEmploymentType} id="" onChange={handleChange}>
+                        <select className={`flex ${theme == "light" ? "bg-[rgb(255,255,255)]" : "bg-[rgb(2,8,23)] "} border w-full p-2 rounded-md outline-1 outline-black`} name="interestedEmploymentType" value={formData.interestedEmploymentType} id="" onChange={handleChange}>
 
                             {
                                 interestedEmploymentTypes.map((item, index) => {
@@ -450,7 +466,7 @@ theme="light"
                     </div>
                     <div>
                         <label htmlFor="expectedPositionLevel">Expected Position Level</label>
-                        <select className={`flex ${theme== "light" ? "bg-[rgb(255,255,255)]" : "bg-[rgb(2,8,23)] "} border w-full p-2 rounded-md outline-1 outline-black`} name="expectedPositionLevel" value={formData.expectedPositionLevel} id="" onChange={handleChange}>
+                        <select className={`flex ${theme == "light" ? "bg-[rgb(255,255,255)]" : "bg-[rgb(2,8,23)] "} border w-full p-2 rounded-md outline-1 outline-black`} name="expectedPositionLevel" value={formData.expectedPositionLevel} id="" onChange={handleChange}>
 
                             {
                                 expectedPositionLevels.map((item, index) => {
@@ -463,14 +479,19 @@ theme="light"
                     </div>
                     <div className="grid w-full  items-center gap-1.5">
                         <Label htmlFor="picture">Upload CV</Label>
-                        <Input id="picture" type="file" placeholder='Select file' className='w-full' />
+                        <CldUploadButton
+                                className=' w-full text-left border-2 p-1 rounded-md '
+                                onSuccess={uploadCV}
+                                uploadPreset="wyyzhuyo"
+                                
+                            />
                     </div>
                     <div>
-                        <Button onClick={HandleUploadAndContinue}> Upload and Continue</Button>
+                        <Button onClick={SubmitData}>  Continue ⏩ 🚀⏩</Button>
                     </div>
                 </div>
             </div>
-            <Button onClick={SubmitData}>Testing value</Button>
+            {/* <Button onClick={SubmitData}>Testin value</Button> */}
         </div>
     )
 }

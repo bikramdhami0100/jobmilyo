@@ -6,6 +6,7 @@ var jwt = require('jsonwebtoken');
 export async function POST(req: any) {
      await mongodbconn;
      const data=await req.json();
+   //   console.log(data);
      const token=data.token
      if (!token) {
         return NextResponse.json({ message: "Token not found", status: 400 });
@@ -24,5 +25,6 @@ export async function POST(req: any) {
         let respon=NextResponse.json({ message: "User verified successfully", status: 200 });
         respon.cookies.set("token",token,{httpOnly:true});
         return respon;
+   //  return NextResponse.json("hello");
  }
  
