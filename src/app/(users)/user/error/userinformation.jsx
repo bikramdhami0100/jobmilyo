@@ -488,3 +488,14 @@
 // }
 
 // export default userInformation
+import React from 'react'
+
+function userinformation() {
+  return (
+    <div>
+      
+    </div>
+  )
+}
+
+export default userinformation

@@ -32,4 +32,62 @@ export async function GET(req: any) {
         }
    //  return NextResponse.json("hello");
  }
+ //check email from forgetpassword is correct or not 
  
+//forget password email
+export async function POST(req: any) {
+    await mongodbconn;
+    const {femail}=await req.json();
+    console.log(femail)
+    const token=await req.cookies.get("token").value;
+    var decoded = jwt.verify(token, 'secretkeybikramdhami');
+    let  email = decoded.encodeemail;
+  
+
+    if (!token) {
+        const user = await Usersignup.findOne(
+            { email:femail},
+        );
+        if (!user) {
+            return NextResponse.json({ message: "User not found", status: 404 });
+        }
+        if (user.userVerify==true) {
+            let respon=NextResponse.json({ message: "email verified successfully", status: 200 });
+
+            let newtoken = jwt.sign({encodeemail : user.email }, 'secretkeybikramdhami');
+            respon.cookies.set("token",newtoken)
+            return respon;
+            }
+
+     return NextResponse.json({ message: "Token not found", status: 400 });
+   }
+
+  
+   
+     if (femail==email) {
+        const user = await Usersignup.findOne(
+            { email },
+        );
+        if (!user) {
+            return NextResponse.json({ message: "User not found", status: 404 });
+        }
+        if (user.userVerify==true) {
+            let respon=NextResponse.json({ message: "email verified successfully", status: 200 });
+            return respon;
+            }else{
+                const response = NextResponse.json(
+                    { message: "User is not verified", status: 201, user },
+                 
+                );
+                return response;  
+            }
+        
+     }else{
+        const response = NextResponse.json(
+            { message: "user is not found ", status: 404},
+         
+        );
+        return response; 
+     }
+  //  return NextResponse.json("hello");
+}

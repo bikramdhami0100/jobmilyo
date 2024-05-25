@@ -5,7 +5,8 @@ import "@/app/(users)/user/globals.css";
 
 import Footer from "@/app/(users)/user/components/Footer";
 import Navbar from "@/app/(users)/user/components/Navbar";
-
+import { Toaster } from "@/components/ui/toaster";
+import { ToastContainer } from "react-toastify";
 
 
 const lora = Lora({ subsets: ["latin"] });
@@ -26,8 +27,10 @@ export default async function UserLayout({
    <>
       <div className={lora.className} id="userHome"  >
          <div>
-         <div className=" w-full top-0 fixed z-20">
+         <div className=" sm:fixed sm:z-20 w-full top-0 fixed z-20">
          <Navbar/>
+         <Toaster />
+  
          </div>
           <div className="z-0 mt-[60px]" >
           {children}

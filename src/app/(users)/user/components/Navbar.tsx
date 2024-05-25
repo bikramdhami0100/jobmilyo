@@ -39,13 +39,13 @@ function Navbar() {
                 "content-type":"application/json"
             }
         })
-        const result=await data.json()
-        console.log(result);
-        if (result.status==200) {
-             setValidUser(result.user)
-            setusersignup(true);
-             session.status=="authenticated";
-        }
+        // const result=await data.json()
+        // console.log(result);
+        // if (result.status==200) {
+        //      setValidUser(result.user)
+        //     setusersignup(true);
+        //      session.status=="authenticated";
+        // }
     }
     useEffect(()=>{
     checkuserVerify();

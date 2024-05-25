@@ -17,9 +17,9 @@ import { Toaster } from '@/components/ui/toaster';
 // import { profile } from 'console';
 function userInformation() {
     const { toast } = useToast()
-    // const [profile,setprofile]=useState();
-    // const [cv,setcv]=useState();
-    // const [marksheet,setmarksheet]=useState();
+    const [profile,setprofile]=useState(false);
+    const [cv,setcv]=useState(false);
+    const [marksheet,setmarksheet]=useState(false);
     
     const [formData, setFormData] = useState<any>({
         fname: '',
@@ -59,6 +59,7 @@ function userInformation() {
             profile:result.info.secure_url
           }))
         if (result.info.secure_url) {
+            setprofile(true)
             toast({
                 title: "Upload successfully ",
                 description: "Profile Image is upload successfully",
@@ -75,6 +76,7 @@ function userInformation() {
             marksheet:result.info.secure_url
           }))
         if (result.info.secure_url) {
+            setmarksheet(true);
             toast({
                 title: "Upload successfully ",
                 description: "Marksheet upload successfully ",
@@ -90,6 +92,7 @@ function userInformation() {
           }))
         // setcv(result.info.secure_url);
         if (result.info.secure_url) {
+            setcv(true)
             toast({
                 title: "Upload successfully ",
                 description: "CV upload",
@@ -340,10 +343,13 @@ function userInformation() {
                         <div>
                             <label htmlFor="profile">Profile</label>
                             <CldUploadButton
-                                className=' w-full text-left border-2 p-1 rounded-md '
+                                className=' w-full  text-left border-2 p-1 rounded-md '
                                 onSuccess={handleProfile}
                                 uploadPreset="wyyzhuyo"
                             />
+                            {
+                                profile?<p className=' text-green-600 text-left'>upload successfully</p>:<p className=' text-red-700 text-left '>please upload profile image </p>
+                            }
                             {/* {formErrors.CurrentAddress && <span className="text-red-500">{formErrors.CurrentAddress}</span>} */}
                         </div>
                         {/* Repeat similar code for other fields */}
@@ -411,6 +417,9 @@ function userInformation() {
                                 onSuccess={uploadMarksheet}
                                 uploadPreset="wyyzhuyo"
                             />
+                             {
+                                marksheet?<p className=' text-green-600 text-left'>upload successfully</p>:<p className=' text-red-700 text-left '>please upload marksheet (.jpg/.png) </p>
+                            }
                     </div>
                     {/* <p>Further requirement are apply in our major project e.g marksheet, character certificate etc</p> */}
                 </div>
@@ -485,6 +494,9 @@ function userInformation() {
                                 uploadPreset="wyyzhuyo"
                                 
                             />
+                             {
+                                cv?<p className=' text-green-600 text-left'>upload successfully</p>:<p className=' text-red-700 text-left '>please upload cv </p>
+                            }
                     </div>
                     <div>
                         <Button onClick={SubmitData}>  Continue ⏩ 🚀⏩</Button>

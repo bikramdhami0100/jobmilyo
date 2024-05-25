@@ -39,7 +39,7 @@ function Signup() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirm, setConfirm] = useState<string>("");
-  // const [errorName, setErrorName] = useState(true);
+  const [errorName, setErrorName] = useState(true);
   // const [errorBirth, setErrorBirth] = useState(true);
   const [errorEmail, setErrorEmail] = useState(true);
   const [errorPassword, setErrorPassword] = useState(true);
@@ -48,7 +48,7 @@ function Signup() {
 
   useEffect(() => {
     if (name  || email || password || confirm) {
-      // setErrorName(!(nameRegex.test(name) && name.length > 4));
+      setErrorName(!( name.length > 4));
       // setErrorBirth(!(dobRegex.test(birth) && birth.length > 4));
       setErrorEmail(!(emailRegex.test(email) && email.length > 4));
       setErrorPassword(!(passwordRegex.test(password) && password.length > 4));
@@ -102,18 +102,7 @@ function Signup() {
 
   return (
     <div className='flex flex-col justify-around items-center md:flex-row md:justify-around lg:justify-around lg:flex-row p-2'>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
+     
 
       <div className='flex flex-col justify-around items-center'>
         <div className='flex gap-4 mt-4'>
@@ -141,7 +130,7 @@ function Signup() {
           <div className="flex flex-col justify-center item-start w-full">
             <label htmlFor="fname">Display Name</label>
             <Input onChange={(e) => setName(e.target.value)} name='fname' type="text" placeholder="Your display name" />
-            {/* {errorName && <p className=' text-red-600'>Please enter a valid name</p>} */}
+            {errorName && <p className=' text-red-600'>Please enter a valid name</p>}
           </div>
 
           {/* <div className="flex flex-col justify-center item-start w-full">
