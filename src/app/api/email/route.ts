@@ -56,8 +56,8 @@ export async function POST(request: any) {
         secure:false, // false for 587, false for other ports
       //   requireTLS: true,
         auth: {
-            user: "bikramdhami334@gmail.com",
-            pass: "goii iiqm bdvb namv"
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
         }
     });
 
@@ -71,7 +71,7 @@ export async function POST(request: any) {
             html: `
             <p>Name: ${name} </p>
             <p>Email: ${email} </p>
-            <p> Click here to verify: <a href='https://jobmilyo.vercel.app/user/signup/${token}' > Verify </a></p>
+            <p> Click here to verify: <a href='http://localhost:3000/user/signup/${token}' > Verify </a></p>
             `,
         });
         let respon =NextResponse.json({ message: "Success: email was sent",status:200,success:true, });

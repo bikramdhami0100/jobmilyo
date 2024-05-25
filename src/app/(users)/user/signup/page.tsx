@@ -78,7 +78,7 @@ function Signup() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(userData),
         });
-
+       
         if (response.ok) {
           toast.success('🦄 Check your email!', {
             position: "top-right",
@@ -102,7 +102,19 @@ function Signup() {
 
   return (
     <div className='flex flex-col justify-around items-center md:flex-row md:justify-around lg:justify-around lg:flex-row p-2'>
-     
+    <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+
+/>
 
       <div className='flex flex-col justify-around items-center'>
         <div className='flex gap-4 mt-4'>

@@ -28,9 +28,8 @@ import { useSelector } from 'react-redux';
 function UserProfile() {
     interface Mysignup{
         fullname:string,
-        
-        dob:string,
         email:string,
+        color:string,
         
     }
     interface UserInfo{
@@ -62,25 +61,22 @@ function UserProfile() {
     const [rating,setRating]=useState(0);
     const [inform,setInform]=useState<UserInfo>();
     const [signup,setSignUp]=useState<Mysignup|undefined>();
-    const userData=useSelector((state:any)=>{
-       
-         return state.signupinfo.Users[1]
-    });
-
+    const [userInformation,setuserInformation]=useState();
+  const dataFromDatabase=async()=>{
+   const data=await fetch("/api/profiledata/",{
+    method:"get"
+   })
+   const restult=await data.json();
+   if (restult) {
+      setuserInformation(restult.data.userInfos);
+     setSignUp(restult.data.user);
+   }
+  }
   useEffect(()=>{
-    if (userData!==undefined) {
-
-        const data=JSON.parse(userData);
-        setInform(data);
-        console.log(data);
-       
-        const newdata=JSON.parse(data.signUpUser.user);
-         setSignUp(newdata);
-        console.log(newdata);
-       }
+   dataFromDatabase()
+      
   },[]);
-   console.log(inform);
-   console.log(signup);
+  
    
 
     interface UserProfileType {
@@ -170,34 +166,37 @@ function UserProfile() {
             yearofexperience: "6 years"
         }
     ];
-const UserDataFetch= async()=>{
-   const data=await fetch("/api/fetchuserdata",{
-    method:"post",
-    headers:{
-        "content-type":"application/json"
-    },
-    body:null
-   });
-   const result=await data.json();
-   if (result.ok) {
-        console.log(result)
-   }
-    }
+// const UserDataFetch= async()=>{
+//    const data=await fetch("/api/fetchuserdata",{
+//     method:"post",
+//     headers:{
+//         "content-type":"application/json"
+//     },
+//     body:null
+//    });
+//    const result=await data.json();
+//    if (result.ok) {
+//         console.log(result.data.userInfos)
+//    }
+//     }
 
- useEffect(()=>{
-   UserDataFetch()
- },[])
+//  useEffect(()=>{
+//    UserDataFetch()
+//  },[])
+console.log(userInformation)
+console.log(signup) // it's come from token which is set in cookei
     return (
         <div>
             <div className='flex flex-row flex-wrap justify-center items-start '>
                 {/*  first part of user profile*/}
-                <div className=' flex flex-col  justify-center items-center  gap-2 shadow-md border m-2 p-4 w-[100%] md:w-[19%] lg:w-[19%] '>
+                 {
+                    signup?  <div className=' flex flex-col  justify-center items-center  gap-2 shadow-md border m-2 p-4 w-[100%] md:w-[19%] lg:w-[19%] '>
 
                     <div className=' flex flex-col justify-center items-center'>
                        {
-                         signup?<div className='w-[200px] h-[200px] rounded-full  bg-blue-600  '>
-                              
-                         </div>: <Image alt='images' src={userItem.image} height={100} width={100} className='w-[200px] h-[200px] rounded-full  ' />
+                         userInformation? <Image alt='images' src={userItem.image} height={100} width={100} className='w-[200px] h-[200px] rounded-full  ' />:
+                         <div style={{backgroundColor:signup.color}} className='w-[200px] h-[200px] rounded-full   '>    
+                         </div>
                        }
 
                         <p>{userItem.name}</p>
@@ -240,7 +239,8 @@ const UserDataFetch= async()=>{
                         <h1>Recents</h1>
                         <p>No data Available</p>
                     </div>
-                </div>
+                </div>: <div className=' animate-pulse w-full h-[300px]'> </div>
+                 }
                 {/* middle part */}
                 <div className=' flex flex-col  justify-between  items-start mt-2 gap-4 w-[100%] md:w-[60%] lg:w-[60%] shadow-md border  p-2'>
                     <div className=' flex flex-col  justify-center items-start border shadow-lg p-6 m-auto'>

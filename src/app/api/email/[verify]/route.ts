@@ -12,18 +12,20 @@ export async function POST(req: any) {
         return NextResponse.json({ message: "Token not found", status: 400 });
     }
 
-     var decoded = jwt.verify(token, 'secretkeybikramdhami');
+     var decoded = jwt.verify(token, process.env.TOKEN_SECRETKEY);
      let  email = decoded.encodeemail;
      const user = await Usersignup.findOneAndUpdate(
             { email },
             { userVerify: true},
             { new: true }
-        );
+        ).select("-password");
+
         if (!user) {
             return NextResponse.json({ message: "User not found", status: 404 });
         }
+        var newtoken = jwt.sign({ encodeemail: user }, process.env.TOKEN_SECRETKEY);
         let respon=NextResponse.json({ message: "User verified successfully", status: 200 });
-        respon.cookies.set("token",token,{httpOnly:true});
+        respon.cookies.set("token",newtoken,{httpOnly:true});
         return respon;
    //  return NextResponse.json("hello");
  }

@@ -175,6 +175,7 @@ function userInformation() {
     const facultyNamesRegex = /^(Select Faculty|Humanities|Science|Management|Engineering|Medicine|Law|Education|Agriculture|Fine Arts)$/;
 
     const SubmitData = async () => {
+        alert("hello")
         const data = await fetch("/api/userinfo/", {
             method: "post",
             headers: {
@@ -184,25 +185,15 @@ function userInformation() {
         })
         const result = await data.json();
         if (result) {
-            // toast.success('🦄 Wow so easy!', {
-            //     position: "top-right",
-            //     autoClose: 5000,
-            //     hideProgressBar: false,
-            //     closeOnClick: true,
-            //     pauseOnHover: true,
-            //     draggable: true,
-            //     progress: undefined,
-            //     theme: "light",
-
-            // });
+          console.log(result)
             toast({
                 title: "Upload successfully ",
-                description: "Hello world",
+                description: "Value inserted successfully ",
               })
-            
+             router.push("/user/Home");
         }
         //    console.log(result);
-        // router.push("/user/Home");
+       
     }
 
     const handleChange = (e: any) => {
@@ -255,14 +246,14 @@ function userInformation() {
                 break;
         }
     };
-    const HandleUploadAndContinue = () => {
-        if (formData.CurrentAddress != "" && formData.PermanentAddress != "" && formData.boardName != "" && formData.educationtype != "" && formData.expectedPositionLevel != "" && formData.faculity != "" && formData.fname != "" && formData.gender != "" && formData.gpaorpercentage != "" && formData.interestedCategory != "" && formData.interestedEmploymentType != "" && formData.interestedFiels != "" && formData.interestedFiels != "" && formData.level != "" && formData.lname != "" && formData.mname != "" && formData.passedDate != "" && formData.phone != "" && formData.previouscompany != "" && formData.previousrole != "") {
-            const data: any = JSON.stringify(formData)
-            dispatch(SingleUserAllInformation(data))
-            router.push("/profile");
-        }
-    }
-    //upload profile
+    // const HandleUploadAndContinue = () => {
+    //     if (formData.CurrentAddress != "" && formData.PermanentAddress != "" && formData.boardName != "" && formData.educationtype != "" && formData.expectedPositionLevel != "" && formData.faculity != "" && formData.fname != "" && formData.gender != "" && formData.gpaorpercentage != "" && formData.interestedCategory != "" && formData.interestedEmploymentType != "" && formData.interestedFiels != "" && formData.interestedFiels != "" && formData.level != "" && formData.lname != "" && formData.mname != "" && formData.passedDate != "" && formData.phone != "" && formData.previouscompany != "" && formData.previousrole != "") {
+    //         const data: any = JSON.stringify(formData)
+    //         dispatch(SingleUserAllInformation(data))
+    //         router.push("/profile");
+    //     }
+    // }
+    // //upload profile
   
     return (
         <div className=' flex  flex-col justify-around items-center gap-10 '>
@@ -499,11 +490,11 @@ function userInformation() {
                             }
                     </div>
                     <div>
-                        <Button onClick={SubmitData}>  Continue ⏩ 🚀⏩</Button>
+                        <Button onClick={()=>{SubmitData()}}>  Continue ⏩ 🚀⏩</Button>
                     </div>
                 </div>
             </div>
-            {/* <Button onClick={SubmitData}>Testin value</Button> */}
+            <Button onClick={SubmitData}>Testin value</Button>
         </div>
     )
 }
