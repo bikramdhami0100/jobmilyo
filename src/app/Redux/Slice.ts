@@ -9,7 +9,8 @@ interface UserData {
 
 const initialState = {
     Users: [] as UserData[],
-    SearchContent:[] as any
+    SearchContent:[] as any,
+    validUserToken:[] as any,
 }
 
 export const SignupInfo = createSlice({
@@ -35,9 +36,13 @@ export const SignupInfo = createSlice({
         SearchHomeJobs:(state,action)=>{
           
              state.SearchContent.push(action.payload);
-        }
+        },
+        validUserToken:(state,action)=>{
+          
+            state.validUserToken.push(action.payload);
+       }
     }
 })
 
-export const { userSignUpInfo,SingleUserAllInformation,SearchHomeJobs } = SignupInfo.actions
+export const {validUserToken, userSignUpInfo,SingleUserAllInformation,SearchHomeJobs } = SignupInfo.actions
 export default SignupInfo.reducer;

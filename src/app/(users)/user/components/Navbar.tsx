@@ -31,7 +31,8 @@ import { IconBookmarkEdit } from '@tabler/icons-react'
 
 function Navbar() {
     const [usersignup,setusersignup]=useState(false);
-    const [validUser,setValidUser]=useState(false);
+    const [validUser,setValidUser]=useState<any>();
+    const session=useSession();
     const checkuserVerify=async()=>{
         const data=await fetch("/api/checkvaliduser/",{
             method:"get",
@@ -39,47 +40,21 @@ function Navbar() {
                 "content-type":"application/json"
             }
         })
-        // const result=await data.json()
-        // console.log(result);
-        // if (result.status==200) {
-        //      setValidUser(result.user)
-        //     setusersignup(true);
-        //      session.status=="authenticated";
-        // }
+        const result=await data.json()
+        console.log(result);
+        if (result.status==200) {
+            setValidUser(result)
+            setusersignup(true);
+            
+        }
     }
     useEffect(()=>{
+
     checkuserVerify();
     },[]);
-   console.log(usersignup);
-    const session = useSession();
 
     const router = useRouter();
-    if (session.status == "authenticated") {
-        useEffect(() => {
-            // Function to set a cookie
-            const setCookie = (name: string, value: any, days: number) => {
-                const expires = new Date(Date.now() + days * 864e5).toUTCString();
-                document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';
-            };
-
-            // Call setCookie function to set your desired cookie
-            setCookie('user', session.data.user?.email, 1); // 30 days expiry, adjust as needed
-        }, []);
-
-
-    }
-    if (session.status == 'unauthenticated') {
-        useEffect(() => {
-            // Function to set a cookie
-            const showCookie = (name: string, value: any, days: number) => {
-                const expires = new Date(Date.now() + days * 864e5).toUTCString();
-                document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';
-            };
-
-            // Call setCookie function to set your desired cookie
-            showCookie('user', "", 1); // 30 days expiry, adjust as needed
-        }, []);
-    }
+   
     const { setTheme, theme } = useTheme();
 
     const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-[rgb(17,24,39)]'; // Set background color based on theme
@@ -88,6 +63,7 @@ function Navbar() {
     const ChatWithUs = () => {
         alert("implement in major project !!!")
     }
+   
     return (
         <div className={`flex justify-between m-auto shadow-md p-3 ${navbarBgColor} `}>
             <div className=' flex gap-1 justify-center items-center'>
@@ -142,11 +118,19 @@ function Navbar() {
 
 
                 {
-                    session.status == "authenticated" ? 
+                   usersignup?
                     <div>
                         <DropdownMenu >
                             <DropdownMenuTrigger className=' outline-none' ><div>
-                                <Image src={`${session.data.user?.image}`} alt='user' height={30} width={30} className=' w-[35px] w-[35px]  rounded-full '></Image>
+                                {
+                                     session.status=="authenticated"? <Image src={`${session.data.user?.image}`} alt='user' height={30} width={30} className=' w-[35px] w-[35px]  rounded-full '></Image>:<div>
+                                       <div style={{backgroundColor:validUser?.user?.color}} className={`flex justify-center items-center h-[35px] text-center  w-[35px] rounded-full bg-blue-600 `}>
+                                        <p>{validUser.user.fullName.charAt(0)}</p>
+                                       </div>
+
+                                     </div>
+                                }
+
                             </div></DropdownMenuTrigger>
                             <DropdownMenuContent>
                                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -154,10 +138,10 @@ function Navbar() {
                                 <DropdownMenuItem onClick={() => {
                                     router.push("/user/profile")
                                 }}>Profile</DropdownMenuItem>
-                                <DropdownMenuItem> </DropdownMenuItem>
+                              
                                 <DropdownMenuItem>Team</DropdownMenuItem>
                                 <DropdownMenuItem onClick={() => {
-                                    signOut()
+                                    signOut() || setValidUser("")
                                 }} ><LogOut />log out</DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>

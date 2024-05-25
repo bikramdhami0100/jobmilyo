@@ -36,13 +36,14 @@ export async function POST(request: any) {
         userVerify: false, // or false, depending on your logic
         admin: false,
     });
+
     let token = jwt.sign({encodeemail: email, role: 'user' }, 'secretkeybikramdhami', { expiresIn: '1d' });
    try {
     
 
    const userdata= await newUser.save();
 
- 
+    
     console.log('User saved successfully');
 } catch (error) {
     console.error('Error saving user:', error);
@@ -70,7 +71,7 @@ export async function POST(request: any) {
             html: `
             <p>Name: ${name} </p>
             <p>Email: ${email} </p>
-            <p> Click here to verify: <a href='${"http://localhost:3000"?"http://localhost:3000": process.env.VercelHost}/user/signup/${token}' > Verify </a></p>
+            <p> Click here to verify: <a href='https://jobmilyo.vercel.app/user/signup/${token}' > Verify </a></p>
             `,
         });
         let respon =NextResponse.json({ message: "Success: email was sent",status:200,success:true, });
