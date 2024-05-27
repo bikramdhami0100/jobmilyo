@@ -15,7 +15,7 @@ import {
 import { useRouter } from 'next/navigation'
 import { Eye, EyeOff } from 'lucide-react'
 import { ToastContainer, toast } from 'react-toastify'
-const bcrypt=require("bcryptjs");
+
 function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -41,9 +41,9 @@ function Login() {
       }
     }, [ email, password]);
     const handlelogIn=async()=>{
+      console.log(email,password)
      if (email&&password) {
-      // const salt= bcrypt.genSaltSync(10);
-      // let hashpass=bcrypt.hashSync(password,salt);
+  
       toast.info('🦄 data  submit successfully !', {
         position: "top-right",
         autoClose: 5000,
@@ -64,11 +64,10 @@ function Login() {
     })
     console.log(data);
       
-    if (data) {
+    if (data.ok) {
       const result=await data.json()
-      console.log(result);
-      if(result.status==200 || result.ok){
-        toast.success('🎁🎁 Login successfully !', {
+      if( result.status==200){
+        toast.success(result.message, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -79,8 +78,35 @@ function Login() {
           theme: "light",
          
           });
-          router.push("/user/profile");
+          if (result.message=="User verified successfully") {
+            router.push("/user/profile");
+          }
+
+      }else{
+        toast.success(result.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+         
+          });
       }
+    }else{
+      toast.success(data.statusText, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+       
+        });
     }
      }
   }

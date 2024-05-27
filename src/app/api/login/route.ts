@@ -1,42 +1,94 @@
+
 import Usersignup from "@/app/mongodb/SignUpSchema";
 import mongodbconn from "@/app/mongodb/connection";
 import { NextResponse } from "next/server";
-const jwt=require("jsonwebtoken");
-const bcrypt=require("bcryptjs");
- export async function POST(req: any) {
-    await mongodbconn;
-    const logindata=await req.json();
-    console.log(logindata)
-    const token=await req.cookies.get("token").value;
-    const salt= bcrypt.genSaltSync(10);
-    const hashpass=bcrypt.hashSync(logindata.loginpassword,salt);
+const jwt =require("jsonwebtoken");
+const  bcrypt =require("bcryptjs");
+const nodemailer =require("nodemailer");
+
+export async function POST(req:any) {
+  await mongodbconn;
+  const { loginemail, loginpassword } = await req.json();
+  const token = req.cookies.get("token")?.value;
+
+  try {
+    const user = await Usersignup.findOne({ email: loginemail });
+
+    if (!user) {
+      return NextResponse.json({ message: "User not found", status: 404 });
+    }
+
     if (!token) {
-       return NextResponse.json({ message: "Token not found", status: 400 });
-   }
+      if (!user.userVerify) {
+        // User is not verified, send verification email
+        const newToken = jwt.sign({ encodeemail: loginemail, role: 'user' }, process.env.TOKEN_SECRETKEY, { expiresIn: '7d' });
 
-    var decoded = jwt.verify(token, 'secretkeybikramdhami');
-    let  email = decoded.encodeemail;
-    const user = await Usersignup.findOne(
-           { email },
-       );
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+          }
+        });
 
-       if (!user) {
-           return NextResponse.json({ message: "User not found", status: 404 });
-       }
-       if (user.userVerify==true) {
-        // const value=bcrypt.compareSync(logindata.loginpassword, user.password);
-        // console.log(value);
-        //  if (value) {
-            let respon=NextResponse.json({ message: "User verified successfully", status: 200,user });
-           return respon;
-        //  }
-       }else{
-           const response = NextResponse.json(
-               { message: "User is not verified", status: "User is not verified", user },
-               { status: 401 }
-           );
-           return response;  
-       }
-  //  return NextResponse.json("hello");
+        const mailOptions = {
+          from: process.env.EMAIL_USER,
+          to: loginemail,
+          subject: "Verify your email",
+          html: `
+            <p>Name: ${user.fullName}</p>
+            <p>Email: ${loginemail}</p>
+            <p>Click here to verify: <a href='http://localhost:3000/user/signup/${newToken}'>Verify</a></p>
+          `
+        };
+
+        await transporter.sendMail(mailOptions);
+        return NextResponse.json({ message: "Check your email to verify your account", success: true, status: 200 });
+      }
+
+      // User is verified, proceed with login
+      const isPasswordValid = await bcrypt.compare(loginpassword, user.password);
+      if (isPasswordValid) {
+        const newToken = jwt.sign({ encodeemail: loginemail, role: 'user' }, process.env.TOKEN_SECRETKEY, { expiresIn: '7d' });
+        const response = NextResponse.json({ message: "User verified successfully", status: 200 });
+        response.cookies.set("token", newToken, { httpOnly: true });
+        return response;
+      } else {
+        return NextResponse.json({ message: "Bad credentials", status: 401 });
+      }
+    } else {
+      // Token is provided
+      const decoded = jwt.verify(token, process.env.TOKEN_SECRETKEY);
+      const userEmail = decoded.encodeemail;
+      const user = await Usersignup.findOne({ email: userEmail.email });
+      try {
+       
+        if (!user) {
+          return NextResponse.json({ message: "User not found", status: 404 });
+        }
+
+        if (user.userVerify) {
+          const isPasswordValid = await bcrypt.compare(loginpassword, user.password);
+          if (isPasswordValid) {
+            return NextResponse.json({ message: "User verified successfully", status: 200 });
+          } else {
+            return NextResponse.json({ message: "Bad credentials", status: 401 });
+          }
+        } else {
+          return NextResponse.json({ message: "User is not verified", status: 401 });
+        }
+      } catch (error) {
+        return NextResponse.json({ message: "Invalid token"+error, status: 401 });
+      }
+    }
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ message: "Internal server error", status: 500 });
+  }
 }
+
+
+
+
+
 

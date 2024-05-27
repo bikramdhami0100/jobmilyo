@@ -17,7 +17,7 @@ import {
 
 import { useRouter } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux'
-import { userSignUpInfo } from '@/app/Redux/Slice'
+import { userSignUpInfo } from '../../../../Redux/Slice'
 import { Eye, EyeOff } from 'lucide-react'
 
 export interface MysignupType {

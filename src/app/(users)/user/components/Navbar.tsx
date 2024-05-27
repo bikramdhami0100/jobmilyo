@@ -28,21 +28,24 @@ import Link from 'next/link'
 
 import { signOut, useSession } from 'next-auth/react'
 import { IconBookmarkEdit } from '@tabler/icons-react'
+import { useSelector } from 'react-redux'
 
 function Navbar() {
+    const selector=useSelector((usertoken)=>{
+        //  console.log(usertoken);
+    })
     const [usersignup,setusersignup]=useState(false);
     const [validUser,setValidUser]=useState<any>();
     const session=useSession();
     const checkuserVerify=async()=>{
         const data=await fetch("/api/checkvaliduser/",{
             method:"get",
-            headers:{
-                "content-type":"application/json"
-            }
+          
         })
+        
+        if (data.ok) {
         const result=await data.json()
         console.log(result);
-        if (result.status==200) {
             setValidUser(result)
             setusersignup(true);
             
@@ -122,14 +125,14 @@ function Navbar() {
                     <div>
                         <DropdownMenu >
                             <DropdownMenuTrigger className=' outline-none' ><div>
-                                {
-                                     session.status=="authenticated"? <Image src={`${session.data.user?.image}`} alt='user' height={30} width={30} className=' w-[35px] w-[35px]  rounded-full '></Image>:<div>
+                                {/* {
+                                     session.status=="authenticated"? <Image src={`${session.data.user?.image}`} alt='user' height={30} width={30} className='  w-[35px]  rounded-full '></Image>:<div>
                                        <div style={{backgroundColor:validUser?.user?.color}} className={`flex justify-center items-center h-[35px] text-center  w-[35px] rounded-full bg-blue-600 `}>
                                         <p>{validUser.user.fullName.charAt(0)}</p>
                                        </div>
 
                                      </div>
-                                }
+                                } */}
 
                             </div></DropdownMenuTrigger>
                             <DropdownMenuContent>

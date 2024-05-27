@@ -6,7 +6,7 @@ import { useTheme } from 'next-themes';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import {  SingleUserAllInformation } from '@/app/Redux/Slice';
+import {  SingleUserAllInformation } from '../../../../Redux/Slice';
 import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 function userInformation() {

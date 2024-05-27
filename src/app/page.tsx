@@ -6,22 +6,12 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import Lottie from 'lottie-react';
 import SearchImage from "./components/search.json";
+
 import MainHomeHero from './components/MainHomeHero';
 function Home1() {
   const router = useRouter();
-  // const session=useSession();
-  // const dataFetch=async()=>{
-  //    const data=await fetch("http://127.0.0.1:8000/api/getuser",{
-  //     method:"get",
-  //     headers:{"content-type":"application/json"},
 
-  //    });
-  //   const result=await data.json();
-
-  // }
-  // useEffect(()=>{
-  //    dataFetch();
-  // },[]);
+  
 
  const HandleUserLogin=()=>{
 

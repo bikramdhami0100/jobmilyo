@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Search } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useDispatch, useSelector } from 'react-redux'
-import { SearchHomeJobs } from '@/app/Redux/Slice'
+import { SearchHomeJobs } from '../../../../Redux/Slice'
 
 function SearchSection() {
     interface SearchInterface{

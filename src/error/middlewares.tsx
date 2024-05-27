@@ -1,21 +1,18 @@
-
 import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
-
-// import { useDispatch } from 'react-redux'
-// import { validUserToken } from './Redux/Slice'
+// import { useDispatch } from 'react-redux';
+// import { validUserToken } from './app/Redux/Slice';
  
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
-    // console.log(request.url)
-    const usertoken:any =request.cookies.get("token")?.value
-    // console.log(usertoken)
-    
-    // const dispatch=useDispatch()
-    // dispatch(validUserToken(usertoken))
+
     // const path=request.nextUrl.pathname;
     // const isAdminPublicPath=path=="/adminlogin";
-    // const adminToken= request.cookies.get("admin")?.value;
+    // const userToken= request.cookies.get("token")?.value;
+    // console.log(request.cookies.get("token"))
+    // const dispatch=useDispatch();
+    // dispatch(validUserToken(userToken))
+    return NextResponse.redirect(new URL('/home', request.url))
     // if (isAdminPublicPath &&adminToken ) {
     //     return NextResponse.redirect(new URL("/admin",request.nextUrl));
     // } 
@@ -40,5 +37,5 @@ export function middleware(request: NextRequest) {
 // }
 export const config={
     
-    //  matcher:['/admin:path*','/admin/joblist:path*','/admin/newjob:path*']
+     matcher:['/admin:path*','/admin/joblist:path*','/admin/newjob:path*']
 }

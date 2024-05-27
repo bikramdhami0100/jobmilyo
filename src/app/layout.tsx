@@ -7,7 +7,7 @@ import Navbar from "./components/Navbar";
 import NextSessionProvider from "./Provider";
 import { getServerSession } from "next-auth";
 import Footer from "./(users)/user/components/Footer";
-import { MyProviders } from "./Redux/Provider";
+import { MyProviders } from "../Redux/Provider";
 
 
 const lora = Lora({ subsets: ["latin"] });

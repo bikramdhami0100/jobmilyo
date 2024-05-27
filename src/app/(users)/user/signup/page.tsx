@@ -14,7 +14,7 @@ import {
 } from "@tabler/icons-react";
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
-import { userSignUpInfo } from '@/app/Redux/Slice';
+import { userSignUpInfo } from '../../../../Redux/Slice';
 import { Eye, EyeOff } from 'lucide-react';
 
 export interface MysignupType {
