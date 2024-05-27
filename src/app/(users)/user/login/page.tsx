@@ -14,7 +14,10 @@ import {
 } from "@tabler/icons-react";
 import { useRouter } from 'next/navigation'
 import { Eye, EyeOff } from 'lucide-react'
-import { ToastContainer, toast } from 'react-toastify'
+
+import { useDispatch } from 'react-redux'
+import { validUserToken } from '@/Redux/Slice'
+import { toast } from '@/components/ui/use-toast'
 
 function Login() {
   const [email, setEmail] = useState<string>("");
@@ -28,6 +31,7 @@ function Login() {
   const passwordRegex = /^[a-zA-Z\s]/;
      const router=useRouter();
      const session=useSession();
+     const dispatch=useDispatch();
      if (session.status=="authenticated") {
       router.push("/user/Home/");
      }
@@ -44,15 +48,8 @@ function Login() {
       console.log(email,password)
      if (email&&password) {
   
-      toast.info('🦄 data  submit successfully !', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
+      toast({
+         description:"🦄 data  submit successfully !"
        
         });
       const data=await fetch("/api/login/",{
@@ -67,45 +64,25 @@ function Login() {
     if (data.ok) {
       const result=await data.json()
       if( result.status==200){
-        toast.success(result.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
+        toast({
+           description:result.message,
          
           });
           if (result.message=="User verified successfully") {
-            router.push("/user/profile");
+         
+                dispatch(validUserToken(result));
+                router.push("/user/")  
           }
 
       }else{
-        toast.success(result.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-         
+        toast( {
+        
+          description:result.message,
           });
       }
     }else{
-      toast.success(data.statusText, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-       
+      toast( {
+        description:data.statusText,
         });
     }
      }
@@ -113,19 +90,7 @@ function Login() {
  
   return (
 <div className='flex  flex-col justify-around items-center md:flex-row md:justify-around lg:justify-around lg:flex-row p-2'>
-<ToastContainer
-position="top-right"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="light"
 
-/>
       <div className=' grid-cols-2 justify-center items-center'>
         <div className=' flex flex-col justify-center '>
         <p className='text-3xl mt-6'><strong>Make your dream career a <span className=' text-blue-600'> reality</span></strong></p>

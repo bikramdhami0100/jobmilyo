@@ -2,9 +2,9 @@
 import Usersignup from "@/app/mongodb/SignUpSchema";
 import mongodbconn from "@/app/mongodb/connection";
 import { NextResponse } from "next/server";
-const jwt =require("jsonwebtoken");
-const  bcrypt =require("bcryptjs");
-const nodemailer =require("nodemailer");
+var jwt =require("jsonwebtoken");
+var bcrypt = require('bcryptjs');
+var nodemailer =require("nodemailer");
 
 export async function POST(req:any) {
   await mongodbconn;
@@ -47,9 +47,10 @@ export async function POST(req:any) {
       }
 
       // User is verified, proceed with login
-      const isPasswordValid = await bcrypt.compare(loginpassword, user.password);
+      const isPasswordValid = await bcrypt.compareSync(loginpassword, user.password);
       if (isPasswordValid) {
-        const newToken = jwt.sign({ encodeemail: loginemail, role: 'user' }, process.env.TOKEN_SECRETKEY, { expiresIn: '7d' });
+        const user = await Usersignup.findOne({ email: loginemail }).select("-password");
+        const newToken = jwt.sign({ encodeemail:user, role: 'user' }, process.env.TOKEN_SECRETKEY, { expiresIn: '7d' });
         const response = NextResponse.json({ message: "User verified successfully", status: 200 });
         response.cookies.set("token", newToken, { httpOnly: true });
         return response;

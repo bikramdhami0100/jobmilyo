@@ -29,35 +29,12 @@ import Link from 'next/link'
 import { signOut, useSession } from 'next-auth/react'
 import { IconBookmarkEdit } from '@tabler/icons-react'
 import { useSelector } from 'react-redux'
+import { toast } from '@/components/ui/use-toast'
+
 
 function Navbar() {
-    const selector=useSelector((usertoken)=>{
-        //  console.log(usertoken);
-    })
-    const [usersignup,setusersignup]=useState(false);
-    const [validUser,setValidUser]=useState<any>();
-    const session=useSession();
-    const checkuserVerify=async()=>{
-        const data=await fetch("/api/checkvaliduser/",{
-            method:"get",
-          
-        })
-        
-        if (data.ok) {
-        const result=await data.json()
-        console.log(result);
-            setValidUser(result)
-            setusersignup(true);
-            
-        }
-    }
-    useEffect(()=>{
-
-    checkuserVerify();
-    },[]);
-
     const router = useRouter();
-   
+
     const { setTheme, theme } = useTheme();
 
     const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-[rgb(17,24,39)]'; // Set background color based on theme
@@ -66,9 +43,69 @@ function Navbar() {
     const ChatWithUs = () => {
         alert("implement in major project !!!")
     }
+    const selector = useSelector((usertoken) => {
+         console.log(usertoken);
+    })
+    const [usersignup, setusersignup] = useState(false);
+    const [validUser, setValidUser] = useState<any>();
+    const [token, settoken] = useState<any>();
+    const session = useSession();
+    
+    
+    const checkuserVerify = async () => {
+        const data = await fetch("/api/checkvaliduser/", {
+            method: "get",
+
+        })
+
+        if (data.ok) {
+            const result = await data.json()
+            console.log(result);
+            
+             if (result?.user) {
+                toast({
+                    description: result?.message,
+                  })
+                setValidUser(result.user)
+                settoken(result.token);
+                setusersignup(true);
+
+             }
+
+        }
+    }
+    useEffect(() => {
+
+        checkuserVerify();
+    }, []);
+
    
+    const HandleLogOut=async()=>{
+        console.log("log out c")
+        const data = await fetch(`/api/login/logout?token=${token}`, {
+            method: "get",
+
+        })
+
+        if (data.ok) {
+            const result = await data.json()
+            if(result){
+                toast({
+                    description: result?.message,
+                  })
+                  setValidUser("");
+                  settoken("");
+                  setusersignup(false);
+                  router.push("/user/login/")
+
+            }
+
+        }
+    }
+
     return (
         <div className={`flex justify-between m-auto shadow-md p-3 ${navbarBgColor} `}>
+ 
             <div className=' flex gap-1 justify-center items-center'>
                 <div className=' visible md:hidden lg:hidden'>
 
@@ -121,42 +158,41 @@ function Navbar() {
 
 
                 {
-                   usersignup?
-                    <div>
-                        <DropdownMenu >
-                            <DropdownMenuTrigger className=' outline-none' ><div>
-                                {/* {
-                                     session.status=="authenticated"? <Image src={`${session.data.user?.image}`} alt='user' height={30} width={30} className='  w-[35px]  rounded-full '></Image>:<div>
-                                       <div style={{backgroundColor:validUser?.user?.color}} className={`flex justify-center items-center h-[35px] text-center  w-[35px] rounded-full bg-blue-600 `}>
-                                        <p>{validUser.user.fullName.charAt(0)}</p>
-                                       </div>
+                    usersignup ?
+                        <div>
+                            <DropdownMenu >
+                                <DropdownMenuTrigger className=' outline-none' ><div>
+                                    {
+                                        <div>
+                                            <div style={{ backgroundColor: validUser?.color }} className={`flex justify-center items-center h-[35px] text-center  w-[35px] rounded-full bg-blue-600 `}>
+                                                <p>{validUser?.fullName.charAt(0)}</p>
+                                            </div>
+                                        </div>
+                                    }
 
-                                     </div>
-                                } */}
+                                </div></DropdownMenuTrigger>
+                                <DropdownMenuContent>
+                                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem onClick={() => {
+                                        router.push("/user/profile")
+                                    }}>Profile</DropdownMenuItem>
 
-                            </div></DropdownMenuTrigger>
-                            <DropdownMenuContent>
-                                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem onClick={() => {
-                                    router.push("/user/profile")
-                                }}>Profile</DropdownMenuItem>
-                              
-                                <DropdownMenuItem>Team</DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => {
-                                    signOut() || setValidUser("")
-                                }} ><LogOut />log out</DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                                    <DropdownMenuItem>Team</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => {
+                                      HandleLogOut();
+                                    }} ><LogOut />log out</DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
 
-                    </div>  : <div className=' flex  gap-1'>
-                        <Button className='bg-blue-600' onClick={() => {
-                            router.push("/user/login")
-                        }}>Log in</Button>
-                        <Button className=' bg-blue-600' onClick={() => {
-                            router.push("/user/signup")
-                        }}>Sign Up</Button>
-                    </div>
+                        </div> : <div className=' flex  gap-1'>
+                            <Button className='bg-blue-600' onClick={() => {
+                                router.push("/user/login")
+                            }}>Log in</Button>
+                            <Button className=' bg-blue-600' onClick={() => {
+                                router.push("/user/signup")
+                            }}>Sign Up</Button>
+                        </div>
                 }
                 <DropdownMenu >
                     <DropdownMenuTrigger asChild>
