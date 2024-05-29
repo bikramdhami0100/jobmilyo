@@ -32,13 +32,10 @@ const userinformation=await req.json();
             phone: userinformation.phone,
             PermanentAddress: userinformation.PermanentAddress,
             CurrentAddress: userinformation.CurrentAddress,
-            profile: userinformation.profile,
             boardName: userinformation.boardName,
             level: userinformation.level,
             faculity: userinformation.faculity,
             educationtype: userinformation.educationtype,
-            gpaorpercentage: userinformation.gpaorpercentage,
-            passedDate: userinformation.passedDate,
             marksheet: userinformation.marksheet,
             previouscompany: userinformation.previouscompany,
             previousrole: userinformation.previousrole,
@@ -47,6 +44,7 @@ const userinformation=await req.json();
             interestedEmploymentType: userinformation.interestedEmploymentType,
             expectedPositionLevel: userinformation.expectedPositionLevel,
             uploadCV: userinformation.uploadCV,
+            skills:userinformation.skills,
             dateofBirth: userinformation.dateofBirth
         });
         

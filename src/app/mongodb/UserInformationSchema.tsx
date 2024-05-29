@@ -22,10 +22,7 @@ const UserInformationSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  profile: {
-    type: String,
-    required: true
-  },
+
   boardName: {
     type: String,
     required: true
@@ -42,29 +39,42 @@ const UserInformationSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  gpaorpercentage: {
-    type: String,
-    required: true
-  },
-  passedDate: {
-    type: Date,
-    required: true
-  },
+ 
   marksheet: {
     type: String,
-    required: true
+    // required: true
   },
+  salary: {
+    type: String,
+    // required: true
+  },
+
   previouscompany: {
-    type: String,
-    required: true
+    type: [String], // Array of strings
+    default: [
+      {
+        ctc: {
+          type: String,
+          default: null
+        },
+        workintime: {
+          type: String,
+          default: null
+        },
+        previousrole: {
+          type: String,
+        },
+
+      }
+    ]
   },
-  previousrole: {
+  
+  EmployeeExpreience: {
     type: String,
-    required: true
   },
   interestedCategory: {
     type: String,
-    required: true
+    default:null
   },
   interestedFiels: {
     type: String,
@@ -94,5 +104,5 @@ const UserInformationSchema = new mongoose.Schema({
 
 
 
-const UserInformation =mongoose.models.UserInformation|| mongoose.model('UserInformation',UserInformationSchema);
+const UserInformation = mongoose.models.UserInformation || mongoose.model('UserInformation', UserInformationSchema);
 export default UserInformation;

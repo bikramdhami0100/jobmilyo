@@ -4,7 +4,8 @@ import AdminDashoBoard from '../dashboard/page'
 function AdminHome() {
   return (
     <div>
-      <AdminDashoBoard/>
+         Admin list 
+         
     </div>
   )
 }

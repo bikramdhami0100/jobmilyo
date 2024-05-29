@@ -90,12 +90,13 @@ function Login() {
  
   return (
 <div className='flex  flex-col justify-around items-center md:flex-row md:justify-around lg:justify-around lg:flex-row p-2'>
-
+     
       <div className=' grid-cols-2 justify-center items-center'>
         <div className=' flex flex-col justify-center '>
         <p className='text-3xl mt-6'><strong>Make your dream career a <span className=' text-blue-600'> reality</span></strong></p>
          <div className=' flex gap-4'><span className=''> <b>With</b></span> <Image  alt="image" src={"/images/logo.png"} height={100} width={100}></Image></div>
          <div>
+
            <Image alt='login image' src={"/images/login.png"} height={400} width={400} className=' h-full'></Image>
          </div>
         </div>

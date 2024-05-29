@@ -43,9 +43,11 @@ function Navbar() {
     const ChatWithUs = () => {
         alert("implement in major project !!!")
     }
-    const selector = useSelector((usertoken) => {
-         console.log(usertoken);
+    const selector = useSelector((usertoken:any) => {
+        //  console.log(usertoken);
+         return usertoken?.signupinfo?.validUserToken
     })
+    console.log(selector);
     const [usersignup, setusersignup] = useState(false);
     const [validUser, setValidUser] = useState<any>();
     const [token, settoken] = useState<any>();
@@ -77,7 +79,7 @@ function Navbar() {
     useEffect(() => {
 
         checkuserVerify();
-    }, []);
+    }, [selector]);
 
    
     const HandleLogOut=async()=>{
