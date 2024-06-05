@@ -19,11 +19,10 @@ export default function SwiperSlider() {
   return (
    <div className=' w-[98vw] h-[320px] md:h-[320px] lg:h-[320px] flex justify-center items-center m-auto mt-0 '>
      <div className=" gap-2 absolute flex  flex-col justify-around items-center m-auto top-30 z-10  right-[20vw] left-[20vw]">
-                 <p className=" text-xl md:text-6xl lg:text-6xl  font-extrabold">land the <span className=" text-blue-600">Job</span> you <span className=" text-red-600">Love</span></p>
-                 <p className=" text-[10px] md:text-[24px] lg:text-[24px]">Your Next <span>Opportunities</span> Awaits Here !!</p>
-        <Button className=" bg-blue-600">Explore More...</Button>
+                 <p className=" text-4xl md:text-6xl lg:text-6xl  font-extrabold">land the <span className=" text-blue-600">Job</span> you <span className=" text-red-600">Love</span></p>
+                 <p className=" text-[18px] md:text-[24px] lg:text-[24px]">Your Next <span>Opportunities</span> Awaits Here !!</p>
+        <Button className=" text-center self-center bg-blue-600">Explore More...</Button>
       </div>
-
      <Swiper
         spaceBetween={30}
         centeredSlides={true}

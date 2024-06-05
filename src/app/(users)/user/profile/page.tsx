@@ -94,6 +94,7 @@ function UserProfile() {
             method: "get"
         })
         const restult = await data.json();
+        console.log(restult)
         if (restult) {
             setuserInformation(restult.data.userInfos);
             setSignUp(restult.data.user);
@@ -229,7 +230,7 @@ function UserProfile() {
                                                 signup?.color.startsWith("#") ? (
                                                     <div className='w-[100px] flex justify-center items-center -mb-4 relative group'>
                                                         <div style={{ backgroundColor: signup?.color }} className='flex justify-center items-center w-[100px] h-[100px] rounded-full'>
-                                                            <div className='text-center'>{signup.fullName.charAt(0)}</div>
+                                                            <div className='text-center'>{signup.fullName.charAt(0).toUpperCase()}</div>
                                                         </div>
                                                         <IconEdit
                                                             className='absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer'
@@ -398,7 +399,7 @@ function UserProfile() {
 
                 {/* middle part */}
                 {
-                    userInformation ? (<div className=' flex flex-col  justify-between  items-start mt-2 gap-4 w-[100%] md:w-[60%] lg:w-[60%] shadow-md border  p-2'>
+                    signup ? (<div className=' flex flex-col  justify-between  items-start mt-2 gap-4 w-[100%] md:w-[60%] lg:w-[60%] shadow-md border  p-2'>
                         <div className=' flex flex-col  justify-center items-start border shadow-lg p-6 m-auto'>
                             <h1>Basic Information</h1>
                             <div className=' flex flex-wrap '>
@@ -445,7 +446,7 @@ function UserProfile() {
                                             </div>
 
                                             <Button onClick={() => {
-                                                downloadCV(item.uploadCVk, item.fname);
+                                                downloadCV(item.uploadCV, item.fname);
                                             }} className=' bg-blue-600'>Download CV</Button>
                                             <Button onClick={() => {
                                                 CallingToUser(item.phone);
@@ -532,11 +533,7 @@ function UserProfile() {
                     
                         <div className='border shadow-md p-4 mb-4 '>
                             <div className='animate-pulse flex flex-col space-y-4'>
-                                <div className='h-10 bg-gray-300 rounded'>
-                                <p className=' text-red-600 '>If you have come this skeleton untill 30 second <Button onClick={()=>{
-                                    router.push("/user/userinformation")
-                                }} className=' bg-slate-300 text-red-600 underline border-none '>click here </Button></p>
-                                </div>
+                               
                                 <div className='h-6 bg-gray-300 rounded'></div>
                                 <div className='h-6 bg-gray-300 rounded'></div>
                                 <div className='h-6 bg-gray-300 rounded'></div>
