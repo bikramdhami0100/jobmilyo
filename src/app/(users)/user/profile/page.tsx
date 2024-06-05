@@ -30,7 +30,7 @@ import {
     TabsList,
     TabsTrigger,
 } from "@/components/ui/tabs"
-import jsPDF from 'jspdf';
+
 import html2canvas from 'html2canvas';
 const FileSaver = require("file-saver");
 import { Input } from '@/components/ui/input';
@@ -45,10 +45,9 @@ function UserProfile() {
     const [isDownloading, setIsDownloading] = useState(false);
     const [rating, setRating] = useState(4);
     const [inform, setInform] = useState<UserInfo>();
-    const [signup, setSignUp] = useState<Mysignup | undefined>();
+    const [signup, setSignUp] = useState<any>();
     const [userInformation, setuserInformation] = useState([]);
     var [allSkill, setAllSkill] = useState<string[]>([]);
-    const [firstInfoobj, setFirstInfoobj] = useState();
     const [skill, setSkill] = useState<string>('');
     const [showUploadButton, setShowUploadButton] = useState(false);
     const handleIconEditClick = () => {

@@ -39,7 +39,7 @@ export default async function RootLayout({
             
             disableTransitionOnChange
           >     <div className=" fixed  z-30 top-0">
-               {/* <SplashScreen/>  */}
+               <SplashScreen/> 
             </div>
             <div>
 
