@@ -4,7 +4,7 @@ import { IconCalendarTime, IconCircleCheckFilled, IconEdit, IconEditCircle, Icon
 import { Bookmark, PencilLine, Phone, Plus, Rocket, SendHorizonal, Star } from 'lucide-react';
 import Image from 'next/image'
 import React, { use, useEffect, useState } from 'react'
-
+// import { ScrollArea } from "@/components/ui/scroll-area"
 import {
     Card,
     CardContent,
@@ -39,9 +39,10 @@ import { useSelector } from 'react-redux';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { CldUploadButton } from 'next-cloudinary';
 import { useRouter } from 'next/navigation';
+import { zIndex } from 'html2canvas/dist/types/css/property-descriptors/z-index';
 function UserProfile() {
     const session = useSession()
-    const router=useRouter();
+    const router = useRouter();
     const [isDownloading, setIsDownloading] = useState(false);
     const [rating, setRating] = useState(4);
     const [inform, setInform] = useState<UserInfo>();
@@ -212,6 +213,10 @@ function UserProfile() {
         const age = currentdateinyear - birthdateinyear;
         return age;
 
+    }
+    const HandlerOtherUser=(item:any)=>{
+        const userId=1
+        router.push(`otheruser/${userId}`);
     }
     console.log(userInformation)
     return (
@@ -527,12 +532,12 @@ function UserProfile() {
                             </Tabs>
 
                         </div>
-                    </div>) : (<div className='flex flex-col w-full'>
+                    </div>) : (<div className=' flex flex-col  justify-between  items-start mt-2 gap-4 w-[100%] md:w-[60%] lg:w-[60%] shadow-md border  p-2'>
                         {/* Skeleton loading for Basic Information */}
-                    
-                        <div className='border shadow-md p-4 mb-4 '>
+
+                        <div className='border shadow-md p-4 mb-4  w-full'>
                             <div className='animate-pulse flex flex-col space-y-4'>
-                               
+
                                 <div className='h-6 bg-gray-300 rounded'></div>
                                 <div className='h-6 bg-gray-300 rounded'></div>
                                 <div className='h-6 bg-gray-300 rounded'></div>
@@ -542,7 +547,7 @@ function UserProfile() {
                         </div>
 
                         {/* Skeleton loading for TabsContent */}
-                        <div className='shadow-xl border p-4 '>
+                        <div className='shadow-xl border p-4 w-full '>
                             <div className='animate-pulse space-y-4'>
                                 <div className='flex items-center justify-between'>
                                     <div className='h-6 w-1/2 bg-gray-300 rounded'></div>
@@ -557,36 +562,63 @@ function UserProfile() {
                     </div>)
                 }
                 {/* last part */}
-                <div className=' mt-2 flex flex-col flex-wrap w-[100%] shadow-md border m-auto md:w-[19%] lg:w-[19%] justify-center items-start p-2'>
-                    <div className=' flex justify-center items-center h-[200px] shadow-lg border p-6 w-full'>
-                        <h1 className=' flex  gap-3'> Avertisement</h1>
+                {
+                    signup ? (<div className='  mt-2 flex flex-col flex-wrap w-[100%] shadow-md border m-auto md:w-[19%] lg:w-[19%] justify-center items-start p-2'>
+                        <div className=' flex justify-center items-center h-[200px] shadow-lg border p-6 w-full'>
+                            <h1 className=' flex  gap-3'> Avertisement</h1>
 
-                    </div>
-                    <div className=' w-full shadow-md border mt-4 flex flex-col  justify-center items-start '>
-                        <h1>Similar Profiles</h1>
-                        <hr />
-                        <div className='flex flex-col justify-center items-start h-[500px] overflow-y-scroll overflow-x-hidden w-full gap-2 m-auto p-2'>
-                            
-                            {otherUsers.map((item, index) => (
-                                <div key={index} className='flex flex-row justify-start items-center shadow-xl border  p-2 w-full'>
-                                    <Image
-                                        alt='other images'
-                                        height={100}
-                                        width={100}
-                                        src={item.image}
-                                        className='rounded-full h-[80px] w-[80px] '
-                                    />
-                                    <div className='flex flex-col justify-center items-start ml-4  '>
-                                        <h1>{item.name}</h1>
-                                        <p>{item.work}</p>
-                                        <p>{item.yearofexperience}</p>
-                                    </div>
-                                </div>
-                            ))}
                         </div>
+                        <div className=' w-full shadow-md border mt-4 flex flex-col  justify-center items-start '>
+                            <h1>Similar Profiles</h1>
+                            <hr />
+                            <ScrollArea className="h-72 w-full rounded-md border">
+                           
 
+                                {otherUsers.map((item, index) => (
+                                    <div  onClick={()=>{
+                                        HandlerOtherUser(item)
+                                    }} key={index} className='flex flex-row justify-start items-center shadow-xl border  cursor-pointer p-2 w-full'>
+                                        <Image
+                                            alt='other images'
+                                            height={100}
+                                            width={100}
+                                            src={item.image}
+                                            className='rounded-full h-[80px] w-[80px] curso '
+                                        />
+                                        <div className='flex flex-col justify-center items-start ml-4  '>
+                                            <h1>{item.name}</h1>
+                                            <p>{item.work}</p>
+                                            <p>{item.yearofexperience}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                           
+                            </ScrollArea>
+                        </div>
+                    </div>) : (<div className="mt-2 flex flex-col flex-wrap w-[100%] shadow-md border m-auto md:w-[19%] lg:w-[19%] justify-center items-start p-2">
+                        <div className="flex justify-center items-center h-[200px] shadow-lg border p-6 w-full animate-pulse">
+                            <div className="h-8 w-32 bg-gray-300 rounded"></div>
+                        </div>
+                        <div className="w-full shadow-md border mt-4 flex flex-col justify-center items-start animate-pulse">
+                            <div className="h-6 w-40 bg-gray-300 rounded mb-2"></div>
+                            <hr className="w-full" />
+                            <ScrollArea className="h-72 w-full rounded-md border">
+                           
+                                {[...Array(5)].map((_, index) => (
+                                    <div key={index} className="flex flex-row justify-start items-center shadow-xl border p-2 w-full">
+                                        <div className="h-[80px] w-[80px] bg-gray-300 rounded-full"></div>
+                                        <div className="flex flex-col justify-center items-start ml-4">
+                                            <div className="h-4 w-24 bg-gray-300 rounded mb-2"></div>
+                                            <div className="h-4 w-20 bg-gray-300 rounded mb-2"></div>
+                                            <div className="h-4 w-16 bg-gray-300 rounded"></div>
+                                        </div>
+                                    </div>
+                                ))}
+                             </ScrollArea>
+                        </div>
                     </div>
-                </div>
+                    )
+                }
             </div>
         </div>
     )
