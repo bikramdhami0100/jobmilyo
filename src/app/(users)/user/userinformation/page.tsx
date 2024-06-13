@@ -224,7 +224,7 @@ function userInformation() {
 
     return (
         <div className=' flex  flex-col justify-around items-center gap-10 '>
-            <Toaster />
+            
             <h1>Complete your Information</h1>
 
             <div className=' gap-10 flex flex-col justify-evenly items-center  md:flex-row lg:flex-row w-full '>
