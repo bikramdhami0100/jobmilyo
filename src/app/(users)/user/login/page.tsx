@@ -30,11 +30,9 @@ function Login() {
   // const dobRegex = /^\d{4}-\d{2}-\d{2}$/;
   const passwordRegex = /^[a-zA-Z\s]/;
      const router=useRouter();
-     const session=useSession();
+    //  const session=useSession();
      const dispatch=useDispatch();
-     if (session.status=="authenticated") {
-      router.push("/user/Home/");
-     }
+
      useEffect(() => {
       if ( email || password) {
       

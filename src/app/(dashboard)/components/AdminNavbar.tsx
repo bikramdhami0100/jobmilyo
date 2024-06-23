@@ -80,7 +80,7 @@ function AdminNavbar() {
     }
     const { setTheme, theme } = useTheme();
 
-    const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-[rgb(17,24,39)]'; // Set background color based on theme
+    const navbarBgColor = theme === 'light' ? "bg-[#1983d1]" : 'bg-[rgb(17,24,39)]'; // Set background color based on theme
 
     return (
         <div className={` flex justify-between m-auto shadow-md p-3 ${navbarBgColor} w-full`}>

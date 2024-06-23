@@ -39,7 +39,7 @@ function AdminSideBar() {
     const { setTheme, theme } = useTheme();
 
     // const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-[rgb(17,24,39)]';
-       const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-[rgb(17,24,39)]';
+       const navbarBgColor = theme === 'light' ? 'bg-[#1983d1]' : 'bg-[rgb(17,24,39)]';
     return (
         <div className={`${navbarBgColor} min-h-screen w-full lg:visible md:visible`}>
 

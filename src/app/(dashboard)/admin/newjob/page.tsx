@@ -11,54 +11,123 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { CldUploadButton } from 'next-cloudinary';
+import { toast } from '@/components/ui/use-toast';
 
 function NewJob() {
   const [selectedJob, setSelectedJob] = useState("");
+  const [companyLogo, setCompanyLogo] = useState(false);
+  const [form, setForm] = useState({
+    jobtitle: "",
+    description: "",
+    qualification: "",
+    last_date: "",
+    job_type: "",
+    company_logo: "",
+    email: "",
+    country: "",
+    number_of_post: "",
+    experience: "",
+    specialization_req: "",
+    salary: "",
+    company: "",
+    website_url: "",
+    address: "",
+    state: "",
+  });
 
-  const handleChange = (event:any) => {
-    setSelectedJob(event.target.value);
+  const handleCompangLogo = (result: any) => {
+    setForm((prevState: any) => ({
+      ...prevState,
+      company_logo: result.info.secure_url
+    }));
+    if (result.info.secure_url) {
+      setCompanyLogo(true);
+      toast({
+        title: "Upload successful",
+        description: "Company logo uploaded successfully",
+      });
+    }
+  };
+
+  const handleChange = (event: any) => {
+    const { name, value } = event.target;
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+ console.log(form)
+    try {
+      const response = await fetch('/api/addjob', {
+        method: 'POST',
+        body: JSON.stringify(form),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Job added successfully",
+          description: "Your job posting has been added.",
+        });
+      } else {
+        toast({
+          title: "Failed to add job",
+          description: "An error occurred while adding the job.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "An error occurred",
+        description: "An error occurred while adding the job.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
-    <div>
-      <div className='shadow-md hover:shadow-2xl'>
-        <h1 className='text-center text-3xl italic underline underline-offset-2 font-semibold hover:decoration-blue-600 duration-200 animate-out'>Add Job</h1>
-        <div className='flex flex-row flex-wrap justify-around items-center'>
-          <div className='w-[300px] lg:w-[400px] m-2'>
-            <h1>Job Title</h1>
-            <Input placeholder="Enter job title" />
+    <div className=" w-full mx-auto p-8 shadow-lg rounded-lg">
+      <h1 className="text-center text-4xl font-extrabold underline underline-offset-2 italic  mb-8">Add Job</h1>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-medium ">Job Title</label>
+            <Input name="jobtitle" value={form.jobtitle} onChange={handleChange} placeholder="Enter job title" />
           </div>
-          <div className='w-[300px] lg:w-[400px] m-2'>
-            <h1>Number of Posts</h1>
-            <Input placeholder="Enter number of posts" />
+          <div>
+            <label className="block text-sm font-medium ">Number of Posts</label>
+            <Input name="number_of_post" value={form.number_of_post} onChange={handleChange} placeholder="Enter number of posts" />
           </div>
-          <div className='w-[300px] lg:w-[400px] m-2'>
-            <h1>Description</h1>
-            <Input placeholder="Enter job description" />
+          <div>
+            <label className="block text-sm font-medium ">Description</label>
+            <Input name="description" value={form.description} onChange={handleChange} placeholder="Enter job description" />
           </div>
-          <div className='w-[300px] lg:w-[400px] m-2'>
-            <h1>Experience Required</h1>
-            <Input placeholder="Enter required experience" />
+          <div>
+            <label className="block text-sm font-medium ">Experience Required</label>
+            <Input name="experience" value={form.experience} onChange={handleChange} placeholder="Enter required experience" />
           </div>
-          <div className='w-[300px] lg:w-[400px] m-2'>
-            <h1>Qualification/Education Required</h1>
-            <Input placeholder="Enter required qualification/education" />
+          <div>
+            <label className="block text-sm font-medium ">Qualification/Education Required</label>
+            <Input name="qualification" value={form.qualification} onChange={handleChange} placeholder="Enter required qualification/education" />
           </div>
-          <div className='w-[300px] lg:w-[400px] m-2'>
-            <h1>Specialization Required</h1>
-            <Input placeholder="Enter required specialization" />
+          <div>
+            <label className="block text-sm font-medium ">Specialization Required</label>
+            <Input name="specialization_req" value={form.specialization_req} onChange={handleChange} placeholder="Enter required specialization" />
           </div>
-          <div className='w-[300px] lg:w-[400px] m-2'>
-            <h1>Last Date to Apply</h1>
-            <Input placeholder="Enter last date to apply" />
+          <div>
+            <label className="block text-sm font-medium ">Last Date to Apply</label>
+            <Input type='date' name="last_date" value={form.last_date} onChange={handleChange} placeholder="Enter last date to apply" />
           </div>
-          <div className='w-[300px] lg:w-[400px] m-2'>
-            <h1>Salary</h1>
-            <Input placeholder="Enter salary" />
+          <div>
+            <label className="block text-sm font-medium ">Salary</label>
+            <Input name="salary" value={form.salary} onChange={handleChange} placeholder="Enter salary" />
           </div>
-          <div className='w-[300px] lg:w-[400px] m-2'>
-            <h1>Job Type</h1>
-            <Select onValueChange={handleChange} value={selectedJob}>
+          <div>
+            <label className="block text-sm font-medium ">Job Type</label>
+            <Select onValueChange={(value) => setForm({ ...form, job_type: value })} value={form.job_type}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select a job type" />
               </SelectTrigger>
@@ -74,43 +143,44 @@ function NewJob() {
               </SelectContent>
             </Select>
           </div>
-          <div className='w-[300px] lg:w-[400px] m-2'>
-            <h1>Company/Organization Name</h1>
-            <Input placeholder="Enter company/organization name" />
+          <div>
+            <label className="block text-sm font-medium ">Company/Organization Name</label>
+            <Input name="company" value={form.company} onChange={handleChange} placeholder="Enter company/organization name" />
           </div>
-          <div className='w-[300px] lg:w-[400px] m-2'>
-            <h1>Company/Organization Logo</h1>
-            <Input type='file' name='image' accept='image/*' />
-            
+          <div>
+            <label className="block text-sm font-medium ">Company/Organization Logo</label>
+            <CldUploadButton
+              className="w-full text-left border-2 p-1 rounded-md"
+              onSuccess={handleCompangLogo}
+              uploadPreset="wyyzhuyo"
+            />
+            {companyLogo ? <p className="text-green-600 text-left">Upload successful</p> : <p className="text-red-700 text-left">Please upload logo (.jpg/.png)</p>}
           </div>
-          <div className='w-[300px] lg:w-[400px] m-2'>
-            <h1>Website</h1>
-            <Input placeholder="Enter website URL" />
+          <div>
+            <label className="block text-sm font-medium ">Website</label>
+            <Input name="website_url" value={form.website_url} onChange={handleChange} placeholder="Enter website URL" />
           </div>
-          <div className='w-[300px] lg:w-[400px] m-2'>
-            <h1>Email</h1>
-            <Input placeholder="Enter email" />
+          <div>
+            <label className="block text-sm font-medium ">Email</label>
+            <Input name="email" value={form.email} onChange={handleChange} placeholder="Enter email" />
           </div>
-          <div className='w-[300px] lg:w-[400px] m-2'>
-            <h1>Address</h1>
-            <Input placeholder="Enter address" />
+          <div>
+            <label className="block text-sm font-medium ">Address</label>
+            <Input name="address" value={form.address} onChange={handleChange} placeholder="Enter address" />
           </div>
-          <div className='w-[300px] lg:w-[400px] m-2'>
-            <h1>Country</h1>
-            <Input placeholder="Enter country" />
+          <div>
+            <label className="block text-sm font-medium ">Country</label>
+            <Input name="country" value={form.country} onChange={handleChange} placeholder="Enter country" />
           </div>
-          <div className='w-[300px] lg:w-[400px] m-2'>
-            <h1>State</h1>
-            <Input placeholder="Enter state" />
+          <div>
+            <label className="block text-sm font-medium ">State</label>
+            <Input name="state" value={form.state} onChange={handleChange} placeholder="Enter state" />
           </div>
-         
         </div>
-        <div className=' flex flex-row flex-wrap m-4 justify-center '>
-          <Button className='w-[300px] lg:w-[400px]  bg-blue-600 hover:translate-x-4 duration-150  ' onClick={()=>{
-            //  handleAddJob()
-          }}>Add Job</Button>
+        <div className="flex justify-center mt-8">
+          <Button type="submit" className="w-full max-w-md bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition duration-200">Add Job</Button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

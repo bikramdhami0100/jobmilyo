@@ -6,8 +6,6 @@ import "@/app/(users)/user/globals.css";
 import Footer from "@/app/(users)/user/components/Footer";
 import Navbar from "@/app/(users)/user/components/Navbar";
 import { Toaster } from "@/components/ui/toaster";
-import { ToastContainer } from "react-toastify";
-
 
 const lora = Lora({ subsets: ["latin"] });
 

@@ -22,8 +22,25 @@ export const options:NextAuthOptions={
 
     callbacks: {
     async signIn({user,account}:any){
-        console.log(user)
-        console.log(account)
+        console.log("user",user)
+        console.log("account ",account)
+        // const {name,email}=user;
+        // if(account.provider==="google"){
+        //     try {
+        //      const res=   await fetch("http://localhost:3000/api/google",{
+        //             method:"POST",
+        //             headers:{
+        //                 "content-type":"application/json"
+        //             },
+        //             body:JSON.stringify({name,email})
+        //         });
+        //         if (res.ok) {
+        //             return user;
+        //         }
+        //     } catch (error) {
+        //         console.log(error)
+        //     }
+        // }
         return user;
     }
     }

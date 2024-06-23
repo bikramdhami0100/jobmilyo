@@ -51,7 +51,7 @@ function Navbar() {
     const [usersignup, setusersignup] = useState(false);
     const [validUser, setValidUser] = useState<any>();
     const [token, settoken] = useState<any>();
-    const session = useSession();
+    // const session = useSession();
     
     
     const checkuserVerify = async () => {
@@ -83,7 +83,7 @@ function Navbar() {
 
    
     const HandleLogOut=async()=>{
-        console.log("log out c")
+        // console.log("log out c")
         const data = await fetch(`/api/login/logout?token=${token}`, {
             method: "get",
 
@@ -171,7 +171,6 @@ function Navbar() {
                                             </div>
                                         </div>
                                     }
-
                                 </div></DropdownMenuTrigger>
                                 <DropdownMenuContent>
                                     <DropdownMenuLabel>My Account</DropdownMenuLabel>

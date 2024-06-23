@@ -7,7 +7,7 @@ import { CompanySlider } from '../usercomponents/CompanySlider'
 function UserHome() {
   return (
     <div>
-       <SwiperSlider/>
+     <SwiperSlider/>
       <SearchSection/>
       <TreandingJob/>
       <CompanySlider/>

@@ -11,6 +11,7 @@ const initialState = {
     Users: [] as UserData[],
     SearchContent:[] as any,
     validUserToken:[] as any,
+    JobListTable: [] as any,
 }
 
 export const SignupInfo = createSlice({
@@ -40,9 +41,13 @@ export const SignupInfo = createSlice({
         validUserToken:(state,action)=>{
           
             state.validUserToken.push(action.payload);
-       }
+       },
+       JobListTable:(state,action)=>{
+          
+        state.validUserToken.push(action.payload);
+   },
     }
 })
 
-export const {validUserToken, userSignUpInfo,SingleUserAllInformation,SearchHomeJobs } = SignupInfo.actions
+export const {validUserToken, userSignUpInfo,SingleUserAllInformation,SearchHomeJobs ,JobListTable} = SignupInfo.actions
 export default SignupInfo.reducer;
