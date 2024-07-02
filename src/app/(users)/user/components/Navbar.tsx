@@ -42,7 +42,7 @@ function Navbar() {
     const NavMenu2 = [
         {
             name: "Home",
-            path: "/user/home",
+            path: "/user",
             icon: Home
         },
         {
