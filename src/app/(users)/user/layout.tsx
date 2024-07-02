@@ -1,4 +1,4 @@
-"use client"
+
 import Footer from "@/app/(users)/user/components/Footer";
 import Navbar from "@/app/(users)/user/components/Navbar";
 import { Toaster } from "@/components/ui/toaster";
