@@ -148,6 +148,10 @@ function TreandingJob() {
             search.SelectItem = ""
             return item
         }
+        if (search.PCompany == "Select Company" || search.SelectItem == "Select Company") {
+            search.PCompany = ""
+            return item
+        }
         if (search) {
 
             const matchesCategory = search.SelectItem ? item.category.toLowerCase().includes(search.SelectItem.toLowerCase()) : true;
