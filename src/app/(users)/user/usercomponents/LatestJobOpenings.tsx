@@ -1,11 +1,14 @@
+"use client"
 import { Button } from '@/components/ui/button';
 import { BookmarkIcon } from '@radix-ui/react-icons';
 import { IconTimeDuration60 } from '@tabler/icons-react';
 import { Calendar, MapPin, Star } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import React from 'react';
 
 function LatestJobOpenings() {
+    const {theme}=useTheme()
     const LatestJobOpen = [
         {
             name: "Raman Khadka",
@@ -95,12 +98,12 @@ function LatestJobOpenings() {
 
     return (
         <div>
-            <div><h1 className='text-center text-4xl underline font-bold'>Latest Job Openings</h1></div>
+            <div className={` p-4 ${theme=="light"?"bg-[#e7eaec]":""}`}><h1 className='text-center text-4xl underline font-bold'>Latest Job Openings</h1></div>
             <div className='flex flex-wrap gap-10 justify-center items-center my-10 w-[100%] m-auto'>
                 {
                     LatestJobOpen.map((item, index) => {
                         return (
-                            <div key={index} className='flex relative  flex-row  items-center justify-between gap-2 w-full h-full border p-4'>
+                            <div key={index} className={`  ${theme==="light"?"bg-white":""} flex relative  flex-row  items-center justify-between gap-2 w-full h-full border p-4`}>
                                 <div className=' w-full flex flex-col  gap-2'>
                                     <div className='flex gap-2'>
                                         <h1 className='text-xl font-bold '>{item.name}</h1>

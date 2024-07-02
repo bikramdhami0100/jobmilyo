@@ -1,4 +1,4 @@
-
+"use client"
 import Footer from "@/app/(users)/user/components/Footer";
 import Navbar from "@/app/(users)/user/components/Navbar";
 import { Toaster } from "@/components/ui/toaster";
@@ -21,7 +21,7 @@ export default async function UserLayout({
          <Toaster />
   
          </div>
-          <div className="z-0" >
+          <div className={`z-0 `} >
           {children}
           </div>
           <div >

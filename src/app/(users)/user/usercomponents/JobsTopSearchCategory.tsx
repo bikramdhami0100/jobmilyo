@@ -1,3 +1,5 @@
+"use client"
+import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import React from 'react'
 
@@ -44,10 +46,11 @@ function JobsTopSearchCategory() {
             
         }
     ]
+    const {theme}:any=useTheme()
   return (
 
     <div>
-        <div className=' '> <h1 className=' text-center text-4xl underline font-bold '> Top Search Category</h1></div>
+        <div className={` p-4 ${theme=="light"?"bg-[#e7eaec]":""}`}> <h1 className=' text-center text-4xl underline font-bold '> Top Search Category</h1></div>
         <div className=' flex flex-wrap gap-10 justify-center items-center my-10 w-[90%] m-auto'>
              {
                 JobsItems.map((item,index)=>{
