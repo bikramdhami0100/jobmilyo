@@ -1,5 +1,5 @@
 import React from 'react'
-import UserHome from './Home/page';
+import UserHome from './home/page';
 
 function Home() {
   

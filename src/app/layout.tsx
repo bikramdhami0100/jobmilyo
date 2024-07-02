@@ -43,7 +43,8 @@ export default async function RootLayout({
             enableColorScheme
             
             disableTransitionOnChange
-          >     <div className=" fixed  z-30 top-0">
+          >   
+            <div className=" fixed  z-30 top-0">
                <SplashScreen/> 
             </div>
             <div>

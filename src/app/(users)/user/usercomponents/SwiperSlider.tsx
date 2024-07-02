@@ -24,6 +24,7 @@ export default function SwiperSlider() {
         <Button className=" text-center self-center bg-blue-600">Explore More...</Button>
       </div>
      <Swiper
+         
         spaceBetween={30}
         centeredSlides={true}
         autoplay={{
@@ -36,7 +37,8 @@ export default function SwiperSlider() {
         navigation={true}
         style={style}
         modules={[Autoplay, Pagination, Navigation]}
-        className={style?"one":"may"}
+        // className={style?"one":"may"}
+        className=' h-full'
       >
         
              {heroImages.map((item, index) => (

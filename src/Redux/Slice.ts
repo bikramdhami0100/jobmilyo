@@ -42,7 +42,7 @@ export const SignupInfo = createSlice({
           
             state.validUserToken.push(action.payload);
        },
-       JobListTable:(state,action)=>{
+       JobListTable:(state:any,action:any)=>{
           
         state.validUserToken.push(action.payload);
    },

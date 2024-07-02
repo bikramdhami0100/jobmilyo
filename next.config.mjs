@@ -9,7 +9,7 @@ const nextConfig = {
            
     //     ]
     // }
-    images:{domains:["lh3.googleusercontent.com","avatars.githubusercontent.com","images.unsplash.com","res.cloudinary.com"]}
+    images:{domains:["lh3.googleusercontent.com","avatars.githubusercontent.com","images.unsplash.com","res.cloudinary.com","cdn-icons-png.flaticon.com"]}
 };
 
 export default nextConfig;

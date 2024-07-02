@@ -1,76 +1,51 @@
+
+
 "use client"
 import React from 'react'
 import { DataType } from './TreandingJob'
 import { CardBody, CardContainer, CardItem } from "../../../components/ui/3d_card";
 import Image from 'next/image';
-import { BadgeDollarSign, Hourglass, MapPinned } from 'lucide-react';
+import { BadgeDollarSign, Hourglass, LucideDollarSign, MapPinned, SquareLibrary } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
+import { useTheme } from 'next-themes';
 
 function TreandingList({ data }: any) {
-    
+    const {theme}:any=useTheme()
     const listdata: DataType[] = data;
-    const router=useRouter();
+     console.log(theme)
+    const router = useRouter();
     return (
 
         <div>
-            <h1 className=' animate-pulse underline decoration-blue-600  font-extrabold text-4xl text-center'> Trending Jobs in <span className=' text-blue-600 '>Job</span> <span className=' text-red-600 '>मिल्यो ?</span></h1>
-        <div className=' flex  flex-wrap  justify-center items-center mb-3'>
-          
-            {
-                listdata.map((item, index) => {
-                    return (
-                        <div key={index} >
-                            <CardContainer className="inter-var w-[300px] h-[320px]  flex p-3 m-auto  ">
-                                <CardBody className=" p-2  shadow-lg border  m-auto gap-2 ">
-                                    <CardItem
-                                        translateZ="50"
-                                        className=' font-extrabold'
-                                    >
-                                        {item.category}
-                                    </CardItem>
-                                    <Image
-                                        src={item.image}
-                                        height="100"
-                                        width="100"
-                                        className="h-[200px]  w-full object-cover rounded-xl group-hover/card:shadow-xl"
-                                        alt="thumbnail"
-                                    />
 
-                                    <CardItem
-                                        as="p"
-                                        translateZ="60"
-                                        className="text-neutral-500 text-sm max-w-sm mt-3 dark:text-neutral-300 flex gap-2"
-                                    >
-                                     <MapPinned /> {item.location}
-                                    </CardItem>
-                                    <CardItem
-                                        as="p"
-                                        translateZ="60"
-                                        className="text-neutral-500 text-sm max-w-sm mt-3 dark:text-neutral-300 flex gap-2"
-                                    >
-                                     <BadgeDollarSign /> {item.salary}
-                                    </CardItem>
-                                    <CardItem
-                                        as="p"
-                                        translateZ="60"
-                                        className="text-neutral-500 text-sm max-w-sm mt-3 dark:text-neutral-300 flex gap-2"
-                                    >
-                                     <Hourglass /> {item.working_hour}
-                                    </CardItem>
-                                     <div className=' flex justify-between m-auto'>
-                                         <Button className=' bg-green-600 h-[32px] '>Apply Now</Button>
-                                         <Button className=' bg-blue-600 h-[32px] ' onClick={()=>{
-                                             router.push("/jobdetail/1");
-                                         }}>Details</Button>
-                                     </div>
-                                </CardBody>
-                            </CardContainer>
-                        </div>
-                    )
-                })
-            }
-        </div>
+            <div className={`  flex  cursor-pointer  flex-wrap  justify-center items-center  gap-4 my-10 `}>
+
+                {
+                    listdata.map((item, index) => {
+                        return (
+                            <div key={index} className={`relative  h-[435px] border ring-2 ring-inset ring-gray-400 hover:shadow-xl  ${theme=="light"?"bg-[#e6e9ec] hover:bg-gray-300 ":""} p-4 w-[300px] shadow-md  `}>
+
+                                <h1 className=' text-3xl text-center font-bold'>{item.category}</h1>
+
+                                <div className=' h-[2px] bg-[#e6e9ec] w-full mb-2'></div>
+                                <Image alt='thumbinal' width={100} height={100} src={item.image} className='  w-[70%] h-[180px]  object-fill m-auto h' ></Image>
+                                <span className=' flex  gap-2 my-2'> <MapPinned /> {item.location}</span>
+                                <span className=' flex  gap-2 my-2'><BadgeDollarSign />{item.salary}</span>
+                                <span className=' flex  gap-2 my-2'><Hourglass /> {item.working_hour}</span>
+                                <div className=' flex justify-between m-auto'>
+                                    <Button className=' bg-[#73bc87] h-[32px] absolute bottom-4 left-4 '>Apply Now</Button>
+                                    <Button className=' bg-[#1983d1] h-[32px] absolute bottom-4 right-4 ' onClick={() => {
+                                        router.push("/jobdetail/1");
+                                    }}>Details</Button>
+                                </div>
+                                <span></span>
+
+                            </div>
+                        )
+                    })
+                }
+            </div>
         </div>
     )
 }

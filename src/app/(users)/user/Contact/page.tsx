@@ -4,7 +4,9 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
+import { useTheme } from 'next-themes'
 function Contact() {
+  const theme:any=useTheme()
   const[contactError,setContactError]=useState({ 
    name:"",
   email:"",
@@ -44,13 +46,13 @@ function Contact() {
     <div>
       <div>
       
-        <div className=' w-[98%] flex  flex-row flex-wrap m-auto justify-around items-center  p-4 h-full'>
+        <div className=' w-[98%] flex mb-20  flex-row flex-wrap m-auto justify-around items-center  p-4 h-full'>
         <div className=' w-screen absolute -z-10'>
             
         </div>
           {/* message section */}
           <div className=' flex flex-col justify-center items-center border w-full md:w-[40%] lg:w-[40%] h-full' >
-            <h1>Contact <span className=' text-blue-600'>Us</span></h1>
+            <h1 className=' text-3xl font-bold p-2 '>Contact <span className=' text-blue-600'>Us</span></h1>
             <div className=' flex flex-col  gap-2 p-2  w-[70%] '>
               <Input name='name' value={contact.name} placeholder='Name' onChange={HandleContactFun}></Input>
               {contactError.name && <span className="text-red-500">{contactError.name}</span>}
@@ -58,7 +60,7 @@ function Contact() {
               {contactError.email && <span className="text-red-500">{contactError.email}</span>}
               <Textarea name='message' value={contact.message} rows={8} placeholder='Message' onChange={HandleContactFun}></Textarea>
            
-              <Button className=" bg-transparent text-black-600  font-extrabold text-2xl hover:bg-blue-600" onClick={()=>{
+              <Button className=" bg-transparent bg-blue-600 w-[80%] m-auto text-white text-black-600  font-extrabold text-2xl hover:bg-blue-600" onClick={()=>{
 
               }}>Submit</Button>
             </div>

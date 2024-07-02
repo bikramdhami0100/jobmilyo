@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import { BookMarked, BookMarkedIcon, Bookmark, LogOut, MessagesSquare, Moon, Sun } from "lucide-react"
+import { BookMarked, BookMarkedIcon, Bookmark, Group, Home, LogOut, MessageCircle, MessagesSquare, Moon, PersonStanding, Send, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useRouter } from 'next/navigation'
 import {
@@ -38,22 +38,50 @@ function Navbar() {
     const { setTheme, theme } = useTheme();
 
     const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-[rgb(17,24,39)]'; // Set background color based on theme
-    const NavMenu = ["Home", "About", "Jobs", "Contact", "Documentation"]
+    const NavMenu = ["Home", "About", "Jobs", "Contact", "Post a job"]
+    const NavMenu2 = [
+        {
+            name: "Home",
+            path: "/user/home",
+            icon: Home
+        },
+        {
+            name: "About",
+            path: "/user/about",
+            icon: Group
+        },
+        {
+            name: "Jobs",
+            path: "/user/jobs",
+            icon: PersonStanding
+        },
+        {
+            name: "Contact us",
+            path: "/user/contact",
+            icon: MessageCircle
+        },
+        {
+            name: "Post a job",
+            path: "/user/post",
+            icon: Send
+        },
+
+    ]
 
     const ChatWithUs = () => {
         alert("implement in major project !!!")
     }
-    const selector = useSelector((usertoken:any) => {
+    const selector = useSelector((usertoken: any) => {
         //  console.log(usertoken);
-         return usertoken?.signupinfo?.validUserToken
+        return usertoken?.signupinfo?.validUserToken
     })
     console.log(selector);
     const [usersignup, setusersignup] = useState(false);
     const [validUser, setValidUser] = useState<any>();
     const [token, settoken] = useState<any>();
     // const session = useSession();
-    
-    
+
+
     const checkuserVerify = async () => {
         const data = await fetch("/api/checkvaliduser/", {
             method: "get",
@@ -63,16 +91,16 @@ function Navbar() {
         if (data.ok) {
             const result = await data.json()
             console.log(result);
-            
-             if (result?.user) {
+
+            if (result?.user) {
                 toast({
                     description: result?.message,
-                  })
+                })
                 setValidUser(result.user)
                 settoken(result.token);
                 setusersignup(true);
 
-             }
+            }
 
         }
     }
@@ -81,8 +109,8 @@ function Navbar() {
         checkuserVerify();
     }, [selector]);
 
-   
-    const HandleLogOut=async()=>{
+
+    const HandleLogOut = async () => {
         // console.log("log out c")
         const data = await fetch(`/api/login/logout?token=${token}`, {
             method: "get",
@@ -91,14 +119,14 @@ function Navbar() {
 
         if (data.ok) {
             const result = await data.json()
-            if(result){
+            if (result) {
                 toast({
                     description: result?.message,
-                  })
-                  setValidUser("");
-                  settoken("");
-                  setusersignup(false);
-                  router.push("/user/login/")
+                })
+                setValidUser("");
+                settoken("");
+                setusersignup(false);
+                router.push("/user/login/")
 
             }
 
@@ -106,8 +134,8 @@ function Navbar() {
     }
 
     return (
-        <div className={`flex justify-between m-auto shadow-md p-3 ${navbarBgColor} `}>
- 
+        <div className={`flex h-[70px]  justify-between m-auto shadow-md items-center p-3 ${navbarBgColor} `}>
+
             <div className=' flex gap-1 justify-center items-center'>
                 <div className=' visible md:hidden lg:hidden'>
 
@@ -121,11 +149,11 @@ function Navbar() {
                                 <SheetDescription>
                                     <div>
                                         {
-                                            NavMenu.map((item, index) => {
-                                                return (<div className=' flex flex-row' key={index}>
+                                            NavMenu2.map((item, index) => {
+                                                return (<div className=' flex font-bold  m-2 text-2xl flex-row' key={index}>
                                                     <SheetClose> <h1 className=' cursor-pointer hover:text-blue-600 hover:underline hover:transition-shadow' onClick={() => {
-                                                        router.push(`/user/${item}`)
-                                                    }}>{item}</h1></SheetClose>
+                                                        router.push(item.path)
+                                                    }}>{item.name == "Post a job" ? (<p className=' bg-[#b0dac1] rounded-full p-2 underline'>{item.name}</p>) : item.name}</h1></SheetClose>
                                                 </div>)
                                             })
                                         }
@@ -140,23 +168,23 @@ function Navbar() {
                     router.push("/user")
                 }} alt='logo' src={"/images/logo.png"} height={100} width={100} /></div>
 
-            <div className={` flex hidden  md:flex md:gap-2  lg:flex  lg:gap-3`}>
+            <div className={` flex hidden  md:flex font-bold  text-xl lg:flex  gap-10 `}>
 
                 {
-                    NavMenu.map((item, index) => {
-                        return (<div className=' flex flex-row ' key={index}>
-                            <h1 onClick={() => {
-                                router.push(`/user/${item}`)
-                            }} className=' cursor-pointer hover:text-blue-600 hover:underline hover:transition-shadow' >{item}</h1>
+                    NavMenu2.map((item, index) => {
+                        return (<div className=' flex flex-row justify-center items-center  gap-10' key={index}>
+                            <span className=' inline-block cursor-pointer hover:text-blue-600 hover:underline hover:transition-shadow' onClick={() => {
+                                router.push(item.path)
+                            }}>{item.name == "Post a job" ? (<span className={` ${theme == "light" ? "bg-[#b0dac1]" : ""}  flex  items-center justify-center text-center rounded-full p-2 underline`}>{item.name}</span>) : item.name}</span>
                         </div>)
                     })
                 }</div>
             <div className=' flex  gap-[6px]'>
 
-                <MessagesSquare className=' self-center  h-[40px] '
+                {/* <MessagesSquare className=' self-center  h-[40px] '
                     onClick={() => {
                         ChatWithUs();
-                    }} />
+                    }} /> */}
 
 
                 {
@@ -181,7 +209,7 @@ function Navbar() {
 
                                     <DropdownMenuItem>Team</DropdownMenuItem>
                                     <DropdownMenuItem onClick={() => {
-                                      HandleLogOut();
+                                        HandleLogOut();
                                     }} ><LogOut />log out</DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
@@ -210,9 +238,7 @@ function Navbar() {
                         <DropdownMenuItem onClick={() => setTheme("dark")}>
                             Dark
                         </DropdownMenuItem>
-                        {/* <DropdownMenuItem onClick={() => setTheme("system")}>
-                            System
-                        </DropdownMenuItem> */}
+
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
