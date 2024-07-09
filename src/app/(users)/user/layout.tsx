@@ -13,22 +13,24 @@ export default async function UserLayout({
 
 
   return (
-   <>
-      <div  id="userHome"  >
-         <div>
-         <div className=" sm:sticky sm:z-20 w-full top-0 sticky z-20">
-         <Navbar/>
-         <Toaster />
-  
-         </div>
-          <div className={`z-0 `} >
-          {children}
+    <>
+      <div id="userHome" className=" w-full h-full" >
+        <div className=" w-full h-full">
+          {/* navbar and toast message */}
+          <div className="sm:z-20 w-full top-0 fixed z-20">
+            <Navbar />
+            <Toaster />
+
           </div>
-          <div >
-          <Footer/>
+          <div className={`z-0 mt-[70px] w-full h-full `} >
+            {children}
           </div>
-         </div>
+          {/* footer */}
+          <div className=" w-full">
+            <Footer />
+          </div>
+        </div>
       </div>
-      </>
+    </>
   );
 }

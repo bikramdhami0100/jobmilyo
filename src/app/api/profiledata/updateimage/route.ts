@@ -1,3 +1,5 @@
+
+
 import Usersignup from "@/app/mongodb/SignUpSchema";
 import UserInformation from "@/app/mongodb/UserInformationSchema";
 import mongodbconn from "@/app/mongodb/connection";
@@ -6,23 +8,23 @@ const jwt = require("jsonwebtoken");
 
 export async function POST(req:any) {
   await mongodbconn;
-   const bskill=await req.json();
-   console.log(bskill);
+ const {image}=await req.json()
+ console.log(image);
   const tokendata = await req.cookies.get("token").value;
   const useremail = jwt.verify(tokendata, process.env.TOKEN_SECRETKEY);
   const email = useremail.encodeemail.email;
-
-  const users = await Usersignup.findOne({ email: email }).select("-password");
-  console.log(users._id);
+  console.log(email)
+  const users = await Usersignup.findOneAndUpdate({ email: email },{color:image},{new:true})
+  console.log(users);
+// const user=await Usersignup.findOne({email:email});
+// console.log(user)
   try {
         
-    // const userallprofiledata = await UserInformation.find({userId:users._id}).populate("userId").select("-password");
-    const userallprofiledata = await UserInformation.findOne({userId:users._id}).populate("userId");
-    // userallprofiledata.skill=
-    console.log(userallprofiledata)
-    return NextResponse.json({ success: true, data: { userInfos: userallprofiledata,user:users }, status: 200 });
+
+    return NextResponse.json({ success: true, data: { user:users }, status: 200 });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ success: false, status: 404 });
   }
 }
+

@@ -2,7 +2,10 @@
 import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
 
-
+// import { useDispatch } from 'react-redux'
+// import { validUserToken } from './Redux/Slice'
+ 
+// This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
     // console.log(request.url)
     const usertoken:any =request.cookies.get("token")?.value
@@ -27,6 +30,7 @@ export function middleware(request: NextRequest) {
     //  if (!isPublicPath && !token) {
     //     return NextResponse.redirect(new URL("/login",request.nextUrl))
     //  } 
+
 
 }
  

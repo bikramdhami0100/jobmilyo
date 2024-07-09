@@ -1,7 +1,7 @@
 "use client"
 import { Button } from '@/components/ui/button';
 import { IconCalendarTime, IconCircleCheckFilled, IconEdit, IconEditCircle, IconEyeStar, IconPhoneCall, IconPhotoEdit, IconSignRightFilled, IconStar, IconStarFilled, IconStarOff, IconUpload } from '@tabler/icons-react';
-import { Bookmark, PencilLine, Phone, Plus, Rocket, SendHorizonal, Star } from 'lucide-react';
+import { Bookmark, Loader, PencilLine, Phone, Plus, Rocket, SendHorizonal, Star } from 'lucide-react';
 import Image from 'next/image'
 import React, { use, useEffect, useState } from 'react'
 // import { ScrollArea } from "@/components/ui/scroll-area"
@@ -30,6 +30,7 @@ import {
     TabsList,
     TabsTrigger,
 } from "@/components/ui/tabs"
+
 
 import html2canvas from 'html2canvas';
 const FileSaver = require("file-saver");
@@ -196,8 +197,15 @@ function UserProfile() {
     useEffect(() => {
 
     }, [allSkill]);
-    const skillUpdate = () => {
-
+    const skillUpdate = async() => {
+      console.log("all ",allSkill)
+      axios.post('/api/profiledata/skillupdate', allSkill)
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     }
     const CallingToUser = (phonenumber: any) => {
         return (
@@ -451,7 +459,7 @@ function UserProfile() {
 
                                             <Button onClick={() => {
                                                 downloadCV(item.uploadCV, item.fname);
-                                            }} className=' bg-blue-600'>Download CV</Button>
+                                            }} className=' bg-blue-600'> {isDownloading&&<Loader className=' animate-spin'/>}Download CV</Button>
                                             <Button onClick={() => {
                                                 CallingToUser(item.phone);
                                             }} className=' flex  transition-colors duration-500 bg-green-500'><IconPhoneCall /> Call</Button>

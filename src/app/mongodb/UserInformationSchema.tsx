@@ -12,7 +12,8 @@ const UserInformationSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
-    required: true
+    required: true,
+    unique:true,
   },
   PermanentAddress: {
     type: String,

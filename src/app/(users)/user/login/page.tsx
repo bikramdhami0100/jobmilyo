@@ -99,7 +99,7 @@ function Login() {
          </div>
         </div>
       </div>
-      <div className='  flex flex-col shadow-lg p-6 justify-center items-center ml-12 rounded-md'>
+      <div className='relative  flex flex-col shadow-lg p-6 justify-center items-center ml-12 rounded-md'>
           <h1>Login</h1>
          <div  className='flex flex-col gap-4'>
          <div className="flex flex-col justify-center item-start w-full">
@@ -112,9 +112,9 @@ function Login() {
             <div className='flex'>
               <Input onChange={(e) => setPassword(e.target.value)} type={showPassword ? "password" : "text"} placeholder="Create a strong password" name='password' />
               {showPassword ? (
-                <Eye onClick={() => setShowPassword(false)} className='z-10 absolute right-[18%] md:right-[10%] lg:right-[8%] self-center' />
+                <Eye onClick={() => setShowPassword(false)} className='z-10 absolute right-[10%]  self-center' />
               ) : (
-                <EyeOff onClick={() => setShowPassword(true)} className='z-10 absolute right-[18%] md:right-[10%] lg:right-[8%] self-center' />
+                <EyeOff onClick={() => setShowPassword(true)} className='z-10 absolute right-[10%]  self-center' />
               )}
             </div>
             {errorPassword && <p className=' text-red-600'>Please enter a strong password</p>}

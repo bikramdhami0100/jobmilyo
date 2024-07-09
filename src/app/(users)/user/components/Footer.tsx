@@ -16,7 +16,7 @@ function Footer() {
     const router=useRouter()
     const date = new Date();
     const { theme } = useTheme();
-    const setbgfooter = theme == "light" ? "text-[rgb(255,255,255)] bg-[rgb(43,57,64)]" : "";
+    const setbgfooter = theme == "light" ? "text-[rgb(255,255,255)]  h-full bg-[rgb(43,57,64)]" : "";
     const socialItem=[
         {
             name:"twitter",
@@ -40,8 +40,8 @@ function Footer() {
         }
     ]
     return (
-        <div className={`  w-[100%]  gap-2 ${setbgfooter} bottom-0`}>
-            <div className=' w-[96%] grid grid-cols-2 md:grid-flow-col lg:grid-flow-col gap-4 m-auto p-4 mb-4 text-md'>
+        <div className={`  w-full  gap-2 ${setbgfooter} bottom-0 z-10  h-full`}>
+            <div className=' w-full grid grid-cols-2 md:grid-flow-col lg:grid-flow-col gap-4 m-auto p-4 mb-4 text-md'>
                 <div>
                     <h1 className=' text-xl font-bold mb-4'>Company</h1>
                     <div> <Link href='/user/about' className=' m-auto cursor-pointer gap-1 '> <span>&gt;</span>About us</Link></div>

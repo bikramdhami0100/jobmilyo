@@ -47,43 +47,44 @@ import { IconEyeSearch } from '@tabler/icons-react'
 
 function AdminNavbar() {
 
+    const AdminMenu = [
+        {
+            name: "Dashboard",
+            path: "/admin/dashboard",
+            icon: LayoutDashboard
+        },
+        {
+            name: "New Job",
+            path: "/admin/newjob",
+            icon: SquarePlus
+        },
+        {
+            name: "Job List",
+            path: "/admin/joblist",
+            icon: LayoutList
+        },
+        {
+            name: "View Resume",
+            path: "/admin/viewresume",
+            icon: Search
+        }
+        ,
+        {
+            name: "Contact List",
+            path: "/admin/contactlist",
+            icon: Contact2Icon
+        }
+    ]
 
-
-    const session = useSession();
 
     const router = useRouter();
-    if (session.status == "authenticated") {
-        useEffect(() => {
-            // Function to set a cookie
-            const setCookie = (name: string, value: any, days: number) => {
-                const expires = new Date(Date.now() + days * 864e5).toUTCString();
-                document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';
-            };
 
-            // Call setCookie function to set your desired cookie
-            setCookie('user', session.data.user?.email, 1); // 30 days expiry, adjust as needed
-        }, []);
-
-
-    }
-    if (session.status == 'unauthenticated') {
-        useEffect(() => {
-            // Function to set a cookie
-            const showCookie = (name: string, value: any, days: number) => {
-                const expires = new Date(Date.now() + days * 864e5).toUTCString();
-                document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';
-            };
-
-            // Call setCookie function to set your desired cookie
-            showCookie('admin', "", 1); // 30 days expiry, adjust as needed
-        }, []);
-    }
     const { setTheme, theme } = useTheme();
 
-    const navbarBgColor = theme === 'light' ? "bg-[#1983d1]" : 'bg-[rgb(17,24,39)]'; // Set background color based on theme
+    const navbarBgColor = theme === 'light' ? "bg-[#1983d1] text-black  " : 'bg-[rgb(17,24,39)]'; // Set background color based on theme
 
     return (
-        <div className={` flex justify-between m-auto shadow-md p-3 ${navbarBgColor} w-full`}>
+        <div className={` flex justify-between m-auto  shadow-md p-3 ${navbarBgColor} w-full`}>
             <div className=' flex gap-4 justify-center items-center'>
                 <div className=' visible md:hidden lg:hidden'>
 
@@ -98,37 +99,19 @@ function AdminNavbar() {
                                     <div className=' flex flex-col justify-between gap items-start gap-[200px] '>
                                         <div className=' flex flex-col w-full '>
                                             <SheetClose>
-                                                <div className='hover:bg-blue-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]' onClick={() => {
-                                                    router.push("/admin/dashboard")
-                                                }}>
-                                                    <LayoutDashboard />
-                                                    Dashboard
-                                                </div>
+                                            {
+                                                AdminMenu.map((item,index)=>{
+                                                    return (
+                                                        <div className={`hover:bg-rose-700 ${theme=="light"?"text-black":""} rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]`} onClick={() => {
+                                                            router.push(item.path)
+                                                        }}>
+                                                           <item.icon/>
+                                                             {item.name}
+                                                        </div>
+                                                    )
+                                                })
+                                            }
 
-                                                <div className=' hover:bg-blue-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]' onClick={() => {
-                                                    router.push("/admin/newjob")
-                                                }}>
-                                                    <SquarePlus />
-                                                    New Job
-                                                </div>
-                                                <div className='hover:bg-blue-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]' onClick={() => {
-                                                    router.push("/admin/joblist")
-                                                }}>
-                                                    <LayoutList />
-                                                    Job list
-                                                </div>
-                                                <div className='hover:bg-blue-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]' onClick={() => {
-                                                    router.push("/admin/viewresume")
-                                                }}>
-                                                    <Search />
-                                                    View Resume
-                                                </div>
-                                                <div className='hover:bg-blue-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]' onClick={() => {
-                                                    router.push('/admin/contactlist')
-                                                }}>
-                                                    <Contact2Icon />
-                                                    Contact list
-                                                </div>
                                             </SheetClose>
                                         </div>
                                         <div className=' w-full'>
@@ -136,48 +119,48 @@ function AdminNavbar() {
                                                 <Settings />
                                             </div> */}
 
-                                           
+
 
 
                                             <AlertDialog>
                                                 <AlertDialogTrigger asChild>
-                                                <Button variant="outline">
-                                                <div className=' flex flex-row gap-2 cursor-pointer  p-2 rounded-md w-full' onClick={() => {
-                                                    router.push("/admin/profile")
-                                                }}>
-                                                    <Settings />
-                                                    Admin setting
-                                                </div></Button>
+                                                    <Button variant="outline">
+                                                        <div className=' flex flex-row gap-2 cursor-pointer  p-2 rounded-md w-full' onClick={() => {
+                                                            router.push("/admin/profile")
+                                                        }}>
+                                                            <Settings />
+                                                            Admin setting
+                                                        </div></Button>
                                                 </AlertDialogTrigger>
                                                 <AlertDialogContent>
                                                     <AlertDialogHeader>
                                                         <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                                                         <AlertDialogDescription>
                                                             <div>
-                                                               <AlertDialogCancel className=' w-full h-full outline-none border-none p-0'>
-                                                               <div className='hover:bg-blue-700 rounded-md cursor-pointer  w-full p-2 flex  items-center gap-4 font-extrabold text-[20px]'>
-                                                                    <SettingsIcon />
-                                                                    setting
-                                                                </div>
-                                                               </AlertDialogCancel>
-                                                               <AlertDialogCancel className=' w-full h-full outline-none border-none p-0'>
-                                                               <div className='hover:bg-blue-700 rounded-md cursor-pointer  w-full p-2 flex  items-center gap-4 font-extrabold text-[20px]'>
-                                                                    <GithubIcon />
-                                                                    Github
-                                                                </div>
-                                                               </AlertDialogCancel>
-                                                               <AlertDialogCancel className=' w-full h-full outline-none border-none p-0'>
-                                                               <div className='hover:bg-blue-700 rounded-md cursor-pointer  w-full p-2 flex  items-center gap-4 font-extrabold text-[20px]'>
-                                                                    <FacebookIcon />
-                                                                     Facebook
-                                                                </div>
-                                                               </AlertDialogCancel>
-                                                               <AlertDialogCancel className=' w-full h- outline-none border-none p-0'>
-                                                               <div className='hover:bg-blue-700 rounded-md cursor-pointer  w-full p-2 flex  items-center gap-4 font-extrabold text-[20px]'>
-                                                                    <LogOut />
-                                                                    Log out
-                                                                </div>
-                                                               </AlertDialogCancel>
+                                                                <AlertDialogCancel className=' w-full h-full outline-none border-none p-0'>
+                                                                    <div className='hover:bg-blue-700 rounded-md cursor-pointer  w-full p-2 flex  items-center gap-4 font-extrabold text-[20px]'>
+                                                                        <SettingsIcon />
+                                                                        setting
+                                                                    </div>
+                                                                </AlertDialogCancel>
+                                                                <AlertDialogCancel className=' w-full h-full outline-none border-none p-0'>
+                                                                    <div className='hover:bg-blue-700 rounded-md cursor-pointer  w-full p-2 flex  items-center gap-4 font-extrabold text-[20px]'>
+                                                                        <GithubIcon />
+                                                                        Github
+                                                                    </div>
+                                                                </AlertDialogCancel>
+                                                                <AlertDialogCancel className=' w-full h-full outline-none border-none p-0'>
+                                                                    <div className='hover:bg-blue-700 rounded-md cursor-pointer  w-full p-2 flex  items-center gap-4 font-extrabold text-[20px]'>
+                                                                        <FacebookIcon />
+                                                                        Facebook
+                                                                    </div>
+                                                                </AlertDialogCancel>
+                                                                <AlertDialogCancel className=' w-full h- outline-none border-none p-0'>
+                                                                    <div className='hover:bg-blue-700 rounded-md cursor-pointer  w-full p-2 flex  items-center gap-4 font-extrabold text-[20px]'>
+                                                                        <LogOut />
+                                                                        Log out
+                                                                    </div>
+                                                                </AlertDialogCancel>
 
                                                             </div>
                                                         </AlertDialogDescription>

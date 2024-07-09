@@ -24,12 +24,12 @@ function TreandingList({ data }: any) {
                 {
                     listdata.map((item, index) => {
                         return (
-                            <div key={index} className={`relative  h-[435px] border ring-2 ring-inset ring-gray-400 hover:shadow-xl  ${theme == "light" ? "bg-[#e6e9ec] hover:bg-gray-300 " : ""} p-4 w-[300px] shadow-md  `}>
+                            <div key={index} className={`relative  h-[350px] border ring-2 ring-inset ring-gray-400 hover:shadow-xl  mx-4 my-4 ${theme == "light" ? "bg-[#e6e9ec] hover:bg-gray-300 " : ""} p-4 w-[300px] shadow-md  `}>
 
                                 <h1 className=' text-3xl text-center font-bold'>{item.category}</h1>
                                  {/* e6e9ec */}
                                 <div className=' h-[2px] bg-gray-600 w-full mb-2'></div>
-                                <Image alt='thumbinal' width={100} height={100} src={item.image} className='  w-[70%] h-[180px]  object-fill m-auto h' ></Image>
+                                <Image alt='thumbinal' width={100} height={100} src={item.image} className='  w-[100px] h-[100px]  object-fill m-auto h' ></Image>
                                 <span className=' flex  gap-2 my-2'> <MapPinned /> {item.location}</span>
                                 <span className=' flex  gap-2 my-2'><BadgeDollarSign />{item.salary}</span>
                                 <span className=' flex  gap-2 my-2'><Hourglass /> {item.working_hour}</span>
