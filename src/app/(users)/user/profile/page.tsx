@@ -1,7 +1,7 @@
 "use client"
 import { Button } from '@/components/ui/button';
-import { IconCalendarTime, IconCircleCheckFilled, IconEdit, IconEditCircle, IconEyeStar, IconPhoneCall, IconPhotoEdit, IconSignRightFilled, IconStar, IconStarFilled, IconStarOff, IconUpload } from '@tabler/icons-react';
-import { Bookmark, Loader, PencilLine, Phone, Plus, Rocket, SendHorizonal, Star } from 'lucide-react';
+import { IconArrowBack, IconArrowBackUp, IconCalendarTime, IconCircleCheckFilled, IconEdit, IconEditCircle, IconEyeStar, IconPhoneCall, IconPhotoEdit, IconSignRightFilled, IconStar, IconStarFilled, IconStarOff, IconUpload } from '@tabler/icons-react';
+import { ArrowLeft, ArrowRightLeft, Bookmark, Loader, PencilLine, Phone, Plus, Rocket, SendHorizonal, Share, Star } from 'lucide-react';
 import Image from 'next/image'
 import React, { use, useEffect, useState } from 'react'
 // import { ScrollArea } from "@/components/ui/scroll-area"
@@ -30,7 +30,32 @@ import {
     TabsList,
     TabsTrigger,
 } from "@/components/ui/tabs"
-
+import {
+    EmailShareButton,
+    FacebookIcon,
+    FacebookShareButton,
+    FacebookShareCount,
+    GabShareButton,
+    HatenaShareButton,
+    InstapaperShareButton,
+    LineShareButton,
+    LinkedinIcon,
+    LinkedinShareButton,
+    LivejournalShareButton,
+    MailruShareButton,
+    OKShareButton,
+    PinterestShareButton,
+    PocketShareButton,
+    RedditShareButton,
+    TelegramShareButton,
+    TumblrShareButton,
+    TwitterIcon,
+    TwitterShareButton,
+    ViberShareButton,
+    VKShareButton,
+    WhatsappShareButton,
+    WorkplaceShareButton,
+} from "react-share";
 
 import html2canvas from 'html2canvas';
 const FileSaver = require("file-saver");
@@ -41,14 +66,15 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { CldUploadButton } from 'next-cloudinary';
 import { useRouter } from 'next/navigation';
 import { zIndex } from 'html2canvas/dist/types/css/property-descriptors/z-index';
+import { BackpackIcon, Share1Icon } from '@radix-ui/react-icons';
 function UserProfile() {
     const session = useSession()
     const router = useRouter();
     const [isDownloading, setIsDownloading] = useState(false);
     const [rating, setRating] = useState(4);
-    const [inform, setInform] = useState<UserInfo>();
+    const [shareUrl, setShareUrl] = useState<any>()
     const [signup, setSignUp] = useState<any>();
-    const [userInformation, setuserInformation] = useState([]);
+    const [userInformation, setuserInformation] = useState<any>([]);
     var [allSkill, setAllSkill] = useState<string[]>([]);
     const [skill, setSkill] = useState<string>('');
     const [showUploadButton, setShowUploadButton] = useState(false);
@@ -60,7 +86,7 @@ function UserProfile() {
     };
 
     const handleUploadSuccess = (result: any) => {
-        console.log('Upload Success:', result);
+        // console.log('Upload Success:', result);
         setShowUploadButton(false); // Optionally, hide the upload button after a successful upload
     };
 
@@ -85,11 +111,12 @@ function UserProfile() {
         phone: string,
         previouscompany: string,
         previousrole: string,
-        uploadCV: string
+        uploadCV: string,
+        skills: string[]
 
     }
 
-
+    // console.log("user information ", userInformation[0]?.skills)
     const dataFromDatabase = async () => {
         const data = await fetch("/api/profiledata/", {
             method: "get"
@@ -129,14 +156,14 @@ function UserProfile() {
         rating: rating,
         salary: "$60/hr",
         workingIn: "ABC Corporation",
-        work: "Graphic Designer",
-        skills: ["JavaScript", "HTML", "CSS", "python"],
+        work: userInformation[0]?.interestedFiels || "Graphic Designer",
+        skills: userInformation[0]?.skills || ["JavaScript", "HTML", "CSS", "python"],
         basicInformation: [{
             age: 22,
             yearOfExperience: "4 years",
-            phone: inform?.phone || "98000000000",
+            phone: userInformation[0]?.phone || "98000000000",
             ctc: "$ 40/hr",
-            location: inform?.CurrentAddress || "mahendranagar",
+            location: userInformation[0]?.CurrentAddress || "mahendranagar",
             mail: signup?.email || session.data?.user?.email || "jobmilyo@gmail.com",
             cv: "",
         }],
@@ -194,18 +221,22 @@ function UserProfile() {
         allSkill.splice(index, 1);
 
     }
-    useEffect(() => {
-
-    }, [allSkill]);
-    const skillUpdate = async() => {
-      console.log("all ",allSkill)
-      axios.post('/api/profiledata/skillupdate', allSkill)
-      .then(function (response) {
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    const shareProfile = async () => {
+        const data = await navigator.clipboard.writeText(window.location.href);
+        const readdata=await navigator.clipboard.readText();
+        console.log(readdata)
+        setShareUrl(readdata)
+    }
+    console.log(shareUrl)
+    const skillUpdate = async () => {
+        // console.log("all ", allSkill)
+        axios.post('/api/profiledata/skillupdate', allSkill)
+            .then(function (response) {
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
     const CallingToUser = (phonenumber: any) => {
         return (
@@ -222,14 +253,66 @@ function UserProfile() {
         return age;
 
     }
-    const HandlerOtherUser=(item:any)=>{
-        const userId=1
+    const HandlerOtherUser = (item: any) => {
+        const userId = 1
         router.push(`otheruser/${userId}`);
     }
-    console.log(userInformation)
+    // console.log(userInformation)
     return (
         <div>
-            <div className='flex flex-row flex-wrap justify-center items-start '>
+            <div className=' flex items-center justify-between m-auto p-4'>
+                <span onClick={()=>{
+                    router.back()
+                }} className='  cursor-pointer flex justify-center items-center gap-1 text-sm'>  <ArrowLeft /> back</span>
+                <Dialog>
+            <DialogTrigger onClick={shareProfile}>
+                <span
+                    // onClick={shareProfile}
+                    className="cursor-pointer flex justify-center items-center gap-1 text-sm"
+                >
+                    <Share1Icon /> share profile
+                </span>
+            </DialogTrigger>
+            <DialogContent className="text-black bg-gray-300">
+                <DialogHeader>
+                    <DialogTitle>share in your post</DialogTitle>
+                    <DialogDescription className=' text-black '>
+                           <div className=' text-start font-bold gap-2 m-1 '>
+                             share 
+                           </div>
+                        <div className="flex flex-col items-center gap-2">
+                            <Input
+                                type="text"
+                                 defaultValue={shareUrl}
+                                // readOnly
+                                placeholder={shareUrl}
+                                className="p-2 border  text-black rounded w-full"
+                            />
+                            <div className=' flex gap-2 items-center justify-center'>
+                                {
+                                    shareUrl&& <FacebookShareButton url={`${shareUrl}`}>
+                                     <FacebookIcon  size={40} round={true}></FacebookIcon>
+                                    </FacebookShareButton>
+                                }
+                                 {
+                                    shareUrl&& <LinkedinShareButton url={`${shareUrl}`}>
+                                      <LinkedinIcon size={40} round={true}/>
+                                    </LinkedinShareButton>
+                                }
+                                  {
+                                    shareUrl&& <TwitterShareButton url={`${shareUrl}`}>
+                                      <TwitterIcon size={40} round={true}/>
+                                    </TwitterShareButton>
+                                }
+                            </div>
+                        </div>
+                    </DialogDescription>
+                </DialogHeader>
+            </DialogContent>
+        </Dialog>
+
+            </div>
+            <div className='flex bg-[] flex-row flex-wrap justify-center items-start '>
                 {/*  first part of user profile*/}
                 {
                     signup ? (
@@ -257,8 +340,8 @@ function UserProfile() {
                                                         )}
                                                     </div>
                                                 ) : (
-                                                    <div className='relative group'>
-                                                        <Image src={signup?.color} alt={"profile image"} width={100} height={100} className='rounded-full' />
+                                                    <div className='relative group w-[120px] h-[120px] p-3 overflow-hidden rounded-full  border '>
+                                                        <Image src={signup?.color} alt={"profile image"} width={100} height={100} className='rounded-full object-fill overflow-visible h-full w-full' />
                                                         <IconEdit
                                                             className='absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer'
                                                             onClick={handleIconEditClick}
@@ -276,7 +359,9 @@ function UserProfile() {
                                         </div>
                                     </div>
                                 }
-                                <div className='cursor-pointer'>
+
+                                <p className=' flex gap-1 '>{signup?.fullName} <IconCircleCheckFilled className=' text-blue-700' /> </p>
+                                <div className='cursor-pointer flex gap-2'>
                                     {
                                         rating <= 9 ? (
                                             <p className='flex gap-1'>
@@ -290,35 +375,39 @@ function UserProfile() {
                                             </p>
                                         )
                                     }
-                                </div>
-                                <p className=' flex gap-1 '>{signup?.fullName} <IconCircleCheckFilled className=' text-blue-700' /> </p>
+                                    {/* <p>{signup?.email}</p> */}
+                                    <div className='flex gap-3 text-sm text-green-600 cursor-pointer'>
 
-                                <p>{signup?.email}</p>
-                                <div className='flex gap-3 cursor-pointer'>
-
-                                    {/* <p>{userItem.salary}</p> */}
+                                        <p>{userItem.salary}</p>
+                                    </div>
                                 </div>
-                                {/* <h1>{userItem.work}</h1> */}
+
+                                <h1>{userItem.work}</h1>
                                 <div className='flex'>
                                     <Input className='rounded-r-none' placeholder='Message' />
-                                    <Button className='rounded-l-none gap-2 bg-green-600'>Send <SendHorizonal /></Button>
+                                    <Button onClick={() => {
+
+                                    }} className='rounded-l-none gap-2 bg-green-600'>Send <SendHorizonal /></Button>
                                 </div>
                             </div>
                             <hr />
-                            <h1 className=' flex   justify-center items-center '>Skills
-                                <Dialog >
+                            <div className=' flex   justify-center items-center '>Skills
+                                <Dialog  >
                                     <DialogTrigger asChild>
                                         <Button variant="outline" className=' border-none hover:bg-auto'><IconEdit /></Button>
                                     </DialogTrigger>
-                                    <DialogContent className="sm:max-w-[425px]">
+                                    <DialogContent className="sm:max-w-[425px] bg-gray-200">
                                         <DialogHeader>
-                                            <DialogTitle className=' border-none shadow-none rounded-none decoration-black'>Add skills</DialogTitle>
+                                            <DialogTitle className=' border-none shadow-none rounded-none decoration-black'>Edit Profile</DialogTitle>
                                             <DialogDescription>
-                                                Make sure you have that skills. Click save when you're done.
+
                                             </DialogDescription>
                                         </DialogHeader>
-                                        <div className=" w-full flex flex-col justify-center items-start  ">
+                                        <div>
 
+                                        </div>
+                                        <div className=" w-full flex flex-col justify-center items-start  ">
+                                            <h1>Add Skills</h1>
                                             <div className=" p-4  w-full flex ">
 
                                                 <Input
@@ -337,7 +426,7 @@ function UserProfile() {
 
 
                                             </div>
-                                            <ScrollArea className="h-[100px] w-full rounded-md border">
+                                            <ScrollArea className="h-[100px] w-full rounded-md border-[2px]">
                                                 <div className="p-4">
                                                     {
                                                         allSkill?.map((item: any, index: any) => {
@@ -359,12 +448,13 @@ function UserProfile() {
                                             }} type="submit">Save changes</Button>
                                         </DialogFooter>
                                     </DialogContent>
-                                </Dialog></h1>
+                                </Dialog>
+                            </div>
                             <div>
                                 <div className='flex gap-2 flex-wrap'>
                                     {
                                         userItem.skills.map((item: any, index: any) => (
-                                            <div key={index} className='border p-2 rounded-3xl w-[100px] text-center'>
+                                            <div key={index} className='border flex items-center m-auto  justify-center p-2 rounded-3xl w-[90px] text-ellipsis   text-center'>
                                                 <p>{item}</p>
                                             </div>
                                         ))
@@ -459,7 +549,7 @@ function UserProfile() {
 
                                             <Button onClick={() => {
                                                 downloadCV(item.uploadCV, item.fname);
-                                            }} className=' bg-blue-600'> {isDownloading&&<Loader className=' animate-spin'/>}Download CV</Button>
+                                            }} className=' bg-blue-600'> {isDownloading && <Loader className=' animate-spin' />}Download CV</Button>
                                             <Button onClick={() => {
                                                 CallingToUser(item.phone);
                                             }} className=' flex  transition-colors duration-500 bg-green-500'><IconPhoneCall /> Call</Button>
@@ -580,10 +670,10 @@ function UserProfile() {
                             <h1>Similar Profiles</h1>
                             <hr />
                             <ScrollArea className="h-72 w-full rounded-md border">
-                           
+
 
                                 {otherUsers.map((item, index) => (
-                                    <div  onClick={()=>{
+                                    <div onClick={() => {
                                         HandlerOtherUser(item)
                                     }} key={index} className='flex flex-row justify-start items-center shadow-xl border  cursor-pointer p-2 w-full'>
                                         <Image
@@ -600,7 +690,7 @@ function UserProfile() {
                                         </div>
                                     </div>
                                 ))}
-                           
+
                             </ScrollArea>
                         </div>
                     </div>) : (<div className="mt-2 flex flex-col flex-wrap w-[100%] shadow-md border m-auto md:w-[19%] lg:w-[19%] justify-center items-start p-2">
@@ -611,7 +701,7 @@ function UserProfile() {
                             <div className="h-6 w-40 bg-gray-300 rounded mb-2"></div>
                             <hr className="w-full" />
                             <ScrollArea className="h-72 w-full rounded-md border">
-                           
+
                                 {[...Array(5)].map((_, index) => (
                                     <div key={index} className="flex flex-row justify-start items-center shadow-xl border p-2 w-full">
                                         <div className="h-[80px] w-[80px] bg-gray-300 rounded-full"></div>
@@ -622,7 +712,7 @@ function UserProfile() {
                                         </div>
                                     </div>
                                 ))}
-                             </ScrollArea>
+                            </ScrollArea>
                         </div>
                     </div>
                     )

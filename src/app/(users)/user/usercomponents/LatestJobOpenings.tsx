@@ -17,8 +17,8 @@ function LatestJobOpenings() {
             time: "26 min ago",
             salary: "Rs.50-55k",
             interested_employ_type: "Part time",
-            details: "",
-            apply: "https://example.com/apply/raman-khadka",
+            details: "/user/jobs/details",
+            apply: "/user/jobs/apply",
             rating: 4.8,
             remote: true
         },
@@ -29,8 +29,8 @@ function LatestJobOpenings() {
             time: "1 hour ago",
             salary: "Rs.60-70k",
             interested_employ_type: "Full time",
-            details: "Experience with JavaScript and Python required.",
-            apply: "https://example.com/apply/sita-thapa",
+            details: "/user/jobs/details",
+            apply: "/user/jobs/apply",
             rating: 4.5,
             remote: false
         },
@@ -41,8 +41,8 @@ function LatestJobOpenings() {
             time: "3 hours ago",
             salary: "Rs.40-50k",
             interested_employ_type: "Full time",
-            details: "Knowledge of Linux and Windows servers.",
-            apply: "https://example.com/apply/bikash-shrestha",
+            details: "/user/jobs/details",
+            apply: "/user/jobs/apply",
             rating: 4.7,
             remote: true
         },
@@ -53,8 +53,8 @@ function LatestJobOpenings() {
             time: "5 hours ago",
             salary: "Rs.45-55k",
             interested_employ_type: "Contract",
-            details: "CCNA certification preferred.",
-            apply: "https://example.com/apply/aarati-rai",
+            details: "/user/jobs/details",
+            apply: "/user/jobs/apply",
             rating: 4.6,
             remote: false
         },
@@ -65,8 +65,8 @@ function LatestJobOpenings() {
             time: "8 hours ago",
             salary: "Rs.80-90k",
             interested_employ_type: "Full time",
-            details: "Experience with machine learning and data analysis.",
-            apply: "https://example.com/apply/prabin-karki",
+            details: "/user/jobs/details",
+            apply: "/user/jobs/apply",
             rating: 4.9,
             remote: true
         },
@@ -77,8 +77,8 @@ function LatestJobOpenings() {
             time: "1 day ago",
             salary: "Rs.30-40k",
             interested_employ_type: "Part time",
-            details: "Proficiency in HTML, CSS, and Adobe Suite.",
-            apply: "https://example.com/apply/sarita-gurung",
+            details: "/user/jobs/details",
+            apply: "/user/jobs/apply",
             rating: 4.3,
             remote: false
         },
@@ -89,12 +89,13 @@ function LatestJobOpenings() {
             time: "2 days ago",
             salary: "Rs.70-80k",
             interested_employ_type: "Full time",
-            details: "Experience with Android and iOS development.",
-            apply: "https://example.com/apply/kamal-adhikari",
+            details: "/user/jobs/details",
+            apply: "/user/jobs/apply",
             rating: 4.7,
             remote: true
         }
     ];
+    
 
     return (
         <div>
@@ -124,9 +125,11 @@ function LatestJobOpenings() {
                                 </div>
                                 <div className='flex w-[30vw] flex-wrap  justify-center   items-center gap-2 '>
                                     <BookmarkIcon className='  size-10 w-[50px]' />
-                                    <Button className=' size-10 w-[100px]'>Details</Button>
                                     <Button className=' size-10 w-[100px]'>
-                                    <Link href={item.apply} target="_blank" rel="noopener noreferrer">Apply</Link>
+                                    <Link href={item.details}  rel="noopener noreferrer">Details</Link>
+                                    </Button>
+                                    <Button className=' size-10 w-[100px]'>
+                                    <Link href={item.apply}  rel="noopener noreferrer">Apply</Link>
                                     </Button>
                                 </div>
                             </div>

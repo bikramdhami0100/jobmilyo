@@ -192,13 +192,22 @@ function Navbar() {
                         <div>
                             <DropdownMenu >
                                 <DropdownMenuTrigger className=' outline-none' ><div>
-                                    {
-                                        <div>
-                                            <div style={{ backgroundColor: validUser?.color }} className={`flex justify-center items-center h-[35px] text-center  w-[35px] rounded-full bg-blue-600 `}>
-                                                <p>{validUser?.fullName.charAt(0)}</p>
-                                            </div>
-                                        </div>
-                                    }
+                                {
+                                                validUser?.color.startsWith("#") ? (
+                                                    <div className='w-[40px] flex justify-center items-center -mb-4 relative group'>
+                                                        <div style={{ backgroundColor: validUser?.color }} className='flex justify-center items-center w-[40px] h-[40px] rounded-full'>
+                                                            <div className='text-center'>{validUser.fullName.charAt(0).toUpperCase()}</div>
+                                                        </div>
+                                                     
+                                                    </div>
+                                                ) : (
+                                                    <div className='relative group w-[40px] h-[40px] p-3 overflow-hidden rounded-full  border '>
+                                                        <Image src={validUser?.color} alt={"profile image"} width={100} height={100} className='rounded-full object-fill overflow-visible h-full w-full' />
+                                                    
+                                                      
+                                                    </div>
+                                                )
+                                            }
                                 </div></DropdownMenuTrigger>
                                 <DropdownMenuContent>
                                     <DropdownMenuLabel>My Account</DropdownMenuLabel>

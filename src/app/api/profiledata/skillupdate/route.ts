@@ -17,9 +17,9 @@ export async function POST(req:any) {
   try {
         
     // const userallprofiledata = await UserInformation.find({userId:users._id}).populate("userId").select("-password");
-    const userallprofiledata = await UserInformation.findOne({userId:users._id}).populate("userId");
-    // userallprofiledata.skill=
-    console.log(userallprofiledata)
+    const userallprofiledata = await UserInformation.findOneAndUpdate({userId:users._id},{skills:bskill},{new:true}).populate("userId");
+    
+    console.log(userallprofiledata.skills)
     return NextResponse.json({ success: true, data: { userInfos: userallprofiledata,user:users }, status: 200 });
   } catch (error) {
     console.error(error);
