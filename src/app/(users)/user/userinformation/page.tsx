@@ -147,7 +147,7 @@ function userInformation() {
     const phoneRegex = /^(\d{3}-\d{3}-\d{4}|\(\d{3}\) \d{3}-\d{4}|\d{10})$/;
     const genderRegex = /^(Male|Female|Other)$/;
     const AddressRegex = /^[a-zA-Z0-9\s,.\-]{1,100}$/;
-  
+   // fetch data from database
     const SubmitData = async () => {
        
         const data = await fetch("/api/userinfo/", {

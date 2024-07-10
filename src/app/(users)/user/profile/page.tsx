@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/card"
 import {
     Dialog,
+    DialogClose,
     DialogContent,
     DialogDescription,
     DialogFooter,
@@ -67,9 +68,11 @@ import { CldUploadButton } from 'next-cloudinary';
 import { useRouter } from 'next/navigation';
 import { zIndex } from 'html2canvas/dist/types/css/property-descriptors/z-index';
 import { BackpackIcon, Share1Icon } from '@radix-ui/react-icons';
+import SimilarProfile from '../usercomponents/userprofile/SimilarProfile';
 function UserProfile() {
     const session = useSession()
     const router = useRouter();
+    const [skillloader, setSkillLoader] = useState(false)
     const [isDownloading, setIsDownloading] = useState(false);
     const [rating, setRating] = useState(4);
     const [shareUrl, setShareUrl] = useState<any>()
@@ -229,10 +232,13 @@ function UserProfile() {
     }
     console.log(shareUrl)
     const skillUpdate = async () => {
+        setSkillLoader(true)
         // console.log("all ", allSkill)
         axios.post('/api/profiledata/skillupdate', allSkill)
             .then(function (response) {
                 console.log(response.data);
+                setSkillLoader(false)
+                router.push("/user/profile")
             })
             .catch(function (error) {
                 console.log(error);
@@ -255,7 +261,7 @@ function UserProfile() {
     }
     const HandlerOtherUser = (item: any) => {
         const userId = 1
-        router.push(`otheruser/${userId}`);
+        router.push(`/user/profile/${userId}`);
     }
     // console.log(userInformation)
     return (
@@ -302,7 +308,7 @@ function UserProfile() {
                                         }
                                         {
                                             shareUrl && <TwitterShareButton url={`${shareUrl}`}>
-                                                <TwitterIcon size={40} round={true} />
+                                                 <Image alt='image' src={"/images/social/twitter.png"} width={40} height={4} className=' rounded-full'></Image>
                                             </TwitterShareButton>
                                         }
                                     </div>
@@ -412,9 +418,9 @@ function UserProfile() {
                                     <DialogTrigger asChild>
                                         <Button variant="outline" className=' border-none hover:bg-auto'><IconEdit /></Button>
                                     </DialogTrigger>
-                                    <DialogContent className="sm:max-w-[425px] bg-gray-200">
+                                    <DialogContent className="sm:max-w-[425px] bg-gray-200 text-black">
                                         <DialogHeader>
-                                            <DialogTitle className=' border-none shadow-none rounded-none decoration-black'>Edit Profile</DialogTitle>
+                                            <DialogTitle className=' border-none shadow-none rounded-none decoration-black'>Edit Skills</DialogTitle>
                                             <DialogDescription>
 
                                             </DialogDescription>
@@ -459,9 +465,16 @@ function UserProfile() {
                                             </ScrollArea>
                                         </div>
                                         <DialogFooter>
-                                            <Button onClick={() => {
+
+                                            <Button disabled={skillloader} onClick={() => {
                                                 skillUpdate()
-                                            }} type="submit">Save changes</Button>
+                                            }} type="submit">
+                                                <DialogClose>
+                                                    {skillloader && <Loader className=' animate-spin  mr-2' />} Save changes
+
+                                                </DialogClose>
+                                                </Button>
+
                                         </DialogFooter>
                                     </DialogContent>
                                 </Dialog>
@@ -678,39 +691,7 @@ function UserProfile() {
                 }
                 {/* last part */}
                 {
-                    signup ? (<div className='  mt-2 flex flex-col flex-wrap w-[100%] shadow-md border m-auto md:w-[19%] lg:w-[19%] justify-center items-start p-2'>
-                        <div className=' flex justify-center items-center h-[200px] shadow-lg border p-6 w-full'>
-                            <h1 className=' flex  gap-3'> Avertisement</h1>
-
-                        </div>
-                        <div className=' w-full shadow-md border mt-4 flex flex-col  justify-center items-start '>
-                            <h1>Similar Profiles</h1>
-                            <hr />
-                            <ScrollArea className="h-72 w-full rounded-md border">
-
-
-                                {otherUsers.map((item, index) => (
-                                    <div onClick={() => {
-                                        HandlerOtherUser(item)
-                                    }} key={index} className='flex flex-row justify-start items-center shadow-xl border  cursor-pointer p-2 w-full'>
-                                        <Image
-                                            alt='other images'
-                                            height={100}
-                                            width={100}
-                                            src={item.image}
-                                            className='rounded-full h-[80px] w-[80px] curso '
-                                        />
-                                        <div className='flex flex-col justify-center items-start ml-4  '>
-                                            <h1>{item.name}</h1>
-                                            <p>{item.work}</p>
-                                            <p>{item.yearofexperience}</p>
-                                        </div>
-                                    </div>
-                                ))}
-
-                            </ScrollArea>
-                        </div>
-                    </div>) : (<div className="mt-2 flex flex-col flex-wrap w-[100%] shadow-md border m-auto md:w-[19%] lg:w-[19%] justify-center items-start p-2">
+                    signup ? (<SimilarProfile interestedFiels={userInformation[0]?.interestedFiels}/>) : (<div className="mt-2 flex flex-col flex-wrap w-[100%] shadow-md border m-auto md:w-[19%] lg:w-[19%] justify-center items-start p-2">
                         <div className="flex justify-center items-center h-[200px] shadow-lg border p-6 w-full animate-pulse">
                             <div className="h-8 w-32 bg-gray-300 rounded"></div>
                         </div>
@@ -735,7 +716,7 @@ function UserProfile() {
                     )
                 }
             </div>
-        </div>
+        </div >
     )
 }
 
