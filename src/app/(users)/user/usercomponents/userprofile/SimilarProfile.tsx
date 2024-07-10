@@ -57,7 +57,7 @@ function SimilarProfile({ interestedFiels }: any) {
     const AllUserDataFetch = async () => {
         const send = (await axios.post("/api/alluser/", { interestedFiels: interestedFiels })).data;
         setAllUserData(send.data);
-        console.log(send)
+        // console.log(send)
     }
     useEffect(() => {
         AllUserDataFetch();
