@@ -223,7 +223,7 @@ function UserProfile() {
     }
     const shareProfile = async () => {
         const data = await navigator.clipboard.writeText(window.location.href);
-        const readdata=await navigator.clipboard.readText();
+        const readdata = await navigator.clipboard.readText();
         console.log(readdata)
         setShareUrl(readdata)
     }
@@ -260,58 +260,60 @@ function UserProfile() {
     // console.log(userInformation)
     return (
         <div>
+            {/*  back button and share profile */}
             <div className=' flex items-center justify-between m-auto p-4'>
-                <span onClick={()=>{
+                <span onClick={() => {
                     router.back()
                 }} className='  cursor-pointer flex justify-center items-center gap-1 text-sm'>  <ArrowLeft /> back</span>
                 <Dialog>
-            <DialogTrigger onClick={shareProfile}>
-                <span
-                    // onClick={shareProfile}
-                    className="cursor-pointer flex justify-center items-center gap-1 text-sm"
-                >
-                    <Share1Icon /> share profile
-                </span>
-            </DialogTrigger>
-            <DialogContent className="text-black bg-gray-300">
-                <DialogHeader>
-                    <DialogTitle>share in your post</DialogTitle>
-                    <DialogDescription className=' text-black '>
-                           <div className=' text-start font-bold gap-2 m-1 '>
-                             share 
-                           </div>
-                        <div className="flex flex-col items-center gap-2">
-                            <Input
-                                type="text"
-                                 defaultValue={shareUrl}
-                                // readOnly
-                                placeholder={shareUrl}
-                                className="p-2 border  text-black rounded w-full"
-                            />
-                            <div className=' flex gap-2 items-center justify-center'>
-                                {
-                                    shareUrl&& <FacebookShareButton url={`${shareUrl}`}>
-                                     <FacebookIcon  size={40} round={true}></FacebookIcon>
-                                    </FacebookShareButton>
-                                }
-                                 {
-                                    shareUrl&& <LinkedinShareButton url={`${shareUrl}`}>
-                                      <LinkedinIcon size={40} round={true}/>
-                                    </LinkedinShareButton>
-                                }
-                                  {
-                                    shareUrl&& <TwitterShareButton url={`${shareUrl}`}>
-                                      <TwitterIcon size={40} round={true}/>
-                                    </TwitterShareButton>
-                                }
-                            </div>
-                        </div>
-                    </DialogDescription>
-                </DialogHeader>
-            </DialogContent>
-        </Dialog>
+                    <DialogTrigger onClick={shareProfile}>
+                        <span
+                            // onClick={shareProfile}
+                            className="cursor-pointer flex justify-center items-center gap-1 text-sm"
+                        >
+                            <Share1Icon /> share profile
+                        </span>
+                    </DialogTrigger>
+                    <DialogContent className="text-black bg-gray-300">
+                        <DialogHeader>
+                            <DialogTitle>share in your post</DialogTitle>
+                            <DialogDescription className=' text-black '>
+                                <div className=' text-start font-bold gap-2 m-1 '>
+                                    share
+                                </div>
+                                <div className="flex flex-col items-center gap-2">
+                                    <Input
+                                        type="text"
+                                        defaultValue={shareUrl}
+                                        // readOnly
+                                        placeholder={shareUrl}
+                                        className="p-2 border  text-black rounded w-full"
+                                    />
+                                    <div className=' flex gap-2 items-center justify-center'>
+                                        {
+                                            shareUrl && <FacebookShareButton url={`${shareUrl}`}>
+                                                <FacebookIcon size={40} round={true}></FacebookIcon>
+                                            </FacebookShareButton>
+                                        }
+                                        {
+                                            shareUrl && <LinkedinShareButton url={`${shareUrl}`}>
+                                                <LinkedinIcon size={40} round={true} />
+                                            </LinkedinShareButton>
+                                        }
+                                        {
+                                            shareUrl && <TwitterShareButton url={`${shareUrl}`}>
+                                                <TwitterIcon size={40} round={true} />
+                                            </TwitterShareButton>
+                                        }
+                                    </div>
+                                </div>
+                            </DialogDescription>
+                        </DialogHeader>
+                    </DialogContent>
+                </Dialog>
 
             </div>
+            {/* main part */}
             <div className='flex bg-[] flex-row flex-wrap justify-center items-start '>
                 {/*  first part of user profile*/}
                 {
@@ -340,19 +342,32 @@ function UserProfile() {
                                                         )}
                                                     </div>
                                                 ) : (
-                                                    <div className='relative group w-[120px] h-[120px] p-3 overflow-hidden rounded-full  border '>
-                                                        <Image src={signup?.color} alt={"profile image"} width={100} height={100} className='rounded-full object-fill overflow-visible h-full w-full' />
-                                                        <IconEdit
-                                                            className='absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer'
-                                                            onClick={handleIconEditClick}
-                                                        />
-                                                        {showUploadButton && (
+                                                    <div className='relative group  m-auto w-[120px] h-[120px] p-3 overflow-hidden rounded-full  border '>
+                                                        <Image src={signup?.color} alt={"profile image"} width={100} height={100} className='rounded-full absolute left-1 right-1 top-1  p-2 m-auto  object-fill overflow-visible cursor-pointer h-full w-full' />
+
+                                                        {/* {showUploadButton && (
                                                             <CldUploadButton
-                                                                className='absolute  top-12 left-0 w-full text-left border-2 p-1 rounded-md'
+                                                               className='absolute  top-12 left-0 w-full text-left border-2 p-1 rounded-md'
                                                                 uploadPreset="wyyzhuyo"
                                                                 onSuccess={handleUploadSuccess}
-                                                            />
-                                                        )}
+                                                            /> 
+                                                        )} */}
+                                                        <Dialog>
+                                                            <DialogTrigger>  <IconEdit
+                                                                className='absolute  right-2 top-2  mt-4 opacity-0 hover:visible group-hover:opacity-100 transition-opacity duration-300 cursor-pointer'
+                                                                onClick={handleIconEditClick}
+                                                            /></DialogTrigger>
+                                                            <DialogContent>
+                                                                <DialogHeader>
+                                                                    <DialogTitle>Edit profile</DialogTitle>
+                                                                    <DialogDescription>
+                                                                        This action cannot be undone. This will permanently delete your account
+                                                                        and remove your data from our servers.
+                                                                    </DialogDescription>
+                                                                </DialogHeader>
+                                                            </DialogContent>
+                                                        </Dialog>
+
                                                     </div>
                                                 )
                                             }
@@ -391,6 +406,7 @@ function UserProfile() {
                                 </div>
                             </div>
                             <hr />
+                            {/* add skill */}
                             <div className=' flex   justify-center items-center '>Skills
                                 <Dialog  >
                                     <DialogTrigger asChild>
@@ -450,8 +466,9 @@ function UserProfile() {
                                     </DialogContent>
                                 </Dialog>
                             </div>
+                            {/* show skill */}
                             <div>
-                                <div className='flex gap-2 flex-wrap'>
+                                <div className='flex gap-2 flex-wrap items-center justify-center'>
                                     {
                                         userItem.skills.map((item: any, index: any) => (
                                             <div key={index} className='border flex items-center m-auto  justify-center p-2 rounded-3xl w-[90px] text-ellipsis   text-center'>
