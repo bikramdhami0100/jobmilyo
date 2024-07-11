@@ -136,7 +136,7 @@ export async function POST(req: any) {
           html: `
             <p>Name: ${user.fullName}</p>
             <p>Email: ${loginemail}</p>
-            <p>Click here to verify: <a href='http://localhost:3000/user/signup/${newToken}'>Verify</a></p>
+            <p>Click here to verify: <a href='${process.env.NEXT_PUBLIC_DEPLOY_URL!}/user/signup/${newToken}'>Verify</a></p>
           `,
         };
 

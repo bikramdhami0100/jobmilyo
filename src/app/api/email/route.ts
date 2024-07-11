@@ -71,7 +71,7 @@ export async function POST(request: any) {
             html: `
             <p>Name: ${name} </p>
             <p>Email: ${email} </p>
-            <p> Click here to verify: <a href='http://localhost:3000/user/signup/${token}' > Verify </a></p>
+            <p> Click here to verify: <a href='${process.env.NEXT_PUBLIC_DEPLOY_URL!}/user/signup/${token}' > Verify </a></p>
             `,
         });
         let respon =NextResponse.json({ message: "Success: email was sent",status:200,success:true, });
