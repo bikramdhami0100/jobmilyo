@@ -36,7 +36,7 @@ function TreandingList({ data }: any) {
                                 <div className=' flex justify-between m-auto'>
                                     <Button className=' bg-[#73bc87] h-[32px] absolute bottom-4 left-4 '>Apply Now</Button>
                                     <Button className=' bg-[#1983d1] h-[32px] absolute bottom-4 right-4 ' onClick={() => {
-                                        router.push("/jobdetail/1");
+                                        router.push("/user/jobdetail/1");
                                     }}>Details</Button>
                                 </div>
                                 <span></span>

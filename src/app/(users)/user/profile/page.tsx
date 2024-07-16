@@ -72,6 +72,13 @@ import SimilarProfile from '../usercomponents/userprofile/SimilarProfile';
 function UserProfile() {
     const session = useSession()
     const router = useRouter();
+    const [editProfile,setEditProfile]=useState<any>([
+        {
+            fullName:"",
+            color:""
+        }
+    ]);
+    const [editProfileLoader,setEditProfileLoader]=useState(false)
     const [skillloader, setSkillLoader] = useState(false)
     const [isDownloading, setIsDownloading] = useState(false);
     const [rating, setRating] = useState(4);
@@ -264,6 +271,11 @@ function UserProfile() {
         router.push(`/user/profile/${userId}`);
     }
     // console.log(userInformation)
+    const HandleEditProfile = (e: any) => {
+        const { name, value } = e.target;
+        console.log(name, value)
+
+    }
     return (
         <div>
             {/*  back button and share profile */}
@@ -308,7 +320,7 @@ function UserProfile() {
                                         }
                                         {
                                             shareUrl && <TwitterShareButton url={`${shareUrl}`}>
-                                                 <Image alt='image' src={"/images/social/twitter.png"} width={40} height={4} className=' rounded-full'></Image>
+                                                <Image alt='image' src={"/images/social/twitter.png"} width={40} height={4} className=' rounded-full'></Image>
                                             </TwitterShareButton>
                                         }
                                     </div>
@@ -335,17 +347,57 @@ function UserProfile() {
                                                         <div style={{ backgroundColor: signup?.color }} className='flex justify-center items-center w-[100px] h-[100px] rounded-full'>
                                                             <div className='text-center'>{signup.fullName.charAt(0).toUpperCase()}</div>
                                                         </div>
-                                                        <IconEdit
+                                                        {/* <IconEdit
                                                             className='absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer'
                                                             onClick={handleIconEditClick}
-                                                        />
-                                                        {showUploadButton && (
+                                                        /> */}
+                                                        {/* {showUploadButton && (
                                                             <CldUploadButton
                                                                 className='absolute top-8 bg-green-600 left-0 w-full text-left border-2 p-1 rounded-md'
                                                                 uploadPreset="wyyzhuyo"
                                                                 onSuccess={handleUploadSuccess}
                                                             />
-                                                        )}
+                                                        )} */}
+                                                        <Dialog>
+                                                            <DialogTrigger>  <IconEdit
+                                                                className='absolute  right-2 top-2  mt-4 opacity-0 hover:visible group-hover:opacity-100 transition-opacity duration-300 cursor-pointer'
+                                                                onClick={handleIconEditClick}
+                                                            /></DialogTrigger>
+                                                            <DialogContent>
+                                                                <DialogHeader>
+                                                                    <DialogTitle>Edit profile</DialogTitle>
+                                                                    <DialogDescription>
+                                                                        <div className=' flex flex-col  m-auto  items-center'>
+                                                                            <p className=' text-start self-start  ml-[10%]  my-1'>Full Name</p>
+                                                                            <Input name='fullName' defaultValue={signup?.fullName} onChange={HandleEditProfile} type='text' className=' w-[80%]'></Input>
+
+                                                                        </div>
+                                                                        {/* <div className=' flex flex-col  m-auto  items-center'>
+                                                                            <p className=' text-start self-start  ml-[10%]  my-1'>Email</p>
+                                                                            <Input name='email' defaultValue={signup?.email} onChange={HandleEditProfile} type='text' className=' w-[80%]'></Input>
+
+                                                                        </div> */}
+                                                                        <div className=' flex flex-col  m-auto    mx-[10%]'>
+                                                                            <p className=' text-start self-start   my-1'>Image</p>
+                                                                            {/* <Input name='email' defaultValue={signup?.email} onChange={HandleEditProfile} type='text' className=' w-[80%]'></Input> */}
+                                                                            {/* <Loader className=' self-center animate-spin'/> */}
+                                                                            {/* <CldUploadButton
+                                                                                className='  text-start bg-blue-700 p-2 rounded-lg '
+                                                                                
+                                                                                uploadPreset="wyyzhuyo"
+                                                                                onSuccess={handleUploadSuccess}
+                                                                            /> */}
+                                                                              <CldUploadButton
+                                                                className='absolute top-8 bg-green-600 left-0 w-full text-left border-2 p-1 rounded-md'
+                                                                uploadPreset="wyyzhuyo"
+                                                                onSuccess={handleUploadSuccess}
+                                                            />
+                                                                        </div>
+                                                                    </DialogDescription>
+                                                                </DialogHeader>
+                                                            </DialogContent>
+                                                        </Dialog>
+
                                                     </div>
                                                 ) : (
                                                     <div className='relative group  m-auto w-[120px] h-[120px] p-3 overflow-hidden rounded-full  border '>
@@ -376,7 +428,25 @@ function UserProfile() {
 
                                                     </div>
                                                 )
+
+
                                             }
+                                            <Dialog>
+                                                <DialogTrigger>  <IconEdit
+                                                    className='absolute  right-2 top-2  mt-4 opacity-0 hover:visible group-hover:opacity-100 transition-opacity duration-300 cursor-pointer'
+                                                    onClick={handleIconEditClick}
+                                                /></DialogTrigger>
+                                                <DialogContent>
+                                                    <DialogHeader>
+                                                        <DialogTitle>Edit profile</DialogTitle>
+                                                        <DialogDescription>
+                                                            This action cannot be undone. This will permanently delete your account
+                                                            and remove your data from our servers.
+                                                        </DialogDescription>
+                                                    </DialogHeader>
+                                                </DialogContent>
+                                            </Dialog>
+
                                         </div>
                                     </div>
                                 }
@@ -473,7 +543,7 @@ function UserProfile() {
                                                     {skillloader && <Loader className=' animate-spin  mr-2' />} Save changes
 
                                                 </DialogClose>
-                                                </Button>
+                                            </Button>
 
                                         </DialogFooter>
                                     </DialogContent>
@@ -691,7 +761,7 @@ function UserProfile() {
                 }
                 {/* last part */}
                 {
-                    signup ? (<SimilarProfile interestedFiels={userInformation[0]?.interestedFiels}/>) : (<div className="mt-2 flex flex-col flex-wrap w-[100%] shadow-md border m-auto md:w-[19%] lg:w-[19%] justify-center items-start p-2">
+                    signup ? (<SimilarProfile interestedFiels={userInformation[0]?.interestedFiels} />) : (<div className="mt-2 flex flex-col flex-wrap w-[100%] shadow-md border m-auto md:w-[19%] lg:w-[19%] justify-center items-start p-2">
                         <div className="flex justify-center items-center h-[200px] shadow-lg border p-6 w-full animate-pulse">
                             <div className="h-8 w-32 bg-gray-300 rounded"></div>
                         </div>

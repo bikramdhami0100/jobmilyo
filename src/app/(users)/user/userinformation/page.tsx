@@ -164,7 +164,7 @@ function userInformation() {
                 title: "Upload successfully ",
                 description: "Value inserted successfully ",
             })
-            router.push("/user/Home");
+            // router.push("/user/Home");
         }
         //    console.log(result);
 
@@ -221,7 +221,7 @@ function userInformation() {
         }
     };
 
-
+ console.log(formData)
     return (
         <div className=' flex  flex-col justify-around items-center gap-10 '>
             

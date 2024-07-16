@@ -2,9 +2,9 @@
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import { BookMarked, BookMarkedIcon, Bookmark, Group, Home, LogOut, MessageCircle, MessagesSquare, Moon, PersonStanding, Send, Sun } from "lucide-react"
+import { BookMarked, BookMarkedIcon, Bookmark, Group, Home, LogOut, MessageCircle, MessagesSquare, Moon, PersonStanding, Send, Settings, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -30,11 +30,12 @@ import { signOut, useSession } from 'next-auth/react'
 import { IconBookmarkEdit } from '@tabler/icons-react'
 import { useSelector } from 'react-redux'
 import { toast } from '@/components/ui/use-toast'
+import { PersonIcon } from '@radix-ui/react-icons'
 
 
 function Navbar() {
     const router = useRouter();
-
+    const path=usePathname()
     const { setTheme, theme } = useTheme();
 
     const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-[rgb(17,24,39)]'; // Set background color based on theme
@@ -65,7 +66,7 @@ function Navbar() {
             path: "/user/post",
             icon: Send
         },
-
+       
     ]
 
     const ChatWithUs = () => {
@@ -151,7 +152,7 @@ function Navbar() {
                                         {
                                             NavMenu2.map((item, index) => {
                                                 return (<div className=' flex font-bold  m-2 text-2xl flex-row' key={index}>
-                                                    <SheetClose> <h1 className=' cursor-pointer hover:text-blue-600 hover:underline hover:transition-shadow' onClick={() => {
+                                                    <SheetClose> <h1 className={` cursor-pointer hover:text-blue-600 hover:underline hover:transition-shadow ${path==item.path?"text-blue-600 underline underline-offset-2":""}`} onClick={() => {
                                                         router.push(item.path)
                                                     }}>{item.name == "Post a job" ? (<p className=' bg-[#b0dac1] rounded-full p-2 underline'>{item.name}</p>) : item.name}</h1></SheetClose>
                                                 </div>)
@@ -171,9 +172,9 @@ function Navbar() {
             <div className={` flex hidden  md:flex font-bold  text-xl lg:flex  gap-10 `}>
 
                 {
-                    NavMenu2.map((item, index) => {
+                    NavMenu2.map((item:any, index:any) => {
                         return (<div className=' flex flex-row justify-center items-center  gap-10' key={index}>
-                            <span className=' inline-block cursor-pointer hover:text-blue-600 hover:underline hover:transition-shadow' onClick={() => {
+                            <span className={` cursor-pointer hover:text-blue-600 hover:underline  ${path==item.path?"text-blue-600 underline underline-offset-2":""}`}  onClick={() => {
                                 router.push(item.path)
                             }}>{item.name == "Post a job" ? (<span className={` ${theme == "light" ? "bg-[#b0dac1]" : ""}  flex  items-center justify-center text-center rounded-full p-2 underline`}>{item.name}</span>) : item.name}</span>
                         </div>)
@@ -212,14 +213,19 @@ function Navbar() {
                                 <DropdownMenuContent>
                                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                                     <DropdownMenuSeparator />
-                                    <DropdownMenuItem onClick={() => {
+                                    <DropdownMenuItem className=' flex  gap-1 text-sm' onClick={() => {
                                         router.push("/user/profile")
-                                    }}>Profile</DropdownMenuItem>
+                                    }}><PersonIcon  className=' size-[20px] cursor-pointer' />Profile</DropdownMenuItem>
 
-                                    <DropdownMenuItem>Team</DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => {
+                                    <DropdownMenuItem
+                                      className=' text-sm flex gap-1 cursor-pointer'
+                                      onClick={()=>{
+                                        router.push("/user/setting")
+                                      }}
+                                    ><Settings size={20}/> Setting</DropdownMenuItem>
+                                    <DropdownMenuItem className=' cursor-pointer flex gap-1' onClick={() => {
                                         HandleLogOut();
-                                    }} ><LogOut />log out</DropdownMenuItem>
+                                    }} ><LogOut  size={20} />log out</DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
 
