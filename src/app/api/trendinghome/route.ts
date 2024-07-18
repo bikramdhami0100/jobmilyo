@@ -53,43 +53,23 @@ export async function POST(req:any) {
     // } catch (error) {
     // }
 }
-// //  get data for user/job
-// export async function GET(req:any) {
-//     await mongodbconn;
-//     const form = await req.json();
-//     console.log(form.rating)
-//     const token = req.cookies.get("token")?.value;
-//     console.log(token)
-    
-//     const decoded = jwt.verify(token, process.env.TOKEN_SECRETKEY);
-//     const userdetail = decoded.encodeemail;
-//     if(!token){
-//         return NextResponse.json({ message: "Invalid token", status: 401 });
-
-//     }
-//     // const job=await UserPostedJob.find().limit(5);
-//     // console.log("job",job)
-//     return NextResponse.json({ message: "Successfully inserted job", status: 200 });
-//     // try {
-//     // } catch (error) {
-//     // }
-// }
 
 export async function GET(req: any) {
   await mongodbconn; // Ensure you have a connection utility
 
-  const token = req.cookies.get("token")?.value;
+//   const token = req.cookies.get("token")?.value;
 
-  if (!token) {
-    return NextResponse.json({ message: "Invalid token", status: 401 });
-  }
+//   if (!token) {
+//     return NextResponse.json({ message: "Invalid token", status: 401 });
+//   }
 
   try {
-    const decoded = jwt.verify(token, process.env.TOKEN_SECRETKEY);
-    const userdetail = decoded.encodeemail;
+    // const decoded = jwt.verify(token, process.env.TOKEN_SECRETKEY);
+    // const userdetail = decoded.encodeemail;
 
     // Fetch and sort data by jobupload
-    const jobs = await UserPostedJob.find().sort({ jobupload: -1 }).limit(5).populate({path:"user",select:"fullName  email color"});
+    const minRating=4;
+    const jobs = await UserPostedJob.find({rating: { $gte: minRating }}).sort({ jobupload: -1 }).limit(8).populate({path:"user",select:"fullName  email color"});
 
     return NextResponse.json({ message: "Successfully fetched jobs", status: 200, data: jobs });
   } catch (error:any) {

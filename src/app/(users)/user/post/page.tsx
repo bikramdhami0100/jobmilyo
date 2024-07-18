@@ -27,7 +27,7 @@ function PostAJob() {
     interestedEmploymentTypes: "",
     no_vacancy: "",
     last_date: "",
-    job_type: "",
+    category: "",
     company_logo: "",
     email: "",
     country: "",
@@ -185,8 +185,8 @@ useEffect(()=>{
           </div>
           <div>
 
-            <label className="block text-sm font-medium ">Job Type</label>
-            <Input name="job_type" value={form.job_type} onChange={handleChange} placeholder="Enter number of posts" />
+            <label className="block text-sm font-medium ">Job Category</label>
+            <Input name="category" value={form.category} onChange={handleChange} placeholder="Enter number of posts" />
           </div>
 
           <div>

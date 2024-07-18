@@ -20,7 +20,7 @@ const jobSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
-  job_type: {
+  category: {
     type: String,
     required: true,
     trim: true

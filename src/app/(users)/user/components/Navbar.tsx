@@ -73,7 +73,7 @@ function Navbar() {
         alert("implement in major project !!!")
     }
     const selector = useSelector((usertoken: any) => {
-        //  console.log(usertoken);
+        
         return usertoken?.signupinfo?.validUserToken
     })
     // console.log(selector);
@@ -90,8 +90,8 @@ function Navbar() {
         })
 
         if (data.ok) {
-            const result = await data.json()
-            console.log("result",result);
+            const result = await data?.json()
+            // console.log("result",result);
 
             if (result?.user) {
                 toast({
@@ -133,7 +133,7 @@ function Navbar() {
 
         }
     }
- console.log(validUser)
+//  console.log(validUser)
     return (
         <div className={`flex w-full h-[70px]  justify-between m-auto shadow-md items-center p-3 ${navbarBgColor} `}>
 
