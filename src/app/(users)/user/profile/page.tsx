@@ -1,7 +1,7 @@
 "use client"
 import { Button } from '@/components/ui/button';
 import { IconArrowBack, IconArrowBackUp, IconCalendarTime, IconCircleCheckFilled, IconEdit, IconEditCircle, IconEyeStar, IconPhoneCall, IconPhotoEdit, IconSignRightFilled, IconStar, IconStarFilled, IconStarOff, IconUpload } from '@tabler/icons-react';
-import { ArrowLeft, ArrowRightLeft, Bookmark, Loader, PencilLine, Phone, Plus, Rocket, SendHorizonal, Share, Star } from 'lucide-react';
+import { ArrowLeft, ArrowRightLeft, Bookmark, Loader, PencilLine, Phone, PhoneCall, Plus, Rocket, SendHorizonal, Share, Star } from 'lucide-react';
 import Image from 'next/image'
 import React, { use, useEffect, useState } from 'react'
 // import { ScrollArea } from "@/components/ui/scroll-area"
@@ -35,30 +35,14 @@ import {
     EmailShareButton,
     FacebookIcon,
     FacebookShareButton,
-    FacebookShareCount,
-    GabShareButton,
-    HatenaShareButton,
-    InstapaperShareButton,
-    LineShareButton,
+   
     LinkedinIcon,
     LinkedinShareButton,
-    LivejournalShareButton,
-    MailruShareButton,
-    OKShareButton,
-    PinterestShareButton,
-    PocketShareButton,
-    RedditShareButton,
-    TelegramShareButton,
-    TumblrShareButton,
-    TwitterIcon,
+   
     TwitterShareButton,
-    ViberShareButton,
-    VKShareButton,
-    WhatsappShareButton,
-    WorkplaceShareButton,
+  
 } from "react-share";
 
-import html2canvas from 'html2canvas';
 const FileSaver = require("file-saver");
 import { Input } from '@/components/ui/input';
 import { useSession } from 'next-auth/react';
@@ -358,73 +342,12 @@ function UserProfile() {
                                                                 onSuccess={handleUploadSuccess}
                                                             />
                                                         )} */}
-                                                        <Dialog>
-                                                            <DialogTrigger>  <IconEdit
-                                                                className='absolute  right-2 top-2  mt-4 opacity-0 hover:visible group-hover:opacity-100 transition-opacity duration-300 cursor-pointer'
-                                                                onClick={handleIconEditClick}
-                                                            /></DialogTrigger>
-                                                            <DialogContent>
-                                                                <DialogHeader>
-                                                                    <DialogTitle>Edit profile</DialogTitle>
-                                                                    <DialogDescription>
-                                                                        <div className=' flex flex-col  m-auto  items-center'>
-                                                                            <p className=' text-start self-start  ml-[10%]  my-1'>Full Name</p>
-                                                                            <Input name='fullName' defaultValue={signup?.fullName} onChange={HandleEditProfile} type='text' className=' w-[80%]'></Input>
-
-                                                                        </div>
-                                                                        {/* <div className=' flex flex-col  m-auto  items-center'>
-                                                                            <p className=' text-start self-start  ml-[10%]  my-1'>Email</p>
-                                                                            <Input name='email' defaultValue={signup?.email} onChange={HandleEditProfile} type='text' className=' w-[80%]'></Input>
-
-                                                                        </div> */}
-                                                                        <div className=' flex flex-col  m-auto    mx-[10%]'>
-                                                                            <p className=' text-start self-start   my-1'>Image</p>
-                                                                            {/* <Input name='email' defaultValue={signup?.email} onChange={HandleEditProfile} type='text' className=' w-[80%]'></Input> */}
-                                                                            {/* <Loader className=' self-center animate-spin'/> */}
-                                                                            {/* <CldUploadButton
-                                                                                className='  text-start bg-blue-700 p-2 rounded-lg '
-                                                                                
-                                                                                uploadPreset="wyyzhuyo"
-                                                                                onSuccess={handleUploadSuccess}
-                                                                            /> */}
-                                                                              <CldUploadButton
-                                                                className='absolute top-8 bg-green-600 left-0 w-full text-left border-2 p-1 rounded-md'
-                                                                uploadPreset="wyyzhuyo"
-                                                                onSuccess={handleUploadSuccess}
-                                                            />
-                                                                        </div>
-                                                                    </DialogDescription>
-                                                                </DialogHeader>
-                                                            </DialogContent>
-                                                        </Dialog>
+                                                       
 
                                                     </div>
                                                 ) : (
-                                                    <div className='relative group  m-auto w-[120px] h-[120px] p-3 overflow-hidden rounded-full  border '>
-                                                        <Image src={signup?.color} alt={"profile image"} width={100} height={100} className='rounded-full absolute left-1 right-1 top-1  p-2 m-auto  object-fill overflow-visible cursor-pointer h-full w-full' />
-
-                                                        {/* {showUploadButton && (
-                                                            <CldUploadButton
-                                                               className='absolute  top-12 left-0 w-full text-left border-2 p-1 rounded-md'
-                                                                uploadPreset="wyyzhuyo"
-                                                                onSuccess={handleUploadSuccess}
-                                                            /> 
-                                                        )} */}
-                                                        <Dialog>
-                                                            <DialogTrigger>  <IconEdit
-                                                                className='absolute  right-2 top-2  mt-4 opacity-0 hover:visible group-hover:opacity-100 transition-opacity duration-300 cursor-pointer'
-                                                                onClick={handleIconEditClick}
-                                                            /></DialogTrigger>
-                                                            <DialogContent>
-                                                                <DialogHeader>
-                                                                    <DialogTitle>Edit profile</DialogTitle>
-                                                                    <DialogDescription>
-                                                                        This action cannot be undone. This will permanently delete your account
-                                                                        and remove your data from our servers.
-                                                                    </DialogDescription>
-                                                                </DialogHeader>
-                                                            </DialogContent>
-                                                        </Dialog>
+                                                    <div className='relative group  m-auto w-[120px] h-[120px] p-3 overflow-hidden rounded-full   '>
+                                                        <Image src={signup?.color} alt={"profile image"} width={100} height={100} className='rounded-full absolute left-1 right-1 top-1  p-2 m-auto  object-fill  cursor-pointer h-full w-full' />
 
                                                     </div>
                                                 )
@@ -602,14 +525,14 @@ function UserProfile() {
                 {/* middle part */}
                 {
                     signup ? (<div className=' flex flex-col  justify-between  items-start mt-2 gap-4 w-[100%] md:w-[60%] lg:w-[60%] shadow-md border  p-2'>
-                        <div className=' flex flex-col  justify-center items-start border shadow-lg p-6 m-auto'>
+                        <div className=' w-full h-full flex flex-col  justify-center items-start border shadow-lg p-6 m-auto'>
                             <h1>Basic Information</h1>
-                            <div className=' flex flex-wrap '>
+                            <div className=' flex flex-wrap w-full h-full '>
                                 {
                                     userInformation.map((item: any, index: any) => {
                                         // const date=new Date(dateofBirth);
                                         // console.log(date)
-                                        return (<div key={index} className=' flex  gap-10 flex-wrap  justify-around items-center'>
+                                        return (<div key={index} className=' grid grid-cols-2  w-full h-full  md:grid-cols-3 lg:grid-cols-3'>
                                             <div>
                                                 <h1>Age</h1>
                                                 <p>{userAge(item.dateofBirth)}</p>
@@ -619,7 +542,7 @@ function UserProfile() {
                                                 <h1>Years of Excellence</h1>
                                                 {
                                                     item.previouscompany.map((item: any, index: any) => {
-                                                        return (<div key={index}>{item}</div>)
+                                                        return (<div key={index}>{item.yearofexcellence}</div>)
                                                     })
                                                 }
 
@@ -632,7 +555,7 @@ function UserProfile() {
                                             <div>
                                                 <h1>CTC</h1>
                                                 <p>{item.previouscompany.map((item: any, index: any) => {
-                                                    return (<div key={index}>{item}</div>)
+                                                    return (<div key={index}>{item.ctc}</div>)
                                                 })}</p>
 
                                             </div>
@@ -649,10 +572,10 @@ function UserProfile() {
 
                                             <Button onClick={() => {
                                                 downloadCV(item.uploadCV, item.fname);
-                                            }} className=' bg-blue-600'> {isDownloading && <Loader className=' animate-spin' />}Download CV</Button>
+                                            }} className=' mt-2 font-bold w-[50%]  p-4 bg-blue-600'> {isDownloading && <Loader className=' animate-spin' />}Download CV</Button>
                                             <Button onClick={() => {
                                                 CallingToUser(item.phone);
-                                            }} className=' flex  transition-colors duration-500 bg-green-500'><IconPhoneCall /> Call</Button>
+                                            }} className=' font-bold mt-2  p-4 w-[50%] flex  transition-colors duration-500 bg-green-500'><Phone className=' rotate-90  mx-2  p-1' /> Call</Button>
 
                                         </div>
                                         )

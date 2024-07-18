@@ -1,4 +1,5 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
+
 const jobSchema = new mongoose.Schema({
   jobtitle: {
     type: String,
@@ -41,11 +42,11 @@ const jobSchema = new mongoose.Schema({
   },
   number_of_post: {
     type: Number,
-    required: true
+    default:null
   },
   experience: {
     type: String,
-    required: true,
+    // required: true,
     trim: true
   },
   specialization_req: {
@@ -63,9 +64,17 @@ const jobSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  rating:{
+   type:Number,
+   default:0
+  },
+  phonenumber:{
+  type:Number,
+  required:true
+  },
   website_url: {
     type: String,
-    required: true,
+    // required: true,
     trim: true
   },
   address: {
@@ -82,11 +91,38 @@ const jobSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'usersignups',
     required: true
+  },
+  site: {
+    type: String,
+    trim: true
+  },
+  no_of_workingemployee: {
+    type: Number,
+    trim: true
+  },
+  no_of_office: {
+    type: Number,
+    trim: true
+  },
+  industry: {
+    type: String,
+    trim: true
+  },
+  interestedEmploymentTypes: {
+    type: String,
+    trim: true
+  },
+  no_vacancy: {
+    type: Number,
+    trim: true
+  },
+  jobupload: {
+    type: Date,
+    default: Date.now
   }
 }, {
   timestamps: true
 });
-
-export const PostAJob =mongoose.models.postajob|| mongoose.model('postajob', jobSchema);
-// export default PostAJob
+const UserPostedJob = mongoose.models.postajobs || mongoose.model('postajobs', jobSchema);
+export default UserPostedJob
 

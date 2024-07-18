@@ -51,23 +51,31 @@ const UserInformationSchema = new mongoose.Schema({
   },
 
   previouscompany: {
-    type: [String], // Array of strings
-    default: [
+    type: [
       {
+        companyname:{
+          type:String,
+          default:null
+        },
         ctc: {
           type: String,
           default: null
         },
-        workintime: {
+        workingtime: {
           type: String,
           default: null
         },
         previousrole: {
           type: String,
+          default: null
         },
-
+        yearofexcellence:{
+          type:String,
+          default:null
+        }
       }
-    ]
+    ],
+    default: [] // Defaults to an empty array if no previous companies are provided
   },
   
   EmployeeExpreience: {

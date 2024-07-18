@@ -76,7 +76,7 @@ function Navbar() {
         //  console.log(usertoken);
         return usertoken?.signupinfo?.validUserToken
     })
-    console.log(selector);
+    // console.log(selector);
     const [usersignup, setusersignup] = useState(false);
     const [validUser, setValidUser] = useState<any>();
     const [token, settoken] = useState<any>();
@@ -91,7 +91,7 @@ function Navbar() {
 
         if (data.ok) {
             const result = await data.json()
-            console.log(result);
+            console.log("result",result);
 
             if (result?.user) {
                 toast({
@@ -133,7 +133,7 @@ function Navbar() {
 
         }
     }
-
+ console.log(validUser)
     return (
         <div className={`flex w-full h-[70px]  justify-between m-auto shadow-md items-center p-3 ${navbarBgColor} `}>
 
@@ -182,10 +182,7 @@ function Navbar() {
                 }</div>
             <div className=' flex  gap-[6px]'>
 
-                {/* <MessagesSquare className=' self-center  h-[40px] '
-                    onClick={() => {
-                        ChatWithUs();
-                    }} /> */}
+              
 
 
                 {
@@ -202,8 +199,8 @@ function Navbar() {
                                                      
                                                     </div>
                                                 ) : (
-                                                    <div className='relative group w-[40px] h-[40px] p-3 overflow-hidden rounded-full  border '>
-                                                        <Image src={validUser?.color} alt={"profile image"} width={100} height={100} className='rounded-full object-fill overflow-visible h-full w-full' />
+                                                    <div className='relative group w-[40px] h-[35px] rounded-full  border '>
+                                                        <Image src={validUser?.color} alt={"profile image"} width={100} height={100} className='rounded-full object-fill  h-full w-full' />
                                                     
                                                       
                                                     </div>

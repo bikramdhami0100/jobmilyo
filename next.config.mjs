@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+        config.cache = false; // Disable webpack caching
+        return config;
+      },
     experimental:{
         serverActions:true,
         serverComponentsExternalPackages:["mongoose"]

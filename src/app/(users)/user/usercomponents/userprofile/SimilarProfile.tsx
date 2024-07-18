@@ -55,14 +55,18 @@ function SimilarProfile({ interestedFiels }: any) {
         router.push(`/user/profile/${item}`);
     }
     const AllUserDataFetch = async () => {
-        const send = (await axios.post("/api/alluser/", { interestedFiels: interestedFiels })).data;
+        const send = (await axios.post("/api/profilesimilaruser/", { interestedFiels: interestedFiels })).data;
         setAllUserData(send.data);
         // console.log(send)
     }
+    console.log(allUserData)
     useEffect(() => {
         AllUserDataFetch();
     }, [])
-    return allUserData&& (
+    // allUserData.map((item: any, index: number) => {
+    //     console.log("item ", item.previouscompany[0].yearofexcellence)
+    // })
+    return allUserData && (
 
         <div className='  mt-2  flex flex-col flex-wrap w-[100%] shadow-md border m-auto md:w-[19%] lg:w-[19%] justify-center items-start p-2 h-full'>
             <div className=' flex justify-center items-center h-[200px] shadow-lg border p-6 w-full'>
@@ -95,28 +99,30 @@ function SimilarProfile({ interestedFiels }: any) {
                                 )
                             } */}
                             {
-    item?.userId?.color.startsWith("#") ? (
-        <div className='w-[80px] h-[80px] flex justify-center items-center relative group'>
-            <div style={{ backgroundColor: item.userId?.color }} className='flex justify-center items-center w-[80px] h-[80px] rounded-full'>
-                <div className='text-center text-white'>{item?.userId?.fullName.charAt(0).toUpperCase()}</div>
-            </div>
-        </div>
-    ) : (
-        <div className='w-[80px] h-[80px] overflow-hidden rounded-full border'>
-            <img
-                src={item?.userId?.color}
-                alt={"profile image"}
-                width={80}
-                height={80}
-                className='object-cover cursor-pointer w-full h-full rounded-full'
-            />
-        </div>
-    )
-}
+                                item?.userId?.color.startsWith("#") ? (
+                                    <div className='w-[80px] h-[80px] flex justify-center items-center relative group'>
+                                        <div style={{ backgroundColor: item.userId?.color }} className='flex justify-center items-center w-[80px] h-[80px] rounded-full'>
+                                            <div className='text-center text-white'>{item?.userId?.fullName.charAt(0).toUpperCase()}</div>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className='w-[80px] h-[80px] overflow-hidden rounded-full border'>
+                                        <img
+                                            src={item?.userId?.color}
+                                            alt={"profile image"}
+                                            width={80}
+                                            height={80}
+                                            className='object-cover cursor-pointer w-full h-full rounded-full'
+                                        />
+                                    </div>
+                                )
+                            }
 
                             <div className='flex flex-col justify-center items-start ml-4  '>
                                 <h1>{item?.userId?.fullName}</h1>
+
                                 <p>{item.interestedFiels}</p>
+                                <p>{item?.previouscompany[0]?.yearofexcellence} Years of Experience</p>
                                 {/* <p>{item.previouscompany?.map((item: any, index: any) => {
                                     <p>{item}</p>
                                 })}</p> */}

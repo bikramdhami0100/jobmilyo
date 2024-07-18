@@ -111,11 +111,13 @@ export async function GET(req:any) {
     try {
         const decoded = jwt.verify(token, SECRET_KEY);
         const user=decoded.encodeemail;
+        // console.log( "user",user)
         if (!user) {
             return NextResponse.json({ message: "User not found", status: 404 });
         }
-
+       
         if (user.userVerify) {
+            // const validuser = await Usersignup.findOne({ email:user }).select("-password")
             return NextResponse.json({ message: "User verified successfully", status: 200, user,token });
         } else {
             return NextResponse.json({ message: "User is not verified", status: 401});

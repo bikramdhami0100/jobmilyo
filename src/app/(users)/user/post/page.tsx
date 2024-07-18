@@ -1,39 +1,46 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+// import { Rating } from '@smastrom/react-rating'
+import { Rating as ReactRating } from '@smastrom/react-rating'
+import '@smastrom/react-rating/style.css'
 import { CldUploadButton } from 'next-cloudinary';
 import { toast } from '@/components/ui/use-toast';
+import { useTheme } from 'next-themes';
+import { Textarea } from '@/components/ui/textarea';
 
 function PostAJob() {
+  const { theme } = useTheme()
+  // const interestedEmploymentTypes = 
+  const [rating, setRating] = useState(0)
   const [selectedJob, setSelectedJob] = useState("");
   const [companyLogo, setCompanyLogo] = useState(false);
   const [form, setForm] = useState({
     jobtitle: "",
+    site: "",
     description: "",
+    no_of_workingemployee: "",
+    no_of_office: "",
+    industry: "",
     qualification: "",
+    interestedEmploymentTypes: "",
+    no_vacancy: "",
     last_date: "",
     job_type: "",
     company_logo: "",
     email: "",
     country: "",
-    number_of_post: "",
+    // number_of_post: "",
     experience: "",
     specialization_req: "",
     salary: "",
     company: "",
+    phonenumber:"",
     website_url: "",
     address: "",
     state: "",
+    rating: 0
   });
 
   const handleCompangLogo = (result: any) => {
@@ -56,13 +63,17 @@ function PostAJob() {
       ...form,
       [name]: value,
     });
+    console.log(form)
   };
-
+  //  console.log(rating)
   const handleSubmit = async (event: any) => {
+
     event.preventDefault();
- console.log(form)
+
+
+    console.log(form)
     try {
-      const response = await fetch('/api/addjob', {
+      const response = await fetch('/api/postjob', {
         method: 'POST',
         body: JSON.stringify(form),
       });
@@ -87,10 +98,15 @@ function PostAJob() {
       });
     }
   };
-
+useEffect(()=>{
+ setForm((pre:any)=>({
+  ...pre,
+  rating
+ }))
+},[rating])
   return (
     <div className=" w-full mx-auto p-8 shadow-lg rounded-lg">
-      <h1 className="text-center text-4xl font-extrabold underline underline-offset-2 italic  mb-8">Job posted by user</h1>
+      <h1 className="text-center text-4xl font-extrabold underline underline-offset-2 italic  mb-8">Details of Company</h1>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
@@ -98,24 +114,66 @@ function PostAJob() {
             <Input name="jobtitle" value={form.jobtitle} onChange={handleChange} placeholder="Enter job title" />
           </div>
           <div>
+            <label htmlFor="site">Site </label>
+            <select className={`flex ${theme == "light" ? "bg-[rgb(255,255,255)]" : "bg-[rgb(2,8,23)] "} border w-full p-2 rounded-md outline-1 outline-black`} name="site" value={form.site} id="" onChange={handleChange}>
+
+              {
+                ["select site", "remote", "on-site"].map((item, index) => {
+                  return (<option className=' '>{item}</option>)
+                })
+              }
+            </select>
+            {/* {formErrors.interestedEmploymentType && <span className=' text-red-600'>{formErrors.interestedEmploymentType}</span>} */}
+
+          </div>
+          {/* <div>
             <label className="block text-sm font-medium ">Number of Posts</label>
             <Input name="number_of_post" value={form.number_of_post} onChange={handleChange} placeholder="Enter number of posts" />
+          </div> */}
+          <div>
+            <label className="block text-sm font-medium ">Number of Vacancy</label>
+            <Input type="number" name="no_vacancy" value={form.no_vacancy} onChange={handleChange} placeholder="Enter number of posts" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium ">Number of Working Employee</label>
+            <Input name="no_of_workingemployee" type="number" value={form.no_of_workingemployee} onChange={handleChange} placeholder="Enter number of posts" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium ">Number of Office</label>
+            <Input name="no_of_office" type="number" value={form.no_of_office} onChange={handleChange} placeholder="Enter number of posts" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium ">Industry</label>
+            <Input name="industry" value={form.industry} onChange={handleChange} placeholder="Enter number of posts" />
           </div>
           <div>
             <label className="block text-sm font-medium ">Description</label>
-            <Input name="description" value={form.description} onChange={handleChange} placeholder="Enter job description" />
+            <Textarea name="description" value={form.description} onChange={handleChange} placeholder="Enter job description" />
           </div>
           <div>
-            <label className="block text-sm font-medium ">Experience Required</label>
-            <Input name="experience" value={form.experience} onChange={handleChange} placeholder="Enter required experience" />
+            <label className="block text-sm font-medium ">Experience (optional)</label>
+            <Input name="experience" value={form.experience} onChange={handleChange} placeholder=" Enter your Expreience" />
           </div>
           <div>
-            <label className="block text-sm font-medium ">Qualification/Education Required</label>
-            <Input name="qualification" value={form.qualification} onChange={handleChange} placeholder="Enter required qualification/education" />
+            <label className="block text-sm font-medium ">Qualification or Education Required</label>
+            <Input name="qualification" value={form.qualification} onChange={handleChange} placeholder="Enter required qualification or education" />
           </div>
           <div>
-            <label className="block text-sm font-medium ">Specialization Required</label>
-            <Input name="specialization_req" value={form.specialization_req} onChange={handleChange} placeholder="Enter required specialization" />
+            <label htmlFor="interestedEmploymentTypes">Employment Interested Types </label>
+            <select className={`flex ${theme == "light" ? "bg-[rgb(255,255,255)]" : "bg-[rgb(2,8,23)] "} border w-full p-2 rounded-md outline-1 outline-black`} name="interestedEmploymentTypes" value={form.interestedEmploymentTypes} id="" onChange={handleChange}>
+
+              {
+                ["select ", "Full time", "Part time"].map((item, index) => {
+                  return (<option className=' ' key={index}>{item}</option>)
+                })
+              }
+            </select>
+            {/* {formErrors.interestedEmploymentType && <span className=' text-red-600'>{formErrors.interestedEmploymentType}</span>} */}
+
+          </div>
+          <div>
+            <label className="block text-sm font-medium ">Specialization (optional)</label>
+            <Input name="specialization_req" value={form.specialization_req} onChange={handleChange} placeholder="Enter  specialization" />
           </div>
           <div>
             <label className="block text-sm font-medium ">Last Date to Apply</label>
@@ -126,26 +184,23 @@ function PostAJob() {
             <Input name="salary" value={form.salary} onChange={handleChange} placeholder="Enter salary" />
           </div>
           <div>
+
             <label className="block text-sm font-medium ">Job Type</label>
-            <Select onValueChange={(value) => setForm({ ...form, job_type: value })} value={form.job_type}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select a job type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Select Job Type</SelectLabel>
-                  <SelectItem value="developer">Developer</SelectItem>
-                  <SelectItem value="designer">Designer</SelectItem>
-                  <SelectItem value="manager">Manager</SelectItem>
-                  <SelectItem value="analyst">Analyst</SelectItem>
-                  <SelectItem value="engineer">Engineer</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+            <Input name="job_type" value={form.job_type} onChange={handleChange} placeholder="Enter number of posts" />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium ">Company or Organization Name</label>
+            <Input name="company" value={form.company} onChange={handleChange} placeholder="Enter company or organization name" />
           </div>
           <div>
-            <label className="block text-sm font-medium ">Company/Organization Name</label>
-            <Input name="company" value={form.company} onChange={handleChange} placeholder="Enter company/organization name" />
+            <label className="block text-sm font-medium ">Company's Phone number</label>
+            <Input type="number" name="phonenumber" value={form.phonenumber} onChange={handleChange} placeholder="Enter company or organization name" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium ">Rating </label>
+
+            <ReactRating value={rating} style={{ maxWidth: 100 }} onChange={setRating} />
           </div>
           <div>
             <label className="block text-sm font-medium ">Company/Organization Logo</label>
@@ -157,9 +212,10 @@ function PostAJob() {
             {companyLogo ? <p className="text-green-600 text-left">Upload successful</p> : <p className="text-red-700 text-left">Please upload logo (.jpg/.png)</p>}
           </div>
           <div>
-            <label className="block text-sm font-medium ">Website</label>
+            <label className="block text-sm font-medium ">Website (optional)</label>
             <Input name="website_url" value={form.website_url} onChange={handleChange} placeholder="Enter website URL" />
           </div>
+
           <div>
             <label className="block text-sm font-medium ">Email</label>
             <Input name="email" value={form.email} onChange={handleChange} placeholder="Enter email" />

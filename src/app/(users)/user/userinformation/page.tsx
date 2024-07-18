@@ -9,17 +9,44 @@ import { Button } from '@/components/ui/button';
 import { SingleUserAllInformation } from '../../../../Redux/Slice';
 import { useRouter } from 'next/navigation';
 
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+
 import { ToastAction } from "@/components/ui/toast"
 import { useToast } from "@/components/ui/use-toast"
 import { CldUploadButton } from 'next-cloudinary';
 import { Toaster } from '@/components/ui/toaster';
 import { ScrollArea } from "@/components/ui/scroll-area"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import { File } from 'lucide-react';
+import axios from 'axios';
 
 // import { profile } from 'console';
 function userInformation() {
+    interface PrecompanyDetailsType {
+        companyname: string,
+        ctc: string,
+        workingtime: string,
+        previousrole: string,
+        yearofexcellence:string
 
+    }
     const { toast } = useToast()
-    const [profile, setprofile] = useState(false);
+    const [preCompanyForm, setPreCompanyForm] = useState<PrecompanyDetailsType>({
+        companyname: "",
+        ctc: "",
+        workingtime: "",
+        previousrole: "",
+        yearofexcellence:""
+    })
+    const [existpreCompany, setexistpreCompany] = useState<string>("no")
+    // const [profile, setprofile] = useState(false);
     const [cv, setcv] = useState(false);
     const [marksheet, setmarksheet] = useState(false);
 
@@ -27,7 +54,7 @@ function userInformation() {
         fname: '',
         gender: '',
         phone: '',
-        skils:'',
+        skils: '',
         PermanentAddress: '',
         CurrentAddress: '',
         profile: "",
@@ -41,7 +68,7 @@ function userInformation() {
         marksheet: ""
         // employement information
         ,
-        previouscompany: '',
+        previouscompany: existpreCompany,
         previousrole: '',
         interestedCategory: '',
         interestedFiels: '',
@@ -51,7 +78,7 @@ function userInformation() {
 
     });
 
-  
+
     const uploadMarksheet = (result: any) => {
 
         // setmarksheet(result.info.secure_url);
@@ -98,10 +125,10 @@ function userInformation() {
     const { theme } = useTheme();
 
 
-    console.log(theme);
+    // console.log(theme);
     const dispatch = useDispatch();
     const Gender = ["Selcet Gender", "Male", "Female", "Other"];
-    const boardNames = ["Select Board", "Nepal Board", "Higher Secondary Education Board", "Tribhuvan University", "Kathmandu University", "Pokhara University ", "Council for Technical Education and Vocational Training", "Nepal Medical Council", "Nepal Bar Council","Farwestern University"];
+    const boardNames = ["Select Board", "Nepal Board", "Higher Secondary Education Board", "Tribhuvan University", "Kathmandu University", "Pokhara University ", "Council for Technical Education and Vocational Training", "Nepal Medical Council", "Nepal Bar Council", "Farwestern University"];
     const levelNames = ["Select Level", "Primary Education", "Lower Secondary Education", "Secondary Education", "Higher Secondary Education", "Bachelor's Degree", "Master's Degree", "SEE", "Phd", "+2/PCL"];
     const facultyNames = ["Select Faculty", "Humanities", "Science", "Management", "Engineering", "Medicine", "Law", "Education", "Agriculture", "Fine Arts",];
 
@@ -140,33 +167,35 @@ function userInformation() {
         expectedPositionLevel: '',
         uploadCV: ""
     });
- 
+
 
     const nameRegex = /^[a-zA-Z\s]+$/;
- 
+
     const phoneRegex = /^(\d{3}-\d{3}-\d{4}|\(\d{3}\) \d{3}-\d{4}|\d{10})$/;
     const genderRegex = /^(Male|Female|Other)$/;
     const AddressRegex = /^[a-zA-Z0-9\s,.\-]{1,100}$/;
-   // fetch data from database
+    // fetch data from database
     const SubmitData = async () => {
-       
-        const data = await fetch("/api/userinfo/", {
-            method: "post",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        })
-        const result = await data.json();
-        if (result) {
-            console.log(result)
-            toast({
-                title: "Upload successfully ",
-                description: "Value inserted successfully ",
-            })
-            // router.push("/user/Home");
-        }
+
+        // const data = await fetch("/api/userinfo/", {
+        //     method: "post",
+        //     headers: {
+        //         "content-type": "application/json"
+        //     },
+        //     body: JSON.stringify(formData)
+        // })
+        // const result = await data.json();
+        // if (result) {
+        //     console.log(result)
+        //     toast({
+        //         title: "Upload successfully ",
+        //         description: "Value inserted successfully ",
+        //     })
+        //     // router.push("/user/Home");
+        // }
         //    console.log(result);
+        const data=(await axios.post("/api/userinfo/",formData)).data;
+         console.log(data)
 
     }
 
@@ -220,11 +249,31 @@ function userInformation() {
                 break;
         }
     };
-
- console.log(formData)
+    const PreviousCompanyFormData = (e: any) => {
+        const { name, value } = e.target;
+        setPreCompanyForm({
+            ...preCompanyForm,
+            [name]: value
+        });
+      if(existpreCompany=="yes"){
+        setFormData((prevState: any) => ({
+            ...prevState,
+            previouscompany:[preCompanyForm]
+        }))
+      }else{
+        setFormData((prevState: any) => ({
+            ...prevState,
+            previouscompany:existpreCompany
+        }))
+      }
+    }
+    const submitPrecompanyData=async()=>{
+        console.log(preCompanyForm)
+    }
+    console.log(formData)
     return (
         <div className=' flex  flex-col justify-around items-center gap-10 '>
-            
+
             <h1>Complete your Information</h1>
 
             <div className=' gap-10 flex flex-col justify-evenly items-center  md:flex-row lg:flex-row w-full '>
@@ -300,7 +349,7 @@ function userInformation() {
                         </div>
 
 
-         
+
                         {/* Repeat similar code for other fields */}
                     </div>
                 </div>
@@ -351,7 +400,7 @@ function userInformation() {
                         <label htmlFor="edutype">Education Type</label>
                         <Input name='educationtype' placeholder='Government or Private' onChange={handleChange} value={formData.educationtype}></Input>
                     </div>
-                
+
                     <div className="grid w-[100%] max-w-sm items-center gap-1.5">
                         <Label htmlFor="picture"  >Marksheet/Transcript/Grade Sheet</Label>
                         <CldUploadButton
@@ -370,9 +419,64 @@ function userInformation() {
                     <h1 className=' '> Employment Information</h1>
                     <div>
                         <label htmlFor="previouscompany">Previour Company</label>
-                        <Input name='previouscompany' placeholder='Optional' value={formData.previouscompany} onChange={handleChange}  ></Input>
+                        <RadioGroup defaultValue={existpreCompany} onValueChange={(e) => {
+                            setexistpreCompany(e)
+                        }} >
+                            <div className="flex items-center space-x-2">
+                                <RadioGroupItem value="yes" id="yes" />
+                                <Label htmlFor="yes">Yes</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <RadioGroupItem value="no" id="no" />
+                                <Label htmlFor="no">No</Label>
+                            </div>
+                        </RadioGroup>
+                        {
+                            existpreCompany.toLowerCase() === "yes" ? <>
+                                <Dialog>
+                                    <DialogTrigger> <Button className=' mt-2 '>Add Details</Button> </DialogTrigger>
+                                    <DialogContent>
+                                        <DialogHeader>
+                                            <DialogTitle>Some Company Details ?</DialogTitle>
+                                            <DialogDescription>
+                                                <div className=' w-full h-full '>
+
+                                                    <div className=' flex flex-col justify-start items-start gap-2'>
+                                                        <div className=' w-full h-full '>
+                                                            <h1>Company name</h1>
+                                                            <Input onChange={PreviousCompanyFormData} name='companyname' value={preCompanyForm.companyname} type='text' className='' ></Input>
+                                                        </div>
+                                                        <div className=' w-full h-full '>
+                                                            <h1>CTC (cost-to-company)</h1>
+                                                            <Input onChange={PreviousCompanyFormData} name='ctc' value={preCompanyForm.ctc} type='text' className='' ></Input>
+                                                        </div>
+                                                        <div className=' w-full h-full '>
+                                                            <h1>Working time</h1>
+                                                            <Input onChange={PreviousCompanyFormData} name='workingtime' value={preCompanyForm.workingtime} type='text' className='' ></Input>
+                                                        </div>
+                                                        <div className=' w-full h-full '>
+                                                            <h1>Previous role</h1>
+                                                            <Input onChange={PreviousCompanyFormData} name='previousrole' value={preCompanyForm.previousrole} type='text' className='' ></Input>
+                                                        </div>
+                                                        <div className=' w-full h-full '>
+                                                            <h1>Year of excellence</h1>
+                                                            <Input onChange={PreviousCompanyFormData} name='yearofexcellence' value={preCompanyForm.yearofexcellence} type='text' className='' ></Input>
+                                                        </div>
+                                                        <Button onClick={submitPrecompanyData} className=' w-full h-full'>Submit</Button>
+                                                    </div>
+
+                                                </div>
+                                            </DialogDescription>
+                                        </DialogHeader>
+                                    </DialogContent>
+                                </Dialog>
+
+                            </> : ""
+                        }
+                        {/* <Input type="checkbox" name='previouscompany' placeholder='Optional' value={formData.previouscompany} onChange={handleChange}  ></Input>
+                        <Input type="checkbox" name='previouscompany' placeholder='Optional' value={formData.previouscompany} onChange={handleChange}  ></Input> */}
                     </div>
-                  
+
                     <div>
                         <label htmlFor="interestedFiels">Interested Field</label>
                         <select className={`flex ${theme == "light" ? "bg-[rgb(255,255,255)]" : "bg-[rgb(2,8,23)] "} border w-full p-2 rounded-md outline-1 outline-black`} name="interestedFiels" value={formData.interestedFiels} id="" onChange={handleChange}>
@@ -429,7 +533,7 @@ function userInformation() {
                     </div>
                 </div>
             </div>
- 
+
         </div>
     )
 }

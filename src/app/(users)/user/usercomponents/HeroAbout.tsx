@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button"
 import { ReactTyped } from "react-typed"
 
 export function HeroAbout() {
-  const heroImages = ["/images/jobslide1.jpg", "/images/jobslide3.jpg"];
+  const heroImages = ["/images/herobg.png", "/images/jobslide3.jpg"];
 
   return (
     <Carousel className=" w-[100%]  flex flex-col ">
