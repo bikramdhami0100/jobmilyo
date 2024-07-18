@@ -7,7 +7,7 @@ function UserSearchContent(params:any) {
     <div> 
          {/* filters */}
          <div>
-           <SearchFilters/>
+           {/* <SearchFilters/> */}
          </div>
     </div>
   )
