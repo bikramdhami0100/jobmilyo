@@ -125,12 +125,11 @@ function userInformation() {
     const { theme } = useTheme();
 
 
-    // console.log(theme);
-    const dispatch = useDispatch();
+  
     const Gender = ["Selcet Gender", "Male", "Female", "Other"];
     const boardNames = ["Select Board", "Nepal Board", "Higher Secondary Education Board", "Tribhuvan University", "Kathmandu University", "Pokhara University ", "Council for Technical Education and Vocational Training", "Nepal Medical Council", "Nepal Bar Council", "Farwestern University"];
-    const levelNames = ["Select Level", "Primary Education", "Lower Secondary Education", "Secondary Education", "Higher Secondary Education", "Bachelor's Degree", "Master's Degree", "SEE", "Phd", "+2/PCL"];
-    const facultyNames = ["Select Faculty", "Humanities", "Science", "Management", "Engineering", "Medicine", "Law", "Education", "Agriculture", "Fine Arts",];
+    const levelNames = ["Select Level","Undergraduate", "Primary Education", "Lower Secondary Education", "Secondary Education", "Higher Secondary Education", "Bachelor's Degree", "Master's Degree", "SEE", "Phd", "+2/PCL"];
+    const facultyNames = ["Select Faculty", "Humanities", "Science and Technology", "Management", "Engineering", "Medicine", "Law", "Education", "Agriculture", "Fine Arts",];
 
     const interestedFields = ["Select Field", "Software Development", "Marketing", "Medicine", "Teaching", "Finance", "Public Service", "Graphic Design", "Research", "Social Work", /* Add more fields as needed */];
 
@@ -138,64 +137,22 @@ function userInformation() {
 
     const expectedPositionLevels = ["Select Position Level", "Entry Level", "Mid Level", "Senior Level", "Executive", /* Add more position levels as needed */];
 
-
-    // const [userId,setUserId]=useState();
-    const [formErrors, setFormErrors] = useState({
-        fname: '',
-
-        gender: '',
-        phone: '',
-        PermanentAddress: '',
-        CurrentAddress: '',
-        dateofBirth: "",
-        profile: "",
-        // education information
-        boardName: '',
-        level: '',
-        faculity: '',
-        educationtype: '',
-        gpaorpercentage: '',
-        passedDate: '',
-        marksheet: ""
-        //employment information
-        ,
-        previouscompany: '',
-        previousrole: '',
-        interestedCategory: '',
-        interestedFiels: '',
-        interestedEmploymentType: '',
-        expectedPositionLevel: '',
-        uploadCV: ""
-    });
-
-
-    const nameRegex = /^[a-zA-Z\s]+$/;
-
-    const phoneRegex = /^(\d{3}-\d{3}-\d{4}|\(\d{3}\) \d{3}-\d{4}|\d{10})$/;
-    const genderRegex = /^(Male|Female|Other)$/;
-    const AddressRegex = /^[a-zA-Z0-9\s,.\-]{1,100}$/;
     // fetch data from database
     const SubmitData = async () => {
 
-        // const data = await fetch("/api/userinfo/", {
-        //     method: "post",
-        //     headers: {
-        //         "content-type": "application/json"
-        //     },
-        //     body: JSON.stringify(formData)
-        // })
-        // const result = await data.json();
-        // if (result) {
-        //     console.log(result)
-        //     toast({
-        //         title: "Upload successfully ",
-        //         description: "Value inserted successfully ",
-        //     })
-        //     // router.push("/user/Home");
-        // }
-        //    console.log(result);
+     
         const data=(await axios.post("/api/userinfo/",formData)).data;
-         console.log(data)
+         console.log( "data",data)
+         if(data.message?.errors){
+            toast({
+                variant: "destructive",
+                title: data.message._message,
+                description: "सबै क्षेत्रहरू आवश्यक छन् कृपया भर्नुहोस् (all fields are required please fillup )" ,
+                action: <ToastAction altText="Try again">Try again</ToastAction>,
+              })
+         }else if(data.status===200){
+            router.push("/user/profile")
+         }
 
     }
 
@@ -208,46 +165,7 @@ function userInformation() {
         });
 
         // Validation
-        switch (name) {
-            case 'fname':
-            case 'mname':
-            case 'lname':
-                setFormErrors({
-                    ...formErrors,
-                    [name]: nameRegex.test(value) ? '' : 'Invalid input',
-                });
-                break;
-
-            case 'gender':
-                setFormErrors({
-                    ...formErrors,
-                    gender: genderRegex.test(value) ? '' : 'Invalid gender',
-                });
-                break;
-            case 'phone':
-                setFormErrors({
-                    ...formErrors,
-                    phone: phoneRegex.test(value) ? '' : 'Invalid Phone Number',
-                });
-                break;
-            case 'PermanentAddress':
-                setFormErrors({
-                    ...formErrors,
-                    PermanentAddress: AddressRegex.test(value) ? '' : 'Invalid Address',
-                });
-                break;
-            case 'CurrentAddress':
-                setFormErrors({
-                    ...formErrors,
-                    CurrentAddress: AddressRegex.test(value) ? '' : 'Invalid Address',
-                });
-                break;
-
-            //education error handeling
-            // Add validation for other fields as needed
-            default:
-                break;
-        }
+     
     };
     const PreviousCompanyFormData = (e: any) => {
         const { name, value } = e.target;
@@ -270,7 +188,8 @@ function userInformation() {
     const submitPrecompanyData=async()=>{
         console.log(preCompanyForm)
     }
-    console.log(formData)
+    // console.log(formData)
+ 
     return (
         <div className=' flex  flex-col justify-around items-center gap-10 '>
 
@@ -289,7 +208,7 @@ function userInformation() {
                                 placeholder="full Name"
                                 value={formData.fname}
                             ></Input>
-                            {formErrors.fname && <span className="text-red-500">{formErrors.fname}</span>}
+                           
                         </div>
 
                         <div>
@@ -302,7 +221,7 @@ function userInformation() {
                                     })
                                 }
                             </select>
-                            {formErrors.gender && <span className=' text-red-600'>{formErrors.gender}</span>}
+
 
                         </div>
                         <div>
@@ -314,7 +233,7 @@ function userInformation() {
                                 placeholder="Enter your phone number"
                                 value={formData.phone}
                             ></Input>
-                            {formErrors.phone && <span className="text-red-500">{formErrors.phone}</span>}
+                     
                         </div>
                         <div>
                             <label htmlFor="PermanentAddress">Permanent Address</label>
@@ -324,7 +243,7 @@ function userInformation() {
                                 placeholder="Permanent Address"
                                 value={formData.PermanentAddress}
                             ></Input>
-                            {formErrors.PermanentAddress && <span className="text-red-500">{formErrors.PermanentAddress}</span>}
+                           
                         </div>
                         <div>
                             <label htmlFor="CurrentAddress">Current Address</label>
@@ -334,7 +253,7 @@ function userInformation() {
                                 placeholder="Current Address"
                                 value={formData.CurrentAddress}
                             ></Input>
-                            {formErrors.CurrentAddress && <span className="text-red-500">{formErrors.CurrentAddress}</span>}
+           
                         </div>
                         <div>
                             <label htmlFor="dateofBirth">Date of birth</label>
@@ -366,7 +285,7 @@ function userInformation() {
                                 })
                             }
                         </select>
-                        {formErrors.boardName && <span className=' text-red-600'>{formErrors.boardName}</span>}
+               
 
                     </div>
                     <div>
@@ -379,7 +298,7 @@ function userInformation() {
                                 })
                             }
                         </select>
-                        {formErrors.level && <span className=' text-red-600'>{formErrors.level}</span>}
+
 
                     </div>
                     <div>
@@ -392,7 +311,7 @@ function userInformation() {
                                 })
                             }
                         </select>
-                        {formErrors.faculity && <span className=' text-red-600'>{formErrors.faculity}</span>}
+       
 
                     </div>
 
@@ -433,13 +352,14 @@ function userInformation() {
                         </RadioGroup>
                         {
                             existpreCompany.toLowerCase() === "yes" ? <>
-                                <Dialog>
-                                    <DialogTrigger> <Button className=' mt-2 '>Add Details</Button> </DialogTrigger>
-                                    <DialogContent>
+                                <Dialog >
+                                    <DialogTrigger>
+                                     <Button className=' mt-2 '>Add Details</Button> </DialogTrigger>
+                                    <DialogContent className=' bg-white text-black '>
                                         <DialogHeader>
                                             <DialogTitle>Some Company Details ?</DialogTitle>
                                             <DialogDescription>
-                                                <div className=' w-full h-full '>
+                                                <div className=' w-full h-full text-black '>
 
                                                     <div className=' flex flex-col justify-start items-start gap-2'>
                                                         <div className=' w-full h-full '>
@@ -487,7 +407,7 @@ function userInformation() {
                                 })
                             }
                         </select>
-                        {formErrors.interestedFiels && <span className=' text-red-600'>{formErrors.interestedFiels}</span>}
+
 
                     </div>
                     <div>
@@ -500,7 +420,7 @@ function userInformation() {
                                 })
                             }
                         </select>
-                        {formErrors.interestedEmploymentType && <span className=' text-red-600'>{formErrors.interestedEmploymentType}</span>}
+                     
 
                     </div>
                     <div>
@@ -513,7 +433,7 @@ function userInformation() {
                                 })
                             }
                         </select>
-                        {formErrors.expectedPositionLevel && <span className=' text-red-600'>{formErrors.expectedPositionLevel}</span>}
+
 
                     </div>
                     <div className="grid w-full  items-center gap-1.5">

@@ -37,34 +37,34 @@ function Navbar() {
     const router = useRouter();
     const path=usePathname()
     const { setTheme, theme } = useTheme();
-
+ console.log(theme)
     const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-[rgb(17,24,39)]'; // Set background color based on theme
 
     const NavMenu2 = [
         {
             name: "Home",
             path: "/user",
-            icon: Home
+            // icon: Home
         },
         {
             name: "About",
             path: "/user/about",
-            icon: Group
+            // icon: Group
         },
         {
             name: "Jobs",
             path: "/user/jobs",
-            icon: PersonStanding
+            // icon: PersonStanding
         },
         {
             name: "Contact us",
             path: "/user/contact",
-            icon: MessageCircle
+            // icon: MessageCircle
         },
         {
             name: "Post a job",
             path: "/user/post",
-            icon: Send
+            // icon: Send
         },
        
     ]

@@ -7,7 +7,22 @@ const jwt = require("jsonwebtoken");
 export async function POST(req:any) {
   await mongodbconn;
    const bskill=await req.json();
-   console.log(bskill);
+   const skills =bskill.map((item:any)=>{
+        console.log(item.name)
+        return item.name;
+   });
+  //  let count=0;
+   let totalRating = 0;
+
+   bskill.forEach((item:any) => {
+     totalRating += item.rating;
+   });
+ 
+  //  const overallRating = Math.floor(totalRating / (bskill.length));
+// console.log(skills , overallRating)
+  //  console.log("this is clg ",totalRating/bskill.length);
+ const setvalue=  Math.min(Math.floor(totalRating/bskill.length))
+ console.log(setvalue)
   const tokendata = await req.cookies.get("token").value;
   const useremail = jwt.verify(tokendata, process.env.TOKEN_SECRETKEY);
   const email = useremail.encodeemail.email;
@@ -17,10 +32,13 @@ export async function POST(req:any) {
   try {
         
     // const userallprofiledata = await UserInformation.find({userId:users._id}).populate("userId").select("-password");
-    const userallprofiledata = await UserInformation.findOneAndUpdate({userId:users._id},{skills:bskill},{new:true}).populate("userId");
+    const userallprofiledata = await UserInformation.findOneAndUpdate({userId:users._id},{skills:skills ,useroverallskillrating:setvalue},{new:true}).populate({
+      path:"userId",
+      select:"fullName color email"
+    });
     
-    console.log(userallprofiledata.skills)
-    return NextResponse.json({ success: true, data: { userInfos: userallprofiledata,user:users }, status: 200 });
+    // console.log(userallprofiledata.skills)
+    return NextResponse.json({ success: true, data: { userInfos: userallprofiledata }, status: 200 });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ success: false, status: 404 });

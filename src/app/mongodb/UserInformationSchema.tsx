@@ -108,7 +108,12 @@ const UserInformationSchema = new mongoose.Schema({
   skills: {
     type: [String], // Array of strings
     default: [] // Default to an empty array
+  },
+  useroverallskillrating:{
+    type:Number,
+    default:0
   }
+
 });
 
 

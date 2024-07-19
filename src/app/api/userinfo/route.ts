@@ -15,7 +15,7 @@ const userinformation=await req.json();
         return NextResponse.json({ message: "Token not found", status: 400 });
     }
 
-     var decoded = jwt.verify(token, 'secretkeybikramdhami');
+     var decoded = jwt.verify(token, process.env.TOKEN_SECRETKEY);
      let  email = decoded.encodeemail.email;
      console.log(email)
      const user = await Usersignup.findOne(
@@ -50,22 +50,23 @@ const userinformation=await req.json();
         
           console.log(newUserInfo);
        let userinforesult= await newUserInfo.save();
-        const userinfoid=userinforesult._id;
-        let userinfotoken=jwt.sign({ userinfoid:userinfoid  }, 'secretkeybikramdhami');
-        let respon=NextResponse.json({ message: "User Information  successfully inserted ", status: 200 });
-        respon.cookies.set("userinfotoken",userinfotoken,{httpOnly:true});
-        return respon;
+        // const userinfoid=userinforesult._id;
+        // let userinfotoken=jwt.sign({ userinfoid:userinfoid  }, 'secretkeybikramdhami');
+        // let respon=NextResponse.json({ message: "User Information  successfully inserted ", status: 200 });
+        // respon.cookies.set("userinfotoken",userinfotoken,{httpOnly:true});
+        // return respon;
+      
         
      } catch (error) {
          console.log(error)
+         return NextResponse.json({ message: error,status:422 });
      }
-         
-        
+    
 
         // if (!user) {
         //     return NextResponse.json({ message: "User not found", status: 404 });
         // }
-        let respon=NextResponse.json({ message: " successfully inserted data", status: 200 });
+        let respon=NextResponse.json({ message: " successfully inserted ", status: 200 });
         // respon.cookies.set("userinfotoken",token,{httpOnly:true});
         return respon;
  }

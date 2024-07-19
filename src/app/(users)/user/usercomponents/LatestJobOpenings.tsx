@@ -60,7 +60,7 @@ function LatestJobOpenings() {
     console.log(jobs)
     // 
     useEffect(() => {
-        jobPostedByUser()
+        jobPostedByUser();
     }, [])
 
     return (

@@ -1,7 +1,7 @@
 "use client"
 import { Button } from '@/components/ui/button';
 import { IconArrowBack, IconArrowBackUp, IconCalendarTime, IconCircleCheckFilled, IconEdit, IconEditCircle, IconEyeStar, IconPhoneCall, IconPhotoEdit, IconSignRightFilled, IconStar, IconStarFilled, IconStarOff, IconUpload } from '@tabler/icons-react';
-import { ArrowLeft, ArrowRightLeft, Bookmark, Download, Loader, PencilLine, Phone, PhoneCall, Plus, Rocket, SendHorizonal, Share, Star } from 'lucide-react';
+import { ArrowLeft, ArrowRightLeft, Bookmark, Loader, PencilLine, Phone, PhoneCall, Plus, Rocket, SendHorizonal, Share, Star } from 'lucide-react';
 import Image from 'next/image'
 import React, { use, useEffect, useState } from 'react'
 // import { ScrollArea } from "@/components/ui/scroll-area"
@@ -35,12 +35,12 @@ import {
     EmailShareButton,
     FacebookIcon,
     FacebookShareButton,
-
+   
     LinkedinIcon,
     LinkedinShareButton,
-
+   
     TwitterShareButton,
-
+  
 } from "react-share";
 
 const FileSaver = require("file-saver");
@@ -50,16 +50,19 @@ import { useSelector } from 'react-redux';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { CldUploadButton } from 'next-cloudinary';
 import { useRouter } from 'next/navigation';
-import { Rating } from '@smastrom/react-rating'
-
-import '@smastrom/react-rating/style.css'
+import { zIndex } from 'html2canvas/dist/types/css/property-descriptors/z-index';
 import { BackpackIcon, Share1Icon } from '@radix-ui/react-icons';
 import SimilarProfile from '../usercomponents/userprofile/SimilarProfile';
-import Link from 'next/link';
-
 function UserProfile() {
-    const [skillrating, setSkillRating] = useState<number>(0)
-
+    const session = useSession()
+    const router = useRouter();
+    const [editProfile,setEditProfile]=useState<any>([
+        {
+            fullName:"",
+            color:""
+        }
+    ]);
+    const [editProfileLoader,setEditProfileLoader]=useState(false)
     const [skillloader, setSkillLoader] = useState(false)
     const [isDownloading, setIsDownloading] = useState(false);
     const [rating, setRating] = useState(4);
@@ -67,41 +70,45 @@ function UserProfile() {
     const [signup, setSignUp] = useState<any>();
     const [userInformation, setuserInformation] = useState<any>([]);
     var [allSkill, setAllSkill] = useState<string[]>([]);
-
+    const [skill, setSkill] = useState<string>('');
     const [showUploadButton, setShowUploadButton] = useState(false);
-    const session = useSession()
-    const router = useRouter();
-    interface ADDSKILLLISTTYPE {
-        name: string,
-        rating: number
-    }
-    const [AddSkillList, setAddSkillList] = useState<ADDSKILLLISTTYPE[]>([{ name: "", rating: 0 }])
-
-    const handleChange = (index: any, name: any, value: any) => {
-
-        const updatedSkills: any = [...AddSkillList];
-        updatedSkills[index][name] = value;
-        setAddSkillList(updatedSkills)
-        // console.log("new ", newentry)
-    }
-    const AddNewSkills = () => {
-        //  console.log("add skill list ",AddSkillList)
-        setAddSkillList([...AddSkillList, { name: "", rating: skillrating }])
-    }
-    const RemoveSkills = () => {
-        setAddSkillList((skillList: any) => skillList.slice(0, -1))
-    }
-
     const handleIconEditClick = () => {
         setShowUploadButton(!showUploadButton);
         // setTimeout(() => {
         //      setShowUploadButton(false)
         // }, 100000);
     };
-    //  console.log(" added ",AddSkillList)
 
+    const handleUploadSuccess = (result: any) => {
+        // console.log('Upload Success:', result);
+        setShowUploadButton(false); // Optionally, hide the upload button after a successful upload
+    };
 
+    interface UserInfo {
+        CurrentAddress: string,
+        PermanentAddress: string,
+        boardname: string,
+        educationtype: string,
+        expectedPositionLevel: string,
+        faculity: string,
+        fname: string,
+        gender: string,
+        gpaorpercentage: string,
+        interestedCategory: string,
+        interestedEmployementType: string,
+        interestedFiels: string,
+        level: string,
+        lname: string,
+        marksheet: string,
+        mname: string,
+        passedDate: string,
+        phone: string,
+        previouscompany: string,
+        previousrole: string,
+        uploadCV: string,
+        skills: string[]
 
+    }
 
     // console.log("user information ", userInformation[0]?.skills)
     const dataFromDatabase = async () => {
@@ -116,8 +123,7 @@ function UserProfile() {
         }
     }
     useEffect(() => {
-        dataFromDatabase();
-
+        dataFromDatabase()
 
     }, []);
 
@@ -159,23 +165,70 @@ function UserProfile() {
         education: ["Bachelor's Degree in Computer Science"],
         certification: ["AWS Certified Developer"]
     };
+    interface OtherUserType {
+        name: string,
+        image: string,
+        work: string,
+        yearofexperience: string,
 
+    }
+    const otherUsers: OtherUserType[] = [
+        {
+            name: "John",
+            image: "https://images.unsplash.com/photo-1599837487527-e009248aa71b?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            work: "Graphic Designer",
+            yearofexperience: "5 years"
+        },
+        {
+            name: "Alice",
+            image: "https://images.unsplash.com/photo-1599837487527-e009248aa71b?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            work: "Graphic Designer",
+            yearofexperience: "3 years"
+        },
+        {
+            name: "Bob",
+            image: "https://images.unsplash.com/photo-1599837487527-e009248aa71b?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            work: "Graphic Designer",
+            yearofexperience: "7 years"
+        },
+        {
+            name: "Emily",
+            image: "https://images.unsplash.com/photo-1599837487527-e009248aa71b?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            work: "Graphic Designer",
+            yearofexperience: "2 years"
+        },
+        {
+            name: "Michael",
+            image: "https://images.unsplash.com/photo-1599837487527-e009248aa71b?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            work: "Graphic Designer",
+            yearofexperience: "6 years"
+        }
+    ];
+    const handleAddSkill = () => {
+        if (skill.trim() && !allSkill.includes(skill)) {
+            setAllSkill((prevSkills) => [...prevSkills, skill]);
+            setSkill('');
+        }
+    };
+    const handleSelect = (item: any, index: any) => {
+        setSkill(item)
+        allSkill.splice(index, 1);
 
-
+    }
     const shareProfile = async () => {
         const data = await navigator.clipboard.writeText(window.location.href);
         const readdata = await navigator.clipboard.readText();
         console.log(readdata)
         setShareUrl(readdata)
     }
-    // console.log(shareUrl)
+    console.log(shareUrl)
     const skillUpdate = async () => {
         setSkillLoader(true)
         // console.log("all ", allSkill)
-        axios.post('/api/profiledata/skillupdate', AddSkillList)
+        axios.post('/api/profiledata/skillupdate', allSkill)
             .then(function (response) {
                 console.log(response.data);
-                // setSkillLoader(false)
+                setSkillLoader(false)
                 router.push("/user/profile")
             })
             .catch(function (error) {
@@ -201,8 +254,12 @@ function UserProfile() {
         const userId = 1
         router.push(`/user/profile/${userId}`);
     }
-    console.log(userInformation)
+    // console.log(userInformation)
+    const HandleEditProfile = (e: any) => {
+        const { name, value } = e.target;
+        console.log(name, value)
 
+    }
     return (
         <div>
             {/*  back button and share profile */}
@@ -274,6 +331,19 @@ function UserProfile() {
                                                         <div style={{ backgroundColor: signup?.color }} className='flex justify-center items-center w-[100px] h-[100px] rounded-full'>
                                                             <div className='text-center'>{signup.fullName.charAt(0).toUpperCase()}</div>
                                                         </div>
+                                                        {/* <IconEdit
+                                                            className='absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer'
+                                                            onClick={handleIconEditClick}
+                                                        /> */}
+                                                        {/* {showUploadButton && (
+                                                            <CldUploadButton
+                                                                className='absolute top-8 bg-green-600 left-0 w-full text-left border-2 p-1 rounded-md'
+                                                                uploadPreset="wyyzhuyo"
+                                                                onSuccess={handleUploadSuccess}
+                                                            />
+                                                        )} */}
+                                                       
+
                                                     </div>
                                                 ) : (
                                                     <div className='relative group  m-auto w-[120px] h-[120px] p-3 overflow-hidden rounded-full   '>
@@ -306,15 +376,23 @@ function UserProfile() {
 
                                 <p className=' flex gap-1 '>{signup?.fullName} <IconCircleCheckFilled className=' text-blue-700' /> </p>
                                 <div className='cursor-pointer flex gap-2'>
-                                    <p className='flex gap-1'>
-                                        {userInformation && userInformation[0]?.useroverallskillrating}
-                                        <IconStarFilled className={`${userInformation[0]?.useroverallskillrating >= 1 ? "text-yellow-500 " : ""}`} />
-
-                                    </p>
+                                    {
+                                        rating <= 9 ? (
+                                            <p className='flex gap-1'>
+                                                {userItem.rating}
+                                                <IconStarFilled onClick={() => setRating(rating + 1)} className={`${rating >= 1 ? "text-yellow-500 " : ""}`} />
+                                            </p>
+                                        ) : (
+                                            <p className='flex gap-1'>
+                                                {userItem.rating}
+                                                <IconStarFilled onClick={() => setRating(rating)} className={`${rating >= 1 ? "text-yellow-500 " : ""}`} />
+                                            </p>
+                                        )
+                                    }
                                     {/* <p>{signup?.email}</p> */}
                                     <div className='flex gap-3 text-sm text-green-600 cursor-pointer'>
 
-                                        <p>{"$ " + Math.floor(parseInt(`${userInformation[0]?.previouscompany[0]?.ctc}`) / 12) + "/month"}</p>
+                                        <p>{userItem.salary}</p>
                                     </div>
                                 </div>
 
@@ -329,38 +407,68 @@ function UserProfile() {
                             <hr />
                             {/* add skill */}
                             <div className=' flex   justify-center items-center '>Skills
-                                <Dialog>
+                                <Dialog  >
                                     <DialogTrigger asChild>
-                                        <Button variant="outline" className='border-none hover:bg-auto'><Plus /></Button>
+                                        <Button variant="outline" className=' border-none hover:bg-auto'><Plus /></Button>
                                     </DialogTrigger>
                                     <DialogContent className="sm:max-w-[425px] bg-gray-200 text-black">
                                         <DialogHeader>
-                                            <DialogTitle className='border-none shadow-none rounded-none decoration-black'>Skills</DialogTitle>
-                                            <DialogDescription></DialogDescription>
-                                        </DialogHeader>
-                                        <div className="w-full flex flex-col justify-center items-start bg-white text-black">
-                                            <div className="p-4 w-full flex flex-col">
-                                                {AddSkillList.map((item, index) => (
-                                                    <div key={index} className='flex flex-col justify-start items-start'>
-                                                        <h1>Name</h1>
-                                                        <div className='flex justify-between items-center gap-2'>
-                                                            <Input name='skills' value={item.name} onChange={(e) => handleChange(index, 'name', e.target.value)} />
-                                                            <Rating className='h-[24px]' value={item.rating} onChange={(value: any) => handleChange(index, 'rating', value)} />
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                                <div>
-                                                    <Button onClick={AddNewSkills}>+ Add more skills</Button>
-                                                    <Button onClick={RemoveSkills}>- Remove skills</Button>
-                                                    <Button onClick={skillUpdate} className=''>
+                                            <DialogTitle className=' border-none shadow-none rounded-none decoration-black'>Edit Skills</DialogTitle>
+                                            <DialogDescription>
 
-                                                        <DialogClose>
-                                                            {skillloader && <Loader className='animate-spin mr-2' />} Save changes
-                                                        </DialogClose>
-                                                    </Button>
-                                                </div>
-                                            </div>
+                                            </DialogDescription>
+                                        </DialogHeader>
+                                        <div>
+
                                         </div>
+                                        <div className=" w-full flex flex-col justify-center items-start  ">
+                                            <h1>Add Skills</h1>
+                                            <div className=" p-4  w-full flex ">
+
+                                                <Input
+                                                    type="text"
+                                                    value={skill}
+                                                    onChange={(e) => setSkill(e.target.value)}
+                                                    placeholder="Enter a skill one by one "
+                                                    className="p-2 border  rounded-md  mr-2"
+                                                />
+                                                <button
+                                                    onClick={handleAddSkill}
+                                                    className="px-4 py-2 bg-green-500 text-white rounded-md"
+                                                >
+                                                    Add
+                                                </button>
+
+
+                                            </div>
+                                            <ScrollArea className="h-[100px] w-full rounded-md border-[2px]">
+                                                <div className="p-4">
+                                                    {
+                                                        allSkill?.map((item: any, index: any) => {
+                                                            return (
+                                                                <div onClick={() => {
+                                                                    handleSelect(item, index);
+                                                                }} className=' border w-[90%] cursor-pointer rounded-md p-2 m-2 ' key={index}>
+                                                                    {item}
+                                                                </div>
+                                                            )
+                                                        })
+                                                    }
+                                                </div>
+                                            </ScrollArea>
+                                        </div>
+                                        <DialogFooter>
+
+                                            <Button disabled={skillloader} onClick={() => {
+                                                skillUpdate()
+                                            }} type="submit">
+                                                <DialogClose>
+                                                    {skillloader && <Loader className=' animate-spin  mr-2' />} Save changes
+
+                                                </DialogClose>
+                                            </Button>
+
+                                        </DialogFooter>
                                     </DialogContent>
                                 </Dialog>
                             </div>
@@ -369,7 +477,7 @@ function UserProfile() {
                                 <div className='flex gap-2 flex-wrap items-center justify-center'>
                                     {
                                         userItem.skills.map((item: any, index: any) => (
-                                            <div key={index} className='border flex items-center m-auto  justify-center p-2 rounded-3xl w-[48%] text-ellipsis   text-center'>
+                                            <div key={index} className='border flex items-center m-auto  justify-center p-2 rounded-3xl w-[90px] text-ellipsis   text-center'>
                                                 <p>{item}</p>
                                             </div>
                                         ))
@@ -421,7 +529,7 @@ function UserProfile() {
                             <h1>Basic Information</h1>
                             <div className=' flex flex-wrap w-full h-full '>
                                 {
-                                    userInformation && userInformation.map((item: any, index: any) => {
+                                    userInformation.map((item: any, index: any) => {
                                         // const date=new Date(dateofBirth);
                                         // console.log(date)
                                         return (<div key={index} className=' grid grid-cols-2  w-full h-full  md:grid-cols-3 lg:grid-cols-3'>
@@ -434,7 +542,6 @@ function UserProfile() {
                                                 <h1>Years of Excellence</h1>
                                                 {
                                                     item.previouscompany.map((item: any, index: any) => {
-                                                        // console.log("precompany",item)
                                                         return (<div key={index}>{item.yearofexcellence}</div>)
                                                     })
                                                 }
@@ -487,119 +594,58 @@ function UserProfile() {
                                 </TabsList>
                                 <TabsContent value="Experience">
                                     <Card>
-                                        {/* <CardHeader>
+                                        <CardHeader>
                                             <CardTitle>Experience</CardTitle>
-
-                                        </CardHeader> */}
-
-                                    </Card>
-                                    <CardContent>
-                                        <CardDescription>
-                                            <hr />
-                                            <div className='flex flex-col items-start h-[500px] overflow-y-scroll overflow-x-hidden w-full gap-2 m-auto p-2'>
-                                                {userInformation.map((item: any, index: number) => (
-                                                    <div key={index} className='flex flex-row justify-between items-center shadow-xl border  p-1 w-full'>
-                                                        <div className=' flex justify-center items-center'>
-                                                            <Image
-
-                                                                alt='other images'
-                                                                height={100}
-                                                                width={100}
-                                                                src={signup?.color}
-                                                                className='rounded-full h-[80px] w-[80px] '
-                                                            />
-                                                            <div className='flex flex-col justify-center items-start ml-4  '>
-                                                                <h1>{signup?.fullName}</h1>
-                                                                <p>{item?.previouscompany?.map((item: any, index: any) => {
-                                                                    console.log(item, "item ")
-                                                                    return (<> {item?.companyname || "No any company"}</>)
-                                                                })}</p>
-                                                                <p>{item.yearofexcellence || "No any excellence "}</p>
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <h1 className=' underline cursor-pointer'>View Project</h1>
-                                                        </div>
-
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </CardDescription>
-                                    </CardContent>
-                                </TabsContent>
-                                <TabsContent value="Education">
-                                    <Card>
-                                        {/* <CardHeader>
-                                            <CardTitle>Education</CardTitle>
-
-                                        </CardHeader> */}
-                                        <CardContent className="space-y-2">
                                             <CardDescription>
                                                 <hr />
-                                                <div className='flex flex-col items-start h-[500px] overflow-y-scroll overflow-x-hidden w-full gap-2 m-auto p-2'>
-                                                    {userInformation.map((item: any, index: number) => (
+                                                <div className='flex flex-col justify-center items-start h-[500px] overflow-y-scroll overflow-x-hidden w-full gap-2 m-auto p-2'>
+                                                    {otherUsers.map((item, index) => (
                                                         <div key={index} className='flex flex-row justify-between  items-center shadow-xl border  p-1 w-full'>
-                                                            <div className=' flex'>
+                                                            <div className=' flex justify-center items-center'>
                                                                 <Image
-
                                                                     alt='other images'
                                                                     height={100}
                                                                     width={100}
-                                                                    src={signup?.color}
+                                                                    src={item.image}
                                                                     className='rounded-full h-[80px] w-[80px] '
                                                                 />
                                                                 <div className='flex flex-col justify-center items-start ml-4  '>
-                                                                    <h1>{signup?.fullName}</h1>
-                                                                    <p>{item.educationtype}</p>
-                                                                    <h1>{item.boardName}</h1>
-                                                                    <p>{item.level}</p>
-
+                                                                    <h1>{item.name}</h1>
+                                                                    <p>{item.work}</p>
+                                                                    <p>{item.yearofexperience}</p>
                                                                 </div>
                                                             </div>
-                                                            <Link className=' flex gap-1' href={item.marksheet}>Marksheet <Download /></Link>
+                                                            <div>
+                                                                <h1 className=' underline'>View Project</h1>
+                                                            </div>
 
                                                         </div>
                                                     ))}
                                                 </div>
                                             </CardDescription>
+                                        </CardHeader>
+
+                                    </Card>
+                                </TabsContent>
+                                <TabsContent value="Education">
+                                    <Card>
+                                        <CardHeader>
+                                            <CardTitle>Education</CardTitle>
+
+                                        </CardHeader>
+                                        <CardContent className="space-y-2">
+
                                         </CardContent>
 
                                     </Card>
                                 </TabsContent>
                                 <TabsContent value="Certification">
                                     <Card>
-                                        {/* <CardHeader>
+                                        <CardHeader>
                                             <CardTitle>Certification</CardTitle>
-                                        </CardHeader> */}
+                                        </CardHeader>
                                         <CardContent>
-                                            <CardDescription>
-                                                <hr />
-                                                <div className='flex flex-col items-start h-[500px] overflow-y-scroll overflow-x-hidden w-full gap-2 m-auto p-2'>
-                                                    {userInformation.map((item: any, index: number) => (
-                                                        <div key={index} className='flex flex-row justify-between  items-center shadow-xl border  p-1 w-full'>
-                                                            <div className=' flex'>
-                                                                <Image
 
-                                                                    alt='other images'
-                                                                    height={100}
-                                                                    width={100}
-                                                                    src={signup?.color}
-                                                                    className='rounded-full h-[80px] w-[80px] '
-                                                                />
-                                                                <div className='flex flex-col justify-center items-start ml-4  '>
-                                                                    <h1>{signup?.fullName}</h1>
-                                                                    <p>{item.educationtype}</p>
-                                                                    <h1>{item.boardName}</h1>
-                                                                    <p>{item.level}</p>
-
-                                                                </div>
-                                                            </div>
-                                                            <Link className=' flex gap-1' href={item.marksheet}>Marksheet <Download /></Link>
-   
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </CardDescription>
                                         </CardContent>
 
                                     </Card>
