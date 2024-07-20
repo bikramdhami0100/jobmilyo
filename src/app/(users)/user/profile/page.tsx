@@ -176,6 +176,10 @@ function UserProfile() {
             .then(function (response) {
                 console.log(response.data);
                 // setSkillLoader(false)
+                setTimeout(() => {
+                    dataFromDatabase()
+                
+                }, 100);
                 router.push("/user/profile")
             })
             .catch(function (error) {
@@ -284,21 +288,7 @@ function UserProfile() {
 
 
                                             }
-                                            <Dialog>
-                                                <DialogTrigger>  <IconEdit
-                                                    className='absolute  right-2 top-2  mt-4 opacity-0 hover:visible group-hover:opacity-100 transition-opacity duration-300 cursor-pointer'
-                                                    onClick={handleIconEditClick}
-                                                /></DialogTrigger>
-                                                <DialogContent>
-                                                    <DialogHeader>
-                                                        <DialogTitle>Edit profile</DialogTitle>
-                                                        <DialogDescription>
-                                                            This action cannot be undone. This will permanently delete your account
-                                                            and remove your data from our servers.
-                                                        </DialogDescription>
-                                                    </DialogHeader>
-                                                </DialogContent>
-                                            </Dialog>
+
 
                                         </div>
                                     </div>
@@ -349,10 +339,10 @@ function UserProfile() {
                                                         </div>
                                                     </div>
                                                 ))}
-                                                <div>
+                                                <div className=' flex flex-wrap justify-between  gap-2 my-2'>
                                                     <Button onClick={AddNewSkills}>+ Add more skills</Button>
                                                     <Button onClick={RemoveSkills}>- Remove skills</Button>
-                                                    <Button onClick={skillUpdate} className=''>
+                                                    <Button onClick={skillUpdate} className=' '>
 
                                                         <DialogClose>
                                                             {skillloader && <Loader className='animate-spin mr-2' />} Save changes
@@ -595,7 +585,7 @@ function UserProfile() {
                                                                 </div>
                                                             </div>
                                                             <Link className=' flex gap-1' href={item.marksheet}>Marksheet <Download /></Link>
-   
+
                                                         </div>
                                                     ))}
                                                 </div>

@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation'
 function SearchSection({search,setSearch}:any) {
     const [searchdata,setSearchData]=useState<any>()
  
-
+    //  console.log(search ,"search")
     const SearchItems = ["Select Field", ...Array.from(new Set(searchdata?.map((data:any)=>{return data.category})))];
     const CompanyItems = ["Select Company", ...Array.from(new Set(searchdata?.map((data:any) => {return data.company})))];
     // const LocationItems = ["Select Location", ...(datas.map(data => data.location.split(', ')[0]))];
@@ -74,7 +74,7 @@ function SearchSection({search,setSearch}:any) {
 
                     </div>
                     <Button onClick={() => {
-                         router.push(`/user/treandingjob`)
+                         router.push(`/user/${search.SelectItem}/${search.Location}/${search.PCompany}`)
                         // dispatch(SearchHomeJobs(JSON.stringify(search)));
                     }} className='w-[200px] bg-green-600 flex gap-2'><Search /> Search</Button>
                 </div>
