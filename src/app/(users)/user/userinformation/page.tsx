@@ -368,7 +368,7 @@ function userInformation() {
                                                         </div>
                                                         <div className=' w-full h-full '>
                                                             <h1>CTC (cost-to-company)</h1>
-                                                            <Input onChange={PreviousCompanyFormData} name='ctc' value={preCompanyForm.ctc} type='text' className='' ></Input>
+                                                            <Input onChange={PreviousCompanyFormData} name='ctc' value={preCompanyForm.ctc} placeholder=' Enter salary per year in $' type='number' className='' ></Input>
                                                         </div>
                                                         <div className=' w-full h-full '>
                                                             <h1>Working time</h1>

@@ -58,8 +58,8 @@ const UserInformationSchema = new mongoose.Schema({
           default:null
         },
         ctc: {
-          type: String,
-          default: null
+          type: Number,
+          default: 0
         },
         workingtime: {
           type: String,
