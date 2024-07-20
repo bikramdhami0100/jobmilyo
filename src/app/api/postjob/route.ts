@@ -32,7 +32,7 @@ export async function POST(req:any) {
         interestedEmploymentTypes: form.interestedEmploymentTypes,
         no_vacancy: form.no_vacancy,
         last_date: form.last_date,
-        job_type: form.category,
+        category: form.category,
         company_logo: form.company_logo,
         email: form.email,
         country: form.country,
