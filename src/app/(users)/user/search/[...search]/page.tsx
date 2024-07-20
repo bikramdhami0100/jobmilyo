@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react'
-import SearchFilters from '../components/SearchFilters'
-import SearchMainPart from '../components/SearchMainPart'
+import SearchFilters from '../../components/SearchFilters'
+import SearchMainPart from '../../components/SearchMainPart'
 
 function UserSearchContent({params}:any) {
   const [selectField, setSelectField] = useState<any>({
