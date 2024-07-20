@@ -18,6 +18,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { ScrollArea } from "@/components/ui/scroll-area"
 import {
     Dialog,
+    DialogClose,
     DialogContent,
     DialogDescription,
     DialogHeader,
@@ -387,7 +388,9 @@ function userInformation() {
                                                             <h1>Year of excellence</h1>
                                                             <Input onChange={PreviousCompanyFormData} name='yearofexcellence' value={preCompanyForm.yearofexcellence} type='text' className='' ></Input>
                                                         </div>
+                                                        <DialogClose>
                                                         <Button onClick={submitPrecompanyData} className=' w-full h-full'>Submit</Button>
+                                                        </DialogClose>
                                                     </div>
 
                                                 </div>

@@ -9,9 +9,11 @@ import { CldUploadButton } from 'next-cloudinary';
 import { toast } from '@/components/ui/use-toast';
 import { useTheme } from 'next-themes';
 import { Textarea } from '@/components/ui/textarea';
+import { useRouter } from 'next/navigation';
 
 function PostAJob() {
-  const { theme } = useTheme()
+  const { theme } = useTheme();
+  const router=useRouter()
   // const interestedEmploymentTypes = 
   const [rating, setRating] = useState(0)
   const [selectedJob, setSelectedJob] = useState("");
@@ -84,10 +86,13 @@ function PostAJob() {
       });
 
       if (response.ok) {
+         
         toast({
           title: "Job added successfully",
           description: "Your job posting has been added.",
         });
+        router.push("/user/Jobs")
+        
       } else {
         toast({
           title: "Failed to add job",
