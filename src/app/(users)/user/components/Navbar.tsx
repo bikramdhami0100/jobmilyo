@@ -48,17 +48,17 @@ function Navbar() {
         },
         {
             name: "About",
-            path: "/user/about",
+            path: "/user/About",
             // icon: Group
         },
         {
             name: "Jobs",
-            path: "/user/jobs",
+            path: "/user/Jobs",
             // icon: PersonStanding
         },
         {
             name: "Contact us",
-            path: "/user/contact",
+            path: "/user/Contact",
             // icon: MessageCircle
         },
         {
