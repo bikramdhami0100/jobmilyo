@@ -37,6 +37,11 @@ function userInformation() {
         yearofexcellence:string
 
     }
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
     const { toast } = useToast()
     const [preCompanyForm, setPreCompanyForm] = useState<PrecompanyDetailsType>({
         companyname: "",
@@ -189,7 +194,7 @@ function userInformation() {
         console.log(preCompanyForm)
     }
     // console.log(formData)
- 
+    if (!mounted) return null;
     return (
         <div className=' flex  flex-col justify-around items-center gap-10 '>
 

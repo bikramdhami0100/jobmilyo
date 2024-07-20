@@ -1,9 +1,11 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SearchFilters from '../../components/SearchFilters'
 import SearchMainPart from '../../components/SearchMainPart'
+import { useRouter } from 'next/router'
 
 function UserSearchContent({params}:any) {
+
   const [selectField, setSelectField] = useState<any>({
     location: "",
     budget: "",
@@ -11,7 +13,13 @@ function UserSearchContent({params}:any) {
     experience: "",
     employment: ""
   })
-  console.log(params.search)
+
+  useEffect(() => {
+    if (params && Array.isArray(params)) {
+        console.log(params)
+      
+    }
+  }, [params]);
   return (
     <div>
       {/* filters */}

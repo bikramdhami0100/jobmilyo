@@ -3,17 +3,16 @@ import Footer from "@/app/(users)/user/components/Footer";
 import Navbar from "@/app/(users)/user/components/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 
-
-
 export default async function UserLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
+  
 
   return (
     <>
+    
       <div id="userHome" className=" w-full h-full" >
         <div className=" w-full h-full">
           {/* navbar and toast message */}

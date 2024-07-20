@@ -17,7 +17,7 @@ export function HeroAbout() {
   const heroImages = ["/images/herobg.png", "/images/jobslide3.jpg"];
 
   return (
-    <Carousel className=" w-[100%]  flex flex-col ">
+    <Carousel className=" w-[100%] text-white  flex flex-col ">
       <div className=" gap-2 absolute flex  flex-col justify-around items-center m-auto top-[100px] z-10  right-[20vw] left-[20vw]">
         <p className=" text-[44px] md:text-6xl lg:text-6xl  font-extrabold">About us</p>
         <p className=" font-bold  text-center text-[20px] md:text-[26px] lg:text-[26px]">Home &gt; <span className={`font-extrabold `}>

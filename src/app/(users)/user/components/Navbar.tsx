@@ -37,7 +37,12 @@ function Navbar() {
     const router = useRouter();
     const path=usePathname()
     const { setTheme, theme } = useTheme();
- console.log(theme)
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+//  console.log(theme)
     const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-[rgb(17,24,39)]'; // Set background color based on theme
 
     const NavMenu2 = [
@@ -134,8 +139,10 @@ function Navbar() {
         }
     }
     const pathHandler=(path:any)=>{
-        router.push(path);
+        router.push(path)
     }
+        // If the theme is not mounted yet, do not render the navbar
+        if (!mounted) return null;
 //  console.log(validUser)
     return (
         <div className={`flex w-full h-[70px]  justify-between m-auto shadow-md items-center p-3 ${navbarBgColor} `}>

@@ -16,6 +16,11 @@ function PostAJob() {
   const [rating, setRating] = useState(0)
   const [selectedJob, setSelectedJob] = useState("");
   const [companyLogo, setCompanyLogo] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+      setMounted(true);
+  }, []);
   const [form, setForm] = useState({
     jobtitle: "",
     site: "",
@@ -104,6 +109,7 @@ useEffect(()=>{
   rating
  }))
 },[rating])
+if (!mounted) return null;
   return (
     <div className=" w-full mx-auto p-8 shadow-lg rounded-lg">
       <h1 className="text-center text-4xl font-extrabold underline underline-offset-2 italic  mb-8">Details of Company</h1>

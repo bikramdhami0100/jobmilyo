@@ -11,7 +11,11 @@ import axios from "axios"
 import { useRouter } from 'next/navigation'
 function SearchSection({search,setSearch}:any) {
     const [searchdata,setSearchData]=useState<any>()
- 
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
     //  console.log(search ,"search")
     const SearchItems = ["Select Field", ...Array.from(new Set(searchdata?.map((data:any)=>{return data.category})))];
     const CompanyItems = ["Select Company", ...Array.from(new Set(searchdata?.map((data:any) => {return data.company})))];
@@ -40,6 +44,7 @@ function SearchSection({search,setSearch}:any) {
     useEffect(() => {
         TreandingHomeJobs()
     }, [])
+    if (!mounted) return null; 
     // const SearchItems=["Select Field","Web Technology","Data Science","App Development"]
     return (
         <div>
