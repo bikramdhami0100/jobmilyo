@@ -70,15 +70,15 @@ function PostAJob() {
       ...form,
       [name]: value,
     });
-    console.log(form)
+
   };
-  //  console.log(rating)
+  
   const handleSubmit = async (event: any) => {
 
     event.preventDefault();
 
 
-    console.log(form)
+   
     try {
       const response = await fetch('/api/postjob', {
         method: 'POST',
