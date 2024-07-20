@@ -133,6 +133,9 @@ function Navbar() {
 
         }
     }
+    const pathHandler=(path:any)=>{
+        router.push(path);
+    }
 //  console.log(validUser)
     return (
         <div className={`flex w-full h-[70px]  justify-between m-auto shadow-md items-center p-3 ${navbarBgColor} `}>
@@ -153,7 +156,8 @@ function Navbar() {
                                             NavMenu2.map((item, index) => {
                                                 return (<div className=' flex font-bold  m-2 text-2xl flex-row' key={index}>
                                                     <SheetClose> <h1 className={` cursor-pointer hover:text-blue-600 hover:underline hover:transition-shadow ${path==item.path?"text-blue-600 underline underline-offset-2":""}`} onClick={() => {
-                                                        router.push(item.path)
+                                                       pathHandler(item.path);
+                                                       
                                                     }}>{item.name == "Post a job" ? (<p className=' bg-[#b0dac1] rounded-full p-2 underline'>{item.name}</p>) : item.name}</h1></SheetClose>
                                                 </div>)
                                             })

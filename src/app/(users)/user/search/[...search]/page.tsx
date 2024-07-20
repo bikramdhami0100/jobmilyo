@@ -11,7 +11,7 @@ function UserSearchContent({params}:any) {
     experience: "",
     employment: ""
   })
-  // console.log(params.search)
+  console.log(params.search)
   return (
     <div>
       {/* filters */}
