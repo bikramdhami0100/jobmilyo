@@ -12,8 +12,7 @@ import { useTheme } from 'next-themes';
 
 function TreandingList({ data }: any) {
     const { theme }: any = useTheme()
-    // const listdata: DataType[] = data;
-    // console.log(theme)
+    
     const router = useRouter();
     return (
 
@@ -23,6 +22,7 @@ function TreandingList({ data }: any) {
 
                 {
                     data?.map((item:any, index:number) => {
+                        // console.log(item)
                         return (
                             <div key={index} className={`relative  h-[350px] border ring-2 ring-inset ring-gray-400 hover:shadow-xl  mx-4 my-4 ${theme == "light" ? "bg-[#e6e9ec] hover:bg-gray-300 " : ""} p-4 w-[300px] shadow-md  `}>
 
@@ -36,7 +36,7 @@ function TreandingList({ data }: any) {
                                 <div className=' flex justify-between m-auto'>
                                     <Button className=' bg-[#73bc87] h-[32px] absolute bottom-4 left-4 '>Apply Now</Button>
                                     <Button className=' bg-[#1983d1] h-[32px] absolute bottom-4 right-4 ' onClick={() => {
-                                        router.push("/user/jobdetail/1");
+                                        router.push(`/user/jobdetail/${item._id}`);
                                     }}>Details</Button>
                                 </div>
                                 <span></span>

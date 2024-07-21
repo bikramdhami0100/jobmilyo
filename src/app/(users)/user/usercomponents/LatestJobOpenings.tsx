@@ -1,6 +1,6 @@
 "use client"
 import { Button } from '@/components/ui/button';
-import { BookmarkIcon } from '@radix-ui/react-icons';
+import { BookmarkIcon, StarFilledIcon } from '@radix-ui/react-icons';
 import { IconTimeDuration60 } from '@tabler/icons-react';
 import { Calendar, MapPin, Star } from 'lucide-react';
 import { useTheme } from 'next-themes';
@@ -104,7 +104,7 @@ function LatestJobOpenings() {
                                 <div className=' w-full flex flex-col   flex-wrap gap-2'>
                                     <div className='flex gap-2'>
                                         <h1 className='text-xl font-bold '>{item?.user?.fullName ||"Bikram dhami"}</h1>
-                                        <span className='flex items-center border cursor-pointer rounded-lg p-1 text-sm bg-yellow-100  ml-1 text-yellow-400'>{item.rating} <Star className='mr-1' /></span>
+                                        <span className='flex items-center w-[50px] gap-1 justify-center border cursor-pointer rounded-lg p-1 text-sm bg-yellow-100  ml-1 text-yellow-400'>{Math.floor(item.rating)} <StarFilledIcon className=' size-4' /></span>
                                     </div>
                                     <div className=' flex-wrap flex gap-2'>
                                         <h1 className='text-lg font-semibold'>{item.category}</h1>
@@ -114,7 +114,7 @@ function LatestJobOpenings() {
                                     <div className=' flex-wrap  flex justify-between w-full items-center gap-5'>
                                         <span className='flex items-center'><MapPin className='mr-1' /> {item.address}</span>
                                         <span className='flex items-center'><IconTimeDuration60 className='mr-1' /> {item.interestedEmploymentTypes}</span>
-                                        <span>{item.salary}</span>
+                                        <span> ${item.salary}</span>
                                         <span className='flex items-center'><Calendar className='mr-1' />{timeAgoMessage}</span>
 
                                     </div>
@@ -122,7 +122,7 @@ function LatestJobOpenings() {
                                 <div className='flex w-[30vw] flex-wrap  justify-center   items-center gap-2 '>
                                     <BookmarkIcon className='  size-10 w-[50px]' />
                                     <Button className=' size-10 w-[100px] bg-[#0625c7]'>
-                                        <Link href={"/user/jobs/details"} rel="noopener noreferrer">Details</Link>
+                                        <Link href={`/user/jobdetail/${item._id}`} rel="noopener noreferrer">Details</Link>
                                     </Button>
                                     <Button className=' size-10 w-[100px] bg-[#00c136]'>
                                         <Link href={"/user/jobs/apply"} rel="noopener noreferrer">Apply</Link>
