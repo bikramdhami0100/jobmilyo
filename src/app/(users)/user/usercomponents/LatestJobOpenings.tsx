@@ -57,7 +57,7 @@ function LatestJobOpenings() {
         //     setJobs(received.data)
         //   }
     }
-    console.log(jobs)
+   
     // 
     useEffect(() => {
         jobPostedByUser();
