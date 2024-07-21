@@ -211,7 +211,7 @@ function Navbar() {
                                                     </div>
                                                 ) : (
                                                     <div className='relative group w-[40px] h-[35px] rounded-full  border '>
-                                                        <Image src={validUser?.color} alt={"profile image"} width={100} height={100} className='rounded-full object-fill  h-full w-full' />
+                                                        <Image src={validUser?.color} alt={"profile image"} width={100} height={100} className=' object-fill h-[40px] w-[40px] rounded-[20px] ' />
                                                     
                                                       
                                                     </div>

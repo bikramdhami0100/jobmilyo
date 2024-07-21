@@ -115,13 +115,13 @@ function Footer() {
                     Copyright © {date.getFullYear()} Bsc.CSIT Students of Far-western University. All rights reserved.
                 </div>
                 <div className=' flex flex-row gap-4'>
-                    <div>Home</div>
+                    <Link href={"/user/"}>Home</Link>
                     <p>|</p>
-                    <div>Cookies</div>
+                    <Link href={"/user/cookies"}>Cookies</Link>
                     <p>|</p>
-                    <div>Help</div>
+                    <Link href={"/user/help"}>Help</Link>
                     <p>|</p>
-                    <div>FAQs</div>
+                    <Link href={"/user/faq"}>FAQs</Link>
                 </div>
             </div>
         </div>
