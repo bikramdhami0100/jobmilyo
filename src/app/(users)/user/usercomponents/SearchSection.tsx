@@ -79,7 +79,7 @@ function SearchSection({search,setSearch}:any) {
 
                     </div>
                     <Button onClick={() => {
-                         router.push(`/user/search/latest`)
+                         router.push(`/user/search/query`)
                         // dispatch(SearchHomeJobs(JSON.stringify(search)));
                     }} className='w-[200px] bg-green-600 flex gap-2'><Search /> Search</Button>
                 </div>
