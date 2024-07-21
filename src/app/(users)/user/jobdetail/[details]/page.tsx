@@ -46,7 +46,7 @@ interface USERPOSTEDJOBDETAILS {
 // similarjobs
 import { Input } from '@/components/ui/input';
 function SingleJobDetails({ params }: any) {
-  // console.log(params.details)
+  
   const [jobdetails, setJobDetails] = useState<USERPOSTEDJOBDETAILS | undefined>()
   const [OtherJobs, setOtherJobs] = useState<any>()
 
@@ -57,7 +57,7 @@ function SingleJobDetails({ params }: any) {
         fetchOtherJobOpening(data.respondata.jobtitle)
       }, 100);
     }).catch((error: any) => {
-      console.log(error)
+      console.log(error.message)
     })
   }
   const fetchOtherJobOpening = (jobtitle: string) => {
@@ -65,11 +65,10 @@ function SingleJobDetails({ params }: any) {
       setOtherJobs(data.respondata)
 
     }).catch((error: any) => {
-      console.log(error)
+      console.log(error.message)
     })
   }
-  console.log(OtherJobs, "other")
-  // console.log("jobs details", jobdetails)
+
   useEffect(() => {
     fetchJobDetailsData();
   }, [])

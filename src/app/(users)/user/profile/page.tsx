@@ -103,7 +103,7 @@ function UserProfile() {
             method: "get"
         })
         const restult = await data.json();
-        console.log(restult)
+        
         if (restult) {
             setuserInformation(restult.data.userInfos);
             setSignUp(restult.data.user);
@@ -494,7 +494,7 @@ function UserProfile() {
                                                             <div className='flex flex-col justify-center items-start ml-4  '>
                                                                 <h1>{signup?.fullName}</h1>
                                                                 <p>{item?.previouscompany?.map((item: any, index: any) => {
-                                                                    console.log(item, "item ")
+                                                                    
                                                                     return (<> {item?.companyname || "No any company"}</>)
                                                                 })}</p>
                                                                 <p>{item.yearofexcellence || "No any excellence "}</p>
