@@ -82,10 +82,10 @@ function UserProfile() {
         const updatedSkills: any = [...AddSkillList];
         updatedSkills[index][name] = value;
         setAddSkillList(updatedSkills)
-        // console.log("new ", newentry)
+
     }
     const AddNewSkills = () => {
-        //  console.log("add skill list ",AddSkillList)
+
         setAddSkillList([...AddSkillList, { name: "", rating: skillrating }])
     }
     const RemoveSkills = () => {
@@ -94,16 +94,10 @@ function UserProfile() {
 
     const handleIconEditClick = () => {
         setShowUploadButton(!showUploadButton);
-        // setTimeout(() => {
-        //      setShowUploadButton(false)
-        // }, 100000);
+      
     };
-    //  console.log(" added ",AddSkillList)
 
 
-
-
-    // console.log("user information ", userInformation[0]?.skills)
     const dataFromDatabase = async () => {
         const data = await fetch("/api/profiledata/", {
             method: "get"
@@ -135,7 +129,7 @@ function UserProfile() {
         }
         setIsDownloading(false);
     };
-    console.log(userInformation);
+    
 
     let userItem: any = {
         fullName: signup?.fullname || "bikram",
@@ -168,13 +162,13 @@ function UserProfile() {
         console.log(readdata)
         setShareUrl(readdata)
     }
-    // console.log(shareUrl)
+    
     const skillUpdate = async () => {
         setSkillLoader(true)
-        // console.log("all ", allSkill)
+       
         axios.post('/api/profiledata/skillupdate', AddSkillList)
             .then(function (response) {
-                console.log(response.data);
+
                 // setSkillLoader(false)
                 setTimeout(() => {
                     dataFromDatabase()
@@ -183,7 +177,7 @@ function UserProfile() {
                 router.push("/user/profile")
             })
             .catch(function (error) {
-                console.log(error);
+               
             });
     }
     const CallingToUser = (phonenumber: any) => {
@@ -205,7 +199,7 @@ function UserProfile() {
         const userId = 1
         router.push(`/user/profile/${userId}`);
     }
-    console.log(userInformation)
+    
 
     return (
         <div>
@@ -412,8 +406,7 @@ function UserProfile() {
                             <div className=' flex flex-wrap w-full h-full '>
                                 {
                                     userInformation && userInformation.map((item: any, index: any) => {
-                                        // const date=new Date(dateofBirth);
-                                        // console.log(date)
+                                  
                                         return (<div key={index} className=' grid grid-cols-2  w-full h-full  md:grid-cols-3 lg:grid-cols-3'>
                                             <div>
                                                 <h1>Age</h1>
@@ -424,7 +417,7 @@ function UserProfile() {
                                                 <h1>Years of Excellence</h1>
                                                 {
                                                     item.previouscompany.map((item: any, index: any) => {
-                                                        // console.log("precompany",item)
+                                                    
                                                         return (<div key={index}>{item.yearofexcellence}</div>)
                                                     })
                                                 }
