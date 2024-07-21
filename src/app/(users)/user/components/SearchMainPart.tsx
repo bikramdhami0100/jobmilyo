@@ -59,7 +59,7 @@ function SearchMainPart({ selectField ,anyThingSearch,page,setTotalPages}: any) 
     const [jobs, setJobs] = useState<any>()
     const jobPostedByUser = async () => {
         const received = (await axios.post("/api/postjob/anysearch",{searchText:anyThingSearch,page:page,limit:5})).data;
-        console.log("received ",received)
+        // console.log("received ",received)
         setJobs(received.search);
         setTotalPages(received.totalPages);
         router.push(`/user/search/query`)
@@ -101,7 +101,7 @@ function SearchMainPart({ selectField ,anyThingSearch,page,setTotalPages}: any) 
 
     useEffect(() => {
         jobPostedByUser();
-        console.log("first",page)
+        // console.log("first",page)
     }, [anyThingSearch,page]);
     // useEffect(() => {
     //     jobPostedByUser();
