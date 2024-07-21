@@ -44,16 +44,16 @@ function Footer() {
             <div className=' w-full grid grid-cols-2 md:grid-flow-col lg:grid-flow-col gap-4 m-auto p-4 mb-4 text-md'>
                 <div>
                     <h1 className=' text-xl font-bold mb-4'>Company</h1>
-                    <div> <Link href='/user/about' className=' m-auto cursor-pointer gap-1 '> <span>&gt;</span>About us</Link></div>
-                    <div> <Link href='/user/contact' className=' m-auto cursor-pointer gap-1 '> <span>&gt;</span>Contact us</Link></div>
+                    <div> <Link href='/user/About' className=' m-auto cursor-pointer gap-1 '> <span>&gt;</span>About us</Link></div>
+                    <div> <Link href='/user/Contact' className=' m-auto cursor-pointer gap-1 '> <span>&gt;</span>Contact us</Link></div>
                     <div> <Link href='/user/service' className=' m-auto cursor-pointer gap-1 '> <span>&gt;</span>Our Services</Link></div>
                     <div>   <Link href='/user/privacy' className=' m-auto cursor-pointer gap-1 '> <span>&gt;</span>Privacy Policy</Link></div>
                     <div>    <Link href='/user/condition' className=' m-auto cursor-pointer gap-1 '> <span>&gt;</span>Terms and Condition</Link></div>
                 </div>
                 <div>
                     <h1 className=' text-xl font-bold mb-4'>Quick links</h1>
-                    <div> <Link href='/user/about' className=' m-auto cursor-pointer gap-1 '> <span>&gt;</span>About us</Link></div>
-                    <div> <Link href='/user/contact' className=' m-auto cursor-pointer gap-1 '> <span>&gt;</span>Contact us</Link></div>
+                    <div> <Link href='/user/About' className=' m-auto cursor-pointer gap-1 '> <span>&gt;</span>About us</Link></div>
+                    <div> <Link href='/user/Contact' className=' m-auto cursor-pointer gap-1 '> <span>&gt;</span>Contact us</Link></div>
                     <div> <Link href='/user/service' className=' m-auto cursor-pointer gap-1 '> <span>&gt;</span>Our Services</Link></div>
                     <div>   <Link href='/user/privacy' className=' m-auto cursor-pointer gap-1 '> <span>&gt;</span>Privacy Policy</Link></div>
                     <div>    <Link href='/user/condition' className=' m-auto cursor-pointer gap-1 '> <span>&gt;</span>Terms and Condition</Link></div>
