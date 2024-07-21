@@ -46,7 +46,7 @@ const faqData = [
         items: [
             {
                 question: "",
-                answer: "If you have any other questions, please contact us at jobmilyo@gmail.com "
+                answer: "If you have any other questions, please contact us at jobmilyo@gmail.com or visit our Contact page "
             }
         ]
     }

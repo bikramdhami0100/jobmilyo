@@ -19,7 +19,7 @@ export async function POST(req:any) {
         return NextResponse.json({ message: "Invalid token", status: 401 });
 
     }
-    console.log(form.jobtitle)
+    // console.log(form.jobtitle)
     const received = new UserPostedJob({
         jobtitle: form.jobtitle,
         phonenumber:form.phonenumber,
@@ -53,27 +53,7 @@ export async function POST(req:any) {
     // } catch (error) {
     // }
 }
-// //  get data for user/job
-// export async function GET(req:any) {
-//     await mongodbconn;
-//     const form = await req.json();
-//     console.log(form.rating)
-//     const token = req.cookies.get("token")?.value;
-//     console.log(token)
-    
-//     const decoded = jwt.verify(token, process.env.TOKEN_SECRETKEY);
-//     const userdetail = decoded.encodeemail;
-//     if(!token){
-//         return NextResponse.json({ message: "Invalid token", status: 401 });
 
-//     }
-//     // const job=await UserPostedJob.find().limit(5);
-//     // console.log("job",job)
-//     return NextResponse.json({ message: "Successfully inserted job", status: 200 });
-//     // try {
-//     // } catch (error) {
-//     // }
-// }
 
 export async function GET(req: any) {
   await mongodbconn; // Ensure you have a connection utility
