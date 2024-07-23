@@ -6,8 +6,8 @@ var jwt = require('jsonwebtoken');
 
 export async function POST(req: any) {
     await mongodbconn;
-    const userinformation = await req.json();
-    console.log(userinformation, "userinformation");
+    const {id} = await req.json();
+    console.log(id, "userinformation");
     const data = await req.cookies.get("token");
     const token = data.value;
 
@@ -25,16 +25,12 @@ export async function POST(req: any) {
     }
     console.log(user)
     // Build query criteria to exclude the current user
-    const criteria = { 
-        ...userinformation, 
-        userId: { $ne: user._id }  // Exclude the current user by user._id
-    };
+   try {
+    const otheruserInfo=await UserInformation.findOne({userId:id}).populate({path:"userId",select:"email color fullName"});
+    return NextResponse.json({ message: "Successfully fetched", data:otheruserInfo,  status: 200 });
+   } catch (error) {
+    
+   }
 
-    const alldata = await UserInformation.find(criteria).populate({
-        path: 'userId',
-        select: 'color email fullName'  // Only include color, email, and fullName fields
-    }).limit(5);
-
-    let respon = NextResponse.json({ message: "Successfully fetched", data: alldata, user:user, status: 200 });
-    return respon;
+    
 }

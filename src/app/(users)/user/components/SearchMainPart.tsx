@@ -49,16 +49,31 @@ export interface USERPOSTEDJOBDETAILS {
 }
 function SearchMainPart({ selectField ,anyThingSearch,page,setTotalPages}: any) {
     // console.log(page," main body",selectField);
-    // const localtion=selectField.location;
-    // const budget=selectField.budget;
-    // const posting=selectField.dateofposting;
-    // const experience=selectField.experience;
-    
+    const localtion=selectField?.location;
+    const budget=selectField?.budget;
+    const posting=selectField?.dateofposting;
+    const experience=selectField?.experience;
+    const  texthandler=()=> {
+         if(localtion?.toLowerCase() !=="any"){
+          return localtion;
+         }else if(budget?.toLowerCase() !=="any"){
+             return budget
+         }else if(posting?.toLowerCase() !=="any"){
+            return posting
+        }else if(experience?.toLowerCase() !=="any"){
+            return experience
+        } else{
+            return ;
+        }
+    }
+    const testtext=texthandler();
+const name="bira"
+name.toLowerCase()
     const router=useRouter()
     const { theme } = useTheme();
     const [jobs, setJobs] = useState<any>()
     const jobPostedByUser = async () => {
-        const received = (await axios.post("/api/postjob/anysearch",{searchText:anyThingSearch,page:page,limit:5})).data;
+        const received = (await axios.post("/api/postjob/anysearch",{searchText:anyThingSearch||testtext ,page:page,limit:5})).data;
         // console.log("received ",received)
         setJobs(received.search);
         setTotalPages(received.totalPages);
@@ -75,34 +90,34 @@ function SearchMainPart({ selectField ,anyThingSearch,page,setTotalPages}: any) 
     // console.log(jobs.length)
     // 
 
-    function BookMark() {
-        var url = window.location.href;
-        var title = document.title;
-        var bookmarkLink = document.createElement('a');
-        bookmarkLink.href = url;
-        bookmarkLink.title = title;
-        bookmarkLink.innerText = 'Bookmark this page';
+    // function BookMark() {
+    //     var url = window.location.href;
+    //     var title = document.title;
+    //     var bookmarkLink = document.createElement('a');
+    //     bookmarkLink.href = url;
+    //     bookmarkLink.title = title;
+    //     bookmarkLink.innerText = 'Bookmark this page';
 
-        var body = document.getElementsByTagName('body')[0];
-        body.appendChild(bookmarkLink);
+    //     var body = document.getElementsByTagName('body')[0];
+    //     body.appendChild(bookmarkLink);
 
-        // Copy URL to clipboard
-        var tempInput = document.createElement('input');
-        tempInput.style.position = 'absolute';
-        tempInput.style.left = '-1000px';
-        tempInput.value = url;
-        body.appendChild(tempInput);
-        tempInput.select();
-        document.execCommand('copy');
-        body.removeChild(tempInput);
+    //     // Copy URL to clipboard
+    //     var tempInput = document.createElement('input');
+    //     tempInput.style.position = 'absolute';
+    //     tempInput.style.left = '-1000px';
+    //     tempInput.value = url;
+    //     body.appendChild(tempInput);
+    //     tempInput.select();
+    //     document.execCommand('copy');
+    //     body.removeChild(tempInput);
 
-        alert('URL copied to clipboard: ' + url + '\nDrag the link to your bookmarks bar: ' + bookmarkLink.outerHTML);
-    }
+    //     alert('URL copied to clipboard: ' + url + '\nDrag the link to your bookmarks bar: ' + bookmarkLink.outerHTML);
+    // }
 
     useEffect(() => {
         jobPostedByUser();
         // console.log("first",page)
-    }, [anyThingSearch,page]);
+    }, [anyThingSearch,page,selectField]);
     // useEffect(() => {
     //     jobPostedByUser();
     // }, [page]);
@@ -165,13 +180,13 @@ function SearchMainPart({ selectField ,anyThingSearch,page,setTotalPages}: any) 
                                         </div>
                                     </div>
                                     <div className='flex w-[30vw]  absolute  right-2 top-2 flex-wrap justify-end items-end gap-2 top-0 '>
-                                        <BookmarkIcon onClick={() => {
-                                            BookMark()
+                                        <BookmarkIcon  onClick={() => {
+                                            // BookMark()
                                         }} className='  size-10 w-[50px]' />
                                         {/* <Button className=' size-10 w-[100px] bg-[#0625c7]'>
                                         <Link href={"/user/jobs/details"} rel="noopener noreferrer">Details</Link>
                                     </Button> */}
-                                        <Button className=' size-10 text-white w-[102px] bg-[#00c136] '>
+                                        <Button  className=' size-10 text-white w-[102px] bg-[#00c136] '>
                                             <Link href={"/user/jobs/proposal"} rel="noopener noreferrer">Send Proposal</Link>
                                         </Button>
                                     </div>

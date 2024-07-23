@@ -94,7 +94,7 @@ function UserProfile() {
 
     const handleIconEditClick = () => {
         setShowUploadButton(!showUploadButton);
-      
+
     };
 
 
@@ -103,7 +103,7 @@ function UserProfile() {
             method: "get"
         })
         const restult = await data.json();
-        
+
         if (restult) {
             setuserInformation(restult.data.userInfos);
             setSignUp(restult.data.user);
@@ -129,7 +129,7 @@ function UserProfile() {
         }
         setIsDownloading(false);
     };
-    
+
 
     let userItem: any = {
         fullName: signup?.fullname || "bikram",
@@ -162,22 +162,22 @@ function UserProfile() {
         console.log(readdata)
         setShareUrl(readdata)
     }
-    
+
     const skillUpdate = async () => {
         setSkillLoader(true)
-       
+
         axios.post('/api/profiledata/skillupdate', AddSkillList)
             .then(function (response) {
 
                 // setSkillLoader(false)
                 setTimeout(() => {
                     dataFromDatabase()
-                
+
                 }, 100);
                 router.push("/user/profile")
             })
             .catch(function (error) {
-               
+
             });
     }
     const CallingToUser = (phonenumber: any) => {
@@ -199,7 +199,7 @@ function UserProfile() {
         const userId = 1
         router.push(`/user/profile/${userId}`);
     }
-    
+
 
     return (
         <div>
@@ -406,7 +406,7 @@ function UserProfile() {
                             <div className=' flex flex-wrap w-full h-full '>
                                 {
                                     userInformation && userInformation.map((item: any, index: any) => {
-                                  
+
                                         return (<div key={index} className=' grid grid-cols-2  w-full h-full  md:grid-cols-3 lg:grid-cols-3'>
                                             <div>
                                                 <h1>Age</h1>
@@ -417,7 +417,7 @@ function UserProfile() {
                                                 <h1>Years of Excellence</h1>
                                                 {
                                                     item.previouscompany.map((item: any, index: any) => {
-                                                    
+
                                                         return (<div key={index}>{item.yearofexcellence}</div>)
                                                     })
                                                 }
@@ -469,32 +469,34 @@ function UserProfile() {
                                     <TabsTrigger value="Certification">Certification</TabsTrigger>
                                 </TabsList>
                                 <TabsContent value="Experience">
-                                    <Card>
-                                        {/* <CardHeader>
-                                            <CardTitle>Experience</CardTitle>
 
-                                        </CardHeader> */}
-
-                                    </Card>
                                     <CardContent>
                                         <CardDescription>
                                             <hr />
-                                            <div className='flex flex-col items-start h-[500px] overflow-y-scroll overflow-x-hidden w-full gap-2 m-auto p-2'>
+                                            <div className='flex   items-start justify-center p-2  border'>
                                                 {userInformation.map((item: any, index: number) => (
-                                                    <div key={index} className='flex flex-row justify-between items-center shadow-xl border  p-1 w-full'>
-                                                        <div className=' flex justify-center items-center'>
-                                                            <Image
+                                                    <div key={index} className='flex flex-row justify-between m-atuo items-center w-full'>
+                                                        <div className=' flex justify-center items-center  '>
+                                                            {
+                                                                signup?.color.startsWith("#") ? (
+                                                                    <div className='w-[100px] flex justify-center items-center  relative group'>
+                                                                        <div style={{ backgroundColor: signup?.color }} className='flex justify-center items-center w-[100px] h-[100px] rounded-full'>
+                                                                            <div className='text-center'>{signup.fullName.charAt(0).toUpperCase()}</div>
+                                                                        </div>
+                                                                    </div>
+                                                                ) : (
+                                                                    <div className='relative group  m-auto w-[120px] h-[120px] p-3 overflow-hidden rounded-full   '>
+                                                                        <Image src={signup?.color} alt={"profile image"} width={100} height={100} className='rounded-full absolute left-1 right-1 top-1  p-2 m-auto  object-fill  cursor-pointer h-full w-full' />
 
-                                                                alt='other images'
-                                                                height={100}
-                                                                width={100}
-                                                                src={signup?.color}
-                                                                className='rounded-full h-[80px] w-[80px] '
-                                                            />
+                                                                    </div>
+                                                                )
+
+
+                                                            }
                                                             <div className='flex flex-col justify-center items-start ml-4  '>
                                                                 <h1>{signup?.fullName}</h1>
                                                                 <p>{item?.previouscompany?.map((item: any, index: any) => {
-                                                                    
+
                                                                     return (<> {item?.companyname || "No any company"}</>)
                                                                 })}</p>
                                                                 <p>{item.yearofexcellence || "No any excellence "}</p>
@@ -519,18 +521,26 @@ function UserProfile() {
                                         <CardContent className="space-y-2">
                                             <CardDescription>
                                                 <hr />
-                                                <div className='flex flex-col items-start h-[500px] overflow-y-scroll overflow-x-hidden w-full gap-2 m-auto p-2'>
+                                                <div className='flex   items-start justify-center p-2  border'>
                                                     {userInformation.map((item: any, index: number) => (
-                                                        <div key={index} className='flex flex-row justify-between  items-center shadow-xl border  p-1 w-full'>
-                                                            <div className=' flex'>
-                                                                <Image
+                                                        <div key={index} className='flex flex-row justify-between m-atuo items-center w-full'>
+                                                            <div className=' flex justify-center items-center  '>
+                                                                {
+                                                                    signup?.color.startsWith("#") ? (
+                                                                        <div className='w-[100px] flex justify-center items-center  relative group'>
+                                                                            <div style={{ backgroundColor: signup?.color }} className='flex justify-center items-center w-[100px] h-[100px] rounded-full'>
+                                                                                <div className='text-center'>{signup.fullName.charAt(0).toUpperCase()}</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    ) : (
+                                                                        <div className='relative group  m-auto w-[120px] h-[120px] p-3 overflow-hidden rounded-full   '>
+                                                                            <Image src={signup?.color} alt={"profile image"} width={100} height={100} className='rounded-full absolute left-1 right-1 top-1  p-2 m-auto  object-fill  cursor-pointer h-full w-full' />
 
-                                                                    alt='other images'
-                                                                    height={100}
-                                                                    width={100}
-                                                                    src={signup?.color}
-                                                                    className='rounded-full h-[80px] w-[80px] '
-                                                                />
+                                                                        </div>
+                                                                    )
+
+
+                                                                }
                                                                 <div className='flex flex-col justify-center items-start ml-4  '>
                                                                     <h1>{signup?.fullName}</h1>
                                                                     <p>{item.educationtype}</p>
@@ -539,7 +549,10 @@ function UserProfile() {
 
                                                                 </div>
                                                             </div>
-                                                            <Link className=' flex gap-1' href={item.marksheet}>Marksheet <Download /></Link>
+                                                            <div>
+                                                                <Link className=' flex gap-1' href={item.marksheet} target="_blank">Marksheet <Download /></Link>
+
+                                                            </div>
 
                                                         </div>
                                                     ))}
@@ -551,24 +564,30 @@ function UserProfile() {
                                 </TabsContent>
                                 <TabsContent value="Certification">
                                     <Card>
-                                        {/* <CardHeader>
-                                            <CardTitle>Certification</CardTitle>
-                                        </CardHeader> */}
+
                                         <CardContent>
                                             <CardDescription>
                                                 <hr />
-                                                <div className='flex flex-col items-start h-[500px] overflow-y-scroll overflow-x-hidden w-full gap-2 m-auto p-2'>
+                                                <div className='flex   items-start justify-center p-2  border'>
                                                     {userInformation.map((item: any, index: number) => (
-                                                        <div key={index} className='flex flex-row justify-between  items-center shadow-xl border  p-1 w-full'>
-                                                            <div className=' flex'>
-                                                                <Image
+                                                        <div key={index} className='flex flex-row justify-between m-atuo items-center w-full'>
+                                                            <div className=' flex justify-center items-center  '>
+                                                                {
+                                                                    signup?.color.startsWith("#") ? (
+                                                                        <div className='w-[100px] flex justify-center items-center  relative group'>
+                                                                            <div style={{ backgroundColor: signup?.color }} className='flex justify-center items-center w-[100px] h-[100px] rounded-full'>
+                                                                                <div className='text-center'>{signup.fullName.charAt(0).toUpperCase()}</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    ) : (
+                                                                        <div className='relative group  m-auto w-[120px] h-[120px] p-3 overflow-hidden rounded-full   '>
+                                                                            <Image src={signup?.color} alt={"profile image"} width={100} height={100} className='rounded-full absolute left-1 right-1 top-1  p-2 m-auto  object-fill  cursor-pointer h-full w-full' />
 
-                                                                    alt='other images'
-                                                                    height={100}
-                                                                    width={100}
-                                                                    src={signup?.color}
-                                                                    className='rounded-full h-[80px] w-[80px] '
-                                                                />
+                                                                        </div>
+                                                                    )
+
+
+                                                                }
                                                                 <div className='flex flex-col justify-center items-start ml-4  '>
                                                                     <h1>{signup?.fullName}</h1>
                                                                     <p>{item.educationtype}</p>
@@ -577,7 +596,10 @@ function UserProfile() {
 
                                                                 </div>
                                                             </div>
-                                                            <Link className=' flex gap-1' href={item.marksheet}>Marksheet <Download /></Link>
+                                                            <div>
+                                                                <Link className=' flex gap-1' href={item.marksheet} target="_blank">Marksheet <Download /></Link>
+
+                                                            </div>
 
                                                         </div>
                                                     ))}

@@ -77,21 +77,21 @@ function SearchFilters({ selectField, setSelectField }: any) {
       description: `Updated ${field} to ${value}`,
     });
   };
-  console.log(selectField)
+  // console.log(selectField)
   return (
-    <div className=' '>
-      <h1>Filters</h1>
+    <div className=' border p-2 lg:w-[90%]  flex flex-col justify-center items-start  gap-2 mb-4 '>
+      <h1 className=' text-center self-center text-xl font-bold'>Filters</h1>
       {/* <ScrollArea className=' w-full'> */}
 
         <Form {...locationForm}>
-          <form className="w-2/3 space-y-6">
+          <form className=" space-y-6">
             <FormField
               control={locationForm.control}
               name="location"
               render={({ field }) => (
                 <FormItem className="space-y-3">
-                  <FormLabel>Location</FormLabel>
-                  <FormControl>
+                  <FormLabel className=' font-bolde text-lg'>Location</FormLabel>
+                  <FormControl className=''>
                     <RadioGroup
                       onValueChange={(value) => handleFieldChange("location", value)}
                       defaultValue={field.value}
@@ -148,13 +148,13 @@ function SearchFilters({ selectField, setSelectField }: any) {
           </form>
         </Form>
         <Form {...budgetForm}>
-          <form className="w-2/3 space-y-6">
+          <form className=" space-y-6">
             <FormField
               control={budgetForm.control}
               name="budget"
               render={({ field }) => (
                 <FormItem className="space-y-3">
-                  <FormLabel>Budget</FormLabel>
+                  <FormLabel className=' text-lg font-bold'>Budget</FormLabel>
                   <FormControl>
                     <RadioGroup
                       onValueChange={(value) => handleFieldChange("budget", value)}
@@ -207,7 +207,7 @@ function SearchFilters({ selectField, setSelectField }: any) {
               name="posting"
               render={({ field }) => (
                 <FormItem className="space-y-3">
-                  <FormLabel>Date of Posting</FormLabel>
+                  <FormLabel className=' font-bold text-lg'>Date of Posting</FormLabel>
                   <FormControl>
                     <RadioGroup
                       onValueChange={(value) => handleFieldChange("dateofposting", value)}
@@ -247,13 +247,13 @@ function SearchFilters({ selectField, setSelectField }: any) {
           </form>
         </Form>
         <Form {...experienceForm}>
-          <form className="w-2/3 space-y-6">
+          <form className=" space-y-6">
             <FormField
               control={experienceForm.control}
               name="experience"
               render={({ field }) => (
                 <FormItem className="space-y-3">
-                  <FormLabel>Work Experience</FormLabel>
+                  <FormLabel className=' font-bold text-lg'>Work Experience</FormLabel>
                   <FormControl>
                     <RadioGroup
                       onValueChange={(value) => handleFieldChange("experience", value)}
@@ -298,14 +298,14 @@ function SearchFilters({ selectField, setSelectField }: any) {
             />
           </form>
         </Form>
-        <Form {...employmentForm}>
-          <form className="w-2/3 space-y-6">
-            <FormField
+        <Form {...employmentForm} >
+          <form className=" space-y-6">
+            <FormField 
               control={employmentForm.control}
               name="employment"
               render={({ field }) => (
                 <FormItem className="space-y-3">
-                  <FormLabel>Type of Employment</FormLabel>
+                  <FormLabel className=' text-lg font-bold'>Type of Employment</FormLabel>
                   <FormControl>
                     <RadioGroup
                       onValueChange={(value) => handleFieldChange("experience", value)}

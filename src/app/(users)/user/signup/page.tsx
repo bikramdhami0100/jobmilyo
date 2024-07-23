@@ -183,10 +183,6 @@ function Signup() {
             {errorConfirmPassword && <p className=' text-red-600'>Please enter Confirm Password</p>}
           </div>
 
-          {/* <p className='text-center m-auto w-full'>or Continue with</p>
-          <div className='flex gap-3 mt-2 justify-center items-center cursor-pointer text-center w-full'>
-            google
-          </div> */}
 
           <div className='mt-3 w-full '>
             <p className=' text-center'>    <span>  By selecting Agree and continue</span> <span className='text-blue-600 font-bold'>Job</span> <span className='text-red-600 font-bold'>मिल्यो?</span>, I agree to the <span className='underline cursor-pointer text-blue-600'>Terms of Service</span></p>
