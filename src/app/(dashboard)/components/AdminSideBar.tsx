@@ -20,15 +20,6 @@ import {
 } from "@/components/ui/alert-dialog"
 
 
-import {
-    Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-    SheetClose
-} from "@/components/ui/sheet"
 
 
 import { signOut, useSession } from 'next-auth/react'
@@ -36,6 +27,10 @@ import { signOut, useSession } from 'next-auth/react'
 
 function AdminSideBar() {
     const router = useRouter();
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => {
+        setMounted(true);
+    }, []);
     const { setTheme, theme } = useTheme();
     const AdminSideMenu = [
         {
@@ -68,6 +63,8 @@ function AdminSideBar() {
 
     // const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-[rgb(17,24,39)]';
        const navbarBgColor = theme === 'light' ? 'bg-[#1983d1]' : 'bg-[rgb(17,24,39)]';
+          // If the theme is not mounted yet, do not render the navbar
+          if (!mounted) return null;
     return (
         <div className={`${navbarBgColor} min-h-screen w-full lg:visible md:visible`}>
 

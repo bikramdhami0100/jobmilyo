@@ -46,7 +46,10 @@ import { IconEyeSearch } from '@tabler/icons-react'
 
 
 function AdminNavbar() {
-
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => {
+        setMounted(true);
+    }, []);
     const AdminMenu = [
         {
             name: "Dashboard",
@@ -82,6 +85,8 @@ function AdminNavbar() {
     const { setTheme, theme } = useTheme();
 
     const navbarBgColor = theme === 'light' ? "bg-[#1983d1] text-black  " : 'bg-[rgb(17,24,39)]'; // Set background color based on theme
+       // If the theme is not mounted yet, do not render the navbar
+       if (!mounted) return null;
 
     return (
         <div className={` flex justify-between m-auto  shadow-md p-3 ${navbarBgColor} w-full`}>

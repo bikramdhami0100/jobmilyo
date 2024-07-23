@@ -1,40 +1,23 @@
-
 import { NextResponse } from 'next/server'
-import { NextRequest } from 'next/server'
+import type { NextRequest } from 'next/server'
 
-
+// Middleware function to handle authentication
 export function middleware(request: NextRequest) {
-    // console.log(request.url)
-    const usertoken:any =request.cookies.get("token")?.value
-    // console.log(usertoken)
-    
-    // const dispatch=useDispatch()
-    // dispatch(validUserToken(usertoken))
-    // const path=request.nextUrl.pathname;
-    // const isAdminPublicPath=path=="/adminlogin";
-    // const adminToken= request.cookies.get("admin")?.value;
-    // if (isAdminPublicPath &&adminToken ) {
-    //     return NextResponse.redirect(new URL("/admin",request.nextUrl));
-    // } 
-    // if (!isAdminPublicPath&& !adminToken) {
-    //     return NextResponse.redirect(new URL("/adminlogin",request.nextUrl));
-    // } 
-    //  const isPublicPath=path=="/login"|| path=="/signup"
-    //  const token= request.cookies.get("user")?.value 
-    //  if(isPublicPath&& token){
-    //   return NextResponse.redirect(new URL("/user/Home/",request.nextUrl))
-    //  }
-    //  if (!isPublicPath && !token) {
-    //     return NextResponse.redirect(new URL("/login",request.nextUrl))
-    //  } 
+    const token = request.cookies.get("token")?.value;
+    const pathname = request.nextUrl.pathname;
 
+    // If the token is not present and the user is not on the login or signup page, redirect to the login page
+    if (!token && pathname !== "/user/login" && pathname !== "/user/signup" && pathname!=="/user") {
+        return NextResponse.redirect(new URL('/user/login', request.url));
+    }
+
+    // If the user has a token and is trying to access the login or signup page, redirect to the home page
+    if (token && (pathname === "/user/login" || pathname === "/user/signup")) {
+        return NextResponse.redirect(new URL('/user/profile', request.url));
+    }
 }
- 
-// See "Matching Paths" below to learn more
-// export const config = {
-//   matcher: ['user/About/:path*',"/Home/:path*","/Contact/:path*","profile/:path*","jobdetail/:path*"],
-// }
-export const config={
-    
-    //  matcher:['/admin:path*','/admin/joblist:path*','/admin/newjob:path*']
+
+// Config to apply the middleware to specific paths
+export const config = {
+    matcher: '/user/:path*',
 }
