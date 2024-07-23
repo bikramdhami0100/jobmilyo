@@ -90,7 +90,7 @@ const jobSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'usersignups',
-    required: true
+    // required: true
   },
   site: {
     type: String,
