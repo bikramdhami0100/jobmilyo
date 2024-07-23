@@ -14,7 +14,7 @@ export type DataType = {
 };
 
 function TreandingJob() {
-     const [treandingJobs,setTreandingJobs]=useState<any>()
+    const [treandingJobs, setTreandingJobs] = useState<any>()
     const [search, setSearch] = useState<any>({
         PCompany: "",
         Location: "",
@@ -23,18 +23,16 @@ function TreandingJob() {
     const TreandingHomeJobs = async () => {
         const received = (await axios.get("/api/trendinghome")).data;
         setTreandingJobs(received.data)
-        //   if(received.state==200){
-        //     setJobs(received.data)
-        //   }
+
     }
     // console.log(treandingJobs)
     // 
     useEffect(() => {
         TreandingHomeJobs()
     }, [])
-   
 
-    const filterData = treandingJobs?.filter((item:any) => {
+
+    const filterData = treandingJobs?.filter((item: any) => {
         if (search.SelectItem == "Select Field" || search.SelectItem == "Select Company") {
             search.SelectItem = ""
             return item
@@ -55,10 +53,10 @@ function TreandingJob() {
 
 
     });
-    
-  useEffect(()=>{
- 
-  },[]);
+
+    useEffect(() => {
+
+    }, []);
     return (
         <div>
             <SearchSection search={search} setSearch={setSearch} />
@@ -68,7 +66,29 @@ function TreandingJob() {
                         Trending Jobs in <span className='text-blue-600'>Job</span> <span className='text-red-600'>मिल्यो ?</span>
                     </h1>
                     <div className='my-10'>
-                        <TreandingList data={filterData} />
+                        {
+                            treandingJobs ? (<TreandingList data={filterData} />) : 
+                            (
+                                <div className="flex cursor-pointer flex-wrap justify-center items-center gap-4 my-10">
+                                {Array(8).fill(0).map((item, index) => (
+                                  <div
+                                    key={index}
+                                    className="relative h-[350px] border ring-2 ring-inset ring-gray-400 bg-gray-300 duration-2000 animate-pulse hover:shadow-xl mx-4 my-4 p-4 w-[300px] shadow-md"
+                                  >
+                                    <div className="h-[30px] w-full bg-gray-400 rounded-md mb-2"></div>
+                                    <div className="h-[2px] bg-gray-600 w-full mb-2"></div>
+                                    <div className="w-[100px] h-[100px] bg-gray-400 rounded-full object-fill m-auto mb-4"></div>
+                                    <div className="w-full h-[24px] bg-gray-400 rounded-md mb-2"></div>
+                                    <div className="w-full h-[24px] bg-gray-400 rounded-md mb-2"></div>
+                                    <div className="w-full h-[24px] bg-gray-400 rounded-md mb-4"></div>
+                                    <div className="flex justify-between">
+                                      <div className=" bg-gray-400 w-[60px] h-[32px] rounded-md"></div>
+                                      <div className=" bg-gray-400 w-[60px] h-[32px] rounded-md"></div>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>)
+                        }
                     </div>
                 </div>
             </div>
