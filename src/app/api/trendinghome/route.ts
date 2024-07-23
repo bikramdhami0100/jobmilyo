@@ -15,6 +15,7 @@ export async function POST(req:any) {
     
     const decoded = jwt.verify(token, process.env.TOKEN_SECRETKEY);
     const userdetail = decoded.encodeemail;
+    const allowuser=await Usersignup.find({email:userdetail.email});
     if(!token){
         return NextResponse.json({ message: "Invalid token", status: 401 });
 
