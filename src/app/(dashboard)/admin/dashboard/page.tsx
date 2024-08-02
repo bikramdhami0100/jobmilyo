@@ -1,37 +1,49 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import DashContentBox from '../../components/DashContent'
-import {Pie} from "react-chartjs-2"
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-ChartJS.register(ArcElement, Tooltip, Legend);
-
-
+import axios from 'axios'
 function AdminDashoBoard() {
-  
+  const [totaldata, setTotalData] = useState<any>()
 
 
-  const DashContent = [
-    { name: "Total User", number: 22 },
-    { name: "Total Jobs", number: 10 },
-    { name: "Applied Jobs", number: 20 },
-    { name: "Contacted User", number: 20 },
-    
-    
-  ]
+  const dataSummary = [
+    {
+      name: "Total Users",
+      number: totaldata?.totaluser || null,
+      emoji: "👥"
+    },
+    {
+      name: "Total Jobs",
+      number: totaldata?.totaljob || null,
+      emoji: "💼"
+    },
+    {
+      name: "Applied Jobs",
+      number: totaldata?.totalAppliedjob ||0,
+      emoji: "📄"
+    },
+    {
+      name: "Contacted Users",
+      number: totaldata?.totalContactuser|| 20,
+      emoji: "📞"
+    }
+  ];
+
+
   const data = {
     labels: ['Tota Girls', 'Total boys'],
     datasets: [
       {
         label: '# visite',
-        data: [12,14],
+        data: [12, 14],
         backgroundColor: [
-           "pink",
-           "blue"
+          "pink",
+          "blue"
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',
           'rgba(54, 162, 235, 1)',
-         
+
         ],
         borderWidth: 2,
       },
@@ -42,38 +54,44 @@ function AdminDashoBoard() {
     datasets: [
       {
         label: '# senario',
-        data: [12,14],
+        data: [12, 14],
         backgroundColor: [
-           "pink",
-           "blue"
+          "pink",
+          "blue"
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',
           'rgba(54, 162, 235, 1)',
-         
+
         ],
         borderWidth: 2,
       },
     ],
   };
+  const Totalhandler = async () => {
+    const send = (await axios.get("/api/dashboard/")).data;
+    console.log(send)
+    setTotalData(send.data);
+  }
+  useEffect(() => {
+    Totalhandler()
+  }, [])
   return (
     <div>
+      <h1 className=' text-3xl text-center italic my-10 font-bold underline'>Dashboard</h1>
       <div className=' flex flex-wrap  justify-around m-4 gap-6'>
-            {
-              DashContent.map((item:any,index:any)=>{
-                return(<DashContentBox item={item} ></DashContentBox>)
-              })
-            }
-          <div className=' opacity-85 hover:duration-100 duration-100 hover:opacity-100  w-[300px] h-[200px] p-4 rounded-2xl gap-2  border flex-row shadow-md hover:shadow-2xl '>
-        {/* <Pie></Pie> */}
-        <Pie data={data} />
+        {
+          dataSummary.map((item: any, index: any) => {
+            return (<div className=' cursor-pointer hover:shadow-md lg:w-[20%] sm:w-[40%] font-bold border rounded-xl px-4 py-1'>
+              <h1 className=' text-xl italic '>{item.name}</h1>
+              <p className=' text-4xl my-2 mx-4'>{item.emoji}</p>
+              <p>{item.number}</p>
+            </div>)
+          })
+        }
+
       </div>
-      <div className=' opacity-85 hover:duration-100 duration-100 hover:opacity-100  w-[300px] h-[200px] p-4 rounded-2xl gap-2  border flex-row shadow-md hover:shadow-2xl '>
-        {/* <Pie></Pie> */}
-        <Pie data={data2} />
-      </div>
-      </div>
-     
+
     </div>
   )
 }

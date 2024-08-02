@@ -26,4 +26,3 @@ export async function GET(req:any) {
     return NextResponse.json({ success: false, status: 404 });
   }
 }
-

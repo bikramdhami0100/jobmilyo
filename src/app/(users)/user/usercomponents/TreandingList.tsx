@@ -34,7 +34,9 @@ function TreandingList({ data }: any) {
                                 <span className=' flex  gap-2 my-2'><BadgeDollarSign />{item.salary}</span>
                                 <span className=' flex  gap-2 my-2'><Hourglass /> {item.interestedEmploymentTypes}</span>
                                 <div className=' flex justify-between m-auto'>
-                                    <Button className=' bg-[#73bc87] h-[32px] absolute bottom-4 left-4 '>Apply Now</Button>
+                                    <Button className=' bg-[#73bc87] h-[32px] absolute bottom-4 left-4 ' onClick={() => {
+                                        router.push(`/user/apply/${item._id}`);
+                                    }}>Apply Now</Button>
                                     <Button className=' bg-[#1983d1] h-[32px] absolute bottom-4 right-4 ' onClick={() => {
                                         router.push(`/user/jobdetail/${item._id}`);
                                     }}>Details</Button>

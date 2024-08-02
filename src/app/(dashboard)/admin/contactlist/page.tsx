@@ -1,5 +1,149 @@
+// "use client"
+// import React, { useEffect, useState } from 'react'
+// import {
+//   AlertDialog,
+//   AlertDialogAction,
+//   AlertDialogCancel,
+//   AlertDialogContent,
+//   AlertDialogDescription,
+//   AlertDialogFooter,
+//   AlertDialogHeader,
+//   AlertDialogTitle,
+//   AlertDialogTrigger,
+// } from "@/components/ui/alert-dialog"
+// import { Button } from "@/components/ui/button"
+// import {
+//   Pagination,
+//   PaginationContent,
+//   PaginationEllipsis,
+//   PaginationItem,
+//   PaginationLink,
+//   PaginationNext,
+//   PaginationPrevious,
+// } from "@/components/ui/pagination"
+// import { Hand, Trash2 } from 'lucide-react';
+// import { useTheme } from 'next-themes'
+// import axios from 'axios'
+// import moment from 'moment'
+// interface ContactType {
+//   Sr_No: number;
+
+//   userName: string;
+//   email: string; // Corrected property name
+//   message: string;
+//   Delete: string;
+// }
+// function ContactList() {
+//   const { theme } = useTheme();
+//   const [contactList, setContactList] = useState<any>();
+//   const [totalpage, setTotalpages] = useState<any>(1);
+//   const [currentPage, setCurrentPage] = useState<any>(1);
+//   var itemperpage = 4;
+//   //  let currentpage= 1;
+//   const HandleContact = async (currentpage: any) => {
+//     const data = (await axios.post("/api/contactlist/", { pages: currentpage, limit: itemperpage })).data;
+//     setContactList(data?.contactlist);
+//     setTotalpages(data?.totalPages)
+//   }
+//   // console.log(contactList)
+//   console.log(totalpage)
+//   useEffect(() => {
+//     HandleContact(currentPage)
+//   }, [currentPage])
+//   return (
+//     <div>
+//       <h1 className=' text-center text-3xl italic underline font-bold  mt-10 mb-4'>Contact List/ Details</h1>
+//       <div className=' flex flex-col gap-4 min-h-screen overflow-hidden'>
+//         {/* table */}
+//         <div className=' overflow-x-scroll md:overflow-x-hidden lg:overflow-x-hidden  '>
+//           <table className='  border-2   w-full'>
+//             <tr className={`border-2 ${theme == "light" ? "bg-blue-400" : null}`}><th className="border-2  p-2" > Sr.No</th> <th className="border-2  p-2" >User Name</th> <th className="border-2  p-2" >User Email</th> <th className="border-2  p-2" >Message</th> <th className="border-2  p-2" >Delete</th> </tr>
+
+//             {
+//               contactList?.map((item: ContactType, index: any) => {
+//                 return (
+//                   <tr className={`${theme == "light" ? "bg-gray-300" : null} border-2  `}>
+//                     <td className=" border-2   p-2 ">{index + 1}</td>
+
+//                     <td className=" border-2   p-2 ">{item.userName}</td>
+//                     <td className=" border-2   p-2 ">{item.email}</td>
+//                     <td className=" border-2   p-2 ">
+//                       <AlertDialog >
+//                         <AlertDialogTrigger asChild>
+//                           <Button variant="outline" className=' border-none text-blue-600 underline underline-offset-2 '>View</Button>
+//                         </AlertDialogTrigger>
+//                         <AlertDialogContent className=' bg-gray-100 dark:text-white  font-semibold'>
+//                           <AlertDialogHeader>
+//                             {/* <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle> */}
+//                             <AlertDialogDescription className=''>
+//                               {item.message}
+//                             </AlertDialogDescription>
+//                           </AlertDialogHeader>
+//                           <AlertDialogFooter>
+//                             <AlertDialogCancel>Cancel</AlertDialogCancel>
+//                             {/* <AlertDialogAction>Continue</AlertDialogAction> */}
+//                           </AlertDialogFooter>
+//                         </AlertDialogContent>
+//                       </AlertDialog>
+//                     </td>
+
+//                     <td className=" border-2   p-2  cursor-pointer text-blue-600 underline underline-offset-2">  <Trash2 /></td>
+
+//                   </tr>)
+//               })
+//             }
+
+//           </table>
+
+//         </div>
+//         {/* paganization */}
+//         <div className=''>
+//           <Pagination className=' flex justify-start items-start'>
+//             <PaginationContent>
+//               <PaginationItem>
+//                 <PaginationPrevious href="#" onClick={() => {
+//                   Math.min(currentPage - 1, 1)
+//                 }} />
+//               </PaginationItem>
+//               {
+//                 Array(totalpage).fill(null).map((_, index) => {
+//                   const page = index + 1;
+//                   return (
+//                     <div>
+
+
+//                       <PaginationItem onClick={()=>{
+//                          setCurrentPage(page)
+//                       }}>
+//                         <PaginationLink href="#" isActive={currentPage === page}>
+//                           {page}
+//                         </PaginationLink>
+//                       </PaginationItem>
+//                     </div>
+//                   )
+//                 })
+//               }
+//               {/*            
+//             <PaginationItem>
+//               <PaginationEllipsis />
+//             </PaginationItem> */}
+//               <PaginationItem>
+//                 <PaginationNext href="#" onClick={() => {
+//                   Math.min(currentPage + 1, currentPage)
+//                 }} />
+//               </PaginationItem>
+//             </PaginationContent>
+//           </Pagination>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
+
+// export default ContactList
+
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -21,123 +165,119 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
-import { Trash2 } from 'lucide-react';
+import { Trash2 } from 'lucide-react'
 import { useTheme } from 'next-themes'
+import axios from 'axios'
 
 interface ContactType {
   Sr_No: number;
-
-  User_Name: string;
-  User_Email: string; // Corrected property name
-  Message: string;
-  Delete: string;
+  userName: string;
+  email: string;
+  message: string;
 }
+
 function ContactList() {
-  const {theme}=useTheme()
-  const users: ContactType[] = [
-    {
-      Sr_No: 1,
+  const { theme } = useTheme();
+  const [contactList, setContactList] = useState<ContactType[]>([]);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage = 4;
 
-      User_Name: "John Doe",
-      User_Email: "john.doe@example.com",
-      Message: " this is default message",
-      Delete: "Delete"
-    },
-    {
-      Sr_No: 2,
+  const handleContact = async (page: number) => {
+    try {
+      const response = await axios.post("/api/contactlist/", { pages: page, limit: itemsPerPage });
+      setContactList(response.data.contactlist);
+      setTotalPages(response.data.totalPages);
+    } catch (error) {
+      console.error("Error fetching contact list:", error);
+    }
+  }
 
-      User_Name: "John Doe",
-      User_Email: "john.doe@example.com",
-      Message: " this is default message",
-      Delete: "Delete"
-    },
-    {
-      Sr_No: 3,
-
-      User_Name: "John Doe",
-      User_Email: "john.doe@example.com",
-      Message: " this is default message",
-      Delete: "Delete"
-    },
-
-
-  ];
+  useEffect(() => {
+    handleContact(currentPage);
+  }, [currentPage]);
 
   return (
-    <div className=' flex flex-col gap-4 min-h-screen overflow-hidden'>
-      {/* table */}
-      <div className=' overflow-x-scroll md:overflow-x-hidden lg:overflow-x-hidden  '>
-        <table className='  border-2   w-full'>
-          <tr className={`border-2 ${theme=="light"?"bg-blue-400":null}`}><th className="border-2  p-2" > Sr.No</th> <th className="border-2  p-2" >User Name</th> <th className="border-2  p-2" >User Email</th> <th className="border-2  p-2" >Message</th> <th className="border-2  p-2" >Delete</th> </tr>
-
-          {
-            users.map((item: ContactType, index: any) => {
-              return (
-                <tr className={`${theme=="light"?"bg-gray-300":null} border-2  `}>
-                  <td className=" border-2   p-2 ">{item.Sr_No}</td>
-
-                  <td className=" border-2   p-2 ">{item.User_Name}</td>
-                  <td className=" border-2   p-2 ">{item.User_Email}</td>
-                  <td className=" border-2   p-2 ">
+    <div>
+      <h1 className='text-center text-3xl italic underline font-bold mt-10 mb-4'>Contact List/ Details</h1>
+      <div className='flex flex-col gap-4 min-h-screen overflow-hidden'>
+        {/* Table */}
+        <div className='overflow-x-scroll md:overflow-x-hidden lg:overflow-x-hidden'>
+          <table className='border-2 w-full'>
+            <thead>
+              <tr className={`border-2 ${theme === "light" ? "bg-blue-400" : ""}`}>
+                <th className="border-2 p-2">Sr.No</th>
+                <th className="border-2 p-2">User Name</th>
+                <th className="border-2 p-2">User Email</th>
+                <th className="border-2 p-2">Message</th>
+                <th className="border-2 p-2">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {contactList.map((item, index) => (
+                <tr key={item.Sr_No} className={`${theme === "light" ? "bg-gray-300" : ""} border-2`}>
+                  <td className="border-2 p-2">{index + 1 + (currentPage - 1) * itemsPerPage}</td>
+                  <td className="border-2 p-2">{item.userName}</td>
+                  <td className="border-2 p-2">{item.email}</td>
+                  <td className="border-2 p-2">
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
-                        <Button variant="outline" className=' border-none text-blue-600 underline underline-offset-2 '>View</Button>
+                        <Button variant="outline" className='border-none text-blue-600 underline underline-offset-2'>View</Button>
                       </AlertDialogTrigger>
-                      <AlertDialogContent>
+                      <AlertDialogContent className='bg-gray-100 dark:text-white font-semibold'>
                         <AlertDialogHeader>
-                          {/* <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle> */}
                           <AlertDialogDescription>
-                            {item.Message}
+                            {item.message}
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                           <AlertDialogCancel>Cancel</AlertDialogCancel>
-                          {/* <AlertDialogAction>Continue</AlertDialogAction> */}
                         </AlertDialogFooter>
                       </AlertDialogContent>
                     </AlertDialog>
                   </td>
-
-                  <td className=" border-2   p-2  cursor-pointer text-blue-600 underline underline-offset-2">  <Trash2 /></td>
-
-                </tr>)
-            })
-          }
-
-        </table>
-
-      </div>
-      {/* paganization */}
-      <div className=''>
-        <Pagination className=' flex justify-start items-start'>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious href="#" />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#">1</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#" isActive>
-                2
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#">3</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationNext href="#" />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+                  <td className="border-2 p-2 cursor-pointer text-blue-600 underline underline-offset-2">
+                    <Trash2 />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {/* Pagination */}
+        <div>
+          <Pagination className='flex justify-start items-start'>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious 
+                  href="#" 
+                  onClick={() => setCurrentPage(prevPage => Math.max(prevPage - 1, 1))}
+                />
+              </PaginationItem>
+              {Array.from({ length: totalPages }, (_, index) => (
+                <PaginationItem key={index}>
+                  <PaginationLink 
+                    href="#" 
+                    isActive={currentPage === index + 1}
+                    onClick={() => setCurrentPage(index + 1)}
+                  >
+                    {index + 1}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+              <PaginationItem>
+                <PaginationNext 
+                  href="#" 
+                  onClick={() => setCurrentPage(prevPage => Math.min(prevPage + 1, totalPages))}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </div>
       </div>
     </div>
   )
 }
 
-export default ContactList
-
+export default ContactList;
 

@@ -25,6 +25,14 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    contactDetails:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"usercontacts"
+    },
+    // userInformation:{
+    //     type:mongoose.Schema.Types.ObjectId,
+    //     ref:""
+    // }
 });
 
 // Create the model
