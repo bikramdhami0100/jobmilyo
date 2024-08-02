@@ -14,7 +14,7 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }>) {
 
-  const session = await getServerSession();
+  // const session = await getServerSession();
 
   return (
     <>

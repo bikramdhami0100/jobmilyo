@@ -19,7 +19,7 @@ function Home1() {
  }
   return (
     <div>
-      <div className=' flex flex-row justify-end gap-2 m-2'>
+      {/* <div className=' flex flex-row justify-end gap-2 m-2'>
         <Button className=' bg-blue-700 font-bold text-md' onClick={()=>{
         HandleUserLogin()
       }}>User Login</Button>
@@ -27,7 +27,7 @@ function Home1() {
         router.push("/adminlogin")
       }}>Admin Login</Button>
       
-      </div>
+      </div> */}
       <div className=' m-auto flex  flex-col-reverse flex-wrap justify-between items-center md:flex-row lg:flex-row'>
         <div className=' w-full md:w-[40%] lg:w-[45%] '><MainHomeHero /></div>
         <div className=' w-full md:w-[50%] lg:w-[45%]'><Lottie animationData={SearchImage}></Lottie></div>

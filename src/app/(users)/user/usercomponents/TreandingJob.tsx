@@ -67,16 +67,16 @@ function TreandingJob() {
                     </h1>
                     <div className='my-10'>
                         {
-                            treandingJobs ? (<TreandingList data={filterData} />) : 
+                           treandingJobs ? (<TreandingList data={filterData} />) : 
                             (
                                 <div className="flex cursor-pointer flex-wrap justify-center items-center gap-4 my-10">
                                 {Array(8).fill(0).map((item, index) => (
                                   <div
                                     key={index}
-                                    className="relative h-[350px] border ring-2 ring-inset ring-gray-400 bg-gray-300 duration-2000 animate-pulse hover:shadow-xl mx-4 my-4 p-4 w-[300px] shadow-md"
+                                    className="relative h-[350px] border ring-2 ring-inset ring-gray-400  duration-2000 animate-pulse hover:shadow-xl mx-4 my-4 p-4 w-[300px] shadow-md"
                                   >
                                     <div className="h-[30px] w-full bg-gray-400 rounded-md mb-2"></div>
-                                    <div className="h-[2px] bg-gray-600 w-full mb-2"></div>
+                                    <div className="h-[2px] bg-gray-400 w-full mb-2"></div>
                                     <div className="w-[100px] h-[100px] bg-gray-400 rounded-full object-fill m-auto mb-4"></div>
                                     <div className="w-full h-[24px] bg-gray-400 rounded-md mb-2"></div>
                                     <div className="w-full h-[24px] bg-gray-400 rounded-md mb-2"></div>

@@ -158,7 +158,7 @@ export async function POST(req: any) {
           { expiresIn: '7d' }
         );
 
-        const response = NextResponse.json({ message: "User verified successfully", status: 200 });
+        const response = NextResponse.json({ message: "User verified successfully", status: 200,user:userWithoutPassword });
         response.cookies.set("token", newToken, { httpOnly: true });
         return response;
       } else {
@@ -180,7 +180,8 @@ export async function POST(req: any) {
          console.log("this is result ",result)
       });
         if (isPasswordValid) {
-          return NextResponse.json({ message: "User verified successfully", status: 200 });
+          const userwithoutpassword = await Usersignup.findOne({ email: userEmail });
+          return NextResponse.json({ message: "User verified successfully", status: 200,user:userwithoutpassword });
         } else {
           return NextResponse.json({ message: "Bad credentials", status: 401 });
         }

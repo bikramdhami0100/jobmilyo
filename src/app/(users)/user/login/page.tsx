@@ -43,7 +43,7 @@ function Login() {
       }
     }, [ email, password]);
     const handlelogIn=async()=>{
-      console.log(email,password)
+      // console.log(email,password)
      if (email&&password) {
   
       toast({
@@ -57,7 +57,7 @@ function Login() {
         },
         body:JSON.stringify({loginemail:email,loginpassword:password})
     })
-    console.log(data);
+    // console.log("this is data ",data);
       
     if (data.ok) {
       const result=await data.json()
@@ -69,7 +69,11 @@ function Login() {
           if (result.message=="User verified successfully") {
          
                 dispatch(validUserToken(result));
+              if(result.user.admin==true){
+                router.push("/admin")
+              }else[
                 router.push("/user/")  
+              ]
           }
 
       }else{

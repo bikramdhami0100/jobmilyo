@@ -96,7 +96,7 @@ function Navbar() {
 
         if (data.ok) {
             const result = await data?.json()
-            // console.log("result",result);
+            console.log("result",result);
 
             if (result?.user) {
                 toast({
