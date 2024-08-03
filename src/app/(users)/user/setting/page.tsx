@@ -2,10 +2,9 @@
 import { Input } from "@/components/ui/input";
 import { CldUploadButton } from "next-cloudinary";
 import React, { useEffect, useState } from "react";
-// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+
 import axios from "axios";
-import * as THREE from "three";
-import gsap from "gsap";
+
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import { Loader2 } from "lucide-react";
