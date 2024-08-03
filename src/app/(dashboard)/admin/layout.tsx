@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import AdminNavbar from "../components/AdminNavbar";
 import AdminSideBar from "../components/AdminSideBar";
+import CheckValidAdmin from "../components/CheckValidAdmin";
 
 export const metadata: Metadata = {
   title: "Job मिल्यो Admin",
@@ -18,6 +19,7 @@ export default async function AdminLayout({
 
   return (
     <>
+      <CheckValidAdmin/>
       <div id="adminHome" className="w-full h-full">
         {/* Navbar */}
         <div className=" fixed z-10  flex justify-end items-end w-full">

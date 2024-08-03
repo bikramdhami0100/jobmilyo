@@ -3,9 +3,9 @@
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import { BookMarked, BookMarkedIcon, Bookmark, Contact2Icon, FacebookIcon, GithubIcon, ImageIcon, LayoutDashboard, LayoutList, LogOut, LogOutIcon, LucideWrench, MessagesSquare, Moon, ScanSearch, Search, Settings, SettingsIcon, SquarePlus, Sun, ViewIcon } from "lucide-react"
+import { BookMarked, BookMarkedIcon, Bookmark, Contact2Icon, FacebookIcon, GithubIcon, ImageIcon, LayoutDashboard, LayoutList, Loader, LogOut, LogOutIcon, LucideWrench, MessagesSquare, Moon, ScanSearch, Search, Settings, SettingsIcon, SquarePlus, Sun, ViewIcon } from "lucide-react"
 import { useTheme } from "next-themes"
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 import {
     AlertDialog,
@@ -23,15 +23,49 @@ import {
 
 
 import { signOut, useSession } from 'next-auth/react'
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
+import { toast } from '@/components/ui/use-toast'
+import { useSelector } from 'react-redux'
 
 
 function AdminSideBar() {
     const router = useRouter();
     const [mounted, setMounted] = useState(false);
+    const [loadinglogout,setLoadingLogout]=useState<any>(false)
+    const { setTheme, theme } = useTheme();
+    const pathname=usePathname()
     useEffect(() => {
         setMounted(true);
     }, []);
-    const { setTheme, theme } = useTheme();
+
+
+    const HandleLogOut = async () => {
+        // console.log("log out c")
+        setLoadingLogout(true)
+        const data = await fetch(`/api/adminlogout`, {
+            method: "get",
+
+        })
+
+        if (data.ok) {
+            
+            const result = await data.json()
+            if (result) {
+                setLoadingLogout(false)
+                toast({
+                    description: result?.message,
+                })
+
+                router.push("/user/login/")
+
+            }
+
+        }
+    }
+
+    // If the theme is not mounted yet, do not render the navbar
+    if (!mounted) return null;
+
     const AdminSideMenu = [
         {
             name: "Dashboard",
@@ -61,10 +95,11 @@ function AdminSideBar() {
         }
     ]
 
+
     // const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-[rgb(17,24,39)]';
-       const navbarBgColor = theme === 'light' ? 'bg-[#1983d1]' : 'bg-[rgb(17,24,39)]';
-          // If the theme is not mounted yet, do not render the navbar
-          if (!mounted) return null;
+    const navbarBgColor = theme === 'light' ? 'bg-[#1983d1]' : 'bg-[rgb(17,24,39)]';
+    // If the theme is not mounted yet, do not render the navbar
+    if (!mounted) return null;
     return (
         <div className={`${navbarBgColor} min-h-screen w-full lg:visible md:visible`}>
 
@@ -75,79 +110,26 @@ function AdminSideBar() {
                         <h1 className=' underline underline-offset-2'>Admin Panel</h1>
                     </div>
 
-                   {
-                    AdminSideMenu.map((item,index)=>{
-                        return(
-                            <div className='hover:bg-rose-700 rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]' onClick={() => {
-                                router.push(item.path)
-                            }} >
-                                <item.icon />
-                                 {item.name}
-                            </div>
-                        )
-                    })
-                   }
-            
+                    {
+                        AdminSideMenu.map((item, index) => {
+                            return (
+                                <div className={`hover:bg-[#ed4b4b] ${pathname==item.path?"bg-[#ed4b4b]":""}  rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px] m-1`} onClick={() => {
+                                    router.push(item.path)
+                                }} >
+                                    <item.icon />
+                                    {item.name}
+                                </div>
+                            )
+                        })
+                    }
+                    <div>
+                        <Button className='  w-[80%] m-auto absolute bottom-10 text-center cursor-pointer bg-blue-700 flex gap-1' onClick={() => {
+                            HandleLogOut();
+                        }} >{loadinglogout&& <Loader  className=' animate-spin'/>}<LogOut size={20} />log out</Button>
+                    </div>
 
                 </div>
-                <div className=' w-full'>
-                    {/* <div className=' rounded-full border bg-blue-600 p-2'>
-                                                <Settings />
-                                            </div> */}
 
-                    <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                            <Button variant="outline">
-                                <div className=' flex flex-row gap-2 cursor-pointer  p-2 rounded-md w-full' onClick={() => {
-                                    router.push("/admin/profile")
-                                }}>
-                                    <Settings />
-                                    Admin setting
-                                </div></Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                            <AlertDialogHeader>
-                                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                    <div>
-                                        <AlertDialogCancel className=' w-full h-full outline-none border-none p-0'>
-                                            <div className='hover:bg-blue-700 rounded-md cursor-pointer  w-full p-2 flex  items-center gap-4 font-extrabold text-[20px]'>
-                                                <SettingsIcon />
-                                                setting
-                                            </div>
-                                        </AlertDialogCancel>
-                                        <AlertDialogCancel className=' w-full h-full outline-none border-none p-0'>
-                                            <div className='hover:bg-blue-700 rounded-md cursor-pointer  w-full p-2 flex  items-center gap-4 font-extrabold text-[20px]'>
-                                                <GithubIcon />
-                                                Github
-                                            </div>
-                                        </AlertDialogCancel>
-                                        <AlertDialogCancel className=' w-full h-full outline-none border-none p-0'>
-                                            <div className='hover:bg-blue-700 rounded-md cursor-pointer  w-full p-2 flex  items-center gap-4 font-extrabold text-[20px]'>
-                                                <FacebookIcon />
-                                                Facebook
-                                            </div>
-                                        </AlertDialogCancel>
-                                        <AlertDialogCancel className=' w-full h- outline-none border-none p-0'>
-                                            <div className='hover:bg-blue-700 rounded-md cursor-pointer  w-full p-2 flex  items-center gap-4 font-extrabold text-[20px]'>
-                                                <LogOut />
-                                                Log out
-                                            </div>
-                                        </AlertDialogCancel>
-
-                                    </div>
-                                </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                {/* <AlertDialogAction>Continue</AlertDialogAction> */}
-                            </AlertDialogFooter>
-                        </AlertDialogContent>
-                    </AlertDialog>
-
-
-
-                </div>
             </div>
 
         </div>

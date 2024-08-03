@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import { BookMarked, BookMarkedIcon, Bookmark, Contact2Icon, FacebookIcon, GithubIcon, ImageIcon, LayoutDashboard, LayoutList, LogOut, LogOutIcon, LucideWrench, MessagesSquare, Moon, ScanSearch, Search, Settings, SettingsIcon, SquarePlus, Sun } from "lucide-react"
+import { BookMarked, BookMarkedIcon, Bookmark, Contact2Icon, FacebookIcon, GithubIcon, ImageIcon, LayoutDashboard, LayoutList, Loader, LogOut, LogOutIcon, LucideWrench, MessagesSquare, Moon, ScanSearch, Search, Settings, SettingsIcon, SquarePlus, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useRouter } from 'next/navigation'
 import {
@@ -42,10 +42,12 @@ import {
 
 import { signOut, useSession } from 'next-auth/react'
 import { IconEyeSearch } from '@tabler/icons-react'
+import { toast } from '@/components/ui/use-toast'
 
 
 function AdminNavbar() {
     const [mounted, setMounted] = useState(false);
+    const [loadinglogout,setLoadingLogout]=useState<any>(false)
     useEffect(() => {
         setMounted(true);
     }, []);
@@ -83,9 +85,34 @@ function AdminNavbar() {
 
     const { setTheme, theme } = useTheme();
 
-    const navbarBgColor = theme === 'light' ? "bg-[#1983d1] text-black  " : 'bg-[rgb(17,24,39)]'; // Set background color based on theme
-       // If the theme is not mounted yet, do not render the navbar
-       if (!mounted) return null;
+    // const navbarBgColor = theme === 'light' ? "bg-[#1983d1] text-black  " : 'bg-[rgb(17,24,39)]';
+    const navbarBgColor = theme === 'light' ? 'bg-gradient-to-r from-[rgb(245,238,181)] to-[rgb(183,184,177),rgb(220,224,227)]' : 'bg-[rgb(17,24,39)]'; // Set background color based on theme
+    const navbarBgColor2 = theme === 'light' ? 'bg-[#1983d1]' : 'bg-[rgb(17,24,39)]';
+    // If the theme is not mounted yet, do not render the navbar
+
+    if (!mounted) return null;
+    const HandleLogOut = async () => {
+        setLoadingLogout(true)
+        // console.log("log out c")
+        const data = await fetch(`/api/adminlogout`, {
+            method: "get",
+
+        })
+
+        if (data.ok) {
+            const result = await data.json()
+            if (result) {
+                setLoadingLogout(false)
+                toast({
+                    description: result?.message,
+                })
+
+                router.push("/user/login/")
+
+            }
+
+        }
+    }
 
     return (
         <div className={` flex justify-between m-auto  shadow-md p-3 ${navbarBgColor} w-full`}>
@@ -95,7 +122,7 @@ function AdminNavbar() {
                     <Sheet>
 
                         <SheetTrigger>  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-align-justify"><line x1="3" x2="21" y1="6" y2="6" /><line x1="3" x2="21" y1="12" y2="12" /><line x1="3" x2="21" y1="18" y2="18" /></svg></SheetTrigger>
-                        <SheetContent side={"left"} className={`${navbarBgColor}  `} >
+                        <SheetContent side={"left"} className={`${navbarBgColor2}  `} >
                             <Image alt='logo' src={"/images/logo.png"} height={100} width={200}></Image>
                             <SheetHeader className=' w-full'>
                                 <SheetTitle className=' underline underline-offset-4  decoration-[3px] text-[26px] mb-10' >Admin Pannel</SheetTitle>
@@ -103,80 +130,27 @@ function AdminNavbar() {
                                     <div className=' flex flex-col justify-between gap items-start gap-[200px] '>
                                         <div className=' flex flex-col w-full '>
                                             <SheetClose>
-                                            {
-                                                AdminMenu.map((item,index)=>{
-                                                    return (
-                                                        <div className={`hover:bg-rose-700 ${theme=="light"?"text-black":""} rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]`} onClick={() => {
-                                                            router.push(item.path)
-                                                        }}>
-                                                           <item.icon/>
-                                                             {item.name}
-                                                        </div>
-                                                    )
-                                                })
-                                            }
+                                                {
+                                                    AdminMenu.map((item, index) => {
+                                                        return (
+                                                            <div className={`hover:bg-rose-700 ${theme == "light" ? "text-black" : ""} rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]`} onClick={() => {
+                                                                router.push(item.path)
+                                                            }}>
+                                                                <item.icon />
+                                                                {item.name}
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                                <div>
+                                                    <Button className='  w-[80%] m-auto absolute bottom-10 text-center cursor-pointer bg-blue-700 flex gap-1' onClick={() => {
+                                                        HandleLogOut();
+                                                    }} >{loadinglogout&&<Loader className=' animate-spin'/>}<LogOut size={20} />log out</Button>
+                                                </div>
 
                                             </SheetClose>
                                         </div>
-                                        <div className=' w-full'>
-                                            {/* <div className=' rounded-full border bg-blue-600 p-2'>
-                                                <Settings />
-                                            </div> */}
 
-
-
-
-                                            <AlertDialog>
-                                                <AlertDialogTrigger asChild>
-                                                    <Button variant="outline">
-                                                        <div className=' flex flex-row gap-2 cursor-pointer  p-2 rounded-md w-full' onClick={() => {
-                                                            router.push("/admin/profile")
-                                                        }}>
-                                                            <Settings />
-                                                            Admin setting
-                                                        </div></Button>
-                                                </AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogHeader>
-                                                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                                                        <AlertDialogDescription>
-                                                            <div>
-                                                                <AlertDialogCancel className=' w-full h-full outline-none border-none p-0'>
-                                                                    <div className='hover:bg-blue-700 rounded-md cursor-pointer  w-full p-2 flex  items-center gap-4 font-extrabold text-[20px]'>
-                                                                        <SettingsIcon />
-                                                                        setting
-                                                                    </div>
-                                                                </AlertDialogCancel>
-                                                                <AlertDialogCancel className=' w-full h-full outline-none border-none p-0'>
-                                                                    <div className='hover:bg-blue-700 rounded-md cursor-pointer  w-full p-2 flex  items-center gap-4 font-extrabold text-[20px]'>
-                                                                        <GithubIcon />
-                                                                        Github
-                                                                    </div>
-                                                                </AlertDialogCancel>
-                                                                <AlertDialogCancel className=' w-full h-full outline-none border-none p-0'>
-                                                                    <div className='hover:bg-blue-700 rounded-md cursor-pointer  w-full p-2 flex  items-center gap-4 font-extrabold text-[20px]'>
-                                                                        <FacebookIcon />
-                                                                        Facebook
-                                                                    </div>
-                                                                </AlertDialogCancel>
-                                                                <AlertDialogCancel className=' w-full h- outline-none border-none p-0'>
-                                                                    <div className='hover:bg-blue-700 rounded-md cursor-pointer  w-full p-2 flex  items-center gap-4 font-extrabold text-[20px]'>
-                                                                        <LogOut />
-                                                                        Log out
-                                                                    </div>
-                                                                </AlertDialogCancel>
-
-                                                            </div>
-                                                        </AlertDialogDescription>
-                                                    </AlertDialogHeader>
-                                                    <AlertDialogFooter>
-                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        {/* <AlertDialogAction>Continue</AlertDialogAction> */}
-                                                    </AlertDialogFooter>
-                                                </AlertDialogContent>
-                                            </AlertDialog>
-
-                                        </div>
                                     </div>
                                 </SheetDescription>
 
