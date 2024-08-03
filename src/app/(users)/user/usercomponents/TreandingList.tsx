@@ -3,7 +3,7 @@
 "use client"
 import React from 'react'
 import { DataType } from './TreandingJob'
-import { CardBody, CardContainer, CardItem } from "../../../components/ui/3d_card";
+
 import Image from 'next/image';
 import { BadgeDollarSign, Hourglass, LucideDollarSign, MapPinned, SquareLibrary } from 'lucide-react';
 import { Button } from '@/components/ui/button';

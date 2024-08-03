@@ -1,5 +1,5 @@
 "use client"
-import { HoverEffect } from '@/app/components/ui/card-hover-effect'
+
 import { CircleCheckBig, Facebook, Link2, Star, Twitter } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
