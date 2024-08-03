@@ -5,7 +5,7 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { BookMarked, BookMarkedIcon, Bookmark, Contact2Icon, FacebookIcon, GithubIcon, ImageIcon, LayoutDashboard, LayoutList, Loader, LogOut, LogOutIcon, LucideWrench, MessagesSquare, Moon, ScanSearch, Search, Settings, SettingsIcon, SquarePlus, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import {
     AlertDialog,
     AlertDialogAction,
@@ -46,6 +46,7 @@ import { toast } from '@/components/ui/use-toast'
 
 
 function AdminNavbar() {
+    const pathname=usePathname()
     const [mounted, setMounted] = useState(false);
     const [loadinglogout,setLoadingLogout]=useState<any>(false)
     useEffect(() => {
@@ -133,7 +134,7 @@ function AdminNavbar() {
                                                 {
                                                     AdminMenu.map((item, index) => {
                                                         return (
-                                                            <div className={`hover:bg-rose-700 ${theme == "light" ? "text-black" : ""} rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]`} onClick={() => {
+                                                            <div className={`hover:bg-[#ed4b4b] m-1 ${pathname==item.path?"bg-[#ed4b4b]":""} ${theme == "light" ? "text-black" : ""}  rounded-md cursor-pointer  w-full p-2 flex gap-4 font-extrabold text-[20px]`} onClick={() => {
                                                                 router.push(item.path)
                                                             }}>
                                                                 <item.icon />

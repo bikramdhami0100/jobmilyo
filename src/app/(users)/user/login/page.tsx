@@ -13,7 +13,7 @@ import {
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
 import { useRouter } from 'next/navigation'
-import { Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff, Loader } from 'lucide-react'
 
 import { useDispatch } from 'react-redux'
 import { validUserToken } from '@/Redux/Slice'
@@ -23,7 +23,7 @@ function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState(true);
-
+  const [loginLoader,setLoginLoader]=useState<any>()
   const [errorEmail, setErrorEmail] = useState(true);
   const [errorPassword, setErrorPassword] = useState(true);
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -43,6 +43,7 @@ function Login() {
       }
     }, [ email, password]);
     const handlelogIn=async()=>{
+      setLoginLoader(true)
       // console.log(email,password)
      if (email&&password) {
   
@@ -67,10 +68,10 @@ function Login() {
          
           });
           if (result.message=="User verified successfully") {
-         
+               setLoginLoader(false)
                 dispatch(validUserToken(result));
               if(result.user.admin==true){
-                router.push("/admin")
+                router.push("/admin/dashboard")
               }else[
                 router.push("/user/")  
               ]
@@ -126,13 +127,13 @@ function Login() {
 
           <Link href={"/user/forgotpassword"} className=' text-blue-600 underline'> Forgot Password ? </Link>
           <p>You agree to create account for <span className=' text-blue-600'>job</span> <span className=' text-red-600'>मिल्यो?</span> </p>
-          <Button onClick={handlelogIn}  className=' bg-blue-600'>Continue </Button>
+          <Button onClick={handlelogIn}  className=' bg-blue-600'> {loginLoader&&<Loader className=' animate-spin'/>}Continue </Button>
            <p className=' text-center'>or Continue with</p>
            <div className=' flex gap-3 cursor-pointer self-center'> 
-             <Button className=' flex '  onClick={()=>{
+             <Button  disabled className=' flex '  onClick={()=>{
                  signIn("github");
              }}><IconBrandGithub  /> github</Button>
-             <Button className=' flex  ' ><IconBrandFacebook/> Facebook</Button>
+             <Button  disabled className=' flex  ' ><IconBrandFacebook/> Facebook</Button>
              <Button  onClick={()=>{
               signIn("google");
              }} className=' flex ' ><IconBrandGoogle/> Google</Button>
