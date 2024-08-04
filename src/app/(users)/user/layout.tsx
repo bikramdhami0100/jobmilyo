@@ -18,7 +18,7 @@ export default async function UserLayout({
           {/* navbar and toast message */}
           <div className="sm:z-20 w-full top-0 fixed z-20">
             <Navbar />
-            <Toaster />
+            <Toaster  />
 
           </div>
           <div className={`z-0 mt-[70px] w-full h-full `} >

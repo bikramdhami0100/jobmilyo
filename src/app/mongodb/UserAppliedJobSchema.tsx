@@ -4,7 +4,8 @@ const userAppliedJobSchema = new mongoose.Schema({
   job: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'postajobs',
-    required: true
+    required: true,
+    unique:true
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -17,12 +18,13 @@ const userAppliedJobSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['Applied', 'Interviewed', 'Hired', 'Rejected'],
+    enum: ['Applied',"pending", 'Interviewed', 'Hired', 'Rejected'],
     default: 'Applied'
   },
   resume: {
     type: String, // URL or path to the resume
-    trim: true
+    trim: true,
+    required:true
   },
 //   coverLetter: {
 //     type: String, // Optional cover letter text

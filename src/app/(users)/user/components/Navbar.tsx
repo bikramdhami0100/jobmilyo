@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import { BookMarked, BookMarkedIcon, Bookmark, Group, Home, LogOut, MessageCircle, MessagesSquare, Moon, PersonStanding, Send, Settings, Sun } from "lucide-react"
+import { BookMarked, BookMarkedIcon, Bookmark, BriefcaseBusiness, BriefcaseBusinessIcon, Group, Home, LogOut, MessageCircle, MessagesSquare, Moon, PersonStanding, Send, Settings, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { usePathname, useRouter } from 'next/navigation'
 import {
@@ -27,7 +27,7 @@ import {
 import Link from 'next/link'
 
 import { signOut, useSession } from 'next-auth/react'
-import { IconBookmarkEdit } from '@tabler/icons-react'
+import { IconBadge, IconBookmarkEdit } from '@tabler/icons-react'
 import { useSelector } from 'react-redux'
 import { toast } from '@/components/ui/use-toast'
 import { PersonIcon } from '@radix-ui/react-icons'
@@ -224,7 +224,9 @@ function Navbar() {
                                     <DropdownMenuItem className=' flex  gap-1 text-sm' onClick={() => {
                                         router.push("/user/profile")
                                     }}><PersonIcon  className=' size-[20px] cursor-pointer' />Profile</DropdownMenuItem>
-
+                                    <DropdownMenuItem className=' flex  gap-1 text-sm' onClick={() => {
+                                        router.push("/user/apply")
+                                    }}><BriefcaseBusinessIcon className=' size-[20px] cursor-pointer' />Apply jobs</DropdownMenuItem>
                                     <DropdownMenuItem
                                       className=' text-sm flex gap-1 cursor-pointer'
                                       onClick={()=>{
