@@ -40,7 +40,7 @@ function AdminSideBar() {
 
 
     const HandleLogOut = async () => {
-        // console.log("log out c")
+
         setLoadingLogout(true)
         const data = await fetch(`/api/adminlogout`, {
             method: "get",

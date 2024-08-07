@@ -69,7 +69,7 @@ function TotalApplyJobByUser() {
                 </div>
               </div>
               <p className="mt-2 text-xl font-bold">{item.job.jobtitle}</p>
-              <Link href={item.resume} target="_blank" className="text-blue-500 hover:underline mt-2 block">View Resume</Link>
+              <Link href={item.resume || "https://examples.com"} target="_blank" className="text-blue-500 hover:underline mt-2 block">View Resume</Link>
             </div>
           ))}
         </div>

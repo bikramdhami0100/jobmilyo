@@ -60,7 +60,7 @@ function ViewResume() {
   }, [pagination]);
   const handlerStatus=async(text:any)=>{
    const send=(await axios.post("/api/status",{status:text})).data;
-   console.log(send)
+  //  console.log(send)
   }
 
   return (
