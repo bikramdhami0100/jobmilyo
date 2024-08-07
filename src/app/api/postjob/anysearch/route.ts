@@ -23,7 +23,9 @@ export async function POST(req: any) {
         const searchRegex = new RegExp(searchText, 'i');  // Case-insensitive search
         const jobs = await UserPostedJob.find({
             $or: [
+                {postedby:searchRegex},
                 { address: searchRegex },
+
                 { company: searchRegex },
                 { description: searchRegex },
                 { email: searchRegex },

@@ -10,7 +10,7 @@ import { toast } from '@/components/ui/use-toast';
 import { useTheme } from 'next-themes';
 import { Textarea } from '@/components/ui/textarea';
 import { useRouter } from 'next/navigation';
-
+import axios from 'axios';
 function PostAJob() {
   const { theme } = useTheme();
   const router=useRouter()
@@ -26,6 +26,7 @@ function PostAJob() {
   const [form, setForm] = useState({
     jobtitle: "",
     site: "",
+    postedby:"",
     description: "",
     no_of_workingemployee: "",
     no_of_office: "",
@@ -89,6 +90,7 @@ function PostAJob() {
          
         toast({
           title: "Job added successfully",
+          className:" text-black bg-white border-green-600 ",
           description: "Your job posting has been added.",
         });
         router.push("/user/Jobs")
@@ -113,7 +115,24 @@ useEffect(()=>{
   ...pre,
   rating
  }))
-},[rating])
+},[rating]);
+const handlerPostedBy = async () => {
+  try {
+    const response = await axios.get("/api/checkvaliduser");
+    const fullName = response.data?.user?.fullName;
+    setForm((prevState: any) => ({
+      ...prevState,
+      postedby: fullName,
+    }));
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+  }
+};
+
+useEffect(()=>{
+  handlerPostedBy()
+},[])
+// console.log(form)
 if (!mounted) return null;
   return (
     <div className=" w-full mx-auto p-8 shadow-lg rounded-lg">

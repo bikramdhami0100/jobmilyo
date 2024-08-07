@@ -96,12 +96,13 @@ function Navbar() {
 
         if (data.ok) {
             const result = await data?.json()
-            console.log("result",result);
+            // console.log("result",result);
 
             if (result?.user) {
-                toast({
-                    description: result?.message,
-                })
+                // toast({
+                //     description: result?.message,
+                //     className:"text-black rounded-md border-green-600 bg-white"
+                // })
                 setValidUser(result.user)
                 settoken(result.token);
                 setusersignup(true);
@@ -126,9 +127,10 @@ function Navbar() {
         if (data.ok) {
             const result = await data.json()
             if (result) {
-                toast({
-                    description: result?.message,
-                })
+                // toast({
+                //     description: result?.message,
+                //     className:"text-black border-green-600 bg-white rounded-md"
+                // })
                 setValidUser("");
                 settoken("");
                 setusersignup(false);

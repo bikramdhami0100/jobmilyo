@@ -92,6 +92,10 @@ const jobSchema = new mongoose.Schema({
     ref: 'usersignups',
     // required: true
   },
+  postedby:{
+    type:String,
+    defalul:null,
+  },
   site: {
     type: String,
     trim: true
