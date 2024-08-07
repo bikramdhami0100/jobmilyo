@@ -5,8 +5,9 @@ import { IconTimeDuration60 } from '@tabler/icons-react';
 import { Calendar, MapPin, Star } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import axios from "axios"
+import { useRouter } from 'next/navigation';
 
 export interface USERPOSTEDJOB {
     _id: string;
@@ -49,7 +50,8 @@ export interface USERPOSTEDJOBDETAILS {
 
 function LatestJobOpenings() {
     const { theme } = useTheme();
-    const [jobs, setJobs] = useState<any>()
+    const [jobs, setJobs] = useState<any>();
+    const router = useRouter()
     const jobPostedByUser = async () => {
         const received = (await axios.get("/api/postjob")).data;
         setJobs(received.data)
@@ -57,7 +59,7 @@ function LatestJobOpenings() {
         //     setJobs(received.data)
         //   }
     }
-   
+
     // 
     useEffect(() => {
         jobPostedByUser();
@@ -98,12 +100,12 @@ function LatestJobOpenings() {
                         // Get the formatted time difference message
                         const timeAgoMessage = formatTimeDifference(differenceMs);
 
-                     
+
                         return (
                             <div key={index} className={`  ${theme === "light" ? "bg-white" : ""} flex relative  flex-row  items-center justify-between gap-2 w-full h-full border p-4`}>
                                 <div className=' w-full flex flex-col   flex-wrap gap-2'>
                                     <div className='flex gap-2'>
-                                        <h1 className='text-xl font-bold '>{item?.user?.fullName ||"Bikram dhami"}</h1>
+                                        <h1 className='text-xl font-bold '>{item?.user?.fullName || "Bikram dhami"}</h1>
                                         <span className='flex items-center w-[50px] gap-1 justify-center border cursor-pointer rounded-lg p-1 text-sm bg-yellow-100  ml-1 text-yellow-400'>{Math.floor(item.rating)} <StarFilledIcon className=' size-4' /></span>
                                     </div>
                                     <div className=' flex-wrap flex gap-2'>
@@ -121,11 +123,17 @@ function LatestJobOpenings() {
                                 </div>
                                 <div className='flex w-[30vw] flex-wrap  justify-center   items-center gap-2 '>
                                     <BookmarkIcon className='  size-10 w-[50px]' />
-                                    <Button className=' size-10 w-[100px] bg-[#0625c7]'>
-                                        <Link href={`/user/jobdetail/${item._id}`} rel="noopener noreferrer">Details</Link>
+                                    <Button onClick={() => {
+                                        router.push(`/user/jobdetail/${item._id}`);
+                                    }} className=' size-10 w-[100px] bg-[#0625c7]'>
+                                        Details
+                                        {/* <Link href={`/user/jobdetail/${item._id}`} rel="noopener noreferrer">Details</Link> */}
                                     </Button>
-                                    <Button className=' size-10 w-[100px] bg-[#00c136]'>
-                                        <Link href={"/user/jobs/apply"} rel="noopener noreferrer">Apply</Link>
+                                    <Button onClick={() => {
+                                        router.push(`/user/apply/${item._id}`);
+                                    }} className=' size-10 w-[100px] bg-[#00c136]'>
+                                        Apply
+                                        {/* <Link href={"/user/jobs/apply"} rel="noopener noreferrer">Apply</Link> */}
                                     </Button>
                                 </div>
                             </div>

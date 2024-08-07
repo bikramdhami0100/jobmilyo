@@ -61,7 +61,7 @@ function SingleJobDetails({ params }: any) {
     })
   }
   const fetchOtherJobOpening = (jobtitle: string) => {
-    const send = axios.post(`/api/postjob/jobdetails/similarjobs`, { jobtitle: jobtitle }).then(({ data }: any) => {
+    const send = axios.post(`/api/postjob/jobdetails/similarjobs`, { jobtitle: jobtitle ,id: params.details }).then(({ data }: any) => {
       setOtherJobs(data.respondata)
 
     }).catch((error: any) => {

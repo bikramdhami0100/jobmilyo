@@ -87,32 +87,7 @@ function SearchMainPart({ selectField, anyThingSearch, page, setTotalPages }: an
         //   }
         // console.log(received,"received")
     }
-    // console.log(jobs.length)
-    // 
 
-    // function BookMark() {
-    //     var url = window.location.href;
-    //     var title = document.title;
-    //     var bookmarkLink = document.createElement('a');
-    //     bookmarkLink.href = url;
-    //     bookmarkLink.title = title;
-    //     bookmarkLink.innerText = 'Bookmark this page';
-
-    //     var body = document.getElementsByTagName('body')[0];
-    //     body.appendChild(bookmarkLink);
-
-    //     // Copy URL to clipboard
-    //     var tempInput = document.createElement('input');
-    //     tempInput.style.position = 'absolute';
-    //     tempInput.style.left = '-1000px';
-    //     tempInput.value = url;
-    //     body.appendChild(tempInput);
-    //     tempInput.select();
-    //     document.execCommand('copy');
-    //     body.removeChild(tempInput);
-
-    //     alert('URL copied to clipboard: ' + url + '\nDrag the link to your bookmarks bar: ' + bookmarkLink.outerHTML);
-    // }
 
     useEffect(() => {
         jobPostedByUser();
@@ -184,8 +159,10 @@ function SearchMainPart({ selectField, anyThingSearch, page, setTotalPages }: an
                                     {/* <Button className=' size-10 w-[100px] bg-[#0625c7]'>
                                         <Link href={"/user/jobs/details"} rel="noopener noreferrer">Details</Link>
                                     </Button> */}
-                                    <Button className=' size-10 text-white w-[102px] bg-[#00c136] '>
-                                        <Link href={"/user/jobs/proposal"} rel="noopener noreferrer">Send Proposal</Link>
+                                    <Button className=' size-10 text-white w-[102px] bg-[#00c136] ' onClick={()=>{
+                                                                                router.push(`/user/apply/${item._id}`);
+                                    }}> Apply Now
+                                        {/* <Link href={"/user/jobs/proposal"} rel="noopener noreferrer">Send Proposal</Link> */}
                                     </Button>
                                 </div>
                             </div>

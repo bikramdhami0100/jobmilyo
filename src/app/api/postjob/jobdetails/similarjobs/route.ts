@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 
 export async function POST(req: NextRequest) {
     await mongodbconn;
-    const { jobtitle } = await req.json();
+    const { jobtitle ,id } = await req.json();
     const token = await req.cookies?.get("token")?.value;
 
     if (!token) {
@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
 
     try {
         const decoded = jwt.verify(token, process.env.TOKEN_SECRETKEY);
-        const received = await UserPostedJob.find({jobtitle:jobtitle}).limit(5);
+        const received = await UserPostedJob.find({jobtitle:jobtitle,_id:{$ne:id}}).limit(5);
 
         return NextResponse.json({ message: "Request successful", respondata: received, status: 200 });
     } catch (error) {
