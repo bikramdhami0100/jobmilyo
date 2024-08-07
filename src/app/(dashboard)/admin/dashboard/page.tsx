@@ -24,7 +24,7 @@ function AdminDashoBoard() {
     },
     {
       name: "Contacted Users",
-      number: totaldata?.totalContactuser|| 20,
+      number: totaldata?.totalContactuser|| 0,
       emoji: "📞"
     }
   ];
