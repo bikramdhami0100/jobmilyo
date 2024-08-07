@@ -53,7 +53,7 @@ function ContactList() {
   useEffect(() => {
     handleContact(currentPage);
   }, [currentPage]);
-
+  console.log(contactList)
   return (
     <div>
       <h1 className='text-center text-3xl italic underline font-bold mt-10 mb-4'>Contact List/ Details</h1>
@@ -71,33 +71,37 @@ function ContactList() {
               </tr>
             </thead>
             <tbody>
-              {contactList.map((item, index) => (
-                <tr key={item.Sr_No} className={`${theme === "light" ? "bg-gray-300" : ""} border-2`}>
-                  <td className="border-2 p-2">{index + 1 + (currentPage - 1) * itemsPerPage}</td>
-                  <td className="border-2 p-2">{item.userName}</td>
-                  <td className="border-2 p-2">{item.email}</td>
-                  <td className="border-2 p-2">
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
-                        <Button variant="outline" className='border-none text-blue-600 underline underline-offset-2'>View</Button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent className='bg-gray-100 dark:text-white font-semibold'>
-                        <AlertDialogHeader>
-                          <AlertDialogDescription>
-                            {item.message}
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
-                  </td>
-                  <td className="border-2 p-2 cursor-pointer text-blue-600 underline underline-offset-2">
-                    <Trash2 />
-                  </td>
-                </tr>
-              ))}
+              {
+                contactList.length>=1?contactList.map((item, index) => (
+                <>
+                  <tr key={item.Sr_No} className={`${theme === "light" ? "bg-gray-300" : ""} border-2`}>
+                    <td className="border-2 p-2">{index + 1 + (currentPage - 1) * itemsPerPage}</td>
+                    <td className="border-2 p-2">{item.userName}</td>
+                    <td className="border-2 p-2">{item.email}</td>
+                    <td className="border-2 p-2">
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button variant="outline" className='border-none text-blue-600 underline underline-offset-2'>View</Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent className='bg-gray-100 dark:text-white font-semibold'>
+                          <AlertDialogHeader>
+                            <AlertDialogDescription>
+                              {item.message}
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </td>
+                    <td className="border-2 p-2 cursor-pointer text-blue-600 underline underline-offset-2">
+                      <Trash2 />
+                    </td>
+                  </tr>
+                </>
+                )):" No any data available"
+              }
             </tbody>
           </table>
         </div>
