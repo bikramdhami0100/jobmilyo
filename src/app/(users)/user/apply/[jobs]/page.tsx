@@ -113,8 +113,8 @@ function ApplyForJob({ params }: any) {
     setApplyLoader(true)
  const send=(await axios.post("/api/apply",{jobId:params.jobs,resume:resume})).data
   console.log(send);
+  setApplyLoader(false);
   if(send.status===200){
-    setApplyLoader(false);
     toast({title:"Apply successfully",className:"bg-white text-black border-green-600 border-[2px]"})
   }
   }
@@ -161,7 +161,7 @@ function ApplyForJob({ params }: any) {
         <div>
           {/* form submit for apply */}
           <div className="grid w-[100%] max-w-sm items-center gap-1.5">
-            <Label htmlFor="picture"  >Your resume</Label>
+            <Label htmlFor="picture" className=' text-2xl font-semibold underline' >Your resume</Label>
             <CldUploadButton
               className=' w-full text-left border-2 p-1 rounded-md '
               onSuccess={uploadResume}

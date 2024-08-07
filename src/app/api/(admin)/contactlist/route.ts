@@ -8,9 +8,9 @@ const jwt = require("jsonwebtoken");
 
 export async function POST(req: any) {
     await mongodbconn;
-    const { page,limit } = await req.json();
-    console.log(page, limit)
-    const skip = (page - 1) * limit;
+    const { pages,limit } = await req.json();
+    console.log(pages, limit)
+    const skip = (pages - 1) * limit;
     const token = req.cookies.get("token")?.value;
     // console.log(token)
 
@@ -31,7 +31,7 @@ export async function POST(req: any) {
         return NextResponse.json({
             message: "Successfully inserted job", status: 200, contactlist: jobs, totalJobs,
             totalPages: Math.ceil(totalJobs / limit),
-            currentPage: page
+            currentPage: pages
         });
     } catch (error) {
         return NextResponse.json({ message: error })

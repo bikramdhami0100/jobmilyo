@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { use, useEffect, useState } from 'react'
 import {
   Pagination,
   PaginationContent,
@@ -9,109 +9,163 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
-import { Delete, Pencil, Trash2 } from 'lucide-react';
-import { useTheme } from 'next-themes';
+import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
+import { Delete, Eye, Pencil, Trash2 } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import axios from 'axios';
+import Link from 'next/link';
+interface JobType {
+  _id: string,
+  company: string,
+  company_logo: string,
+  email: string,
+  jobtitle: string,
+  phonenumber: number,
+
+}
+interface UserType {
+  color: string,
+  email: string,
+  fullName: string,
+  _id: string
+}
 interface ResumeType {
   Sr_No: number;
-  Company_Name: string;
-  Job_Title: string;
-  User_Name: string;
- User_Email: string; // Corrected property name
-  Mobile_Number: string;
-  Resume: string;
+  job: JobType
+  user: UserType
+  createdAt: string,
+  resume: string;
+  status: string,
+  _id: string,
   Delete: string;
 }
 function ViewResume() {
-  const {theme} =useTheme();
-  const users: ResumeType[] = [
-    {
-      Sr_No: 1,
-      Company_Name: "ABC Inc.",
-      Job_Title: "Software Engineer",
-      User_Name: "John Doe",
-      User_Email: "john.doe@example.com",
-      Mobile_Number: "123-456-7890",
-      Resume: "path/to/john_doe_resume.pdf",
-      Delete: "Delete"
-    },
-    {
-      Sr_No: 2,
-      Company_Name: "XYZ Corp.",
-      Job_Title: "Data Scientist",
-      User_Name: "Jane Smith",
-      User_Email: "jane.smith@example.com",
-      Mobile_Number: "987-654-3210",
-      Resume: "path/to/jane_smith_resume.pdf",
-      Delete: "Delete"
-    },
-    {
-      Sr_No: 3,
-      Company_Name: "123 Ltd.",
-      Job_Title: "Web Developer",
-      User_Name: "Alice Johnson",
-      User_Email: "alice.johnson@example.com",
-      Mobile_Number: "456-789-0123",
-      Resume: "path/to/alice_johnson_resume.pdf",
-      Delete: "Delete"
-    },
- 
-  ];
+  const [resumData, setResumeData] = useState<ResumeType[]>();
+  // const [currentpage, setCurrentPage] = useState<number>(1);
+  const [totalpage, setTotalPage] = useState<any>(1);
+  // 
+  const [pagination, setPaganatation] = useState<any>(1)
+  const { theme } = useTheme();
+  let limit: number = 4;
+  const fetchResumeData = async (page: any) => {
+    const resume = (await axios.post("/api/viewresume/", { currentPage: page, limit: limit })).data;
+    // console.log("data is ", resume);
+    setResumeData(resume?.data);
+    setTotalPage(resume?.totalpage);
+  }
+  useEffect(() => {
+    fetchResumeData(pagination)
+  }, [pagination]);
+  const handlerStatus=async(text:any)=>{
+   const send=(await axios.post("/api/status",{status:text})).data;
+   console.log(send)
+  }
 
   return (
-    <div className=' flex flex-col gap-4 min-h-screen overflow-hidden'>
-{/* table */}
-      <div className=' overflow-x-scroll  '>
-        <table border={2} className=' border-2'>
-          <tr className={`${theme=="light"?"bg-blue-400":null}`}><th className="border-2  p-2" > Sr.No</th> <th className="border-2  p-2" >Company name</th> <th className="border-2  p-2" >Job Title</th> <th className="border-2  p-2" >User Name</th> <th className="border-2  p-2" >User Email</th> <th className="border-2  p-2" >Mobile no.</th> <th className="border-2  p-2" >Resume</th> <th className="border-2  p-2" >Delete</th></tr>
-
-          {
-            users.map((item: ResumeType, index: any) => {
-              return (
-                <tr className={`${theme=="light"?"bg-gray-300":null} border-2  `}>
-                  <td className=" border-2   p-2 ">{item.Sr_No}</td>
-                  <td className=" border-2   p-2 ">{item.Company_Name}</td>
-                  <td className=" border-2   p-2 ">{item.Job_Title}</td>
-                  <td className=" border-2   p-2 ">{item.User_Name}</td>
-                  <td className=" border-2   p-2 ">{item.User_Email}</td>
-                  <td className=" border-2   p-2 ">{item.Mobile_Number}</td>
-                  <td className=" border-2   p-2 ">{item.Resume}</td>
-                  <td className=" border-2   p-2  cursor-pointer text-blue-600 underline underline-offset-2">  <Trash2/></td>
-
-                </tr>)
-            })
-          }
-
-        </table>
-
+    <div>
+      <div>
+        <h1 className=' font-bold text-4xl text-center my-10 underline'> Resume</h1>
       </div>
-    {/* paganization */}
-      <div className=''>
-       <Pagination className=' flex justify-start items-start'>
-      <PaginationContent>
-        <PaginationItem>
-          <PaginationPrevious href="#" />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">1</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#" isActive>
-            2
-          </PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">3</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationNext href="#" />
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination>
-       </div>
+      <div className=' flex flex-col gap-4 min-h-screen overflow-hidden'>
+        {/* table */}
+        <div className=' overflow-x-scroll  '>
+          <table border={2} className=' border-2'>
+            <tr className={`${theme == "light" ? "bg-blue-400" : null}`}>
+              <th className="border-2  p-2" > Sr.No</th>
+              <th className="border-2  p-2" >Company name</th>
+              <th className="border-2  p-2" >Job Title</th>
+              <th className="border-2  p-2" >User Name</th>
+              <th className="border-2  p-2" >User Email</th>
+              <th className="border-2  p-2" >Mobile no.</th>
+              <th className="border-2  p-2" >Resume</th>
+              <th className="border-2  p-2" >status</th>
+              <th className="border-2  p-2" >Delete</th>
+            </tr>
+
+            {
+              resumData?.map((item: ResumeType, index: any) => {
+                return (
+                  <tr className={`${theme == "light" ? "bg-gray-300" : null} border-2  `}>
+
+                    <td className=" border-2   p-2 ">{index + 1 + (pagination - 1) * limit}</td>
+                    <td className=" border-2   p-2 ">{item?.job?.company}</td>
+                    <td className=" border-2   p-2 ">{item?.job?.jobtitle}</td>
+                    <td className=" border-2   p-2 ">{item?.user?.fullName}</td>
+                    <td className=" border-2   p-2 ">{item?.user?.email}</td>
+                    <td className=" border-2   p-2 ">{item?.job?.phonenumber}</td>
+                    <td className=" border-2   p-2 "><Link href={item?.resume || "https://facebook.com"} target="_blank" className=' flex items-center justify-center' ><Eye /> </Link></td>
+                    <td className=" border-2   p-2 ">{item?.status == "Applied" ? <div>
+                      <RadioGroup onValueChange={(e)=>{
+                        // console.log('first',e)
+                        handlerStatus(e)
+                      }} defaultValue="Applied">
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="Applied" id="Applied" />
+                          <Label htmlFor="Applied">Applied</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="Hired" id="Hired" />
+                          <Label htmlFor="Hired">Hired</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="Rejected" id="Rejected" />
+                          <Label htmlFor="Rejected">Rejected</Label>
+                        </div>
+                      </RadioGroup>
+
+                    </div> : ""}</td>
+                    <td className=" border-2   p-2  cursor-pointer text-blue-600 underline underline-offset-2">  <Trash2 /></td>
+
+                  </tr>)
+              })
+            }
+
+          </table>
+
+        </div>
+        {/* paganization */}
+        <div className=''>
+          <Pagination className=' flex justify-start items-start'>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious href="#" onClick={() => {
+                  if (pagination != 1) {
+                    setPaganatation(pagination - 1)
+                  }
+                }} />
+              </PaginationItem>
+              {
+                Array(totalpage).fill(null).map((item: any, index: any) => {
+                  return (
+                    <>
+                      <PaginationItem>
+                        <PaginationLink href="#" isActive={pagination == index + 1 ? true : false} onClick={() => {
+                          setPaganatation(index + 1)
+                        }}>
+                          {index + 1}
+                        </PaginationLink>
+                      </PaginationItem>
+
+                    </>
+
+
+
+                  )
+                })
+              }
+              <PaginationItem>
+                <PaginationNext href="#" onClick={() => {
+                  if (pagination !== totalpage) {
+                    setPaganatation(pagination + 1)
+                  }
+                }} />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </div>
+      </div>
     </div>
   )
 }

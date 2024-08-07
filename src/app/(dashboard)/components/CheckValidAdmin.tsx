@@ -10,7 +10,7 @@ function CheckValidAdmin() {
         setLoading(true)
       try {
         const data=(await axios.get("/api/checkadmin/")).data
-        console.log(data);
+      //   console.log(data);
      if(data.success===true){
         setLoading(false)
         setshowAdmin(true)
