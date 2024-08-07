@@ -100,7 +100,7 @@ function ViewResume() {
                       <RadioGroup onValueChange={(e)=>{
                         // console.log('first',e)
                         handlerStatus(e)
-                      }} defaultValue="Applied">
+                      }} defaultValue={item?.status}>
                         <div className="flex items-center space-x-2">
                           <RadioGroupItem value="Applied" id="Applied" />
                           <Label htmlFor="Applied">Applied</Label>
