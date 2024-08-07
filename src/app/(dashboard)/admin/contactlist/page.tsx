@@ -118,7 +118,7 @@ function ContactList() {
               {Array.from({ length: totalPages }, (_, index) => (
                 <PaginationItem key={index}>
                   <PaginationLink 
-                    href="#" 
+                    // href="#" 
                     isActive={currentPage === index + 1}
                     onClick={() => setCurrentPage(index + 1)}
                   >
@@ -128,7 +128,7 @@ function ContactList() {
               ))}
               <PaginationItem>
                 <PaginationNext 
-                  href="#" 
+                  // href="#" 
                   onClick={() => setCurrentPage(prevPage => Math.min(prevPage + 1, totalPages))}
                 />
               </PaginationItem>
