@@ -134,7 +134,7 @@ function Login() {
                  signIn("github");
              }}><IconBrandGithub  /> github</Button>
              <Button  disabled className=' flex  ' ><IconBrandFacebook/> Facebook</Button>
-             <Button  onClick={()=>{
+             <Button disabled  onClick={()=>{
               signIn("google");
              }} className=' flex ' ><IconBrandGoogle/> Google</Button>
            </div>
