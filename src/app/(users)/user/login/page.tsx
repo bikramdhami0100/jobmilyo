@@ -62,13 +62,14 @@ function Login() {
       
     if (data.ok) {
       const result=await data.json()
+      setLoginLoader(false)
       if( result.status==200){
         toast({
            description:result.message,
+           className:'bg-white text-black rounded-md border-[2px] border-green-600 font-bold'
          
           });
           if (result.message=="User verified successfully") {
-               setLoginLoader(false)
                 dispatch(validUserToken(result));
               if(result.user.admin==true){
                 router.push("/admin/dashboard")
@@ -79,13 +80,14 @@ function Login() {
 
       }else{
         toast( {
-        
+          className:'bg-white text-black rounded-md border-[2px] border-green-600 font-bold',
           description:result.message,
           });
       }
     }else{
       toast( {
         description:data.statusText,
+          className:'bg-white text-black rounded-md border-[2px] border-green-600 font-bold'
         });
     }
      }

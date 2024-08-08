@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
 
         const user = decoded.encodeemail;
         const userId = user._id;
-
+        console.log(userId,user)
         if (!userId) {
             return NextResponse.json({ message: "Invalid user data", status: 400 });
         }
@@ -57,6 +57,8 @@ export async function POST(req: NextRequest) {
             { status: status },
             { new: true }
         );
+       await applyjob.save()
+        console.log(applyjob)
 
         if (!applyjob) {
             return NextResponse.json({ message: "Job application not found", status: 404 });
