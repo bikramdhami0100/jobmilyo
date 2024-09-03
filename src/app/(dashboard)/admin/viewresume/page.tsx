@@ -51,7 +51,6 @@ function ViewResume() {
   let limit: number = 4;
   const fetchResumeData = async (page: any) => {
     const resume = (await axios.post("/api/viewresume/", { currentPage: page, limit: limit })).data;
-    console.log("data is ", resume);
     setResumeData(resume?.data);
     setTotalPage(resume?.totalpage);
   }
@@ -66,7 +65,7 @@ function ViewResume() {
         fetchResumeData(pagination);
       }, 100);
     }
-    console.log(send)
+  
   }
 
   return (
