@@ -92,6 +92,24 @@ function Login() {
     }
      }
   }
+  const socialItem=[
+    {
+        name:"github",
+        image:"/images/social/github.png",
+        // link:"https://www.twitter.com"
+    },
+    {
+        name:"apple",
+        image:"/images/social/apple.png",
+        // link:"https://www.facebook.com"
+    },
+  
+    {
+        name:"google",
+        image:"/images/social/google.png",
+        // link:"https://www.linkedin.com"
+    }
+]
  
   return (
 <div className='flex  flex-col justify-around items-center md:flex-row md:justify-around lg:justify-around lg:flex-row p-2'>
@@ -132,13 +150,15 @@ function Login() {
           <Button onClick={handlelogIn}  className=' bg-blue-600'> {loginLoader&&<Loader className=' animate-spin'/>}Continue </Button>
            <p className=' text-center'>or Continue with</p>
            <div className=' flex gap-3 cursor-pointer self-center'> 
-             <Button  disabled className=' flex '  onClick={()=>{
-                 signIn("github");
-             }}><IconBrandGithub  /> github</Button>
-             <Button  disabled className=' flex  ' ><IconBrandFacebook/> Facebook</Button>
-             <Button disabled  onClick={()=>{
-              signIn("google");
-             }} className=' flex ' ><IconBrandGoogle/> Google</Button>
+             {
+              socialItem.map((item:any,index)=>(
+                <>
+                  <div>
+                    <Image src={item.image} height={30} width={30} alt={item.name} ></Image>
+                  </div>
+                </>
+              ))
+             }
            </div>
            <p className=' text-center'>Don't have an account ? <Link href={"./signup"} className=' underline text-blue-600'> Signup</Link></p>
          </div>

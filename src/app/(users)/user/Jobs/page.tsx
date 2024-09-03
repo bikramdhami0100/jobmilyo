@@ -8,9 +8,9 @@ import { useTheme } from 'next-themes'
 function Jobs() {
   const {theme}=useTheme();
   return (
-    <div className={`m-3 ${theme=="light"?"bg-[#f3f7fb]":""}`}>
+    <div className={` ${theme=="light"?"bg-[#f3f7fb]":""}`}>
       <div>
-         <Image alt='image' src={"/images/jobsimages/hiring.jpg"} width={400} height={400}  className=' w-[90vw] m-auto my-5 h-[70vh]'></Image>
+         <Image alt='image' src={"/images/jobsimages/hiring.jpg"} width={400} height={400}  className=' w-[90vw] m-auto pt-10 mb-10 h-[70vh]'></Image>
       </div>
       {/* top search category */}
         <div>

@@ -50,21 +50,26 @@ export interface USERPOSTEDJOBDETAILS {
 
 function LatestJobOpenings() {
     const { theme } = useTheme();
-    const [jobs, setJobs] = useState<any>();
-    const router = useRouter()
-    const jobPostedByUser = async () => {
-        const received = (await axios.get("/api/postjob")).data;
-        setJobs(received.data)
-        //   if(received.state==200){
-        //     setJobs(received.data)
-        //   }
+    const [jobs, setJobs] = useState<USERPOSTEDJOBDETAILS[]>([]);
+    const [page, setPage] = useState(1);
+    const router = useRouter();
+
+    const handlerShowMore = async () => {
+        setPage(prevPage => prevPage + 1);
+        const received = (await axios.post("/api/postjob/latestjobopenings", { page: page + 1, limit: 3 })).data;
+        setJobs(prevJobs => [...prevJobs, ...received.search]);
     }
 
-    // 
+    const jobPostedByUser = async () => {
+        const received = (await axios.get("/api/postjob")).data;
+        setJobs(received.data);
+    }
+
     useEffect(() => {
         jobPostedByUser();
-    }, [])
+    }, []);
 
+  
     return (
         <div>
             <div className={` p-4 ${theme == "light" ? "bg-[#e7eaec]" : ""}`}><h1 className='text-center text-4xl underline font-bold'>Latest Job Openings</h1></div>
@@ -142,7 +147,9 @@ function LatestJobOpenings() {
                 }
             </div>
             <div className='cursor-pointer h-[2px] flex justify-center items-center w-full mb-10 bg-gray-400'>
-                <div className='w-[25%] md:h-[30px] lg:h-[30px] h-[45px] bg-gray-400 rounded-full text-center'>
+                <div onClick={()=>{
+                    handlerShowMore();
+                }} className='w-[25%] md:h-[30px] lg:h-[30px] h-[45px] bg-gray-400 rounded-full text-center'>
                     <div className='text-sm text-center p-1'>Show more &darr;</div>
                 </div>
             </div>

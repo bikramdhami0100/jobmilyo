@@ -69,7 +69,7 @@ export async function GET(req: any) {
     const userdetail = decoded.encodeemail;
 
     // Fetch and sort data by jobupload
-    const jobs = await UserPostedJob.find().sort({ jobupload: -1 }).limit(5).populate({path:"user",select:"fullName  email color"});
+    const jobs = await UserPostedJob.find().sort({ jobupload: -1 }).limit(3).populate({path:"user",select:"fullName  email color"});
 
     return NextResponse.json({ message: "Successfully fetched jobs", status: 200, data: jobs });
   } catch (error:any) {

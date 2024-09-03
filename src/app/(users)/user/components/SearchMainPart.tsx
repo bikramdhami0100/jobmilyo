@@ -67,8 +67,7 @@ function SearchMainPart({ selectField, anyThingSearch, page, setTotalPages }: an
         }
     }
     const testtext = texthandler();
-    const name = "bira"
-    name.toLowerCase()
+ 
     const router = useRouter()
     const { theme } = useTheme();
     const [jobs, setJobs] = useState<any>()
@@ -77,15 +76,8 @@ function SearchMainPart({ selectField, anyThingSearch, page, setTotalPages }: an
         // console.log("received ",received)
         setJobs(received.search);
         setTotalPages(received.totalPages);
-        router.push(`/user/search/query`)
-        //  setTimeout(()=>{
-        //     jobPostedByUser()
-        //  },100)
-        // setPages([{page:1,totalpage:received.totalPages}])
-        //   if(received.state==200){
-        //     setJobs(received.data)
-        //   }
-        // console.log(received,"received")
+        // router.push(`/user/search/query`)
+     
     }
 
 

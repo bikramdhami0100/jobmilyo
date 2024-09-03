@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/pagination";
 
 function UserSearchContent({ params }: any) {
+  const query:any=decodeURIComponent( params.search);
+  console.log(query);
   const [anyThingSearch, setAnyThingSearch] = useState<string>("");
   const [selectField, setSelectField] = useState<any>(null);
   const [page, setPage] = useState<number>(1);
@@ -24,7 +26,7 @@ function UserSearchContent({ params }: any) {
       setPage(page);
     }
   };
-
+ 
   return (
     <div>
       {/* filters */}

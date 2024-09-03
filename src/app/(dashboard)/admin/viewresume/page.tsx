@@ -51,17 +51,22 @@ function ViewResume() {
   let limit: number = 4;
   const fetchResumeData = async (page: any) => {
     const resume = (await axios.post("/api/viewresume/", { currentPage: page, limit: limit })).data;
-    // console.log("data is ", resume);
+    console.log("data is ", resume);
     setResumeData(resume?.data);
     setTotalPage(resume?.totalpage);
   }
   useEffect(() => {
     fetchResumeData(pagination)
   }, [pagination]);
-  const handlerStatus=async(text:any)=>{
-   const send=(await axios.post("/api/status",{status:text})).data;
-   
-  //  console.log(send)
+  const handlerStatus = async (text: any, id: any) => {
+    // console.log(text,id);
+    const send = (await axios.post("/api/status", { status: text, id: id })).data;
+    if (send) {
+      setTimeout(() => {
+        fetchResumeData(pagination);
+      }, 100);
+    }
+    console.log(send)
   }
 
   return (
@@ -87,6 +92,7 @@ function ViewResume() {
 
             {
               resumData?.map((item: ResumeType, index: any) => {
+                console.log(item.status, "data of items");
                 return (
                   <tr className={`${theme == "light" ? "bg-gray-300" : null} border-2  `}>
 
@@ -97,11 +103,14 @@ function ViewResume() {
                     <td className=" border-2   p-2 ">{item?.user?.email}</td>
                     <td className=" border-2   p-2 ">{item?.job?.phonenumber}</td>
                     <td className=" border-2   p-2 "><Link href={item?.resume || "https://facebook.com"} target="_blank" className=' flex items-center justify-center' ><Eye /> </Link></td>
-                    <td className=" border-2   p-2 ">{item?.status == "Applied" ? <div>
-                      <RadioGroup onValueChange={(e)=>{
-                        // console.log('first',e)
-                        handlerStatus(e)
-                      }} defaultValue={item?.status}>
+                    <td className=" border-2   p-2 ">{<div>
+                      <RadioGroup onValueChange={(e) => {
+                        // console.log('first',e);
+                        handlerStatus(e, item._id);
+                      }}
+                        //  defaultValue={item.status}
+                        value={item.status}
+                      >
                         <div className="flex items-center space-x-2">
                           <RadioGroupItem value="Applied" id="Applied" />
                           <Label htmlFor="Applied">Applied</Label>
@@ -115,8 +124,7 @@ function ViewResume() {
                           <Label htmlFor="Rejected">Rejected</Label>
                         </div>
                       </RadioGroup>
-
-                    </div> : ""}</td>
+                    </div>}</td>
                     <td className=" border-2   p-2  cursor-pointer text-blue-600 underline underline-offset-2">  <Trash2 /></td>
 
                   </tr>)

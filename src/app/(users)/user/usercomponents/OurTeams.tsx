@@ -28,7 +28,7 @@ function OurTeams() {
             flink: "https://www.facebook.com/profile.php?id=100025886561101",
             tlink: "https://www.twitter.com/deepa",
             llink: "https://www.linkedin.com/deepa",
-            rating: 4
+            rating: 5
         },
         {
             name: "Kalpana bhandari",
@@ -37,7 +37,7 @@ function OurTeams() {
             flink: "https://www.facebook.com/profile.php?id=100071784674406",
             tlink: "https://www.twitter.com/bikram_dhami",
             llink: "https://www.linkedin.com/bikram_dhami",
-            rating: 4.0
+            rating: 5
         },
         {
             name: "Saraswati",
@@ -46,7 +46,7 @@ function OurTeams() {
             flink: "https://www.facebook.com/sarswati.paneru.5",
             tlink: "https://www.twitter.com/saraswati",
             llink: "https://www.linkedin.com/saraswati",
-            rating: 5.0
+            rating: 5
         },
         {
             name: "Menuka Bhatt",
@@ -55,7 +55,7 @@ function OurTeams() {
             flink: "https://www.facebook.com/menukabhatt01",
             tlink: "https://www.twitter.com/menuka_kalpana",
             llink: "https://www.linkedin.com/menuka_kalpana",
-            rating: 4
+            rating: 5
         },
         {
             name: "Bikram Dhami",
@@ -64,7 +64,7 @@ function OurTeams() {
             flink: "https://www.facebook.com/profile.php?id=61553832104490",
             tlink: "https://www.twitter.com/bikram_dhami",
             llink: "https://www.linkedin.com/bikram_dhami",
-            rating: 3
+            rating: 5
         }
     ]
 
