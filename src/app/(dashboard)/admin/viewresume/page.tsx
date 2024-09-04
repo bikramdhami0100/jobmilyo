@@ -16,6 +16,7 @@ import { Delete, Eye, Pencil, Trash2 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import axios from 'axios';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation'
 interface JobType {
   _id: string,
   company: string,
@@ -42,6 +43,7 @@ interface ResumeType {
   Delete: string;
 }
 function ViewResume() {
+  const router=useRouter();
   const [resumData, setResumeData] = useState<ResumeType[]>();
   // const [currentpage, setCurrentPage] = useState<number>(1);
   const [totalpage, setTotalPage] = useState<any>(1);
@@ -67,6 +69,15 @@ function ViewResume() {
     }
   
   }
+  const handlerDeleteItem=async(id:any)=>{
+    const send=(await axios.post("/api/viewresume/delete",{id})).data;
+    console.log(send);
+    if(send.status==200){
+      setTimeout(() => {
+         fetchResumeData(pagination);
+      }, 100);
+    }
+ };
 
   return (
     <div>
@@ -91,7 +102,7 @@ function ViewResume() {
 
             {
               resumData?.map((item: ResumeType, index: any) => {
-                console.log(item.status, "data of items");
+                // console.log(item.status, "data of items");
                 return (
                   <tr className={`${theme == "light" ? "bg-gray-300" : null} border-2  `}>
 
@@ -124,7 +135,9 @@ function ViewResume() {
                         </div>
                       </RadioGroup>
                     </div>}</td>
-                    <td className=" border-2   p-2  cursor-pointer text-blue-600 underline underline-offset-2">  <Trash2 /></td>
+                    <td onClick={()=>{
+                     handlerDeleteItem(item._id);
+                    }} className=" border-2   p-2  cursor-pointer text-blue-600 underline underline-offset-2">  <Trash2 /></td>
 
                   </tr>)
               })

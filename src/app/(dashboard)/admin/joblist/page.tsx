@@ -32,6 +32,7 @@ interface JobDetailType {
 
 function JobList() {
   const { theme } = useTheme();
+
   const [jobs, setJobs] = useState<JobDetailType[]>([]);
   const [currentPage, setCurrentPage] = useState<any>(1);
   const [totalPages, setTotalPages] = useState<any>(1);
@@ -46,7 +47,16 @@ function JobList() {
       console.error("Error fetching job data:", error);
     }
   };
-
+  const handlerDeleteItem=async(id:any)=>{
+    console.log(id);
+    const senddelete=(await axios.post("/api/joblist/delete",{id:id})).data;
+    //  console.log(senddelete);
+     if(senddelete){
+      setTimeout(() => {
+        fetchJobData(currentPage)
+      }, 100);
+     }
+  }
   useEffect(() => {
     fetchJobData(currentPage);
   }, [currentPage]);
@@ -94,10 +104,12 @@ function JobList() {
                       <Pencil />
                     </Link>
                   </td>
-                  <td className="border-2 p-2 cursor-pointer text-blue-600 underline underline-offset-2">
-                    <Link href={`/admin/joblist/${item._id}`}>
+                  <td onClick={()=>{
+                    handlerDeleteItem(item._id);
+                  }} className="border-2 p-2 cursor-pointer text-blue-600 underline underline-offset-2">
+                    
                       <Trash2 />
-                    </Link>
+                  
                   </td>
                 </tr>
               )) : (
