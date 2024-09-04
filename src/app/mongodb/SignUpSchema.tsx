@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"usercontacts"
     },
+    forgotpassword:{
+        type:Boolean,
+        default:false
+    }
     // userInformation:{
     //     type:mongoose.Schema.Types.ObjectId,
     //     ref:""

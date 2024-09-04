@@ -1,101 +1,10 @@
-// import Usersignup from "@/app/mongodb/SignUpSchema";
-// import mongodbconn from "@/app/mongodb/connection";
-// import { NextResponse } from "next/server";
-// var jwt = require('jsonwebtoken');
+import Usersignup from '@/app/mongodb/SignUpSchema';
+import mongodbconn from '@/app/mongodb/connection';
+import { NextResponse, NextRequest } from 'next/server';
+const nodemailer=require("nodemailer");
+const bcrypt=require("bcryptjs");
+var jwt = require('jsonwebtoken');
 
-// export async function GET(req: any) {
-//      await mongodbconn;
-//      const data=await req.cookies.get("token").value;
-//    //   console.log(data);
-//      const token=data
-//      if (!token) {
-//         return NextResponse.json({ message: "Token not found", status: 400 });
-//     }
-
-//      var decoded = jwt.verify(token, 'secretkeybikramdhami');
-//      let  email = decoded.encodeemail;
-//      const user = await Usersignup.findOne(
-//             { email },
-//         ).select("-password");
-//         if (!user) {
-//             return NextResponse.json({ message: "User not found", status: 404 });
-//         }
-//         if (user.userVerify==true) {
-//         let respon=NextResponse.json({ message: "User verified successfully", status: 200,user });
-//         return respon;
-//         }else{
-//             const response = NextResponse.json(
-//                 { message: "User is not verified", status: "User is not verified", user },
-//                 { status: 401 }
-//             );
-//             return response;  
-//         }
-//    //  return NextResponse.json("hello");
-//  }
-//  //check email from forgetpassword is correct or not 
- 
-// //forget password email
-// export async function POST(req: any) {
-//     await mongodbconn;
-//     const {femail}=await req.json();
-//     console.log(femail)
-//     const token=await req.cookies.get("token").value;
-//     var decoded = jwt.verify(token, 'secretkeybikramdhami');
-//     let  email = decoded.encodeemail;
-  
-
-//     if (!token) {
-//         const user = await Usersignup.findOne(
-//             { email:femail},
-//         );
-//         if (!user) {
-//             return NextResponse.json({ message: "User not found", status: 404 });
-//         }
-//         if (user.userVerify==true) {
-//             let respon=NextResponse.json({ message: "email verified successfully", status: 200 });
-
-//             let newtoken = jwt.sign({encodeemail : user.email }, 'secretkeybikramdhami');
-//             respon.cookies.set("token",newtoken)
-//             return respon;
-//             }
-
-//      return NextResponse.json({ message: "Token not found", status: 400 });
-//    }
-
-  
-   
-//      if (femail==email) {
-//         const user = await Usersignup.findOne(
-//             { email },
-//         );
-//         if (!user) {
-//             return NextResponse.json({ message: "User not found", status: 404 });
-//         }
-//         if (user.userVerify==true) {
-//             let respon=NextResponse.json({ message: "email verified successfully", status: 200 });
-//             return respon;
-//             }else{
-//                 const response = NextResponse.json(
-//                     { message: "User is not verified", status: 201, user },
-                 
-//                 );
-//                 return response;  
-//             }
-        
-//      }else{
-//         const response = NextResponse.json(
-//             { message: "user is not found ", status: 404},
-         
-//         );
-//         return response; 
-//      }
-//   //  return NextResponse.json("hello");
-// }
-
-import Usersignup from "@/app/mongodb/SignUpSchema";
-import mongodbconn from "@/app/mongodb/connection";
-import { NextResponse } from "next/server";
-const jwt=require("jsonwebtoken");
 
 // Secret key should be stored in environment variable
 const SECRET_KEY = process.env.TOKEN_SECRETKEY || 'secretkeybikramdhami';
@@ -139,13 +48,47 @@ export async function POST(req:any) {
             return NextResponse.json({ message: "User not found", status: 404 });
         }
 
-        if (user.userVerify) {
-            const newToken = jwt.sign({ encodeemail: user.email }, SECRET_KEY);
-            const response = NextResponse.json({ message: "Email verified successfully", status: 200 });
-            response.cookies.set("token", newToken, { httpOnly: true });
-            return response;
-        } else {
-            return NextResponse.json({ message: "User is not verified", status: 401 });
+        // if (user.userVerify) {
+        //     const newToken = jwt.sign({ encodeemail: user.email }, SECRET_KEY);
+        //     const response = NextResponse.json({ message: "Email verified successfully", status: 200 });
+        //     response.cookies.set("token", newToken, { httpOnly: true });
+        //     return response;
+        // } else {
+        //     return NextResponse.json({ message: "User is not verified", status: 401 });
+        // }
+        const transporter = nodemailer.createTransport({
+            service:"gmail",
+            host: "smtp.gmail.com",
+            port: 587,
+            secure:false, // false for 587, false for other ports
+          //   requireTLS: true,
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS
+            }
+        });
+    
+        try {
+            const mail = await transporter.sendMail({
+                // from: myEmail, // Sender address
+                from:"jobmilyo@gmail.com",
+                to: user.email, // List of recipients
+                // replyTo: myEmail,
+                subject: `For password reset ${user.email}`,
+                html: `
+                
+                <p>Email: ${user.email} </p>
+                <p> Click here to verify: <a href='${process.env.NEXT_PUBLIC_DEPLOY_URL!}/user/forgotpassword/${user._id}' > Verify </a></p>
+                `,
+            });
+            let respon =NextResponse.json({ message: "Success: email sent",status:200,success:true, });
+          
+            return respon;
+    
+        } catch (error) {
+            console.log(error);
+          
+            return NextResponse.json({ message: "COULD NOT SEND MESSAGE", status: 500});
         }
     }
 

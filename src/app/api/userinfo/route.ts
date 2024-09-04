@@ -50,12 +50,7 @@ const userinformation=await req.json();
         
           console.log(newUserInfo);
        let userinforesult= await newUserInfo.save();
-        // const userinfoid=userinforesult._id;
-        // let userinfotoken=jwt.sign({ userinfoid:userinfoid  }, 'secretkeybikramdhami');
-        // let respon=NextResponse.json({ message: "User Information  successfully inserted ", status: 200 });
-        // respon.cookies.set("userinfotoken",userinfotoken,{httpOnly:true});
-        // return respon;
-      
+     
         
      } catch (error) {
          console.log(error)

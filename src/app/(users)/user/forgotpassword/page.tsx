@@ -14,14 +14,11 @@ function ForgotPassword() {
     const router = useRouter();
     const [show, setshow] = useState<boolean>(false);
     const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [showPassword, setShowPassword] = useState(true);
 
     const [errorEmail, setErrorEmail] = useState(true);
-    const [errorPassword, setErrorPassword] = useState(true);
+   
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    // const dobRegex = /^\d{4}-\d{2}-\d{2}$/;
-    const passwordRegex = /^[a-zA-Z\s]/;
+  
     useEffect(() => {
         if (email) {
 
@@ -49,8 +46,9 @@ function ForgotPassword() {
               console.log(result);
               if(result.status==200){
                 toast({
+                    className:"bg-white border-green-600 font-semibold  text-black",
                     title: "Valid Email",
-                    description: "you can continue for reset password",
+                    description:"Check your email for reset password",
                   })
                 setshow(true);
               }
@@ -77,8 +75,8 @@ function ForgotPassword() {
                     </div>
                 </div>
             </div>
-           {
-            show ? <ResetPassword/>:  <div className=' flex flex-col shadow-lg p-6 justify-center items-center m-4 rounded-md'>
+           
+              <div className=' flex flex-col shadow-lg p-6 justify-center items-center m-4 rounded-md'>
             <div className=' w-full '>
                 <div className=' flex  flex-row justify-between items-center w-full'>
                     <ChevronLeft className=' cursor-pointer' onClick={() => { router.push("./login") }} />
@@ -104,7 +102,7 @@ function ForgotPassword() {
 
             </div>
         </div>
-           }
+           
         </div>
     )
 }
