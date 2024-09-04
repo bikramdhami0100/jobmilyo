@@ -27,6 +27,7 @@ import { useTheme } from 'next-themes'
 import axios from 'axios'
 
 interface ContactType {
+  _id:any,
   Sr_No: number;
   userName: string;
   email: string;
@@ -49,11 +50,20 @@ function ContactList() {
       console.error("Error fetching contact list:", error);
     }
   }
-
+ const handlerDeleteContact=async(id:any)=>{
+  //  console.log(id);
+   const sendForDelete=(await axios.post("/api/contactlist/delete",{id})).data;
+  //  console.log(sendForDelete)
+   if(sendForDelete){
+    setTimeout(() => {
+      handleContact(currentPage);
+    }, 100);
+   }
+ }
   useEffect(() => {
     handleContact(currentPage);
   }, [currentPage]);
-  console.log(contactList)
+  // console.log(contactList)
   return (
     <div>
       <h1 className='text-center text-3xl italic underline font-bold mt-10 mb-4'>Contact List/ Details</h1>
@@ -95,7 +105,9 @@ function ContactList() {
                         </AlertDialogContent>
                       </AlertDialog>
                     </td>
-                    <td className="border-2 p-2 cursor-pointer text-blue-600 underline underline-offset-2">
+                    <td onClick={()=>{
+                       handlerDeleteContact(item._id);
+                    }} className="border-2 p-2 cursor-pointer text-blue-600 underline underline-offset-2">
                       <Trash2 />
                     </td>
                   </tr>
