@@ -4,9 +4,6 @@ import Usersignup from "@/app/mongodb/SignUpSchema";
 import mongodbconn from "@/app/mongodb/connection";
 import { Schema } from "mongoose";
 import { NextResponse } from "next/server";
-var jwt =require("jsonwebtoken");
-var bcrypt = require('bcryptjs');
-var nodemailer =require("nodemailer");
 
 export async function POST(req:any) {
   await mongodbconn;

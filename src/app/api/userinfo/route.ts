@@ -56,11 +56,6 @@ const userinformation=await req.json();
          console.log(error)
          return NextResponse.json({ message: error,status:422 });
      }
-    
-
-        // if (!user) {
-        //     return NextResponse.json({ message: "User not found", status: 404 });
-        // }
         let respon=NextResponse.json({ message: " successfully inserted ", status: 200 });
         // respon.cookies.set("userinfotoken",token,{httpOnly:true});
         return respon;

@@ -6,17 +6,6 @@ import React, { useEffect, useState } from 'react'
 import { BookMarked, BookMarkedIcon, Bookmark, Contact2Icon, FacebookIcon, GithubIcon, ImageIcon, LayoutDashboard, LayoutList, Loader, LogOut, LogOutIcon, LucideWrench, MessagesSquare, Moon, ScanSearch, Search, Settings, SettingsIcon, SquarePlus, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { usePathname, useRouter } from 'next/navigation'
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
 
 
 import {
@@ -24,8 +13,7 @@ import {
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
+
 } from "@/components/ui/dropdown-menu"
 
 
@@ -39,9 +27,6 @@ import {
     SheetClose
 } from "@/components/ui/sheet"
 
-
-import { signOut, useSession } from 'next-auth/react'
-import { IconEyeSearch } from '@tabler/icons-react'
 import { toast } from '@/components/ui/use-toast'
 
 

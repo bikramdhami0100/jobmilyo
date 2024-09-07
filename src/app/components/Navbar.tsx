@@ -24,7 +24,6 @@ import {
     SheetTrigger,
     SheetClose
 } from "@/components/ui/sheet"
-import Link from 'next/link'
 
 import { signOut, useSession } from 'next-auth/react'
 

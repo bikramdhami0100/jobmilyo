@@ -8,10 +8,6 @@ var jwt = require('jsonwebtoken');
 
 export async function POST(request: any) {
     const connection=await mongodbconn;
-    const nameRegex = /^[a-zA-Z\s]+$/;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const dobRegex = /^\d{4}-\d{2}-\d{2}$/;
-    const passwordRegex = /^[a-zA-Z\s]/;
     const user = await request.json();
     console.log(user);
     const name = user.fullname;
@@ -88,15 +84,4 @@ export async function POST(request: any) {
 export async function GET(req: any) {
    return NextResponse.json("message");
 }
-
-
-
-
-
-
-
-
-
-
-
 

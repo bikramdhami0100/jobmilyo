@@ -6,12 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from '@/components/ui/button';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {
-  IconBrandApple,
-  IconBrandFacebook,
-  IconBrandGithub,
-  IconBrandGoogle,
-} from "@tabler/icons-react";
+
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { userSignUpInfo } from '../../../../Redux/Slice';

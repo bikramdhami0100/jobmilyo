@@ -48,14 +48,6 @@ export async function POST(req:any) {
             return NextResponse.json({ message: "User not found", status: 404 });
         }
 
-        // if (user.userVerify) {
-        //     const newToken = jwt.sign({ encodeemail: user.email }, SECRET_KEY);
-        //     const response = NextResponse.json({ message: "Email verified successfully", status: 200 });
-        //     response.cookies.set("token", newToken, { httpOnly: true });
-        //     return response;
-        // } else {
-        //     return NextResponse.json({ message: "User is not verified", status: 401 });
-        // }
         const transporter = nodemailer.createTransport({
             service:"gmail",
             host: "smtp.gmail.com",

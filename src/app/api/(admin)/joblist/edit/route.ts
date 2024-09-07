@@ -1,6 +1,5 @@
-import Usersignup from "@/app/mongodb/SignUpSchema";
+
 import UserPostedJob from "@/app/mongodb/UserPostedJob";
-// import { UserPostedJob } from "@/app/mongodb/UserPostedJob";
 import mongodbconn from "@/app/mongodb/connection";
 import { NextResponse } from "next/server";
 const jwt = require("jsonwebtoken");
@@ -11,7 +10,6 @@ export async function POST(req: any) {
     console.log(id,"this is id");
     console.log("this is jobdata",jobData);
     const token = req.cookies.get("token")?.value;
-    // console.log(token)
 
     const decoded = jwt.verify(token, process.env.TOKEN_SECRETKEY);
     const userdetail = decoded.encodeemail;

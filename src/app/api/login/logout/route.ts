@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-const jwt=require("jsonwebtoken");
 
 const SECRET_KEY = process.env.TOKEN_SECRETKEY || 'secretkeybikramdhami';
 
@@ -24,19 +23,3 @@ export async function GET(req: NextRequest) {
     }
 }
 
-// export async function POST(req: NextRequest) {
-//     const { searchParams } = new URL(req.url);
-//     const token = searchParams.get('token');
-
-//     if (!token) {
-//         return NextResponse.json({ message: 'Token not provided', status: 400 });
-//     }
-
-//     try {
-//         jwt.verify(token, SECRET_KEY);
-//         // Invalidate the token or remove session as per your logic
-//         return NextResponse.json({ message: 'Logged out successfully', status: 200 });
-//     } catch (error) {
-//         return NextResponse.json({ message: 'Invalid token', status: 401 });
-//     }
-// }

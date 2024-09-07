@@ -7,16 +7,11 @@ var nodemailer =require("nodemailer");
 import Usersignup from "@/app/mongodb/SignUpSchema";
 import mongodbconn from "@/app/mongodb/connection";
 import { NextResponse } from "next/server";
-// import jwt from "jsonwebtoken";
-// import bcrypt from 'bcryptjs';
-// import nodemailer from "nodemailer";
 
 export async function POST(req: any) {
   await mongodbconn;
   const { loginemail, loginpassword } = await req.json();
   const token = req.cookies.get("token")?.value;
-
-  // console.log(loginemail, loginpassword);
 
   try {
     const user = await Usersignup.findOne({ email: loginemail });
@@ -61,8 +56,6 @@ export async function POST(req: any) {
           status: 200,
         });
       }
-
-      // User is verified, proceed with login
       const isPasswordValid = bcrypt.compareSync(loginpassword, user.password);
       if (isPasswordValid) {
         const userWithoutPassword = await Usersignup.findOne({ email: loginemail }).select("-password");
@@ -88,7 +81,6 @@ export async function POST(req: any) {
       if (!userWithToken) {
         return NextResponse.json({ message: "User not found", status: 404 });
       }
-
       if (userWithToken.userVerify) {
        const isPasswordValid=await  bcrypt.compare(loginpassword, userWithToken.password).then(function(result:any) {
          console.log("this is result ",result)
@@ -108,6 +100,3 @@ export async function POST(req: any) {
     return NextResponse.json({ message: "Internal server error", status: 500 });
   }
 }
-
-
-

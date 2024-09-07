@@ -1,7 +1,6 @@
 import Usersignup from "@/app/mongodb/SignUpSchema";
 import mongodbconn from "@/app/mongodb/connection";
 import { NextResponse } from "next/server";
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 export async function POST(req: any) {
     await mongodbconn;
@@ -23,6 +22,4 @@ export async function POST(req: any) {
     } catch (error) {
     return NextResponse.json({message:error})
     }
-
-    //  return NextResponse.json("hello");
 }

@@ -1,7 +1,5 @@
 
-
 import Usersignup from "@/app/mongodb/SignUpSchema";
-import UserInformation from "@/app/mongodb/UserInformationSchema";
 import mongodbconn from "@/app/mongodb/connection";
 import { NextResponse } from "next/server";
 const jwt = require("jsonwebtoken");
@@ -16,8 +14,7 @@ export async function POST(req:any) {
   console.log(email)
   const users = await Usersignup.findOneAndUpdate({ email: email },{color:image},{new:true})
   console.log(users);
-// const user=await Usersignup.findOne({email:email});
-// console.log(user)
+
   try {
         
 

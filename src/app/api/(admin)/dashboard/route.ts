@@ -1,7 +1,6 @@
 import Usersignup from "@/app/mongodb/SignUpSchema";
 import UserAppliedJob from "@/app/mongodb/UserAppliedJobSchema";
 import UserContact from "@/app/mongodb/UserContacts";
-import UserInformation from "@/app/mongodb/UserInformationSchema";
 import UserPostedJob from "@/app/mongodb/UserPostedJob";
 import mongodbconn from "@/app/mongodb/connection";
 import { NextResponse } from "next/server";

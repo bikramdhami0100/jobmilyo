@@ -24,21 +24,21 @@ function OurService() {
           description: 'Access a wide pool of candidates and post job openings.',
           icon: '🏢',
         },
-        // {
-        //   title: 'Job Deliverer Postings',
-        //   description: 'Any type of job deliverer can post jobs directly on our website.',
-        //   icon: '🚀',
-        // },
-        // {
-        //   title: 'Local Area Job Submissions',
-        //   description: 'Local job providers can send job details and we will post them on the website.',
-        //   icon: '🏠',
-        // },
-        // {
-        //   title: 'Local Area Job Provider Portal',
-        //   description: 'Local job providers can sign up or log in to post job details directly.',
-        //   icon: '🔑',
-        // },
+        {
+          title: 'Job Deliverer Postings',
+          description: 'Any type of job deliverer can post jobs directly on our website.',
+          icon: '🚀',
+        },
+        {
+          title: 'Local Area Job Submissions',
+          description: 'Local job providers can send job details and we will post them on the website.',
+          icon: '🏠',
+        },
+        {
+          title: 'Local Area Job Provider Portal',
+          description: 'Local job providers can sign up or log in to post job details directly.',
+          icon: '🔑',
+        },
       ];
     
     return (
@@ -58,14 +58,7 @@ function OurService() {
                             </div>
                         ))}
                     </div>
-                    {/* <div className="text-center mt-12">
-          <a
-            href="/user/Contact"
-            className="inline-block bg-blue-500 text-white py-3 px-6 rounded-lg shadow-md hover:bg-blue-600 transition-colors"
-          >
-            Get Started
-          </a>
-        </div> */}
+   
                 </div>
             </div>
         </div>

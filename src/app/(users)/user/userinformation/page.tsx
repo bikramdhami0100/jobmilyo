@@ -3,9 +3,7 @@ import JobSearcherUserInformation from "../usercomponents/JobSearcherUserInforma
 function UserInformation() {
   return (
     <div>
-         {/* <h1> Who are you ? </h1> */}
-          {/* <p>job Provider </p>
-          <p>Job seeker</p> */}
+
           <JobSearcherUserInformation/>
     </div>
   )

@@ -29,13 +29,13 @@ export function CompanySlider() {
     {
       name: "neem infosys",
       image: "/images/company3.png",
-      companylink: "https://esewa.com.np/#/home"
+      companylink: "https://neeminfosys.com/"
 
     },
     {
       name: "Verisk",
       image: "/images/verisk.png",
-      companylink: "https://esewa.com.np/#/home"
+      companylink: "https://www.verisknepal.com.np/"
 
     }
 

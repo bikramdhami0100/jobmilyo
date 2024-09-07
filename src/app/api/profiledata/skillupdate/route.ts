@@ -17,10 +17,7 @@ export async function POST(req:any) {
    bskill.forEach((item:any) => {
      totalRating += item.rating;
    });
- 
-  //  const overallRating = Math.floor(totalRating / (bskill.length));
-// console.log(skills , overallRating)
-  //  console.log("this is clg ",totalRating/bskill.length);
+
  const setvalue=  Math.min(Math.floor(totalRating/bskill.length))
  console.log(setvalue)
   const tokendata = await req.cookies.get("token").value;

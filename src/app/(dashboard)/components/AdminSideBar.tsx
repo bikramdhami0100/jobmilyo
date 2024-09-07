@@ -7,26 +7,7 @@ import { BookMarked, BookMarkedIcon, Bookmark, Contact2Icon, FacebookIcon, Githu
 import { useTheme } from "next-themes"
 import { usePathname, useRouter } from 'next/navigation'
 
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-
-
-
-
-import { signOut, useSession } from 'next-auth/react'
-import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
 import { toast } from '@/components/ui/use-toast'
-import { useSelector } from 'react-redux'
-
 
 function AdminSideBar() {
     const router = useRouter();

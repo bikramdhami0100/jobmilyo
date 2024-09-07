@@ -2,7 +2,6 @@
 
 import Usersignup from "@/app/mongodb/SignUpSchema";
 import UserContact from "@/app/mongodb/UserContacts";
-import UserInformation from "@/app/mongodb/UserInformationSchema";
 import mongodbconn from "@/app/mongodb/connection";
 import { NextResponse } from "next/server";
 const jwt = require("jsonwebtoken");
@@ -42,7 +41,6 @@ export async function POST(req:any) {
  console.log(contact)
   try {
         
-  
     return NextResponse.json({ success: true ,  status: 200 });
   } catch (error) {
     console.error(error);

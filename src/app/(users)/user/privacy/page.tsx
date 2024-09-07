@@ -36,7 +36,7 @@ function UserPrivacy() {
             <p className="mb-4">We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
 
             <h2 className="text-xl font-semibold text-gray-900 mb-2">Contact Us</h2>
-            <p>If you have any questions about this Privacy Policy, please contact us at [your contact information].</p>
+            <p>If you have any questions about this Privacy Policy, please contact us at above contac page.</p>
           </div>
         </div>
       </div>
