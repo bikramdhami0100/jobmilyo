@@ -98,7 +98,7 @@ function ForgotPassword() {
 
                 <Button onClick={()=>{
                   checkuserVerify();
-                }} className=' bg-blue-600 rounded-full  w-[200px] self-center'>Continue</Button>
+                }} className=' bg-blue-600 rounded-full  w-[200px] self-center'>Send reset link</Button>
 
             </div>
         </div>
