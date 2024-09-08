@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     try {
         const decoded = jwt.verify(token, process.env.TOKEN_SECRETKEY);
         // const received = await UserPostedJob.find({jobtitle:jobtitle,_id:{$ne:id}}).limit(5);
-        const received = await UserPostedJob.find().limit(5);
+        const received = await UserPostedJob.find({_id:{$ne:id}}).limit(5);
 
         return NextResponse.json({ message: "Request successful", respondata: received, status: 200 });
     } catch (error) {
