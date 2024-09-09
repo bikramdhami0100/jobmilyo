@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Image from 'next/image';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 function TotalApplyJobByUser() {
   interface Job {
@@ -41,35 +42,48 @@ function TotalApplyJobByUser() {
     totalJobApply();
   }, [])
 
-  console.log(applyjobList)
-
+  // console.log(applyjobList)
+ const HandlerCancelApplyJob=async(id:any)=>{
+  const send = (await axios.post("/api/apply/user/delete",{id})).data;
+      if(send.status==200){
+        setTimeout(() => {
+          totalJobApply();
+        }, 100);
+      }
+ }
   return (
     <div className="container mx-auto p-4 mt-10">
       {applyjobList.length >= 1 ? (
         <div className="flex flex-wrap gap-4 justify-center">
           {applyjobList.map((item: JobApplication, index: number) => (
             <div key={index} className="w-full md:w-1/2 lg:w-1/3 border rounded-md p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+              
               <div className="flex items-center">
                 <Image alt="company logo" src={item.job?.company_logo} height={50} width={50} className="rounded-full" />
                 <div className="ml-4">
                   {/* <p className={`text-lg font-semibold ${item.status === "Applied" ? " text-blue-600" : ""}`}>{item.status}</p> */}
                   <p
                     className={`text-lg font-semibold 
-    ${item.status === "Applied" ? "text-yellow-600" : ""}
-    ${item.status === "Hired" ? "text-green-600" : ""}
-    ${item.status === "Rejected" ? "text-red-600" : ""}
-    ${item.status === "Pending" ? "text-yellow-600" : ""}
-    ${item.status === "Interview" ? "text-purple-600" : ""}
-  `}
+                       ${item.status === "Applied" ? "text-yellow-600" : ""}
+                       ${item.status === "Hired" ? "text-green-600" : ""}
+                       ${item.status === "Rejected" ? "text-red-600" : ""}
+                       ${item.status === "Pending" ? "text-yellow-600" : ""}
+                       ${item.status === "Interview" ? "text-purple-600" : ""}
+                      `}
                   >
                     {item.status === "Applied" ? "Pending" : item.status}
                   </p>
 
-                  <p className="text-sm text-gray-500">{item.job.company}</p>
+                  <p className="text-sm text-gray-500">{ item?.job?.company}</p>
                 </div>
               </div>
-              <p className="mt-2 text-xl font-bold">{item.job.jobtitle}</p>
-              <Link href={item.resume || "https://examples.com"} target="_blank" className="text-blue-500 hover:underline mt-2 block">View Resume</Link>
+              <p className="mt-2 text-xl font-bold">{item?.job?.jobtitle}</p>
+             <div className=' flex justify-between'>
+             <Link href={item.resume || "https://examples.com"} target="_blank" className="text-blue-500 hover:underline mt-2 block">View Resume</Link>
+             <Button onClick={()=>{
+               HandlerCancelApplyJob(item._id);
+             }} className=' bg-red-400 ' >Delete</Button>
+             </div>
             </div>
           ))}
         </div>
