@@ -29,14 +29,11 @@ const userSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"usercontacts"
     },
-    forgotpassword:{
+    jobprovider:{
         type:Boolean,
         default:false
     }
-    // userInformation:{
-    //     type:mongoose.Schema.Types.ObjectId,
-    //     ref:""
-    // }
+  
 });
 
 // Create the model

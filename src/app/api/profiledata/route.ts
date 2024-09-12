@@ -16,8 +16,6 @@ export async function GET(req:any) {
   const users = await Usersignup.findOne({ email: email }).select("-password");
   console.log(users);
   try {
-        
-    // const userallprofiledata = await UserInformation.find({userId:users._id}).populate("userId").select("-password");
     const userallprofiledata = await UserInformation.find({userId:users._id});
     console.log(userallprofiledata)
     return NextResponse.json({ success: true, data: { userInfos: userallprofiledata,user:users }, status: 200 });

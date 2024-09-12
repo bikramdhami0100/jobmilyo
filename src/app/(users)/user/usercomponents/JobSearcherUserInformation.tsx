@@ -1,12 +1,11 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useTheme } from 'next-themes';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { SingleUserAllInformation } from '../../../../Redux/Slice';
 import { useRouter } from 'next/navigation';
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
@@ -14,8 +13,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { ToastAction } from "@/components/ui/toast"
 import { useToast } from "@/components/ui/use-toast"
 import { CldUploadButton } from 'next-cloudinary';
-import { Toaster } from '@/components/ui/toaster';
-import { ScrollArea } from "@/components/ui/scroll-area"
+
 import {
     Dialog,
     DialogClose,
@@ -24,8 +22,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog"
-import { File } from 'lucide-react';
+} from "@/components/ui/dialog";
 import axios from 'axios';
 
 // import { profile } from 'console';
@@ -52,7 +49,7 @@ function userInformation() {
         yearofexcellence: ""
     })
     const [existpreCompany, setexistpreCompany] = useState<string>("no")
-    // const [profile, setprofile] = useState(false);
+
     const [cv, setcv] = useState(false);
     const [marksheet, setmarksheet] = useState(false);
 
@@ -270,12 +267,10 @@ function userInformation() {
                                 placeholder="Date of birth "
                                 value={formData.dateofBirth}
                             ></Input>
-                            {/* {formErrors.CurrentAddress && <span className="text-red-500">{formErrors.CurrentAddress}</span>} */}
+                          
                         </div>
 
 
-
-                        {/* Repeat similar code for other fields */}
                     </div>
                 </div>
                 {/* Education */}

@@ -139,7 +139,7 @@ function Signup() {
         <div className='flex  gap-2 flex-col w-full flex-wrap justify-center m-auto items-start '>
           {/* display name */}
           <div className="flex flex-col justify-center item-start w-full">
-            <label htmlFor="fname">Display Name</label>
+            <label className=' font-bold ' htmlFor="fname">Display Name</label>
             <Input onChange={(e) => setName(e.target.value)} name='fname' type="text" placeholder="Your display name" />
             {errorName && <p className=' text-red-600'>Please enter a valid name</p>}
           </div>
@@ -147,13 +147,13 @@ function Signup() {
 
           {/* email */}
           <div className="flex flex-col justify-center item-start w-full">
-            <label htmlFor="email">Email</label>
+            <label className=' font-bold' htmlFor="email">Email</label>
             <Input onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email address" name='email' />
             {errorEmail && <p className=' text-red-600'>Please enter a valid Email</p>}
           </div>
           {/*  password */}
           <div className="flex flex-col justify-center z-0 item-start w-full">
-            <label htmlFor="password">Password</label>
+            <label className=' font-bold' htmlFor="password">Password</label>
             <div className='flex'>
               <Input onChange={(e) => setPassword(e.target.value)} type={showPassword ? "password" : "text"} placeholder="Create a strong password" name='password' />
               {showPassword ? (
@@ -166,7 +166,7 @@ function Signup() {
           </div>
           {/* confirm password */}
           <div className="flex flex-col justify-center item-start w-full">
-            <label htmlFor="confirmpassword">Confirm Password</label>
+            <label  className=' font-bold' htmlFor="confirmpassword">Confirm Password</label>
             <div className='flex'>
               {showPassword ? (
                 <Eye onClick={() => setShowPassword(false)} className='z-10 absolute right-7 self-center' />

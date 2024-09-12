@@ -125,15 +125,15 @@ function Login() {
         </div>
       </div>
       <div className='relative  flex flex-col shadow-lg p-6 justify-center items-center ml-12 rounded-md'>
-          <h1>Login</h1>
+          < h1 className=' font-bold text-xl  '>Login</h1>
          <div  className='flex flex-col gap-4'>
          <div className="flex flex-col justify-center item-start w-full">
-            <label htmlFor="email">Email</label>
+            <label className=' font-bold mb-1' htmlFor="email">Email</label>
             <Input onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email address" name='email' />
             {errorEmail && <p className=' text-red-600'>Please enter a valid Email</p>}
           </div>
           <div className="flex flex-col justify-center z-0 item-start w-full">
-            <label htmlFor="password">Password</label>
+            <label className=' font-bold mb-1' htmlFor="password">Password</label>
             <div className='flex'>
               <Input onChange={(e) => setPassword(e.target.value)} type={showPassword ? "password" : "text"} placeholder="Create a strong password" name='password' />
               {showPassword ? (
