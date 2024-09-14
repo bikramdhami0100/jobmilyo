@@ -18,15 +18,12 @@ function UserHome() {
             <Button className=" self-center bg-blue-600 text-sm font-bold  p-2 rounded-md text-center">Explore More...</Button>
           </div>
           <Image alt="image" style={{}} src={"/banner2.jpeg"} width={500} height={200} className=" object-fill w-full h-full"></Image>
-
-          {/* <div className="absolute top-0 left-0 w-full h-[91vh] bg-gradient-to-b from-transparent to-black opacity-50"></div> */}
         </div>
       </div>
-      {/* tranding job and search section are in same box below */}
       <TreandingJob />
       <CompanySlider />
     </div>
   )
 }
 
-export default UserHome
+export default UserHome;

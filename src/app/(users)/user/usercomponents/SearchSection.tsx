@@ -5,8 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Search } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import { useDispatch, useSelector } from 'react-redux'
-import { SearchHomeJobs } from '../../../../Redux/Slice'
+import { useDispatch} from 'react-redux'
 import axios from "axios"
 import { useRouter } from 'next/navigation'
 function SearchSection({search,setSearch}:any) {

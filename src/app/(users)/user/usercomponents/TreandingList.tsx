@@ -2,8 +2,6 @@
 
 "use client"
 import React from 'react'
-import { DataType } from './TreandingJob'
-
 import Image from 'next/image';
 import { BadgeDollarSign, Hourglass, LucideDollarSign, MapPinned, SquareLibrary } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -22,12 +20,11 @@ function TreandingList({ data }: any) {
 
                 {
                     data?.map((item:any, index:number) => {
-                        // console.log(item)
+                       
                         return (
                             <div key={index} className={`relative  h-[350px] border ring-2 ring-inset ring-gray-400 hover:shadow-xl  mx-4 my-4 ${theme == "light" ? "bg-[#e6e9ec] hover:bg-gray-300 " : ""} p-4 w-[300px] shadow-md  `}>
 
                                 <h1 className=' text-3xl text-center font-bold'>{item.category}</h1>
-                                 {/* e6e9ec */}
                                 <div className=' h-[2px] bg-gray-600 w-full mb-2'></div>
                                 <Image alt='thumbinal' width={100} height={100} src={item.company_logo} className='  w-[100px] h-[100px]  object-fill m-auto h' ></Image>
                                 <span className=' flex  gap-2 my-2'> <MapPinned /> {item.address}</span>

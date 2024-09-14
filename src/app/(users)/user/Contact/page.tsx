@@ -97,7 +97,7 @@ function Contact() {
               {contactError.email && <span className="text-red-500">{contactError.email}</span>}
               <Textarea name='message' value={contact.message} rows={8} placeholder='Message' onChange={HandleContactFun}></Textarea>
 
-              <Button className=" bg-transparent bg-blue-600 w-[80%] m-auto text-white text-black-600  font-extrabold text-2xl hover:bg-blue-600" onClick={() => {
+              <Button className="  bg-transparent bg-blue-600 w-[70%] m-auto   font-extrabold text-2xl hover:bg-blue-600" onClick={() => {
               handleSubmit()
               }}> { loader&&<Loader className=' animate-spin'/> } Submit</Button>
             </div>

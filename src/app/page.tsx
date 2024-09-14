@@ -1,22 +1,11 @@
 "use client"
-import Image from 'next/image'
-import React, { useEffect } from 'react'
-import { CldImage } from 'next-cloudinary';
-import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
+import React from 'react'
 import Lottie from 'lottie-react';
 import SearchImage from "./components/search.json";
 
 import MainHomeHero from './components/MainHomeHero';
 function Home1() {
-  const router = useRouter();
-
   
-
- const HandleUserLogin=()=>{
-
- router.push("/user")
- }
   return (
     <div>
     

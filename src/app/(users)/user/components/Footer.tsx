@@ -6,7 +6,7 @@ import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 export interface SocialIconType{
 name:string,
 image:string,
@@ -16,6 +16,11 @@ function Footer() {
     const router=useRouter()
     const date = new Date();
     const { theme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
     const setbgfooter = theme == "light" ? "text-[rgb(255,255,255)]  h-full bg-[rgb(43,57,64)]" : "";
     const socialItem=[
         {
@@ -39,6 +44,7 @@ function Footer() {
             link:"https://www.linkedin.com"
         }
     ]
+    if (!mounted) return null;
     return (
         <div className={`  w-full  gap-2 ${setbgfooter} bottom-0 z-10  h-full`}>
             <div className=' w-full grid grid-cols-2 md:grid-flow-col lg:grid-flow-col gap-4 m-auto p-4 mb-4 text-md'>
