@@ -4,11 +4,12 @@ import { BookmarkIcon } from '@radix-ui/react-icons';
 import { IconTimeDuration60 } from '@tabler/icons-react';
 import { Calendar, MapPin, Star } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import Link from 'next/link';
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import axios from "axios"
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useRouter } from 'next/navigation';
+import CountDownTimer from './CountDownTimer';
 export interface USERPOSTEDJOB {
     _id: string;
     fullName: string;
@@ -83,11 +84,9 @@ function SearchMainPart({ selectField, anyThingSearch, page, setTotalPages }: an
 
     useEffect(() => {
         jobPostedByUser();
-        // console.log("first",page)
+    
     }, [anyThingSearch, page, selectField]);
-    // useEffect(() => {
-    //     jobPostedByUser();
-    // }, [page]);
+  
     return (
         <div>
           
@@ -141,10 +140,11 @@ function SearchMainPart({ selectField, anyThingSearch, page, setTotalPages }: an
                                         <span className='flex items-center'><IconTimeDuration60 className='mr-1' /> {item.interestedEmploymentTypes}</span>
                                         <span>{item.salary}</span>
                                         <span className='flex items-center'><Calendar className='mr-1' />{timeAgoMessage}</span>
+                                        <span><CountDownTimer targetDate={item.last_date}/></span>
 
                                     </div>
                                 </div>
-                                <div className='flex w-[30vw]  absolute  right-2 top-2 flex-wrap justify-end items-end gap-2 top-0 '>
+                                <div className='flex w-[30vw]  absolute  right-2 top-2 flex-wrap justify-end items-end gap-2  '>
                                     <BookmarkIcon onClick={() => {
                                         // BookMark()
                                     }} className='  size-10 w-[50px]' />

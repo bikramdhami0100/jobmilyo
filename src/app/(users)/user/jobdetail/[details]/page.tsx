@@ -45,11 +45,12 @@ interface USERPOSTEDJOBDETAILS {
 }
 // similarjobs
 import { Input } from '@/components/ui/input';
+import { useRouter } from 'next/navigation';
 function SingleJobDetails({ params }: any) {
   
   const [jobdetails, setJobDetails] = useState<USERPOSTEDJOBDETAILS | undefined>()
   const [OtherJobs, setOtherJobs] = useState<any>()
-
+  const router=useRouter();
   const fetchJobDetailsData = () => {
     const send = axios.post(`/api/postjob/jobdetails`, { id: params.details }).then(({ data }: any) => {
       setJobDetails(data.respondata)
@@ -123,7 +124,9 @@ function SingleJobDetails({ params }: any) {
             <p>{jobdetails?.company}</p>
             <div className=' flex gap-4 '>
               <h1 >{jobdetails?.jobtitle} <Button className=' h-[28px] text-green-600 bg-green-200'>{jobdetails?.site}</Button></h1>
-              <div className=' flex gap-2'><Bookmark className=' h-[30px]' /> <Button className=' h-[30px] bg-green-600'>Apply</Button></div>
+              <div className=' flex gap-2'><Bookmark className=' h-[30px]' /> <Button onClick={()=>{
+                router.push(`/user/apply/${jobdetails?._id}`)
+              }} className=' h-[30px] bg-green-600'>Apply</Button></div>
             </div>
             <div className=' flex items-center justify-between'>
               <p className=' flex gap-2 justify-center items-center'><MapPin />{jobdetails?.address}</p>
