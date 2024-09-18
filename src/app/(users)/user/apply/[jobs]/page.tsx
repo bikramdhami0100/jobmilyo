@@ -49,6 +49,7 @@ import { Label } from '@/components/ui/label';
 import { CldUploadButton } from 'next-cloudinary';
 import { toast } from '@/components/ui/use-toast';
 import { Toast } from '@/components/ui/toast';
+import CountDownTimer from '../../components/CountDownTimer';
 function ApplyForJob({ params }: any) {
 
   const [jobdetails, setJobDetails] = useState<USERPOSTEDJOBDETAILS | undefined>()
@@ -148,6 +149,7 @@ function ApplyForJob({ params }: any) {
               <p className=' flex gap-2 justify-center items-center'><Clock10 />{jobdetails?.interestedEmploymentTypes}</p>
               <p className=' flex gap-2 justify-center items-center'><DollarSign />{jobdetails?.salary}</p>
               <p className=' flex gap-2 justify-center items-center'><IconCalendarTime />{timeAgoMessage}</p>
+              <p><CountDownTimer  targetDate={jobdetails?.last_date}/></p>
             </div>
             <p>
               {jobdetails?.description}

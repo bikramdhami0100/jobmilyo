@@ -2,6 +2,9 @@
 import React, { useEffect, useState } from 'react'
 import moment from 'moment';
 import axios from 'axios';
+import { IconHourglass } from '@tabler/icons-react';
+import { Hourglass } from 'lucide-react';
+import { CountdownTimerIcon } from '@radix-ui/react-icons';
 function CountDownTimer({targetDate}:any) {
     const calculateTimeLeft = () => {
         const now = moment(Date.now());
@@ -32,8 +35,12 @@ function CountDownTimer({targetDate}:any) {
       }, [targetDate]);
     
   return (
-    <div>
-       {timeLeft.days}d/{timeLeft.hours}h/{timeLeft.seconds}s
+    <div >
+      <div className=' flex justify-center items-center flex-wrap gap-1'>
+          {/* <Hourglass/> */}
+          <CountdownTimerIcon/>
+         {timeLeft.days}d {timeLeft.hours}h {timeLeft.seconds}s
+        </div> 
     </div>
   )
 }

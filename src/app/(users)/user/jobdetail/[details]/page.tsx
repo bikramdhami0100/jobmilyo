@@ -46,6 +46,7 @@ interface USERPOSTEDJOBDETAILS {
 // similarjobs
 import { Input } from '@/components/ui/input';
 import { useRouter } from 'next/navigation';
+import CountDownTimer from '../../components/CountDownTimer';
 function SingleJobDetails({ params }: any) {
   
   const [jobdetails, setJobDetails] = useState<USERPOSTEDJOBDETAILS | undefined>()
@@ -133,6 +134,9 @@ function SingleJobDetails({ params }: any) {
               <p className=' flex gap-2 justify-center items-center'><Clock10 />{jobdetails?.interestedEmploymentTypes}</p>
               <p className=' flex gap-2 justify-center items-center'><DollarSign />{jobdetails?.salary}</p>
               <p className=' flex gap-2 justify-center items-center'><IconCalendarTime />{timeAgoMessage}</p>
+               <p>
+                 <CountDownTimer targetDate={jobdetails?.last_date}/>
+               </p>
             </div>
             <p>
               {jobdetails?.description}

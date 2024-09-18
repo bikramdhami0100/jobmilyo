@@ -8,12 +8,14 @@ import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 
 
 const UserProfileSetting: React.FC = () => {
   const [user, setUser] = useState<any>();
   // const [editProfile,setEditProfile]=useState();
+  const router=useRouter()
   const [editName,setEditName]=useState<any>()
   const [editImage,seteditImage]=useState<string>()
   const [checkImageUpload,setCheckImageUpload]=useState<boolean>(false)
@@ -46,10 +48,11 @@ const UserProfileSetting: React.FC = () => {
  const HandlerEditProfile=async()=>{
   const send=(await axios.post("/api/profiledata/signup",{fullName:editName,color:editImage})).data;
   console.log(send)
+  if(send.status==200){
+    router.push("/user/profile")
+  }
  }
 
-
-  console.log("first", editName,editImage);
 
   return (
     <div>

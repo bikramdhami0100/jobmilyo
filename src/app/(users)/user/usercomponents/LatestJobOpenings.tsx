@@ -1,13 +1,14 @@
 "use client"
 import { Button } from '@/components/ui/button';
 import { BookmarkIcon, StarFilledIcon } from '@radix-ui/react-icons';
-import { IconTimeDuration60 } from '@tabler/icons-react';
+import { IconCalculatorFilled, IconTimeDuration60 } from '@tabler/icons-react';
 import { Calendar, MapPin, Star } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import React, { use, useEffect, useState } from 'react';
 import axios from "axios"
 import { useRouter } from 'next/navigation';
+import CountDownTimer from '../components/CountDownTimer';
 
 export interface USERPOSTEDJOB {
     _id: string;
@@ -123,7 +124,7 @@ function LatestJobOpenings() {
                                         <span className='flex items-center'><IconTimeDuration60 className='mr-1' /> {item.interestedEmploymentTypes}</span>
                                         <span> ${item.salary}</span>
                                         <span className='flex items-center'><Calendar className='mr-1' />{timeAgoMessage}</span>
-
+                                           <span className=' flex flex-wrap'><CountDownTimer targetDate={item.last_date} /></span>
                                     </div>
                                 </div>
                                 <div className='flex w-[30vw] flex-wrap  justify-center   items-center gap-2 '>
