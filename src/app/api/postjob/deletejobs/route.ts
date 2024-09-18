@@ -1,7 +1,9 @@
+
+
 import UserPostedJob from "@/app/mongodb/UserPostedJob";
 import mongodbconn from "@/app/mongodb/connection";
 import { NextResponse } from "next/server";
-const jwt=require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 import moment from "moment";
 
 export async function POST(req: any) {
@@ -36,8 +38,8 @@ export async function POST(req: any) {
       message: "Successfully deleted jobs",
       deletedCount: result.deletedCount, // Number of deleted jobs
     });
-  } catch (error:any) {
-   
+  } catch (error: any) {
+    console.error("Error during job deletion:", error); // Log the error for debugging
     return NextResponse.json({
       message: "An error occurred during job deletion",
       status: 500,
