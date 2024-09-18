@@ -77,7 +77,7 @@ const EditJobPage = ({ params}:any) => {
   return (
     <div className="container mx-auto p-8">
       {/* <h1 className="text-4xl font-bold text-center mb-8">Edit Job Details</h1> */}
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg space-y-4">
+      <form onSubmit={handleSubmit} className=" dark:text-white  p-6 rounded-lg shadow-lg space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Job Title */}
           <div>
