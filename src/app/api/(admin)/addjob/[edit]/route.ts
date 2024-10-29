@@ -1,4 +1,4 @@
-import AddJob from "@/app/mongodb/AddJobSchema";
+import AddJob from "@/app/(users)/user/components/AddJobSchema";
 import Usersignup from "@/app/mongodb/SignUpSchema";
 import UserAppliedJob from "@/app/mongodb/UserAppliedJobSchema";
 import UserPostedJob from "@/app/mongodb/UserPostedJob";

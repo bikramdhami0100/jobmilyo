@@ -191,7 +191,10 @@ function userInformation() {
     const submitPrecompanyData = async () => {
         console.log(preCompanyForm)
     }
-    // console.log(formData)
+  
+    useEffect(()=>{
+       
+    },[])
     if (!mounted) return null;
     return (
         <div className=' flex  flex-col justify-around items-center gap-10 '>

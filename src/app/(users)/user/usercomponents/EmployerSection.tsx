@@ -1,3 +1,14 @@
+// import React from 'react'
+
+// function EmployerSection() {
+//   return (
+//     <div>
+
+//     </div>
+//   )
+// }
+
+// export default EmployerSection;
 "use client"
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -11,7 +22,7 @@ import { useTheme } from 'next-themes';
 import { Textarea } from '@/components/ui/textarea';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-function PostAJob() {
+function EmployerSection() {
   const { theme } = useTheme();
   const router=useRouter()
   // const interestedEmploymentTypes = 
@@ -136,91 +147,12 @@ useEffect(()=>{
 if (!mounted) return null;
   return (
     <div className=" w-full mx-auto p-8 shadow-lg rounded-lg">
-      <h1 className="text-center text-4xl font-extrabold underline underline-offset-2 italic  mb-8">Details of Company</h1>
+      <h1 className="text-center text-4xl font-extrabold underline underline-offset-2 italic  mb-8"> fill required  information </h1>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-sm font-medium ">Job Title</label>
-            <Input name="jobtitle" value={form.jobtitle} onChange={handleChange} placeholder="Enter job title" />
-          </div>
-          <div>
-            <label htmlFor="site">Site </label>
-            <select className={`flex ${theme == "light" ? "bg-[rgb(255,255,255)]" : "bg-[rgb(2,8,23)] "} border w-full p-2 rounded-md outline-1 outline-black`} name="site" value={form.site} id="" onChange={handleChange}>
-
-              {
-                ["select site", "remote", "on-site"].map((item, index) => {
-                  return (<option className=' '>{item}</option>)
-                })
-              }
-            </select>
-            {/* {formErrors.interestedEmploymentType && <span className=' text-red-600'>{formErrors.interestedEmploymentType}</span>} */}
-
-          </div>
-          {/* <div>
-            <label className="block text-sm font-medium ">Number of Posts</label>
-            <Input name="number_of_post" value={form.number_of_post} onChange={handleChange} placeholder="Enter number of posts" />
-          </div> */}
-          <div>
-            <label className="block text-sm font-medium ">Number of Vacancy</label>
-            <Input type="number" name="no_vacancy" value={form.no_vacancy} onChange={handleChange} placeholder="Enter number of posts" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium ">Number of Working Employee</label>
-            <Input name="no_of_workingemployee" type="number" value={form.no_of_workingemployee} onChange={handleChange} placeholder="Enter number of posts" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium ">Number of Office</label>
-            <Input name="no_of_office" type="number" value={form.no_of_office} onChange={handleChange} placeholder="Enter number of posts" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium ">Industry</label>
-            <Input name="industry" value={form.industry} onChange={handleChange} placeholder="Enter number of posts" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium ">Description</label>
-            <Textarea name="description" value={form.description} onChange={handleChange} placeholder="Enter job description" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium ">Experience (optional)</label>
-            <Input name="experience" value={form.experience} onChange={handleChange} placeholder=" Enter your Expreience" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium ">Qualification or Education Required</label>
-            <Input name="qualification" value={form.qualification} onChange={handleChange} placeholder="Enter required qualification or education" />
-          </div>
-          <div>
-            <label htmlFor="interestedEmploymentTypes">Employment Interested Types </label>
-            <select className={`flex ${theme == "light" ? "bg-[rgb(255,255,255)]" : "bg-[rgb(2,8,23)] "} border w-full p-2 rounded-md outline-1 outline-black`} name="interestedEmploymentTypes" value={form.interestedEmploymentTypes} id="" onChange={handleChange}>
-
-              {
-                ["select ", "Full time", "Part time"].map((item, index) => {
-                  return (<option className=' ' key={index}>{item}</option>)
-                })
-              }
-            </select>
-            {/* {formErrors.interestedEmploymentType && <span className=' text-red-600'>{formErrors.interestedEmploymentType}</span>} */}
-
-          </div>
-          <div>
-            <label className="block text-sm font-medium ">Specialization (optional)</label>
-            <Input name="specialization_req" value={form.specialization_req} onChange={handleChange} placeholder="Enter  specialization" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium ">Last Date to Apply</label>
-            <Input type='date' name="last_date" value={form.last_date} onChange={handleChange} placeholder="Enter last date to apply" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium ">Salary</label>
-            <Input name="salary" value={form.salary} onChange={handleChange} placeholder="Enter salary" />
-          </div>
-          <div>
-
-            <label className="block text-sm font-medium ">Job Category</label>
-            <Input name="category" value={form.category} onChange={handleChange} placeholder="Enter number of posts" />
-          </div>
 
           <div>
-            <label className="block text-sm font-medium ">Company or Organization Name</label>
+            <label className="block text-sm font-medium ">Company's Name</label>
             <Input name="company" value={form.company} onChange={handleChange} placeholder="Enter company or organization name" />
           </div>
           <div>
@@ -233,7 +165,7 @@ if (!mounted) return null;
             <ReactRating value={rating} style={{ maxWidth: 100 }} onChange={setRating} />
           </div>
           <div>
-            <label className="block text-sm font-medium ">Company/Organization Logo</label>
+            <label className="block text-sm font-medium ">Company's Logo</label>
             <CldUploadButton
               className="w-full text-left border-2 p-1 rounded-md"
               onSuccess={handleCompangLogo}
@@ -264,11 +196,11 @@ if (!mounted) return null;
           </div>
         </div>
         <div className="flex justify-center mt-8">
-          <Button type="submit" className="w-full max-w-md bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition duration-200">Add Job</Button>
+          <Button type="submit" className="w-full max-w-md bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition duration-200">Continue </Button>
         </div>
       </form>
     </div>
   );
 }
 
-export default PostAJob;
+export default EmployerSection;

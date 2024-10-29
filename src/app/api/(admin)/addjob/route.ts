@@ -1,5 +1,5 @@
 
-import AddJob from "@/app/mongodb/AddJobSchema";
+import AddJob from "@/app/(users)/user/components/AddJobSchema";
 import Usersignup from "@/app/mongodb/SignUpSchema";
 import mongodbconn from "@/app/mongodb/connection";
 import { Schema } from "mongoose";

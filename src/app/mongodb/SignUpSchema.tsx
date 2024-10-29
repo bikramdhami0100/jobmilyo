@@ -21,18 +21,16 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    admin: {
-        type: Boolean,
-        default: false,
-    },
+   userType:{
+    type: String,
+    enum: ['admin',"seeker", 'employer'],
+    default: 'seeker'
+   },
     contactDetails:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"usercontacts"
     },
-    jobprovider:{
-        type:Boolean,
-        default:false
-    }
+  
   
 });
 
