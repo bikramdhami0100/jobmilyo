@@ -13,8 +13,6 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu"
-
-
 import {
     Sheet,
     SheetContent,
@@ -25,9 +23,8 @@ import {
     SheetClose
 } from "@/components/ui/sheet"
 import { useSelector } from 'react-redux'
-import { toast } from '@/components/ui/use-toast'
 import { PersonIcon } from '@radix-ui/react-icons'
-import { IconBrandStorj, IconNotes } from '@tabler/icons-react'
+import {  IconNotes } from '@tabler/icons-react'
 import CheckUserType from '@/app/components/CheckUserType'
 
 function Navbar() {
@@ -93,13 +90,9 @@ function Navbar() {
 
         if (data.ok) {
             const result = await data?.json()
-            // console.log("result",result);
-
+       
             if (result?.user) {
-                // toast({
-                //     description: result?.message,
-                //     className:"text-black rounded-md border-green-600 bg-white"
-                // })
+             
                 setValidUser(result.user)
                 settoken(result.token);
                 setusersignup(true);
