@@ -17,18 +17,20 @@ function UserInformation() {
     userType:String,
     userVerify:boolean
  }
-  const [user,setUser]=useState<UserType>();
+//   const [user,setUser]=useState<UserType>();
  const [uservalueType,setUserValueType]=useState <any>("seeker");
+ console.log(uservalueType)
   const defaultUserType=async()=>{
-      const user=(await axios.get("/api/usertype")).data
-       setUser(user?.result);
+      const user=(await axios.put("/api/usertype", {userType:uservalueType})).data
+      //  setUser(user?.result);
+      console.log(user)
   }
   // console.log(user?.userType)
  useEffect(()=>{
   
-
- defaultUserType();
- },[])
+   
+ uservalueType&&defaultUserType();
+ },[uservalueType])
   return (
     <div>
       <Alert>

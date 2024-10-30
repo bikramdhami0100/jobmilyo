@@ -35,31 +35,16 @@ function EmployerSection() {
       setMounted(true);
   }, []);
   const [form, setForm] = useState({
-    jobtitle: "",
-    site: "",
-    postedby:"",
-    description: "",
-    no_of_workingemployee: "",
-    no_of_office: "",
-    industry: "",
-    qualification: "",
-    interestedEmploymentTypes: "",
-    no_vacancy: "",
-    last_date: "",
-    category: "",
     company_logo: "",
     email: "",
     country: "",
-    // number_of_post: "",
-    experience: "",
-    specialization_req: "",
-    salary: "",
     company: "",
     phonenumber:"",
     website_url: "",
     address: "",
     state: "",
-    rating: 0
+    rating: 0,
+  
   });
 
   const handleCompangLogo = (result: any) => {
@@ -91,35 +76,7 @@ function EmployerSection() {
 
 
    
-    try {
-      const response = await fetch('/api/postjob', {
-        method: 'POST',
-        body: JSON.stringify(form),
-      });
-
-      if (response.ok) {
-         
-        toast({
-          title: "Job added successfully",
-          className:" text-black bg-white border-green-600 ",
-          description: "Your job posting has been added.",
-        });
-        router.push("/user/Jobs")
-        
-      } else {
-        toast({
-          title: "Failed to add job",
-          description: "An error occurred while adding the job.",
-          variant: "destructive",
-        });
-      }
-    } catch (error) {
-      toast({
-        title: "An error occurred",
-        description: "An error occurred while adding the job.",
-        variant: "destructive",
-      });
-    }
+     console.log(form)
   };
 useEffect(()=>{
  setForm((pre:any)=>({

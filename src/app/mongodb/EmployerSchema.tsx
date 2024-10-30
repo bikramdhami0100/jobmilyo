@@ -53,6 +53,6 @@ const jobSchema = new mongoose.Schema({
 }, {
   timestamps: true
 });
-const UserPostedJob = mongoose.models.employer || mongoose.model('employer', jobSchema);
-export default UserPostedJob
+const EmployerSchema = mongoose.models.employer || mongoose.model('employer', jobSchema);
+export default EmployerSchema;
 

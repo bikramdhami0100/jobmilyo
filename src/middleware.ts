@@ -2,10 +2,10 @@
 const jwt=require("jsonwebtoken")
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-
+// import CheckUserType from './app/components/CheckUserType';
 // Middleware function to handle authentication
 export function middleware(request: NextRequest) {
-
+    //   console.log(CheckUserType())
     const token = request.cookies.get("token")?.value;
     const pathname = request.nextUrl.pathname;
 //    console.log(token)

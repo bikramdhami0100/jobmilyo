@@ -28,14 +28,14 @@ import { useSelector } from 'react-redux'
 import { toast } from '@/components/ui/use-toast'
 import { PersonIcon } from '@radix-ui/react-icons'
 import { IconBrandStorj, IconNotes } from '@tabler/icons-react'
-
+import CheckUserType from '@/app/components/CheckUserType'
 
 function Navbar() {
     const router = useRouter();
     const path=usePathname()
     const { setTheme, theme } = useTheme();
     const [mounted, setMounted] = useState(false);
-
+   console.log(CheckUserType)
     useEffect(() => {
         setMounted(true);
     }, []);
